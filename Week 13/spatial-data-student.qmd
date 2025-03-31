@@ -1,0 +1,276 @@
+---
+title: "DSC365: Introduction to Data Science"
+author: "Spatial Data"
+date: "November 19, 2024"
+format: html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## What is Spatial Data?
+
+Spatial data relates to a geographical area or location:
+
+-   Tobler's First Law of Geography: things close in space are more related than things further in space.
+-   Going to talk about how to manage and visualize spatial data in *R*. Modeling goes beyond the scope of this class.
+
+```{r}
+#Necessary Packages
+library(tidyverse)
+library(RColorBrewer)
+library(mosaic)
+library(mdsr)
+library(RColorBrewer)
+library(sp)
+library(sf)
+```
+
+### Common Spatial Data Structure: Shapefiles
+
+-   Spatial data consists of geometric items like points, lines, and polygons; not rows and columns
+-   Contain "instructions" on drawing boundaries for countries, etc.
+
+Package focus: `sf`
+
+-   `tidyverse` friendly package that contains commonly used functions for spatial objects
+
+### Visualizing Spatial Data
+
+#### Example: You know nothing, John Snow...
+
+In the 1850s, there was a cholera outbreak in Victorian London. A physician, Dr. John Snow, took a unique approach to studying the outbreak: he mapped where the patients lived.
+
+-   If you want to learn more: <https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak>
+
+```{r}
+head(CholeraDeaths)
+```
+
+```{r}
+coords <- do.call(rbind, st_geometry(CholeraDeaths)) %>% as.data.frame() %>% setNames(c("X","Y"))
+coords$count = CholeraDeaths$Count
+```
+
+Problem... this is not a map. It is hard to see where those points are in 1850s London.
+
+Let's add some context using the coordinates (units in degrees), but still lacking context
+
+```{r}
+
+```
+
+Add London Street Map:
+
+```{r}
+library(ggspatial)
+
+```
+
+#### Map Projections:
+
+A note of map projections:
+
+-   In this map both `CholeraDeaths` and the map tiles retrieved by the `ggspatial` package have geospatial coordinates, but those coordinates are not in the same unit
+-   Earth happens to be an oblate spheroid---a three-dimensional flattened sphere. Yet we would like to create two-dimensional representations of the Earth that fit on pages or computer screens
+    -   Converting from a 3d coordinate system to a 2d is called a projection
+-   How you project your data influences how your map is perceived.
+-   Would need to update the `coordinate reference system` of `ChloreaDeaths` fo fix this problem
+
+```{r, message=FALSE, warning=FALSE}
+library(mapproj)
+library(maps)
+
+
+map("world", projection = "mercator", wrap = TRUE)
+map("world", projection = "cylequalarea", param = 45, wrap = TRUE)
+```
+
+Let's try to fix our map projections
+
+```{r}
+
+```
+
+```{r, cache=TRUE}
+cholera_latlong <- CholeraDeaths %>%
+  st_set_crs(27700) %>%
+  st_transform(4326)
+```
+
+### Other methods to visualizing Spatial Data
+
+#### Google API key
+
+```{r, eval=FALSE}
+#devtools::install_github("dkahle/ggmap")
+library(ggmap)
+m <- get_map('John Snow, London, England', maptype='roadmap')
+ggmap(m)
+
+```
+
+In mid-2018, Google Maps began requiring users to have a registered API key.
+
+-   Users have to set up an account with Google, enable the relevant APIs, and then tell R about the user's set up.
+-   Part of this process requires a credit card. It's totally lame. Don't do it.
+
+**Instructions to use Google API key (if you insist)**:
+
+-   To obtain an API key and enable services, go to <https://cloud.google.com/maps-platform/>.
+-   To tell ggmap about your API key, use register_google(), e.g. register_google(key = "mQkzTpiaLYjPqXQBotesgif3EfGL2dbrNVOrogg") (that's a fake key). This will set your API key for the current session, but if you restart R, you'll need to do it again.
+
+#### Free Alternative: tmap
+
+```{r}
+library(tmap)
+
+map <- qtm(CholeraDeaths, symbols.col = "Count", symbols.id="Count")
+tmap_leaflet(map)
+
+```
+
+### Another Free Alternative: `leaflet`
+
+Leaflet is an open-source JavaScript library for interactive maps. This R package makes it easy to create Leaflet maps from R.
+
+-   Website for more information: <https://rstudio.github.io/leaflet/>
+
+```{r}
+library(leaflet)
+library(readr)
+
+bigfoot_data <- read_csv("https://query.data.world/s/egnaxxvegdkzzrhfhdh4izb6etmlms")
+
+
+bigfoot_data %>%
+  filter(classification == "Class A") %>%
+  mutate(seasoncolor = str_replace_all(season, c("Fall" = "orange",
+                                                 "Winter" = "skyblue",
+                                                 "Spring" = "green",
+                                                 "Summer" = "yellow")),
+         # This code just wraps the description to the width of the R terminal
+         # and inserts HTML for a line break into the text at appropriate points
+         desc_wrap = purrr::map(observed, ~strwrap(.) %>%
+                                  paste(collapse = "<br/>") %>%
+                                  htmltools::HTML())) %>%
+leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(~longitude, ~latitude, color = ~seasoncolor, label = ~desc_wrap)
+```
+
+
+## Another Example: Education levels in the US
+
+The Education.csv data set contains information on educational attainment for each county in the United States.
+
+
+First: We need Nebraska shapefiles to create the boundaries. We are going to use the `tigris` package, which includes shapefiles from the US Census Bureau
+
+```{r, message=FALSE, results='hide'}
+library(tigris)
+
+```
+
+
+```{r}
+Education <- read.csv("Education.csv")
+```
+
+```{r}
+US_counties$GEOID = as.numeric(US_counties$GEOID)
+Education$FIPS.Code = as.numeric(Education$FIPS.Code)
+
+Education_Counties <- US_counties %>% inner_join(Education, by=c('GEOID'='FIPS.Code'))
+glimpse(Education_Counties)
+```
+
+Plot education levels by county in Nebraska: less than a high school degree.
+
+```{r}
+
+```
+
+**ggplot2**
+
+```{r}
+
+```
+
+
+**leaflet**
+```{r}
+greens <- colorBin("Greens", domain = c(0, 30), bins = 6)
+
+leaflet(NE_Education) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+                opacity = 1,
+                weight = 1,
+                fillColor = ~greens(LessHS2013),
+                fillOpacity = 0.7,
+                label = ~paste0("County: ", Area.name, ' (', LessHS2013, '%)')) %>%
+  addLegend(position = 'bottomleft',
+            colors = greens(seq(from=2.5, to=27.5, length=6)),
+            labels = c('0-5%', '5.1-10%', '10.1-15%', '15.1-20%', '20.1-25%', '25.1-30%'),
+            title = 'Less than a HS Degree (2013)')
+```
+
+
+### Try Yourself!
+
+One variable we might be interested in is the margin: difference between percentage of those graduating with a High School only degree between 2013 and 2000. Try to make a new variable called Margin which represents the difference between those graduating from High School only, and then make a plot.
+
+
+```{r}
+
+```
+
+
+### Another Example: Election Results
+
+Daily Kos compiled results by congressional district for the 2008, 2012, and 2016 presidential elections, this data is saved as `CongressionalElections.csv`. Let's use this data to visualize election results in the US.
+
+-   `FiveThirtyEight` identifies the states of Colorado, Florida, Iowa, Michigan, Minnesota, Ohio, Nevada, New Hampshire, North Carolina, Pennsylvania, Virginia, and Wisconsin as "perennial" swing states that have regularly seen close contests over the last few presidential campaigns.
+
+```{r}
+CongressionalElections <- read.csv("CongressionalElections.csv")
+glimpse(CongressionalElections)
+```
+
+
+Let's look at the swing state of North Carolina
+
+```{r, results='hide'}
+
+NC_congressional <- congressional_districts(cb = TRUE, state = "North Carolina", year = 2016) 
+```
+
+```{r}
+NC_congressional <- NC_congressional %>% arrange(CD115FP)
+
+NC_data <- CongressionalElections %>% filter(str_detect(CD, 'NC'))
+
+NC_congressional$Clinton2016 <- NC_data$Clinton2016
+NC_congressional$Trump2016 <- NC_data$Trump2016
+
+NC_congressional <- NC_congressional %>% mutate(Margin2016 = Trump2016-Clinton2016)
+
+ggplot(NC_congressional) + geom_sf(aes(fill = Margin2016)) + scale_fill_distiller(palette='RdBu', direction=-1)
+```
+
+```{r}
+leaflet(NC_congressional) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+                opacity = 1,
+                weight = 1,
+                fillColor = ~palette(Margin2016),
+                fillOpacity = 0.7,
+                label = ~paste0("District: ", CD115FP))
+```
+
+
+
+

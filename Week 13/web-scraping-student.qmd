@@ -1,0 +1,369 @@
+---
+title: "DSC365: Introduction to Data Science"
+author: "Web-Scraping"
+date: "November 21, 2024"
+format: html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, cache = TRUE)
+```
+
+## Resources
+
+- "Web Scraping in R: rvest Tutorial": https://www.datacamp.com/community/tutorials/r-web-scraping-rvest
+- "rvest: easy web scraping with R": https://blog.rstudio.com/2014/11/24/rvest-easy-web-scraping-with-r/
+- "Web scraping tutorial in R": https://towardsdatascience.com/web-scraping-tutorial-in-r-5e71fd107f32
+
+## Web scraping?
+
+__Web scraping__ is the process of extracting information from websites automatically and transforming it into a structured data set.
+
+- There's TONS of data freely available online, but...
+- ...the data is provided in an unstructured format: you can always copy & paste, but it's time-consuming and prone to errors.
+
+```{r packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+## What is webscraping? 
+
+- Extract data from websites 
+    + Tables
+    + Links to other websites
+    + Text
+    
+Two different scenarios:
+
+1. Screen scraping 
+2. Web APIs (application programming interface)
+
+__Why R?__ It includes all tools necessary to do web scraping, familiarity, direct analysis of data... 
+
+- But other languages like Python and Java are also efficient tools.
+    
+
+## Why webscrape? 
+
+- Because copy-paste is awful 
+- Because it's fast
+- Because you can automate it
+
+## Before scraping, do some googling!
+
+- If resource is well-known (e.g. Twitter, Fitbit, etc.), there is *probably* an existing R package for it.
+- [ropensci](https://ropensci.org/) has a [ton of R packages](https://ropensci.org/packages/) providing easy-to-use interfaces to open data.
+- The [Web Technologies and Services CRAN Task View](http://cran.r-project.org/web/views/WebTechnologies.html) is a great overview of various tools for working with data that lives on the web in R.
+
+
+## A web of *messy* data!
+
+- Recall the concept of [tidy data](http://vita.had.co.nz/papers/tidy-data.pdf).
+- Data is in a table where
+    * 1 row == 1 observation
+    * 1 column == 1 variable (observational attribute)
+- Parsing web data (HTML/XML/JSON) is easy (for computers)
+- Getting it in a tidy form is typically *not easy*.
+- Knowing a bit about modern tools & web technologies makes it *much* easier.
+
+
+## Hypertext Markup Language (HTML)
+
+Most of the data on the web is still largely available as HTML - while it is structured (hierarchical/tree based) it often is not available in a form useful for analysis (flat / tidy).
+
+```html
+<html>
+  <head>
+    <title>This is a title</title>
+  </head>
+  <body>
+    <p align="center">Hello world!</p>
+  </body>
+</html>
+```
+    
+
+## `rvest`
+
+`rvest` is a package that makes basic processing and manipulation of HTML data straight forward.
+
+```{r}
+#install.packages('rvest')
+library(rvest)
+```
+
+`rvest` core functions:
+
+- `read_html` - read HTML data from a url or character string.
+- `html_nodes` - select specified nodes from the HTML document using CSS selectors.
+  + extracts all elements from the page `x` that have the tag / class / id `path`. (Use SelectorGadget to determine `path`.)
+- `html_table` - parse an HTML table into a data frame.
+- `html_text` - extract tag pairs' content.
+  + extracts all text from the nodeset `x` 
+- `html_name` - extract tags' names.
+- `html_attrs` - extract all of each tag's attributes.
+- `html_attr` - extract tags' attribute value by name.
+
+
+## SelectorGadget
+
++ SelectorGadget is a javascript bookmark let to determine the css selectors of pieces of a website we want to extract.
++ Bookmark the SelectorGadget link, https://rvest.tidyverse.org/articles/selectorgadget.html, then click on it to use it (or add the chrome extension)
++ When SelectorGadget is active, pieces of the website are highlighted in orange/green/red.
+
+### Star Wars Example
+
+Let's start with a simple example
+
+1. Open: https://rvest.tidyverse.org/articles/starwars.html
+
+2. Tell R what web-site we want to scrape
+
+```{r}
+html <- read_html("https://rvest.tidyverse.org/articles/starwars.html")
+```
+
+3. Our goal is to turn this data into a 7 row data frame with variables title, year, director, and plot summary
+
+**Method 1**: Get Elements Individually
+```{r}
+title <- html %>% html_nodes("#main h2") %>% html_text2()
+year <- html %>% html_nodes("section > p:nth-child(2)") %>% html_text2() 
+director <- html %>% html_nodes(".director") %>% html_text2() 
+intro <- html %>% html_nodes(".crawl") %>% html_text2() 
+
+
+star_wars = tibble(
+  title = title,
+  release = year,
+  director = director,
+  summary = intro
+)
+```
+
+
+**Method 2**: Pull Entire Section at once.
+
+```{r}
+section <- html %>% html_elements("section")
+
+star_wars2<- tibble(
+  title = section %>% 
+    html_element("h2") %>% 
+    html_text2(),
+  released = section %>% 
+    html_element("p") %>% 
+    html_text2() %>% 
+    str_remove("Released: ") %>%
+    parse_date(),
+  director = section %>% 
+    html_element(".director") %>% 
+    html_text2(),
+  intro = section %>% 
+    html_element(".crawl") %>% 
+    html_text2()
+)
+
+```
+
+
+## Your Turn
+
+1. Use SelectorGadget on https://www.baseball-reference.com/teams/KCR/2024-roster.shtml.
+2. Pull from "Current 40 Man Roster" Table Only
+  + Player's Name
+  + Player's Age
+  + Player's Position
+  + Player's first year in MLB (`1stYr`)
+
+```{r}
+
+```
+
+
+## Some issues with Web-Scarping
+
+1. Data not always able to be scraped
+
+```{r}
+url <- "https://www.nhl.com/hurricanes/roster"
+html <- read_html(url)
+html %>% html_nodes("#onetrust-accept-btn-handler , .cPQss") %>% html_text()
+```
+
+- Data not living on this page, so nothing to scrape, it's pulling it in from somewhere else to populate the page
+
+
+2. Check to make sure you're allowed! Weather.com allows users to access the data...
+
+```{r warning=FALSE}
+# install.packages("robotstxt")
+library(robotstxt)
+paths_allowed("https://weather.com")
+```
+
+... while other sites like Twitter (now) don't.
+
+```{r warning=FALSE}
+paths_allowed("http://www.twitter.com")
+```
+
+Another way to do that is just append “/robots.txt” to the end of the URL of the website you are targeting, which will also tell you whether the website is allowed to be scraped.  
+
+
+
+## Another Example: Weather Data
+
+Let's scrape the 10 Day Forecast!
+
+```{r}
+url <- "https://weather.com/weather/tenday/l/634980566a55b1d28086dff3f66d55615f823b4ff07f3056f8fafbad378fb85e"
+html <- read_html(url)
+
+dates <- html %>% html_nodes(".DetailsSummary--daypartName--CcVUz") %>% html_text()
+
+high_temp <- html %>% html_nodes(".DetailsSummary--highTempValue--VHKaO") %>% html_text()
+
+low_temp <- html %>% html_nodes(".DetailsSummary--lowTempValue--ogrzb") %>% html_text()
+
+forecast_slo = tibble(
+  date = dates,
+  high = high_temp,
+ low = low_temp
+)
+```
+
+## Working with Tables
+
+If you’re lucky, your data will be already stored in an HTML table, and it’ll be a matter of just reading it from that table
+
+```{r}
+url <- "https://www.baseball-reference.com/teams/KCR/2024-roster.shtml"
+html <- read_html(url)
+
+table <- html |> 
+  html_element("table") |> 
+  html_table()
+
+```
+
+## Your Turn 
+
+1. Find a website that you may want to scrape (i.e. FDA, Census, NCAA Stats, Baseball Reference, etc.) 
+2. Read the URL into R and save the url as an object. 
+3. Using the SelectorGadget on your website and look for a node with data that you want to collect.
+
+```{r}
+
+```
+
+
+## Advanced Example: Amazon
+
+Let's try another example with more messy data. Open the Amazon page and search for a product that you are interested in. Try to scrape the product name, price, rating and seller.
+
+```{r}
+page <- read_html("https://www.amazon.com/s?k=novels&i=stripbooks&rh=n%3A283155%2Cp_72%3A1250221011&dc&ds=v1%3Ax4JcvkeG4adTC13RyhTh5hRSwiJj%2FkLdrkYCaGFVbFM&crid=2VHQB17G5SDI3&qid=1668030799&rnid=1250219011&sprefix=novels%2Cstripbooks%2C124&ref=sr_nr_p_72_1")
+
+items <- page %>%
+  html_nodes(".s-line-clamp-4") %>%
+  html_text()
+
+rate <- page %>%
+  html_nodes(".a-icon-star-small") %>%
+  html_text()
+
+prices_whole <- page %>%
+  html_nodes(".puis-padding-right-small .a-price-whole") %>%
+  html_text()
+
+prices_fraction <- page %>%
+  html_nodes(".puis-padding-right-small .a-price-fraction") %>%
+  html_text()
+
+authors <- page %>%
+  html_nodes(".s-title-instructions-style .a-size-base.a-color-secondary") %>%
+  html_text()
+```
+
+After extracting the information, now let's try to clean and combine things into a data frame. 
+
+```{r}
+price = paste0(prices_whole, prices_fraction)
+price = as.numeric(price)
+
+rate = rate[which(rate != "")]
+rating = sub(" .*", "", rate)
+rating = as.numeric(rating)
+rating = rating[!is.na(rating)]
+
+amazon_book <- tibble(
+  item = items, 
+  author = authors,
+  price = price,
+  rating = rating)
+
+amazon_book %>%
+  arrange(desc(rating), price) 
+```
+
+Sometimes it may not work, since Amazon items can be messy. Some items do not have prices while some others have more than one. Be careful when you choose the items.  
+
+
+## Advanced Example: Inaugural Addresses
+
+- [The Avalon Project](http://avalon.law.yale.edu/subject_menus/inaug.asp) has most of the U.S. Presidential inaugural addresses. 
+- Biden ('21), Trump ('17),  Obama ('13), VanBuren 1837, Buchanan 1857, Garfield 1881, and Coolidge 1925 are missing.
+- Let's scrape data from The Avalon Project! 
+
+## Get data frame of addresses
+
+- Could use another source to get this data of President names and years of inaugurations, but we'll use The Avalon Project's site because it's a good example of data that needs tidying. 
+
+```{r}
+url <- "http://avalon.law.yale.edu/subject_menus/inaug.asp"
+# even though it's called "all inaugs" some are missing
+all_inaugs <- (url %>% 
+                 read_html() %>% 
+                 html_nodes("div:nth-child(3) table") %>% 
+                 html_table(fill=T, header = T)) %>% magrittr::extract2(1)
+
+# tidy table of addresses
+all_inaugs_tidy <- all_inaugs %>% 
+  gather(term, year, -President) %>% 
+  filter(!is.na(year)) %>% 
+  select(-term) %>% 
+  arrange(year)
+head(all_inaugs_tidy)
+
+```
+
+## Get links to visit & scrape
+
+```{r}
+# get the links to the addresses 
+inaugadds_adds <- (url %>%
+                     read_html() %>%
+                     html_nodes("a") %>%
+                     html_attr("href"))[12:66]
+
+
+# create the urls to scrape
+urlstump <- "http://avalon.law.yale.edu/"
+inaugurls <- paste0(urlstump, str_replace(inaugadds_adds, "../", ""))
+all_inaugs_tidy$url <- inaugurls
+head(all_inaugs_tidy)
+
+```
+
+## Get Inaugurl Address
+
+
+```{r}
+all_inaugs_tidy[1,3] %>% pull() %>% read_html() %>%
+  html_nodes("p") %>% 
+  html_text() -> address
+
+address
+```
+
