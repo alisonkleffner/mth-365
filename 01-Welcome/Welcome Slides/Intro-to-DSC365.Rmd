@@ -1,7 +1,7 @@
 ---
 title: "Welcome to DSC365: Introduction to Data Science!"
 author: "Alison Kleffner"
-date: "August 20, 2024"
+date: "August 19, 2025"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -29,18 +29,10 @@ knit_hooks$set(output = function(x, options) {
 
 ```
 
-## Agenda
 
-- Introductions
-- What is Data Science
-- Syllabus/Course Specifics
-- Software Set-up
-  + What is `R`?
-
----
 ## Homework
 
-- Software downloaded by beginning of class on **Thursday August 22**
+- Software downloaded by beginning of class on **Thursday August 21**
   + Should hopefully have time at end of class
 
 
@@ -54,6 +46,9 @@ knit_hooks$set(output = function(x, options) {
 - Thesis: *Visualization and Modeling of Multivariate Data in Environmental Applications*
 
 --
+
+<br>
+<br>
 
 **Now let introduce yourselves! Get into groups of 2-3**
 
@@ -84,9 +79,21 @@ Data science is an exciting discipline that allows you to turn raw data into und
 - Data science is a vast field, and there’s no way you can master it all by taking a single course. But we are going to lay a solid foundation.
 
 .center[
+```{r, echo=FALSE, out.width="60%"}
+
+knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/01-Welcome/images/data-science.png")
+
+```
+]
+
+
+---
+### Data Science
+
+.center[
 ```{r, echo=FALSE}
 
-knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/Welcome to DSC365/images/data-flowchart.png")
+knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/01-Welcome/images/data-flowchart.png")
 
 ```
 ]
@@ -111,8 +118,8 @@ class:inverse
 
 ## What will be in this course?
 
-- This is a programming course using *R*, the most commonly used statistical language
-- We will also cover some statistical concepts (different than math!)
+- This is a programming course using *R*, the most commonly used *statistical* language
+- We will briefly cover each part of the Data Science Cycle
 - In this course you will complete in-class labs, projects, and presentations.
 - Since this course involves using *R*, please bring your laptops to class with you
 
@@ -146,14 +153,15 @@ If you have never used *R* (or even heard of it) before, it is totally OK! We wi
 .pull-left[
 - Breathe
 - Mistakes are ok!
-- Ask for help, with a reproducible example
+- Ask for help, Google is your friend!
 - Translate code into plain English
 - Don't reinvent the wheel
-- Google is your friend!
+- Walk away
+
 ].pull-right[
 ```{r, echo=FALSE}
 
-knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/Welcome to DSC365/images/begin-R.png")
+knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/01-Welcome/images/begin-R.png")
 
 ```
 .center[<font size = "0.75">Artwork by Allison Horst</font>]
@@ -166,9 +174,16 @@ knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/Welcome to DSC365/im
 *R* is a free software environment and programming language for statistical computing and graphics
 
 - Open-source
-- According to it's website, "R is a system for statistical computation and graphics" [(Source)](https://www.r-project.org)
 - **Interpreted language**: we interact with R through a “command line” interpreter, which translates our “code” to machine code
-- CRAN is R's central software repository. Contains contributed packages
+- CRAN (comprehensive R archive network) is R's central software repository. Contains contributed packages
+- New major release once a year
+
+```{r, echo=FALSE, fig.align='center', out.width="60%"}
+
+knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/01-Welcome/images/base-r.png")
+
+```
+
 
 
 ---
@@ -179,14 +194,18 @@ Every R installation comes with the *R* Console, so we don’t actually need an 
 
 - “Integrated Development Environment”
 - Clean user interface
-- Ability to see loaded data sets, packages, history
-- Write code in separate “scripts” from the console
+
+```{r, echo=FALSE, fig.align='center', out.width="90%"}
+
+knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/01-Welcome/images/rstudio.png")
+
+```
 
 ---
 
 ### Implication of Open-Source Software
 
-Because *R* is open source, users can contribute *R* packages to add additional functions and capabilities (more than 16,000 as of November 2020). 
+Because *R* is open source, users can contribute *R* packages to add additional functions and capabilities (more than 19,000 as of March 2023). 
 
 - A complete list can be found [here](https://cran.r-project.org/web/packages/available_packages_by_name.html)
 - Pro: New statistical/data science techniques are added to CRAN, Bioconductor (another package repository), GitHub, etc. daily
