@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science"
 author: "Introduction to R"
-date: "August 22, 2024"
+date: "August 21, 2025"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -86,7 +86,7 @@ class:inverse
 <br><br><br>
 ## DSC365: Intro to Data Science
 ### Introduction to R
-#### August 22, 2024
+#### August 21, 2025
 
 ---
 ## Agenda
@@ -97,6 +97,10 @@ class:inverse
 - Installing Packages
 - Loading Data
 
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 
@@ -167,7 +171,7 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 
 ---
-## Writing Code for People
+### Writing Code for People
 
 -  A **comment** is a part of computer code which is intended only for people to read. It is not evaluated or run by the computing language. 
   - In `R` we use `#`
@@ -176,9 +180,9 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 ```
 -  **Literate Programming**: interspersing text and code in the same document
   - We will learn more about this next week.
+  
 ---
-
-## Giant Calculator!
+### Giant Calculator!
 
 .pull-left[
 ```{r}
@@ -189,28 +193,26 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 ```
 ].pull-right[
 ```{r}
-sqrt(4)
-2^3
-exp(3)
-log(10)
+sqrt(4) #square root
+2^3 #exponent
+exp(3) #exponential function
+log(10) #natural log
 ```
 ]
 
-[Basics Cheatsheets](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf)
-
 ---
-
-## Giant Calculator!
+### Giant Calculator!
 
 .pull-left[
 ```{r}
 log(10, base = 10)
-abs(-1)
-floor(3.7)
-ceiling(3.2)
+abs(-1) #absolute value
+floor(3.7) #round down
+ceiling(3.2) #round up
 ```
 ].pull-right[
 ```{r}
+round(3.2)
 pi
 sin(pi/2)
 5%%3 #division remainder
@@ -218,37 +220,33 @@ sin(pi/2)
 ]
 
 ---
-
-## Giant Calculator!
-
-```{r}
-a <- 2
-b <- 4
-c <- 3
-```
+### Giant Calculator!
 
 
 **Note**: In R, the following will not work!
 ```{r eval = FALSE}
-
-b(a+c)
+10(2+4)
 ```
-*R* will assume the "b()" is indicating some function, NOT multiplication as we do in math and stats. 
+*R* will assume the "10()" is indicating some function, NOT multiplication as we do in math and stats. 
 
 Thus, you MUST include the multiplication symbol.
 ```{r}
-b*(a+c)
+10*(2+4)
 ```
 
----
 
-## Creating Variables
+Calculates using your Order of Operations, so be careful with `()`
+
+---
+### Creating Variables
 
 We can create variables using the assignment operator `<-`
 
 ```{r}
-x <- 5
+x <- 5 
 ```
+
+Should now see `x` in the `Environment` Window
 
 We can then perform any of the functions on the variables:
 
@@ -256,14 +254,35 @@ We can then perform any of the functions on the variables:
 log(x)
 ```
 
+<br>
+
+Shortcut to make arrow:
+
+- Mac: `Option` + `-`
+- PC: `Alt` + `-`
+
+---
+### Naming Variables ... It's hard
+
+
 Rules of Naming Variables:
 + Variables can't start with a number
++ Can't use some special symbols (`^`, `!`, `$`, `@`, `+`, `-`, `/`, `*`)
 + Case-sensitive
 + There are reserved words that *R* won't let you use for variables names
   - for, in, while, if, else, repeat, break, next
 
+
+<br>
+
+My general tips:
+
+- Avoid meaningless names
+- Be consistent with conventions
+- Don't make too long/difficult to spell
+
 ---
-## Vectors
+### Vectors
 
 A variable does not need to be a single value. We can create a **vector** using the `c` function (combine- combines several objects into one)
 
@@ -285,7 +304,7 @@ length(y)
 ```
 
 ---
-## Vectors
+### Vectors
 
 Can also have vectors of characters
 
@@ -302,57 +321,16 @@ str(bulldogs)
 ```
 
 ---
+### R Packages
 
-## Logical Values
-
-```{r}
-a <- 4
-a==5
-
-a <= 5
-a !=5
-```
-
----
-
-## Getting Help
-
-Let's talk about a couple ways to get help. The primary function to use is the `help` function. Just pass in the name of the function you need help with:
-
-```{r eval = FALSE}
-help(head)
-```
-
-The `?` also works
-```{r eval = FALSE}
-?head
-```
-
-This returns the help documentation for this function
-
-Googling for help can be difficult at first. You might need to search for R + CRAN +  to get good results
-
-Stackoverflow is VERY helpful!
-
-[R Reference Card](https://cran.r-project.org/doc/contrib/Short-refcard.pdf)
-
----
-## R Packages
-
-- **Packages** are the fundamental units of reproducible R code. They include reusable R functions, the documentation that describes how to use them, and sample data.
-- Commonly used *R* function are installed with base *R*
+- **Packages**: include reusable R functions, the documentation that describes how to use them, and sample data.
+  - List of all installed packages in **Packages** Tab
 - *R* packages containing more specialized *R* functions can be installed freely from CRAN servers using the function `install.packages()`
-  + Should now show up in *Packages* Tab
 - After packages are installed, their function can be loaded into the current *R* session using the function `library()`
 
 ---
+### Step 1: Installing Packages
 
-## Installing Packages
-
-**Note**: To run code from your script:
-+ Windows: Ctrl + Enter
-+ Mac: Cmd + Enter
-+ Highlight what you want to run and hit the “Run” button
 
 We will be installing the [tidyverse](https://www.tidyverse.org/) package.
 - Manipulates data structures (includes dplyr, tidyr, purr, tibble, etc packages)
@@ -371,7 +349,7 @@ install.packages("tidyverse")
 Only have to do this once!!
 
 ---
-## Load Package
+### Step 2: Load Package
 
 Let's load the package we just installed!
 
@@ -381,9 +359,11 @@ library(tidyverse)
 
 Will have to run this every time we are in a new session and want to use this package
 
+**Note**: Packages do update
+
 
 ---
-## Functions
+### Functions
 
 Think of a function like a verb:
 
@@ -397,90 +377,88 @@ do_this(to_this)
 *R* has pre-made functions found in packages, but later in the semester we will talk about how to create your own functions
 
 ---
-## Load Data
+### Load Data
 
-We usually work with .csv file in R. When you have a file that need to be read into the Rstudio, first save the data set to the same file folder as your R file, or set the working directory to the file. 
+- **Course focus**: .csv file (download from Chrome)
 
-First Check your working directory!
+- **Recommendation**: Save the data set to the same file folder as your R file
 
-Method 1:
+*Method 1* (Manual):
 ```{r, eval = FALSE}
 getwd() #What is your working directory
 setwd() # Change Working directory
-
 ```
 
-Method 2 (recommendation):
+**Method 2*:
 
-Session -> Set Working Directory -> Choose Directory -> Select folder data set is located -> Apply
+1). Session -> Set Working Directory -> Choose Directory -> Select folder data set is located -> Apply
 
-
-Method 3: Import Data set in Environment Tab
-
-- Works well for .csv/.xlsx files
-
----
-## Load Data
-
-Second, then load in the data
-```{r, echo=FALSE}
-data = read.csv("~/Documents/Classes/MTH365/mth-365/Welcome to DSC365/data/movie-2018.csv")
-```
-
+2).  
 ```{r, eval=FALSE}
 data = read.csv("movie-2018.csv")
 ```
 
-```{r, linewidth=80}
-head(data, n = 3) #make sure data loads in correctly
-
+```{r, echo=FALSE}
+data = read.csv("../data/movie-2018.csv")
 ```
 
-Should see data in environment panel (upper right)
+---
+### Load Data
+
+**Method 3*: Import Data set in Environment Tab
+
+- Works well for .csv/.xlsx files 
+- Environment Tab -> Import Dataset -> From Text -> Find Dataset -> "Open" -> "Import"
+- Runs the code for you in your console (would recommend pasting this into your R Script)
 
 ---
+### Check Data
 
-## Check Variable Types
+Need to make sure data is loaded in correctly
+- Should see data in environment panel (upper right)
 
-```{r}
-str(data)
+```{r, linewidth=100}
+head(data, n = 3) #make sure data loads in correctly
+```
+
+---
+### Check Variable Types
+
+```{r, linewidth=140}
+glimpse(data)
 ```
 
 <br>
 Note: The purpose of checking variable types is to make sure R is understanding what each column is representing.
 
-<br>
-Can also use `glimpse()` from `tidyverse`
 ---
 
 ## Change Variable Types
 
-*R* does not always read in the variables correctly. For example, `Opening.Weekend` is being read in as a character, when it should be a number. We can change this!
+*R* does not always read in the variables correctly. For example, `Average.audience` is being read in as a character, when it should be a number. We can change this!
 
 ```{r}
 #To change this column to a number:
-data$Opening.Weekend <- as.numeric(data$Opening.Weekend)
+data$Average.audience <- as.numeric(data$Average.audience)
 
 
 #Now Opening.Weekend is a number!
-class(data$Opening.Weekend)
+class(data$Average.audience)
 
 ```
 
 [More about Data Types](https://www.geeksforgeeks.org/r-data-types/)
----
 
-## Selecting Specific Row/Column
+---
+### Selecting Specific Row/Column
 
 ```{r}
 data[1,] #first row
 data[,1] #first column 
-
 ```
 
 ---
-
-## Selecting Specific Row/Column
+### Selecting Specific Row/Column
 
 ```{r}
 data[1:2,c(2,5,7)] #row: 1-2, column: 2,5,7
@@ -494,7 +472,7 @@ head(data$Film)
 
 
 ---
-## Some Basic Functions
+### Some Basic Functions
 
 ```{r}
 summary(data[,7:10])
@@ -502,13 +480,12 @@ summary(data[,7:10])
 nrow(data)
 
 ncol(data)
-
 ```
 
 ---
-## Some Basic Functions
-```{r}
-table(data$Script.Type)
+### Some Basic Functions
+```{r , linewidth=100}
+table(data$Primary.Genre)
 ```
 
 
@@ -523,8 +500,27 @@ quantile(data$Domestic.Gross, c(0.025, 0.975), na.rm = TRUE)
 ```
 
 ---
+### Getting Help
 
-## Warnings vs. Errors
+Let's talk about a couple ways to get help. The primary function to use is the `help` function. Just pass in the name of the function you need help with:
+
+```{r eval = FALSE}
+help(head)
+```
+
+The `?` also works
+```{r eval = FALSE}
+?head
+```
+
+This returns the help documentation for this function
+
+Googling for help can be difficult at first. You might need to search for R +  to get good results
+
+Stay up-to-date with R: [R Community Blog](https://rweekly.org)
+
+---
+### Warnings vs. Errors
 
 + Routinely beginners to R panic if they see a red message as innocuous as confirming that a library loaded
   - Not all red text means that there is an error!
@@ -544,18 +540,18 @@ Introduction points from: https://ourcodingclub.github.io/tutorials/intro-to-r/
 
 
 ---
-## Learning to code can be challenging
+### Learning to code can be challenging
 
 ```{r, echo=FALSE}
 
-knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/Welcome to DSC365/images/debug.png")
+knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/01-Welcome/images/debug.png")
 
 ```
 
 Artwork by @allison_horst
 
 ---
-## Some Debugging Tips
+### Some Debugging Tips
 
 Here is a few strategies if your code does not work:
 
@@ -570,7 +566,7 @@ Here is a few strategies if your code does not work:
 - Print out the output to see whether it is the one you want. Sometimes look at the data type may also help you understand what's going on. 
 
 ---
-## Some Debugging Tips
+### Some Debugging Tips
 
 - Take a break! You won't effectively debug something if you're stressed.
 
@@ -578,14 +574,24 @@ Here is a few strategies if your code does not work:
 
 ```{r, echo=FALSE, out.width="70%", fig.align='center'}
 
-knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/Welcome to DSC365/R Introduction Slides/images/spelling-error.png")
+knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/01-Welcome/R Introduction Slides/images/spelling-error.png")
 
 ```
 
 - Rubber ducking [(Source)](https://duckly.com/blog/improve-how-to-code-with-rubber-duck-debugging/)
----
-## Coming Up Next Week:
 
-- Introducing Quarto
-- More Basic Functions
+---
+### Two Common Errors
+
+1). Typos:
+
+```{r, error = TRUE}
+maen(c(1, 7, 13))
+```
+
+2). Unloaded Package
+```{r, error = TRUE}
+favstats(data$Domestic.Gross)
+```
+
 
