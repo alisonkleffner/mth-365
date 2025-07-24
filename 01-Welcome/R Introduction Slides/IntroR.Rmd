@@ -117,8 +117,6 @@ knitr::include_graphics("../images/rstudio.png")
 
 To Create a Script, Click the Following: File -> New File -> R script
 
-[R Studio IDE Cheatsheet](cheatsheets/rstudio-ide.pdf)
-
 ---
 ### R Studio Set-Up - Editor (Top Left)
 
@@ -532,11 +530,6 @@ Stay up-to-date with R: [R Community Blog](https://rweekly.org)
 + An *error* will terminate a program from being ran
 
 + Google is a beautiful thing
-
-
-<br>
-<br>
-Introduction points from: https://ourcodingclub.github.io/tutorials/intro-to-r/
 
 
 ---

@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science!"
 author: "Basic R and Quarto"
-date: "August 27, 2024"
+date: "August 26, 2025"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -81,7 +81,7 @@ Available Literate Programming options with R
 - Produces beautiful, seamless integration of statistical analysis with scientific writing
 
 ```{r, echo=FALSE, out.height="65%", out.width="90%", fig.align='center'}
-knitr::include_graphics("../../Week 2/slides/images/render-process.png")
+knitr::include_graphics("../../02-Quarto/slides/images/render-process.png")
 ```
 
 
@@ -128,7 +128,7 @@ install_tinytex()
 File -> New File -> Quarto Document 
 
 ```{r, echo=FALSE, out.height="65%", out.width="90%", fig.align='center'}
-knitr::include_graphics("../../Week 2/slides/images/quarto.jpg")
+knitr::include_graphics("../../02-Quarto/slides/images/quarto.jpg")
 ```
 
 ---
@@ -140,14 +140,14 @@ knitr::include_graphics("../../Week 2/slides/images/quarto.jpg")
 3. Text mixed with simple text formatting (the markdown)
 
 ```{r, echo=FALSE, out.height="65%", out.width="90%", fig.align='center'}
-knitr::include_graphics("../../Week 2/slides/images/quarto-document.png")
+knitr::include_graphics("../../02-Quarto/slides/images/quarto-document.png")
 ```
 
 ---
 ## Let's Render this document
 
 ```{r, echo=FALSE, fig.align='center'}
-knitr::include_graphics("../../Week 2/slides/images/quarto-run.png")
+knitr::include_graphics("../../02-Quarto/slides/images/quarto-run.png")
 ```
 
 
@@ -158,7 +158,7 @@ knitr::include_graphics("../../Week 2/slides/images/quarto-run.png")
 The stuff at the top of the .Rmd file (called YAML front matter) tells **rmarkdown** what output format you want. 
 
 ```{r, echo=FALSE, out.height="40%", out.width="60%", fig.align='center'}
-knitr::include_graphics("../../Week 2/slides/images/yaml.png")
+knitr::include_graphics("../../02-Quarto/slides/images/yaml.png")
 ```
 
 <br>
@@ -172,7 +172,7 @@ In .qmd files, you can start/end a code chunk with three back-ticks. `quarto` kn
 
 
 ```{r echo=FALSE, warning=FALSE}
-knitr::include_graphics("../../Week 2/slides/images/code-chunk.png")
+knitr::include_graphics("../../02-Quarto/slides/images/code-chunk.png")
 ```
 
 
@@ -186,7 +186,7 @@ When you render your .qmd file, Quarto will run each code chunk and embed the re
 Option 1:
 
 ```{r, echo=FALSE, out.height="70%", out.width="70%"}
-knitr::include_graphics("../../Week 2/slides/images/create-code-chunk.png")
+knitr::include_graphics("../../02-Quarto/slides/images/create-code-chunk.png")
 ```
 ].pull-right[
 Option 2:
@@ -245,7 +245,7 @@ More Markdown Basics: <https://quarto.org/docs/authoring/markdown-basics.html#so
 ## Visual Editor
 
 ```{r, echo=FALSE, fig.align='center'}
-knitr::include_graphics("../../Week 2/slides/images/visual-editor.png")
+knitr::include_graphics("../../02-Quarto/slides/images/visual-editor.png")
 ```
 
 
