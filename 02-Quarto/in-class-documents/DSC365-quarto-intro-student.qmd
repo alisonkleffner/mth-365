@@ -1,7 +1,7 @@
 ---
-title: 'Week 2 Lecture: Hello R!'
-author: 'DSC 365: Basic R Markdown'
-date: "August 27, 2024"
+title: 'Hello R and Quarto!'
+author: 'DSC 365'
+date: "August 26, 2025"
 format: html
 ---
 
@@ -11,9 +11,9 @@ We have briefly discussed R, Rstudio and Quarto. Let's continue to build some ba
 
 Each week, I'll provide you with a Quarto document (like this) containing the code for in-class examples. Here's what I suggest:
 
-1.  Take notes in this Quarto document. You can write anywhere in the white spaces.
-2.  Run the code on your machines as we run it in class. The code "chunks" are in grey.
-3.  After class, "Render" this document into an HTML, PDF, or Word (your choice) file to use later.
+1. Take notes in this Quarto document. You can write anywhere in the white spaces.
+2. Run the code on your machines as we run it in class. The code "chunks" are in grey.
+3. After class, "Render" this document into an HTML, PDF, or Word (your choice) file to use later.
 
 Of course, you can take notes however you choose! However, this isn't one of those courses that you can just "follow along" during. Actively taking notes and running code is the best way to learn data science!
 
@@ -34,69 +34,55 @@ You only need to do this one time! Once a package is installed on your computer,
 
 Now that the packages are installed, you'll need to load them to work with the functions and data within. You can load packages using the `library()` command.
 
-```{r, message = FALSE}
-#| echo = FALSE
+```{r}
+#| message: false
 library(tidyverse) 
 library(datasauRus)
 ```
 
-When creating your own `Quarto` document, I recommend having a code chunk at the beginning with all the packages you plan on using.
+When creating your own `Quarto` document, I recommend having a code chunk at the beginning with all the packages you plan on using. 
 
-**Note**: Your environment when you run your Quarto document is separate from the current session on your computer. Meaning, even if you have `tidyverse` loaded, you still need to included the `library(tidyverse)` command so when your document renders it knows it requires the `tidyverse` package.
+**Note**: Your environment when you run your Quarto document is separate from the current session on your computer. Meaning, even if you have `tidyverse` loaded, you still need to included the `library(tidyverse)` command so when your document renders it knows it requires the `tidyverse` package. 
 
 ## Data
 
 In data science, of course, we will work with data. Then, what is data? In fact, data can have multiple formats. Numbers, categories, and even text and videos are all forms of data. However, in order to analyze the data in an easy way, we usually organize the data into a data frame. For example, this is a data frame, it looks like a matrix:
 
 ```{r}
-data("datasaurus_dozen")
-
-# show the first 6 rows of the data
-
-head(datasaurus_dozen)
-
 
 ```
-
-In a data frame, each row is an *observation* and each column is a *variable*. Each observation should have the same number of variables. If not, we have a *list*, which we will not cover in this course.
+In a data frame, each row is an *observation* and each column is a *variable*. Each observation should have the same number of variables. If not, we have a *list*, which we will not cover in this course. 
 
 In the last class, we went through a couple of ways to extract certain variable/observation from the data frame in basic R. The data frame you'll work with today is called `datasaurus_dozen` and it's in the `datasauRus` package. Actually, this single data frame contains 13 datasets. The different datasets are marked by the `dataset` variable.
 
 ```{r}
-#Extract the second observation in the data
-datasaurus_dozen[2,]
-
-#Extract the second variable in the data
-datasaurus_dozen[,2]
-datasaurus_dozen$x
 
 ```
 
-Once you extract the information, sometimes you need to save it for the later use. You can assign the extracted information to a new variable.
+Once you extract the information, sometimes you need to save it for the later use. You can assign the extracted information to a new variable. 
 
 ```{r}
-x_value <- datasaurus_dozen$x
+
 ```
 
-If you run the above line, nothing will show as the result but if you check the environment, we now have a new variable called *x_value* which you can use later. For example, you can print it out below.
+If you run the above line, nothing will show as the result but if you check the environment, we now have a new variable called *x_value* which you can use later. For example, you can print it out below. 
 
 ```{r}
-head(x_value)
+
 ```
 
 ### Try it for yourself
 
-1.  Extract the y variable from the data and assign it to a new variable
+1. Extract the y variable from the data and assign it to a new variable
 
 ```{r}
-y_value <- datasaurus_dozen[,3]
+
 ```
 
-2.  Extract the 100th observation from the data, assign it to a new variable and print it out. (Can I name the new variable as 100obs? or does it have to be obs100? )
+2. Extract the 100th observation from the data, assign it to a new variable and print it out. (Can I name the new variable as 100obs? or does it have to be obs100? )
 
 ```{r}
-obs100 <- datasaurus_dozen[100,]
-obs100
+
 ```
 
 ## Basic data summary
@@ -104,37 +90,31 @@ obs100
 Another piece of information people want to know is how many rows and how many columns does the `datasaurus_dozen` file have? What are the variables included in the data frame? To answer those questions, we can do:
 
 ```{r}
-# Show the row number and column number
-nrow(datasaurus_dozen)
-ncol(datasaurus_dozen)
-dim(datasaurus_dozen)
-# Show the variable list
-str(datasaurus_dozen)
-glimpse(datasaurus_dozen)
-# basic summary of the whole dataset
-summary(datasaurus_dozen)
+
 ```
 
 Let's take a look at what these datasets are. To do so we can make a *frequency table* of the dataset variable:
 
 ```{r}
-table(datasaurus_dozen$dataset)
+
 ```
+
 
 ## Demo: summary statistics and data visualization
 
-Note: we will go over the functions and concepts in this section again in the next two weeks. Today's goal is just to show you:
+Note: we will go over the functions and concepts in this section again in the next two weeks. Today's goal is just to show you: 
 
-(1) why data visualization is important and
+(1) why data visualization is important and 
 
-(2) how summary statistics alone can be misleading.
+(2) how summary statistics alone can be misleading. 
 
-The original Datasaurus (`dino`) was created by Alberto Cairo in [this blog post](http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html). The other Dozen were generated using simulated annealing and the process is described in the paper *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing* by Justin Matejka and George Fitzmaurice. In the paper, the authors simulate a variety of datasets that have the same summary statistics as the Datasaurus but have very different distributions (visualizations).
+The original Datasaurus (`dino`) was created by Alberto Cairo. The other Dozen were generated using simulated annealing and the process is described in the paper *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing* by Justin Matejka and George Fitzmaurice. In the paper, the authors simulate a variety of datasets that have the same summary statistics as the Datasaurus but have very different distributions (visualizations).
 
 Start with the `datasaurus_dozen` and pipe it into the `filter` function to filter for observations where `dataset == "dino"`. Store the resulting filtered data frame as a new data frame called `dino_data`.
 
 ```{r}
-dino_data <- datasaurus_dozen %>% filter(dataset == "dino")
+dino_data <- datasaurus_dozen %>%
+  filter(dataset == "dino")
 ```
 
 There is a lot going on here, so let's slow down and unpack it a bit. First, the pipe operator: `%>%`, takes what comes before it and sends it as the first argument to what comes after it. So here, we're saying `filter` the `datasaurus_dozen` data frame into only the observations where `dataset == "dino"`. Second, the assignment operator: `<-`, assigns the name `dino_data` to the filtered data frame.
@@ -142,28 +122,27 @@ There is a lot going on here, so let's slow down and unpack it a bit. First, the
 Next, we need to visualize this data. We'll use the `ggplot` function for this. Its first argument is the data you're visualizing. Next we define the `aes`thetic mappings. In other words, the columns of the data that get mapped to certain aesthetic features of the plot, e.g. the `x` axis will represent the variable called `x` and the `y` axis will represent the variable called `y`. Then, we add another layer to this plot where we define which `geom`etric shapes we want to use to represent each observation in the data. In this case we want these to be points, hence `geom_point`.
 
 ```{r}
-dino_data %>% ggplot(aes(x=x, y = y)) + geom_point()
+dino_data %>%
+  ggplot(aes(x=x, y=y)) +
+  geom_point()
 ```
 
 If this seems like a lot, it is. And we'll learn about the philosophy of building data visualizations by layering in detail next week. For now, follow along with the code that is provided.
 
 For the second part of this exercise, we need to calculate a summary statistic: the correlation coefficient. Correlation coefficient, often referred to as $r$ in statistics, measures the linear association between two variables. You will see that some of the pairs of variables we plot do not have a linear relationship between them. This is exactly why we want to visualize first: visualize to assess the form of the relationship, and calculate $r$ only if relevant. In this case, calculating a correlation coefficient really doesn't make sense since the relationship between `x` and `y` is definitely not linear -- it's dinosaurial!
 
-But, for illustrative purposes, let's calculate correlation coefficient between `x` and `y`. Correlation coefficients are used to measure how strong a relationship is between two variables. There are several types of correlation coefficient, but the most popular is Pearson's.
+But, for illustrative purposes, let's calculate correlation coefficient between `x` and `y`. Correlation coefficients are used to measure how strong a relationship is between two variables. There are several types of correlation coefficient, but the most popular is Pearson’s. 
 
 Start with `dino_data` and calculate a summary statistic that we will call `r` as the `cor`relation between `x` and `y`.
 
 ```{r}
-cor(dino_data$x, dino_data$y)
+dino_data %>%
+  summarise(r = cor(x,y))
 ```
 
-Let's try again with the circle dataset. Plot `y` vs. `x` for the `circle` dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between `x` and `y` for this dataset. How does this value compare to the `r` of `dino`?
+You could follow these same steps for any of the 13 data sets.
 
-```{r}
-
-```
-
-Finally, let's plot all datasets at once. In order to do this we will make use of faceting.
+Let's plot all datasets at once. In order to do this we will make use of faceting.
 
 ```{r}
 ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
@@ -180,6 +159,7 @@ datasaurus_dozen %>%
   summarize(r = cor(x, y))
 ```
 
+
 ## Render your work
 
 Click "Render" at the top of your Quarto document and see what happens!
@@ -188,21 +168,22 @@ Click "Render" at the top of your Quarto document and see what happens!
 
 Some Options:
 
--   eval=FALSE: don't run the code
+- eval=FALSE: don't run the code
 
--   echo=FALSE: don't show the code
+- echo=FALSE: don't show the code
 
--   warning=FALSE: don't add R's warnings to the pdf
+- warning=FALSE: don't add R's warnings to the document
 
--   message=FALSE: don't show messages from R in the pdf
+- message=FALSE: don't show messages from R in the document
 
--   include=FALSE: don't include any R output in the document.
+- include=FALSE: don't include any R output in the document. 
 
--   cache=FALSE: re-run all of the code every time.
+- cache=FALSE: re-run all of the code every time.
 
--   fig.align = 'left', 'right', or 'center'
+- fig.align = 'left', 'right', or 'center'
 
-How does adding these to the code chunks change the output?
 
--   Output each graph so they display centered on the page.
--   Remove the message that occurs when you load in `tidyverse`
+
+
+
+

@@ -43,22 +43,37 @@ knit_hooks$set(output = function(x, options) {
 ## Announcements
 
 - Start Lab 1 in class on Thursday!
-  + Due **Thursday September 5th, 2024 at 11:59 pm** (extra time due to labor day)
+  + Due **Thursday September 4th, 2025 at 11:59 pm** (extra time due to Labor Day)
 
 ---
-## What do you use to write?
+### Replicability vs Reproducability
 
+The notion that scientific findings can be confirmed repeatedly through replication is fundamental to science.
+
+- Replicability means that you get the same results with different data
+- **Reproducibility** means that you get the same results with the same data
+
+<br>
+
+The [replication crisis](https://en.wikipedia.org/wiki/Replication_crisis) is a very real problem for modern science. 
+- More than 15 years ago, [Ioannidis (2005)](https://pmc.ncbi.nlm.nih.gov/articles/PMC1182327/#glossary1) argued that “most published research findings are false.”
+- It now appears that even among peer-reviewed, published scientific articles, many of the findings—which are supported by experimental and statistical evidence—do not hold up under the scrutiny of replication. 
+
+---
+### Reproducability
+
+What you are probably using to write:
 - Microsoft Word
 - Latex/Overleaf
-- Pages
 - Google Docs
 
-How do we get your results from `R` into those documents?
+However, how get R code into these documents?
+  - Modern software tools allow the analysis to be repeated at the push of a button
 
 ---
-## Literate Programing
+### Literate Programing
 
-A programming method where you intersperse text and code in the same document using structured text to indicate which lines are code and which lines are intended for human consumption.
+A programming method where you explain code in natural language (ex. English) in roughly the same place that you write the code.
   - Use it to explain the purpose of our code and how to use it
 
 <br>
@@ -73,7 +88,7 @@ Available Literate Programming options with R
 
 
 ---
-## Knit what?
+### Knit what?
 
 - Quarto adds (renders) `R` code into your document so that all of the files for a particular experiment are in one place.
 - Compiling the document also runs the `R` code, so one button press runs your statistical analysis and places it in your document.
@@ -86,14 +101,15 @@ knitr::include_graphics("../../02-Quarto/slides/images/render-process.png")
 
 
 ---
-## Reproduceable Research
+### Reproduceable Research
 
+How does this help with reproduceable research?
 - Journals often require code and data to be included in a paper submission so the analysis can be reproduced
-- Statistical analyses are often re-used for multiple similar experiments
+- Statistical analyses are often re-used for multiple similar experiments (replication)
 - We don't always comment code when we write it (though we should) - `quarto` provides context for the code by including the writeup with the code.
 
 ---
-## What is Quarto?
+### What is Quarto?
 
 - Allows you to "weave together narrative text and code to produce elegantly formatted output as documents, web pages, blog posts, books and more!" ([source](https://quarto.org/docs/faq/rmarkdown.html))
 - R developed *R Markdown* to create documents that include R code, and *Quarto* is their attempt to bring *R Markdown* to everyone.
@@ -103,17 +119,13 @@ knitr::include_graphics("../../02-Quarto/slides/images/render-process.png")
 Most of what we do today can be found in the [Quarto Website](https://quarto.org/docs/get-started/hello/rstudio.html) 
 
 ---
-
-## Set-Up
-
-+ [Install Quarto](https://quarto.org/docs/get-started/)
+### Set-Up
 
 + Install the Necessary Packages
 ```{r, eval = FALSE}
-install.packages(c("knitr", "rmarkdown", "quarto"))
+install.packages(c("knitr", "rmarkdown"))
 ```
   - This alone will allow you to create `HTML` and Word documents (if you have Word installed)
-
 
 + If you want to create pdfs (and don't have a Latex installation): install TinyTex
 ```{r, eval = FALSE}
@@ -123,7 +135,7 @@ install_tinytex()
 ```
 
 ---
-## Creating a Quarto Document
+### Creating a Quarto Document
 
 File -> New File -> Quarto Document 
 
@@ -132,8 +144,7 @@ knitr::include_graphics("../../02-Quarto/slides/images/quarto.jpg")
 ```
 
 ---
-
-## Contents of a .qmd
+### Contents of a .qmd
 
 1. An (optional) YAML header surrounded by `---s`
 2. Code chunks beginning with ````{r}`
@@ -144,7 +155,7 @@ knitr::include_graphics("../../02-Quarto/slides/images/quarto-document.png")
 ```
 
 ---
-## Let's Render this document
+### Let's Render this document
 
 ```{r, echo=FALSE, fig.align='center'}
 knitr::include_graphics("../../02-Quarto/slides/images/quarto-run.png")
@@ -153,9 +164,9 @@ knitr::include_graphics("../../02-Quarto/slides/images/quarto-run.png")
 
 
 ---
-## YAML
+### YAML
 
-The stuff at the top of the .Rmd file (called YAML front matter) tells **rmarkdown** what output format you want. 
+The stuff at the top of the .amd file (called YAML front matter) tells **quarto** what output format you want. 
 
 ```{r, echo=FALSE, out.height="40%", out.width="60%", fig.align='center'}
 knitr::include_graphics("../../02-Quarto/slides/images/yaml.png")
@@ -166,7 +177,7 @@ knitr::include_graphics("../../02-Quarto/slides/images/yaml.png")
 In this case, when you click "Render", RStudio calls `quarto::quarto_render("document-name.qmd", , output_format = "html")`. You can certainly change these default values. 
 
 ---
-## What is a code chunk?
+### What is a Code Chunk?
 
 In .qmd files, you can start/end a code chunk with three back-ticks. `quarto` knows that text is R code if it is included in a chunk.
 
@@ -194,19 +205,11 @@ Option 2:
 - Mac: `option+command+i`
 - Windows: `control+alt+i`
 ]
----
-## Code Chunk Options
-
-We may want to remove the messages (the italic text) from our R output in the pdf. Or, we might not want to show the code at all. `\(\\\)`
-
-There are many options to give you greater control over what is shown in the compiled document. 
-
-Let's look at these options in [the documentation](https://yihui.org/knitr/options/) 
 
 ---
-## Common Code Chunk Options
+### Code Chunk Options
 
-Identified by `#|` at the beginning of the line.
+There are many options to give you greater control over what is shown in the compiled document (identified by `#|` at the beginning of the line).
 
 - eval=FALSE: don't run the code
 
@@ -220,8 +223,11 @@ Identified by `#|` at the beginning of the line.
 
 - cache=FALSE: re-run all of the code every time.
 
+Let's look at these options in [the documentation](https://yihui.org/knitr/options/) 
+
+
 ---
-## Markdown: Any Writing
+### Markdown: Any Writing
 
 ```
 This is a really smart sentence you wrote. 
@@ -242,7 +248,7 @@ You can also **bold** important words
 More Markdown Basics: <https://quarto.org/docs/authoring/markdown-basics.html#source-code> 
 
 ---
-## Visual Editor
+### Visual Editor
 
 ```{r, echo=FALSE, fig.align='center'}
 knitr::include_graphics("../../02-Quarto/slides/images/visual-editor.png")
@@ -250,4 +256,4 @@ knitr::include_graphics("../../02-Quarto/slides/images/visual-editor.png")
 
 
 ---
-## Next: Download Quarto Document from BlueLine
+### Next: Download Quarto Document from BlueLine
