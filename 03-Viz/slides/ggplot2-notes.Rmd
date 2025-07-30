@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science"
-author: "ggplot2"
-date: "September 3, 2024"
+author: "Data Viz with ggplot2"
+date: "September 2, 2025"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -35,34 +35,42 @@ knit_hooks$set(output = function(x, options) {
 ## Announcements
 
 - Start Lab 2 in class on Thursday!
-  + Due **Tuesday September 10th, 2024 at 11:59 pm** 
+  + Due **Tuesday September 9th, 2025 at 11:59 pm** 
   
 - Will Discuss Mini-Project 1 on Thursday
-  + Due **Thursday September 19th, 2024 at 12:29 pm** (ie. before class starts)
+  + Due **Thursday September 18th, 2025 at 12:29 pm** (ie. before class starts)
 
 
 ---
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.align='center'}
 
-knitr::include_graphics("../../Week 3/slides/images/ggplot2.png")
+knitr::include_graphics("../../03-Viz/slides/images/ggplot2.png")
 
 ```
 
 
 ---
-## Why visualize?
+### Why visualize?
 
-**What are graphics useful for?**
-+ Data cleaning
-+ Exploring data structure
+Our brain is good at processing large amounts of data quickly!
+
+<br>
+
+**Useful at two point in Data Science Cycle**
++ Exploratory Data Analysis (EDA)
 + Communicating Information
 
-Visualization offers an alternative way of communicating numbers
+
+```{r, echo=FALSE, fig.align='center', out.width="70%"}
+
+knitr::include_graphics("../../03-Viz/slides/images/sun-pic.png")
+
+```
 
 ---
 class:primary
-# Return to the Datasaurus: summary statistics
+### Datasaurus Part 2: Summary Statistics
 
 <br>
 <br>
@@ -85,12 +93,12 @@ quartet_summary <-   datasaurus_dozen_filter %>%
     )
 
 quartet_summary %>%
-  knitr::kable(digits = 2)
+  knitr::kable(digits = 3)
 ```
 
 ---
 class:primary
-# Datasaurus: plots
+### Datasaurus: Plots
 
 ```{r, , quartet-plots, fig.height = 7, fig.width = 9, fig.align = "center", echo = FALSE}
 ggplot(datasaurus_dozen_filter, aes(x = x, y = y, colour = dataset))+
@@ -102,21 +110,21 @@ ggplot(datasaurus_dozen_filter, aes(x = x, y = y, colour = dataset))+
 
 
 ---
-## Grammar of Graphics
+### Grammar of Graphics
 
-The grammar of graphics is a set of grammatical rules for creating perceivable graphs
+Grammar of Graphics: grammatical rules for creating perceivable graphs
   
-  - Developed by Leland Wilkison
+  - [Developed by Leland Wilkison](https://link.springer.com/book/10.1007/0-387-28695-0)
 
-Rather than thinking about a limited set of graphs, think about graphical forms
+Instead of thinking about a limited set of graphs, think about graphical forms
   
   - Different types of graphs may appear completely distinct, but in actuality share many common elements
 
 By making different visual choices, you can use graphs to highlight different aspects of the same data.
 
-For example, here are three ways of displaying the same data:
+- For example, here are three ways of displaying the same data:
 
-```{r plots-3, fig.align='bottom', fig.height=3.5, fig.width=15, echo = FALSE}
+```{r plots-3, fig.align='bottom', fig.height=4.5, fig.width=15, echo = FALSE}
 data(diamonds)
 
 # bar chart
@@ -149,50 +157,56 @@ grid.arrange(gg1, gg2, gg3, ncol = 3, nrow = 1)
 
 
 ---
-## ggplot
+### ggplot
 
-`ggplot2` is based on The Grammar of Graphics where the components are independent, meaning we can generally change a component in isolation.
+Based on The Grammar of Graphics where the components are independent, meaning we can generally change a component in isolation [(source)](https://www.tandfonline.com/doi/epdf/10.1198/jcgs.2009.07098?needAccess=true).
 
-[Help Information](https://rstudio.github.io/cheatsheets/html/data-visualization.html)
 
+.pull-left[
 
 ```{r, echo=FALSE, out.width="40%", fig.align = "center"}
 
-knitr::include_graphics("../../Week 3/slides/images/ggplot-hex.png")
+knitr::include_graphics("../../03-Viz/slides/images/ggplot-hex.png")
+
+```
+].pull-right[
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+
+knitr::include_graphics("../../03-Viz/slides/images/template.png")
 
 ```
 
+]
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+[Help Information](https://rstudio.github.io/cheatsheets/html/data-visualization.html)
 
 ---
-## What is a graphic?
-
-`ggplot2` uses the idea that you can build every graph with graphical components from three sources:
-
-  1. The **data**, represented by **geoms**
-  2. The **scales** and **coordinate system**
-  3. The **plot annotations**
-    
-    + To display values, map variables in the data to visual properties of the geom (**aesthetics**) like **size**, **color**, and **x** and **y** locations.
-    
-    
----
-## ggplot 2: specifications
+### ggplot 2: specifications
 
 A plot consists of several mostly independent specifications:
 
 1. **aesthetics** - links between data variables and graphical features (position, color, shape, size)
-2. **layers** - geometric elements (points, lines, rectanges, text,...)
-3. **transformations** - transformations specify a functional link between the data and the displayed information (identity, count, bins, density, etc). Transformations act on the variables.
-4. **scales** - scales map values in data space values in the aesthetic space. Scales change the coordinate space of an aesthetic, but don't change the underlying value (change at visual level, not mathematical)
-5. **coordinate system** 
-6. **faceting** - facets allow you to split plot by other variables to produce many sub-plots
-7. **theme** - formating items, such as background color, fonts, margins...
+2. **layers** - geometric elements (points, lines, rectangles, text,...)
+3. **scales** - scales map values in data space values in the aesthetic space. Scales change the coordinate space of an aesthetic, but don't change the underlying value (change at visual level, not mathematical)
+4. **coordinate system** 
+5. **faceting** - facets allow you to split plot by other variables to produce many sub-plots
+6. **theme** - formating items, such as background color, fonts, margins...
+
+<br>
+<br>
 
 **Limitation**: tells us what words make up our graphical “sentences,” but offers no advice on how to write well
 
 
 ---
-## Let's Build a Graph!
+### Let's Build a Graph!
 
 ```{r}
 library(tidyverse)
@@ -200,21 +214,21 @@ head(diamonds)
 ```
 
 ---
-## We Begin with the Data
+### We Begin with the Data
 
 ```{r, fig.height=5, fig.width=10, echo = TRUE}
 ggplot(data=diamonds) #<<
 ```
 
 ---
-## Then we specify the aesthetic mappings
+### Then we specify the aesthetic mappings
 
 ```{r, fig.width=10, fig.height=5, echo = TRUE}
 ggplot(data=diamonds, aes(x=carat, y = price)) #<<
 ```
 
 ---
-## Then we choose a geom
+### Then we choose a geom
 
 ```{r, eval=FALSE, fig.height=5, fig.width=10, echo = TRUE}
 ggplot(data=diamonds, aes(x=carat, y = price)) +
@@ -228,7 +242,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 ```
 
 ---
-## We can then add an aesthetic
+### We can then add an aesthetic
 
 ```{r, eval=FALSE, fig.width=10, fig.height=5, echo = TRUE}
 ggplot(data = diamonds, aes(x = carat, y = price)) +
@@ -241,7 +255,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
     scale_color_locuszoom()
 ```
 ---
-## And add another layer
+### And add another layer
 
 ```{r, eval = FALSE, fig.width=10, fig.height=5, echo = TRUE}
 ggplot(data = diamonds, aes(x = carat, y = price)) +
@@ -257,7 +271,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 ```
 
 ---
-## Mapping aesthetics vs setting aesthetics
+### Mapping aesthetics vs setting aesthetics
 
 ```{r, fig.width=10, fig.height=5, eval = FALSE, echo = TRUE}
 ggplot(data = diamonds, aes(x = carat, y = price) +
@@ -274,7 +288,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 ```
 
 ---
-## Can Facet
+### Facet
 
 ```{r, fig.width=10, fig.height=5, eval = FALSE, echo = TRUE}
 ggplot(data = diamonds, aes(x = carat, y = price)) +
@@ -294,4 +308,27 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 
 
 ---
-## Now let's move to Quarto Document
+### What Type of Chart to Use?
+
+- What type of variables are you working with? Numerical? Categorical?
+- Number of observations?
+- Important moderating variables?
+- Use of small multiples?
+
+<br>
+
+[The R Graph Gallery](https://r-graph-gallery.com)
+
+---
+### Later: Graphical Perception
+
+To visually display data, information is encoded into a graph. The viewer then visually decodes this information, known as graphical perception, to gain knowledge. A successful graphic allows the user to perform graphical perception accurately and efficiently
+
+After we have chosen the appropriate plot to visualize the data, focus on these two principles:
+
+- Keep it simple
+- Show the data clearly
+
+<br>
+
+But for now, let's move to the .qmd document
