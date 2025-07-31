@@ -1,8 +1,13 @@
 ---
-title: 'Week 3: Data Visualization'
+title: 'Data Viz with ggplot'
 author: 'DSC 365: Introduction to Data Science'
-date: "September 3, 2024"
+date: "September 2, 2025"
 format: html
+
+execute: 
+  fig-width: 5
+  fig-height: 2
+
 ---
 
 ::: {.callout-note icon="false"}
@@ -14,11 +19,9 @@ format: html
 
 ## `ggplot2`
 
-In the slides, we showed that statistics alone may lead to a misunderstanding of the data. Therefore, when working with new data, we should always make some visualizations to help us understand the data. A common way for plotting in R today is through `ggplot2`. 
+In the lecture, we showed that statistics alone may lead to a misunderstanding of the data. Therefore, when working with new data, we should always make some visualizations to help us understand the data. A common way for plotting in R today is through `ggplot2`. 
 
 `ggplot2` is an R package (located in `tidyverse`) for "decoratively creating graphics"
-
-- https://ggplot2.tidyverse.org/reference/
 
 ```{r, message=FALSE}
 library(tidyverse)
@@ -26,30 +29,21 @@ library(tidyverse)
 
 ## Example: Hate crimes and income inequality
 
-A FiveThirtyEight article published in 2017 claimed that higher rates of hate crimes were tied to greater income inequality.
+A FiveThirtyEight article published in 2017 claimed that higher rates of hate crimes were tied to greater income inequality. (https://fivethirtyeight.com/features/higher-rates-of-hate-crimes-are-tied-to-income-inequality/)
 
-https://fivethirtyeight.com/features/higher-rates-of-hate-crimes-are-tied-to-income-inequality/
+- FiveThirtyEight publishes their data sets (and even has an R Package) - let's investigate for ourselves.
 
-- FiveThirtyEight publishes their data sets - let's investigate for ourselves.
-- Data set is posted in BlueLine. Download this data set, and save it to your computer.
+Data set is posted in BlueLine. Download this data set, and save it to your computer. Follow these steps to read the data into RStudio:
 
-Follow these steps to read the data into RStudio:
-
-1. In the Environment tab, click "Import Dataset". Since this is a CSV document, you want to import a text file.
-2. Navigate to your CSV data set. Make sure that the first row contains column names. 
+1. In the Environment tab, click “Import Dataset”. Since this is a CSV document, you want to import a text file.
+2. Navigate to your CSV data set. Make sure that the first row contains column names.
 3. Import the data.
 
-Another way to do this:
-
-1. Put the data file next to the Rmd file.
-2. In the console, print `read.csv(hate.crimes.csv)`
-See ?read.csv for more information about this function
 
 ```{r}
-hate_crimes <- read.csv("./data/hate_crimes.csv")
-glimpse(hate_crimes)
-head(hate_crimes)
+hate_crimes <- read_csv("hate_crimes.csv")
 ```
+
 
 ## A simple plot?
 
@@ -60,7 +54,7 @@ __Basic Format of a Plot__:
 The data, aesthetics, and plot type are necessary to create a plot. For example, below is what happens when we just specify the data and aesthetics.
 
 ```{r}
-ggplot(hate_crimes, aes(x=median_income, y=hate_crimes_fbi))
+ggplot(hate_crimes, aes(x = median_income, y = hate_crimes_fbi))
 ```
 
 ## Variable type
@@ -74,12 +68,12 @@ By function:
 
 By value type:
 
-1. continuous variable
+1. numerical variable
 2. categorical variable
 
 ## Type of plots
 
-#### 1. Visualize one continous variable.
+#### 1. Visualize one numerical variable.
 
 Usually for the response variable using histograms and density plots
 
@@ -98,21 +92,23 @@ Usually for the response variable using histograms and density plots
 
 #### (c) Box Plots
 
-What is the difference between box-plot and histogram/density plot? Box-plot shows the median but not the distribution. 
+Visual representation of the 5-number summary.
 
 ```{r}
 
 ```
 
-#### 2. Visualize one categorical variable, usually for the response variable using a bar-plot 
+#### 2. Visualize one categorical variable
 
 ```{r}
 
 ```
 
-#### 3. Visualize two continous variables. 
+**Note**: use `geom_col` if want the heights of the bars to represent values in the data.
 
-Focus on showing the relation between them. Can be response variable + explanatory variable. Can also be explanatory variable + explanatory variable.
+#### 3. Visualize two numerical variables. 
+
+Focusing on relationship between them. Can be response variable + explanatory variable. Can also be explanatory variable + explanatory variable.
 
 #### (a) Scatterplots
 
@@ -129,9 +125,9 @@ The Smooth Line Plots help show the trend due to smoothness
 ```
 
 
-## 5. Visualize one continuous variable and one categorical variable (Multiple groups)
+## 5. Visualize one numerical variable and one categorical variable (Multiple groups)
 
-Sometimes we want to compare the variable(s) across multiple groups. eg: compare median income across different region. Which plots can compare multiple group?
+Sometimes we want to compare the variable(s) across multiple groups. eg: compare median income across different region. 
 
 Theses are called side-by-side plots. 
 
@@ -202,63 +198,3 @@ Instead of putting all groups information into one page, you can do by each pane
 
 ```
 
-## Weather patterns
-
-The data set `Weather` contains data on weather-related variables for several world cities.
-
-```{r}
-#install.packages(mosaicData)
-library(mosaicData)
-data(Weather)
-glimpse(Weather)
-```
-
-(a). We want to study the average temperature. First, we want to see its distribution. How would we do this?
-
-```{r}
-
-```
-
-(b). Next, we want to study the distribution of average temperature across different cities. How would we do this?
-
-```{r}
-
-```
-
-(c). The average temperature may be related to date. How to show the relation between temperature and date?
-
-```{r}
-
-```
-
-(d). Maybe different city has totally different trend on average temperature (ie. relationship between temperature and date grouped by city). 
-
-```{r}
-
-```
-
-(e). What if we only care about one city? Show the relationship between temperature and date for Beijing only.
-
-```{r}
-
-```
-
-
-(f). Instead of the date, we can also use the month. Show the relationship between month and temperature (for Beijing). 
-
-```{r}
-
-```
-
-
-(g). Show the distribution of average temperature for the Beijing data set by month.
-
-```{r}
-
-```
-
-(h). Show the relationship between the low temperature and the high temperature colored by month
-
-```{r}
-
-```
