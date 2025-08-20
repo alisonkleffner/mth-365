@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DSC365: Introduction to Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Data Wrangling: dplyr" />
+    <meta name="date" content="2025-09-09" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="modal.css" type="text/css" />
+    <link rel="stylesheet" href="sizeformat.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class:inverse
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+## DSC365: Intro to Data Science
+### Data Wrangling: dplyr
+#### September 9, 2025
+
+---
+## Announcements
+
+- Start Lab 3 in class on Thursday!
+  + Due **Tuesday September 23th, 2025 at 11:59 pm** 
+  
+- **Mini-Project 1**
+  + Due **Thursday September 18th, 2025 at 1:59 pm** (ie. before class starts)
+  + Presentations during class that day
+
+
+---
+### What is Data Wrangling?
+
+Most **Data Sets** are made up of *rows* and *columns*. They are  a collection of *values*: these can be *numbers* (quantitative) or character *strings* (qualitative)
+
+**Data Wrangling** can be defined as the process of cleaning, organizing, and transforming  raw data into the desired format for analysts to use for prompt decision making. Also known as data cleaning.
+
+&lt;img src="../../04-dplyr/slides/images/data-flowchart.png" width="1579" /&gt;
+[Data Wrangling Flowchart](https://r4ds.had.co.nz/wrangle-intro.html) by Hadley Wickham and Garrett Grolemund
+
+---
+
+### Why do you need this "Data Wrangling" Skill?
+
+- Data wrangling helps to improve data usability as it converts data into a compatible format for the end system.
+
+- It helps to quickly build data flows within an intuitive user interface and easily schedule and automate the data-flow process.
+
+- Integrates various types of information and their sources (like databases, web services, files, etc.)
+
+- Help users to process very large volumes of data easily and easily share data-flow techniques.
+
+[Source](https://www.simplilearn.com/data-wrangling-article#:~:text=Data%20wrangling%20helps%20to%20improve,automate%20the%20data%2Dflow%20process)
+
+---
+### What is tidy data?
+
+&lt;img src="../../04-dplyr/slides/images/tidy-data-illustration.png" width="90%" /&gt;
+
+Real datasets can, and often do, violate the three principles of tidy data in almost every way imaginable! Even when they do, sometimes we don't need the whole data for analysis. 
+
+---
+### Data is usually in a spreadsheet format, but
+
+There are different ways of encoding the same information
+
+.pull-left[
+#### Option 1
+
+&lt;img src="../../04-dplyr/slides/images/untidy1.png" width="70%" /&gt;
+
+#### Option 2
+&lt;img src="../../04-dplyr/slides/images/untidy2.png" width="80%" /&gt;
+].pull-right[
+#### Option 3
+&lt;img src="../../04-dplyr/slides/images/tidy-data.png" width="80%" /&gt;
+]
+
+--
+
+Neither 1 or 2 are "clean" versions of the data: information is part of the data structure; some implicit information is assumed
+
+---
+### dplyr
+
+dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges.
+
+Rules of `dyplr`:
+
+- First argument is always a data frame
+- Subsequent arguments say what to do with that data frame
+- Always returns a data frame
+
+&lt;img src="../../04-dplyr/slides/images/dplyr.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+### dplyr uses the Pipe (%&gt;%) Operator
+
+Use the pipe operator to combine dplyr functions in chain, which allows us to perform more complicated data manipulations
+
+In programming, a pipe is a technique for passing information from one process to another.
+
++ Syntax:  dataframe %&gt;% dplyr_function()
++ read %&gt;% as "then do"
++ f(x) %&gt;% g(y) is equivalent to g(f(x),y)
++ Recently `R` has developed the native pipe operator: `|&gt;`
+
+&lt;img src="../../04-dplyr/slides/images/pipe.png" width="2203" style="display: block; margin: auto;" /&gt;
+
+---
+### dplyr Terminology
+
+There are some of the primary dplyr verbs, representing distinct data analysis tasks:
+
+`filter()`: Select specified rows of a data frame, produce subsets
+
+`arrange()`: Reorder the rows of a data frame
+
+`select()`: Select particular columns of a data frame
+
+`mutate()`: Add new or change existing columns of the data frame (as functions of existing columns)
+
+`summarise()`: Create collapsed summaries of a data frame
+
+`group_by`: Introduce structure to a data frame
+
+---
+### `filter()`
+
+.pull-left[
+
+&lt;!-- Trigger the Modal --&gt;
+&lt;img id='imgfilter' src='./images/filter.png' alt='by Allison Horst' width='100%'&gt;
+&lt;!-- The Modal --&gt;
+&lt;div id='modalfilter' class='modal'&gt;
+  &lt;!-- Modal Content (The Image) --&gt;
+  &lt;img class='modal-content' id='imgmodalfilter'&gt;
+  &lt;!-- Modal Caption (Image Text) --&gt;
+  &lt;div id='captionfilter' class='modal-caption'&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+].pull-right[
+
+&lt;!-- Trigger the Modal --&gt;
+&lt;img id='imgfilter2' src='./images/filter2.png' alt='from MDSR book' width='100%'&gt;
+&lt;!-- The Modal --&gt;
+&lt;div id='modalfilter2' class='modal'&gt;
+  &lt;!-- Modal Content (The Image) --&gt;
+  &lt;img class='modal-content' id='imgmodalfilter2'&gt;
+  &lt;!-- Modal Caption (Image Text) --&gt;
+  &lt;div id='captionfilter2' class='modal-caption'&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+]
+
+---
+### `select()`
+
+.center[
+
+&lt;!-- Trigger the Modal --&gt;
+&lt;img id='imgselect' src='./images/select.png' alt='from MDSR book' width='100%'&gt;
+&lt;!-- The Modal --&gt;
+&lt;div id='modalselect' class='modal'&gt;
+  &lt;!-- Modal Content (The Image) --&gt;
+  &lt;img class='modal-content' id='imgmodalselect'&gt;
+  &lt;!-- Modal Caption (Image Text) --&gt;
+  &lt;div id='captionselect' class='modal-caption'&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+]
+
+---
+### `mutate()`
+
+.pull-left[
+
+&lt;!-- Trigger the Modal --&gt;
+&lt;img id='imgmutate' src='./images/mutate.png' alt='by Allison Horst' width='100%'&gt;
+&lt;!-- The Modal --&gt;
+&lt;div id='modalmutate' class='modal'&gt;
+  &lt;!-- Modal Content (The Image) --&gt;
+  &lt;img class='modal-content' id='imgmodalmutate'&gt;
+  &lt;!-- Modal Caption (Image Text) --&gt;
+  &lt;div id='captionmutate' class='modal-caption'&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+].pull-right[
+
+&lt;!-- Trigger the Modal --&gt;
+&lt;img id='imgmutate2' src='./images/mutate2.png' alt='from MDSR book' width='100%'&gt;
+&lt;!-- The Modal --&gt;
+&lt;div id='modalmutate2' class='modal'&gt;
+  &lt;!-- Modal Content (The Image) --&gt;
+  &lt;img class='modal-content' id='imgmodalmutate2'&gt;
+  &lt;!-- Modal Caption (Image Text) --&gt;
+  &lt;div id='captionmutate2' class='modal-caption'&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+]
+
+---
+### `arrange()`
+
+.center[
+
+&lt;!-- Trigger the Modal --&gt;
+&lt;img id='imgarrange' src='./images/arrange.png' alt='from MDSR book' width='100%'&gt;
+&lt;!-- The Modal --&gt;
+&lt;div id='modalarrange' class='modal'&gt;
+  &lt;!-- Modal Content (The Image) --&gt;
+  &lt;img class='modal-content' id='imgmodalarrange'&gt;
+  &lt;!-- Modal Caption (Image Text) --&gt;
+  &lt;div id='captionarrange' class='modal-caption'&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+]
+
+---
+### `summarize()`
+
+.center[
+
+&lt;!-- Trigger the Modal --&gt;
+&lt;img id='imgsummarize' src='./images/summarize.png' alt='from MDSR book' width='100%'&gt;
+&lt;!-- The Modal --&gt;
+&lt;div id='modalsummarize' class='modal'&gt;
+  &lt;!-- Modal Content (The Image) --&gt;
+  &lt;img class='modal-content' id='imgmodalsummarize'&gt;
+  &lt;!-- Modal Caption (Image Text) --&gt;
+  &lt;div id='captionsummarize' class='modal-caption'&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalselect = document.getElementById('modalselect');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgselect = document.getElementById('imgselect');
+          var modalImgselect = document.getElementById('imgmodalselect');
+          var captionTextselect = document.getElementById('captionselect');
+          imgselect.onclick = function(){
+            modalselect.style.display = 'block';
+            modalImgselect.src = this.src;
+            captionTextselect.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgselect.onclick = function() {
+            modalselect.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalselect = document.getElementById('modalselect');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgselect = document.getElementById('imgselect');
+          var modalImgselect = document.getElementById('imgmodalselect');
+          var captionTextselect = document.getElementById('captionselect');
+          imgselect.onclick = function(){
+            modalselect.style.display = 'block';
+            modalImgselect.src = this.src;
+            captionTextselect.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgselect.onclick = function() {
+            modalselect.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalselect = document.getElementById('modalselect');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgselect = document.getElementById('imgselect');
+          var modalImgselect = document.getElementById('imgmodalselect');
+          var captionTextselect = document.getElementById('captionselect');
+          imgselect.onclick = function(){
+            modalselect.style.display = 'block';
+            modalImgselect.src = this.src;
+            captionTextselect.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgselect.onclick = function() {
+            modalselect.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmutate = document.getElementById('modalmutate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmutate = document.getElementById('imgmutate');
+          var modalImgmutate = document.getElementById('imgmodalmutate');
+          var captionTextmutate = document.getElementById('captionmutate');
+          imgmutate.onclick = function(){
+            modalmutate.style.display = 'block';
+            modalImgmutate.src = this.src;
+            captionTextmutate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmutate.onclick = function() {
+            modalmutate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmutate2 = document.getElementById('modalmutate2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmutate2 = document.getElementById('imgmutate2');
+          var modalImgmutate2 = document.getElementById('imgmodalmutate2');
+          var captionTextmutate2 = document.getElementById('captionmutate2');
+          imgmutate2.onclick = function(){
+            modalmutate2.style.display = 'block';
+            modalImgmutate2.src = this.src;
+            captionTextmutate2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmutate2.onclick = function() {
+            modalmutate2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalarrange = document.getElementById('modalarrange');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgarrange = document.getElementById('imgarrange');
+          var modalImgarrange = document.getElementById('imgmodalarrange');
+          var captionTextarrange = document.getElementById('captionarrange');
+          imgarrange.onclick = function(){
+            modalarrange.style.display = 'block';
+            modalImgarrange.src = this.src;
+            captionTextarrange.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgarrange.onclick = function() {
+            modalarrange.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalsummarize = document.getElementById('modalsummarize');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgsummarize = document.getElementById('imgsummarize');
+          var modalImgsummarize = document.getElementById('imgmodalsummarize');
+          var captionTextsummarize = document.getElementById('captionsummarize');
+          imgsummarize.onclick = function(){
+            modalsummarize.style.display = 'block';
+            modalImgsummarize.src = this.src;
+            captionTextsummarize.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgsummarize.onclick = function() {
+            modalsummarize.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalselect = document.getElementById('modalselect');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgselect = document.getElementById('imgselect');
+          var modalImgselect = document.getElementById('imgmodalselect');
+          var captionTextselect = document.getElementById('captionselect');
+          imgselect.onclick = function(){
+            modalselect.style.display = 'block';
+            modalImgselect.src = this.src;
+            captionTextselect.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgselect.onclick = function() {
+            modalselect.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmutate = document.getElementById('modalmutate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmutate = document.getElementById('imgmutate');
+          var modalImgmutate = document.getElementById('imgmodalmutate');
+          var captionTextmutate = document.getElementById('captionmutate');
+          imgmutate.onclick = function(){
+            modalmutate.style.display = 'block';
+            modalImgmutate.src = this.src;
+            captionTextmutate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmutate.onclick = function() {
+            modalmutate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmutate2 = document.getElementById('modalmutate2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmutate2 = document.getElementById('imgmutate2');
+          var modalImgmutate2 = document.getElementById('imgmodalmutate2');
+          var captionTextmutate2 = document.getElementById('captionmutate2');
+          imgmutate2.onclick = function(){
+            modalmutate2.style.display = 'block';
+            modalImgmutate2.src = this.src;
+            captionTextmutate2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmutate2.onclick = function() {
+            modalmutate2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalarrange = document.getElementById('modalarrange');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgarrange = document.getElementById('imgarrange');
+          var modalImgarrange = document.getElementById('imgmodalarrange');
+          var captionTextarrange = document.getElementById('captionarrange');
+          imgarrange.onclick = function(){
+            modalarrange.style.display = 'block';
+            modalImgarrange.src = this.src;
+            captionTextarrange.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgarrange.onclick = function() {
+            modalarrange.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalsummarize = document.getElementById('modalsummarize');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgsummarize = document.getElementById('imgsummarize');
+          var modalImgsummarize = document.getElementById('imgmodalsummarize');
+          var captionTextsummarize = document.getElementById('captionsummarize');
+          imgsummarize.onclick = function(){
+            modalsummarize.style.display = 'block';
+            modalImgsummarize.src = this.src;
+            captionTextsummarize.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgsummarize.onclick = function() {
+            modalsummarize.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter = document.getElementById('modalfilter');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter = document.getElementById('imgfilter');
+          var modalImgfilter = document.getElementById('imgmodalfilter');
+          var captionTextfilter = document.getElementById('captionfilter');
+          imgfilter.onclick = function(){
+            modalfilter.style.display = 'block';
+            modalImgfilter.src = this.src;
+            captionTextfilter.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter.onclick = function() {
+            modalfilter.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfilter2 = document.getElementById('modalfilter2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfilter2 = document.getElementById('imgfilter2');
+          var modalImgfilter2 = document.getElementById('imgmodalfilter2');
+          var captionTextfilter2 = document.getElementById('captionfilter2');
+          imgfilter2.onclick = function(){
+            modalfilter2.style.display = 'block';
+            modalImgfilter2.src = this.src;
+            captionTextfilter2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfilter2.onclick = function() {
+            modalfilter2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalselect = document.getElementById('modalselect');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgselect = document.getElementById('imgselect');
+          var modalImgselect = document.getElementById('imgmodalselect');
+          var captionTextselect = document.getElementById('captionselect');
+          imgselect.onclick = function(){
+            modalselect.style.display = 'block';
+            modalImgselect.src = this.src;
+            captionTextselect.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgselect.onclick = function() {
+            modalselect.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmutate = document.getElementById('modalmutate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmutate = document.getElementById('imgmutate');
+          var modalImgmutate = document.getElementById('imgmodalmutate');
+          var captionTextmutate = document.getElementById('captionmutate');
+          imgmutate.onclick = function(){
+            modalmutate.style.display = 'block';
+            modalImgmutate.src = this.src;
+            captionTextmutate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmutate.onclick = function() {
+            modalmutate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmutate2 = document.getElementById('modalmutate2');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmutate2 = document.getElementById('imgmutate2');
+          var modalImgmutate2 = document.getElementById('imgmodalmutate2');
+          var captionTextmutate2 = document.getElementById('captionmutate2');
+          imgmutate2.onclick = function(){
+            modalmutate2.style.display = 'block';
+            modalImgmutate2.src = this.src;
+            captionTextmutate2.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmutate2.onclick = function() {
+            modalmutate2.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalarrange = document.getElementById('modalarrange');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgarrange = document.getElementById('imgarrange');
+          var modalImgarrange = document.getElementById('imgmodalarrange');
+          var captionTextarrange = document.getElementById('captionarrange');
+          imgarrange.onclick = function(){
+            modalarrange.style.display = 'block';
+            modalImgarrange.src = this.src;
+            captionTextarrange.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgarrange.onclick = function() {
+            modalarrange.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalsummarize = document.getElementById('modalsummarize');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgsummarize = document.getElementById('imgsummarize');
+          var modalImgsummarize = document.getElementById('imgmodalsummarize');
+          var captionTextsummarize = document.getElementById('captionsummarize');
+          imgsummarize.onclick = function(){
+            modalsummarize.style.display = 'block';
+            modalImgsummarize.src = this.src;
+            captionTextsummarize.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgsummarize.onclick = function() {
+            modalsummarize.style.display = 'none';
+          }
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
