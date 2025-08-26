@@ -28,13 +28,12 @@ class: center, middle, inverse, title-slide
 
 
 
+## Announcements
 
-## Agenda
-
-- What is Quarto?
-- Quarto set-up
-- Looking at an actual Quarto Document
-
+- Start Lab 1 in class on Thursday!
+  + Due **Thursday September 4th, 2025 at 11:59 pm** (extra time due to Labor Day)
+  
+  
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
@@ -52,11 +51,6 @@ class: center, middle, inverse, title-slide
 
 
 **Document**: DSC365-quarto-intro-student.qmd
----
-## Announcements
-
-- Start Lab 1 in class on Thursday!
-  + Due **Thursday September 4th, 2025 at 11:59 pm** (extra time due to Labor Day)
 
 ---
 ### Replicability vs Reproducability
@@ -108,7 +102,7 @@ Available Literate Programming options with R
   - Integrates `R` output with the document text so that pictures, tables, and numerical data are all dependent on the `R` code.
 - Produces beautiful, seamless integration of statistical analysis with scientific writing
 
-&lt;img src="../../02-Quarto/slides/images/render-process.png" width="90%" height="65%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../02-Quarto/slides/images/render-process.png" alt="The rendering process for how a .qmd file becomes a html or pdf document. First the R code is ran and the outputs are translated into markdown languange. Then the markdown language is translated into a html or pdf through Pandoc." width="90%" height="65%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -153,7 +147,7 @@ install_tinytex()
 
 File -&gt; New File -&gt; Quarto Document 
 
-&lt;img src="../../02-Quarto/slides/images/quarto.jpg" width="90%" height="65%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../02-Quarto/slides/images/quarto.jpg" alt="Screenshot of the window that appears when you create a new quarto file. The first highlighted box is where you put your title. The second highlighted box indicates which output format you want your document to render to. The final highlighted box at the bottom will create a .qmd document with those two specifications." width="90%" height="65%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Contents of a .qmd
@@ -162,12 +156,12 @@ File -&gt; New File -&gt; Quarto Document
 2. Code chunks beginning with ````{r}`
 3. Text mixed with simple text formatting (the markdown)
 
-&lt;img src="../../02-Quarto/slides/images/quarto-document.png" width="90%" height="65%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../02-Quarto/slides/images/quarto-document.png" alt="A Screenshot of a simple Quarto document. Labeled are the three pieces of content found in a qmd document." width="90%" height="65%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Let's Render this document
 
-&lt;img src="../../02-Quarto/slides/images/quarto-run.png" width="3432" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../02-Quarto/slides/images/quarto-run.png" alt="Screenshot of RStudio from after a Quarto document is rendered. The rendered document appears on the right within the Viewer Tab." width="3432" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -176,7 +170,7 @@ File -&gt; New File -&gt; Quarto Document
 
 The stuff at the top of the .amd file (called YAML front matter) tells **quarto** what output format you want. 
 
-&lt;img src="../../02-Quarto/slides/images/yaml.png" width="60%" height="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../02-Quarto/slides/images/yaml.png" alt="Zoomed in screenshot of the YAML, which is located at the top of the Quarto document. The title and format of the output is requried, but the author and date are optional pieces." width="60%" height="40%" style="display: block; margin: auto;" /&gt;
 
 &lt;br&gt;
 
@@ -188,7 +182,7 @@ In this case, when you click "Render", RStudio calls `quarto::quarto_render("doc
 In .qmd files, you can start/end a code chunk with three back-ticks. `quarto` knows that text is R code if it is included in a chunk.
 
 
-&lt;img src="../../02-Quarto/slides/images/code-chunk.png" width="2120" /&gt;
+&lt;img src="../../02-Quarto/slides/images/code-chunk.png" alt="Zoomed in screenshot of a code chunk highlighting it's different components. In the upper right corner there is a green arrow, this is used to run a code chunk to preview results." width="2120" /&gt;
 
 
 When you render your .qmd file, Quarto will run each code chunk and embed the results beneath the code chunk in your final report.
@@ -200,7 +194,7 @@ When you render your .qmd file, Quarto will run each code chunk and embed the re
 .pull-left[
 Option 1:
 
-&lt;img src="../../02-Quarto/slides/images/create-code-chunk.png" width="70%" height="70%" /&gt;
+&lt;img src="../../02-Quarto/slides/images/create-code-chunk.png" alt="To create a new code chunk, you can press the green squared with a plus sign, which is located to the top right of your editor window." width="70%" height="70%" /&gt;
 ].pull-right[
 Option 2:
 
@@ -253,7 +247,7 @@ You can also **bold** important words
 ---
 ### Visual Editor
 
-&lt;img src="../../02-Quarto/slides/images/visual-editor.png" width="2515" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../02-Quarto/slides/images/visual-editor.png" alt="Screenshot of the Editor Window if you choose to use the visual editor. This will bring up options that look more like Word." width="2515" style="display: block; margin: auto;" /&gt;
 
 
 ---
