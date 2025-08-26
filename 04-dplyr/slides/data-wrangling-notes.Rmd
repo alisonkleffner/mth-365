@@ -104,9 +104,9 @@ class:inverse
 ---
 ### What is Data Wrangling?
 
-Most **Data Sets** are made up of *rows* and *columns*. They are  a collection of *values*: these can be *numbers* (quantitative) or character *strings* (qualitative)
+Most **datasets** are made up of *rows* and *columns*. They are  a collection of *values*: these can be *numbers* (quantitative) or character *strings* (qualitative)
 
-**Data Wrangling** can be defined as the process of cleaning, organizing, and transforming  raw data into the desired format for analysts to use for prompt decision making. Also known as data cleaning.
+**Data Wrangling** can be defined as the process of cleaning, organizing, and transforming  raw data into the desired format for analysts to use for prompt decision making. 
 
 ```{r, echo=FALSE}
 
@@ -138,7 +138,7 @@ knitr::include_graphics("../../04-dplyr/slides/images/tidy-data-illustration.png
 
 ```
 
-Real datasets can, and often do, violate the three principles of tidy data in almost every way imaginable! Even when they do, sometimes we don't need the whole data for analysis. 
+Real datasets can, and often do, violate the three principles of tidy data in almost every way imaginable! 
 
 ---
 ### Data is usually in a spreadsheet format, but
@@ -169,9 +169,6 @@ knitr::include_graphics("../../04-dplyr/slides/images/tidy-data.png")
 ```
 ]
 
---
-
-Neither 1 or 2 are "clean" versions of the data: information is part of the data structure; some implicit information is assumed
 
 ---
 ### dplyr
@@ -228,6 +225,8 @@ There are some of the primary dplyr verbs, representing distinct data analysis t
 ---
 ### `filter()`
 
+`filter()`: Select specified rows of a data frame, produce subsets
+
 .pull-left[
 
 ```{r, results='asis', echo=FALSE, fig.align='center'}
@@ -257,6 +256,8 @@ c(str_split(i2, "\\n", simplify = T)[1:2],
 ---
 ### `select()`
 
+`select()`: Select particular columns of a data frame
+
 .center[
 
 ```{r, results='asis', echo=FALSE, fig.align='center'}
@@ -273,6 +274,8 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 ---
 ### `mutate()`
+
+`mutate()`: Add new or change existing columns of the data frame (as functions of existing columns)
 
 .pull-left[
 
@@ -303,6 +306,8 @@ c(str_split(i2, "\\n", simplify = T)[1:2],
 ---
 ### `arrange()`
 
+`arrange()`: Reorder the rows of a data frame
+
 .center[
 
 ```{r, results='asis', echo=FALSE, fig.align='center'}
@@ -319,6 +324,8 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 ---
 ### `summarize()`
+
+`summarise()`: Create collapsed summaries of a data frame
 
 .center[
 

@@ -24,7 +24,6 @@ Today we will work with two packages: `datasauRus` which contains the data set, 
 Install these packages by running the following code. You can do that in a Quarto document by clicking the green arrow "Run" button. You should have installed `tidyverse` already last week.
 
 ```{r}
-#install.packages("tidyverse")
 #install.packages("datasauRus")
 ```
 
@@ -35,7 +34,7 @@ You only need to do this one time! Once a package is installed on your computer,
 Now that the packages are installed, you'll need to load them to work with the functions and data within. You can load packages using the `library()` command.
 
 ```{r}
-#| message: false
+#| message=  FALSE
 library(tidyverse) 
 library(datasauRus)
 ```
@@ -51,6 +50,7 @@ In data science, of course, we will work with data. Then, what is data? In fact,
 ```{r}
 
 ```
+
 In a data frame, each row is an *observation* and each column is a *variable*. Each observation should have the same number of variables. If not, we have a *list*, which we will not cover in this course. 
 
 In the last class, we went through a couple of ways to extract certain variable/observation from the data frame in basic R. The data frame you'll work with today is called `datasaurus_dozen` and it's in the `datasauRus` package. Actually, this single data frame contains 13 datasets. The different datasets are marked by the `dataset` variable.
@@ -156,7 +156,8 @@ And we can use the `group_by` function to generate all the summary correlation c
 ```{r}
 datasaurus_dozen %>%
   group_by(dataset) %>%
-  summarize(r = cor(x, y))
+  summarize(r = cor(x, y),
+            y_avg = mean(y))
 ```
 
 
