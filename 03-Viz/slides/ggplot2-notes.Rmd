@@ -40,7 +40,9 @@ knit_hooks$set(output = function(x, options) {
 - Will Discuss Mini-Project 1 on Thursday
   + Due **Thursday September 18th, 2025 at 12:29 pm** (ie. before class starts)
 
-
+- Quiz #1
+  + Last 30 Minutes on Thursday September 11
+  + Quarto, ggplot2, dplyr 
 ---
 
 ```{r, echo=FALSE, fig.align='center'}

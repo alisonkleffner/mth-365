@@ -731,5 +731,74 @@ Be careful about data types/classes
   - Think about your data in context, e.g. 0/1 variable is most likely a `factor`
   - If you are absolutely sure of a data class, overwrite it in your tibble so that you don't need to keep having to keep track of it
   - `mutate` the variable with the correct class
+
+---
+class:inverse
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+.center[
+# Data Science Ethics
+
+]
+---
+## Data Science Ethics
+
+Ethics in Data Science refers to the responsible and ethical use of the data throughout the entire data lifecycle. This includes the collection, storage, processing, analysis, and interpretation of various data
+
+One of the best selling "statistics" books is called *How to Lie with Statistics* by Darrell Huff (1954)
+  - Shows graphical tools to fool people even with accurate data that are still in use. 
   
+As data scientists, we can play a role in shape discourse, so what responsibilities do we have?
+
+---
+## ASA Guidelines for Statistical Practice
+
+Revised in 2022: [Link](https://www.amstat.org/docs/default-source/amstat-documents/ethicalguidelines.pdf?Status=Master&sfvrsn=bdeeafdd_6/)
+
+Some highlights: 
+
+- Protect and respect the rights and interests of human and animal subjects
+  + Data privacy (ex. HIPAA)
+  + Consider how your study would impact society, groups, and individuals (Remember the numbers are real people)
+- Uses methodology and data that are valid, relevant, and appropriate, without favoritism or prejudice.
+  + Ask for help if you don't know how to do something properly
+- Promotes reproducibility and replication, whether results are “significant” or not, by sharing data, methods, and documentation to the extent possible.
+- Don't only present significant results
+
+---
+## Algorithmic Bias
+
+Algorithmic bias occurs when algorithms make decisions that systematically disadvantage certain groups of people
+
+- Biased data -> biased algorithms
+  + Ex. Some groups of people may be underrepresented or systematically excluded from data science efforts
+  
+  
+Some examples:
+
+- Gender data gap
+  + Products, services and strategies are being generalized to women when the research behind them is not based on data involving women
+- Facial Recognition software: 
+  + Joy Buolamwini, a Ghanaian-American graduate student at MIT discovered that the dataset on which many of facial-recognition algorithms are tested contains 78 percent male faces and 84 percent white faces [(further reading)](http://proceedings.mlr.press/v81/buolamwini18a/buolamwini18a.pdf)
+
+---
+### Is this Ethical? Discuss.
+
+In the United States, most students apply for grants or subsidized loans to finance their college education. Part of this process involves filling in a federal government form called the Free Application for Federal Student Aid (FAFSA). The form asks for information about family income and assets. The form also includes a place for listing the universities to which the information is to be sent. The data collected by FAFSA includes confidential financial information (listing the schools eligible to receive the information is effectively giving permission to share the data with them).
+
+It turns out that the order in which the schools are listed carries important information. Students typically apply to several schools, but can attend only one of them. Until recently, admissions offices at some universities used the information as an important part of their models of whether an admitted student will accept admissions. The earlier in a list a school appears, the more likely the student is to attend that school.
+
+Here’s the catch from the student’s point of view. Some institutions use statistical models to allocate grant aid where it is most likely to help ensure that a student enrolls. For these schools, the more likely a student is deemed to accept admissions, the lower the amount of grant aid they are likely to receive.
+
+[Resource](https://mdsr-book.github.io/mdsr2e/ch-ethics.html)
+
  
