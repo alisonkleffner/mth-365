@@ -139,13 +139,13 @@ A general guideline is to use simplicity in the design.
 - Beauty with the addition of unnecessary features does not always equal good content as attention is limited 
 
 ---
-## Show the Data Clearly
+### Show the Data Clearly
 
 Here authors wanted to display the relationship between the average lifespan and lifespan standard deviation of different countries by labeling each point by sex and education level. Additionally, they denoted the country, represented by each point, by including its name on the chart
 
 .pull-left[
 ```{r, results='asis', echo=FALSE, fig.align='center', out.width="70%"}
-i1 <- img_modal(src = "../../Week 5/slides/images/unclear-graph.png", alt = "")
+i1 <- img_modal(src = "../slides/images/unclear-graph.png", alt = "")
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i1, "\\n", simplify = T)[3:9]
@@ -154,7 +154,7 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 ```
 ].pull-right[
 ```{r, results='asis', echo=FALSE, fig.align='center'}
-i1 <- img_modal(src = "../../Week 5/slides/images/better-graph.png", alt = "")
+i1 <- img_modal(src = "../slides/images/better-graph.png", alt = "")
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i1, "\\n", simplify = T)[3:9]
@@ -163,7 +163,7 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 ```
 ]
 ---
-## Show the Data Clearly: Preattentive Features
+### Show the Data Clearly: Preattentive Features
 
 Pre-Attentive Features are things that "jump out" in less than 500 ms
 
@@ -176,7 +176,7 @@ Reduces the amount of work users of your graph have to do when they view it
 
 ---
 class:primary
-# Find the Target
+### Find the Target
 
 ```{r, fig.align="center", out.height="60%", out.width="60%", echo = FALSE}
 data <- data.frame(expand.grid(x = 1:6, y = 1:6), color = factor(sample(c(1, 2), 36, replace = TRUE)))
@@ -194,7 +194,7 @@ how quickly did you spot the circle?
 
 ---
 class:primary
-# Find the Target
+### Find the Target
 
 ```{r, fig.align="center", out.height="60%", out.width="60%", echo = FALSE}
 data$shape <- factor(c(rep(2, 25), 1, rep(2, 10)))
@@ -204,7 +204,32 @@ ggplot(data, aes(x, y)) + geom_point(aes(colour = shape), size = 5, shape = I(19
 
 
 ---
-## Show Data Clearly: Pie vs Bar Chart
+class:primary
+### Preattentive Features
+
+.pull-left[
+**Shape/Color**: Dual-Encoded
+
+```{r, fig.align="center", echo = FALSE}
+data$shape <- factor(sample(c(1, 2), 36, replace = TRUE))
+
+
+ggplot(data, aes(x, y)) + geom_point(aes(colour = shape, shape = shape), size = 5) + theme_void() + theme(legend.position = "none") + scale_colour_brewer(palette="Dark2")
+```
+].pull-right[
+
+**Shape/Color**: Separate Variables
+
+```{r, fig.align="center", echo = FALSE}
+data$shape <- factor(sample(c(1, 2), 36, replace = TRUE))
+
+
+ggplot(data, aes(x, y)) + geom_point(aes(colour = shape, shape = color), size = 5) + theme_void() + theme(legend.position = "none") + scale_colour_brewer(palette="Dark2")
+```
+]
+
+---
+### Show Data Clearly: Pie vs Bar Chart
 
 .pull-left[
 ```{r diamonds1, echo = FALSE, fig.align='center'}
@@ -231,20 +256,18 @@ diamonds %>% ggplot() + geom_bar(aes(x=cut,fill = cut)) + ggtitle("Bar Chart")
 
 Anything that can be put into a pie chart can also be put into a bar chart
 
-- Research has shown that people have more difficulty with angle measurements than length measurements, so always prefer bar chart over pie chart. 
+- Research has shown that people have more difficulty with angle measurements than length measurements, so always prefer bar chart over pie chart [(paper)](https://www.jstor.org/stable/2288400?seq=1). 
 
 
 
 ---
-## Show Data Clearly: Color
+### Show Data Clearly: Color
 
 + Hue: shade of color (red, orange, yellow...)
 
 + Intensity: amount of color
 
 + Both color and hue are pre-attentive. Bigger contrast corresponds to faster detection.
-
-+ Use color to your advantage
 
 + When choosing color schemes, we will want mappings from data to color that are not just numerically but also perceptually uniform
   - Avoid rainbow color gradients
@@ -255,16 +278,16 @@ Anything that can be put into a pie chart can also be put into a bar chart
   - Leverage common association
 
 ---
-## Color
+### Color
 
 Our eyes are optimized for perceiving the yellow/green region of the color spectrum
 
 ```{r, echo=FALSE, fig.align='center', out.width="60%"}
-knitr::include_graphics("../../Week 5/slides/images/color-spectrum.png")
+knitr::include_graphics("../slides/images/color-spectrum.png")
 ```
 
 ---
-## Gradients
+### Gradients
 
 Qualitative schemes: no more than 7 colors
 
@@ -315,11 +338,11 @@ qplot(xmin = x-.5, xmax = x+.5, ymin = 0, ymax = 1, data = data, geom = "rect", 
 ```
 
 ---
-## Color Blindness
+### Color Blindness
 
 Not everyone perceives color in the same way. Some individuals have [colorblindness or color deficiencies](https://en.wikipedia.org/wiki/Color_blindness).
 
-You can take a test designed to screen for colorblindness [here](https://www.eyeque.com/color-blind-test/test/).
+You can take a test designed to screen for colorblindness [here](https://eyeque.com/color-blind-test/).
 
 Suggestions:
 + Design for a black-and-white photocopier
@@ -331,7 +354,7 @@ Suggestions:
 + The `viridis package` (from last week's lab) contains a set of color scales designed to span as wide a palette as possible, making it easier to see differences in your data and are also perceptually uniform.
 
 ---
-## Example: Hair Color
+### Example: Hair Color
 
 The data `HairEyeColor` provides the information of hair colors and eye colors in a statistics class. The data is recorded in a three-way table. The first step is to convert the data into a column-wise data frame.
 
@@ -356,8 +379,7 @@ hairData
 Suppose now we want to see the distribution of hair color in this class. What kind of the plot we should use?
 
 ---
-
-## Example: Hair Color
+### Example: Hair Color
 
 What is the difference between these two?
 .pull-left[
@@ -380,7 +402,7 @@ hairData %>%
 ]
 
 ---
-## Example: Hair Color
+### Example: Hair Color
 
 It is a little weird that the color in the visualization does not match the color. Let’s try to define the color by ourselves. 
 ```{r, fig.align='center', fig.height=5, fig.width=8}
@@ -392,7 +414,7 @@ ggplot(hairData, aes(x = Hair, y = Freq)) +
 ```
 
 ---
-## Example: Hair Color
+### Example: Hair Color
 
 You may have realized that in the previous figure, the color red and brown are pretty close. For an extreme case, what if you have a reader who is color-blind? There are a lot of [research](https://jfly.uni-koeln.de/color/) on which palette then to use.
 
@@ -405,7 +427,7 @@ ggplot(hairData, aes(x = Hair, y = Freq)) +
 ```
 
 ---
-## Try it for yourself!!
+### Try it for yourself!!
 
 Now try by yourself (or with a group) with another type of figure.
 
@@ -441,17 +463,18 @@ class:inverse
 ]
 
 ---
-## Common Ways to Misreprsent Data
+### Common Ways to Misreprsent Data
 
 - Scales!
 - Omitting Data
 - Cherry picking the data
 - Misleading pie chart/Using the wrong chart type
 
+<br>
 
 ```{r, results='asis', echo=FALSE, fig.align='center'}
 
-i1 <- img_modal(src = "../../Week 5/slides/images/comp-graphs.PNG", alt = "")
+i1 <- img_modal(src = "../slides/images/comp-graphs.PNG", alt = "")
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i1, "\\n", simplify = T)[3:9]
@@ -460,15 +483,15 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 ```
 
 ---
-## What's Wrong with These Plots?
+### What's Wrong with These Plots?
 
 Identify the issues with the plots, and talk about how you would fix them?
 
 .pull-left[
 ```{r, results='asis', echo=FALSE, fig.align='center'}
 
-i1 <- img_modal(src = "../../Week 5/slides/images/bad-pie.PNG", alt = "")
-i3 <- img_modal(src = "../../Week 5/slides/images/bad-gas.PNG", alt = "")
+i1 <- img_modal(src = "../slides/images/bad-pie.PNG", alt = "")
+i3 <- img_modal(src = "../slides/images/bad-color.PNG", alt = "")
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i3, "\\n", simplify = T)[1:2],
@@ -481,8 +504,8 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 ```{r, results='asis', echo=FALSE, fig.align='center'}
 
-i2 <- img_modal(src = "../../Week 5/slides/images/bad-line.PNG", alt = "")
-i4 <- img_modal(src = "../../Week 5/slides/images/bad-bar.PNG", alt = "")
+i2 <- img_modal(src = "../slides/images/bad-line.PNG", alt = "")
+i4 <- img_modal(src = "../slides/images/bad-bar.PNG", alt = "")
 
 
 c(str_split(i2, "\\n", simplify = T)[1:2],
@@ -502,8 +525,8 @@ c(str_split(i2, "\\n", simplify = T)[1:2],
 .pull-left[
 ```{r, results='asis', echo=FALSE, fig.align='center'}
 
-i1 <- img_modal(src = "../../Week 5/slides/images/election-state.PNG", alt = "")
-i3 <- img_modal(src = "../../Week 5/slides/images/election-pop.PNG", alt = "")
+i1 <- img_modal(src = "../slides/images/election-state.PNG", alt = "")
+i3 <- img_modal(src = "../slides/images/election-pop.PNG", alt = "")
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i3, "\\n", simplify = T)[1:2],
@@ -516,7 +539,7 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 ```{r, results='asis', echo=FALSE, fig.align='center'}
 
-i2 <- img_modal(src = "../../Week 5/slides/images/electoral.PNG", alt = "")
+i2 <- img_modal(src = "../slides/images/electoral.PNG", alt = "")
 
 
 c(str_split(i2, "\\n", simplify = T)[1:2],
@@ -525,23 +548,28 @@ c(str_split(i2, "\\n", simplify = T)[1:2],
 
 ```
 
+<br>
+<br>
+
+[Other Examples](https://www.flerlagetwins.com/2020/10/presidential-election.html)
+
 ]
 
 .center[
 [Source 1](https://storymaps.arcgis.com/stories/427c500cfa5f459590671a8d060c4ab4) and [Source 2](https://medium.com/swlh/the-problem-with-election-maps-443b3a941dc7)
 ]
 ---
-## Visualzing Uncertainty
+### Visualzing Uncertainty
 
 - Uncertainty is fundamental to data analysis and models
 - Effectively communicating uncertainty in visualization is hard and is still being researched. 
-- Can be important to include, but don't present the. uncertainty information, without describing in detail what it means.
+- Don't present the uncertainty information without describing what it means.
 
 
 .pull-left[
 ```{r, results='asis', echo=FALSE, fig.align='center'}
 
-i1 <- img_modal(src = "../../Week 5/slides/images/mean-interval.PNG", alt = "")
+i1 <- img_modal(src = "../slides/images/mean-interval.PNG", alt = "")
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i1, "\\n", simplify = T)[3:9]
@@ -551,7 +579,7 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 ].pull-right[
 ```{r, results='asis', echo=FALSE, fig.align='center'}
 
-i3 <- img_modal(src = "../../Week 5/slides/images/hurricane.PNG", alt = "")
+i3 <- img_modal(src = "../slides/images/hurricane.PNG", alt = "")
 
 c(str_split(i3, "\\n", simplify = T)[1:2],
   str_split(i3, "\\n", simplify = T)[3:9]
@@ -578,15 +606,16 @@ class:inverse
 ]
 
 ---
-## Writing About Your Figure
+### Writing About Your Figure
 
 Your visualizations should include:
 
 - Clearly labeled axes
 - Clear and descriptive captions
 - Readable and easily understandable legends (if applicable)
+
 ---
-## Labels
+### Labels
 
 (a). Use plain English $\\$
 (b). If there is mathematically symbols in your label, use `expression`:
@@ -601,11 +630,11 @@ ggplot(xy, aes(x = x, y=y)) +
 ```
 
 ---
-## Captions
+### Captions
 
 There are two ways of writing a caption:
 
-1. In-Figure Style
+1). In-Figure Style
 
 ```{r, fig.height=3.5, fig.width=8, fig.align='center'}
 ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, group=Species)) + 
@@ -616,38 +645,41 @@ ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, group=Species)) +
 ```
 
 ---
-## Captions
+### Captions
 
-2.. Formal report style: use descriptive caption
+2). Formal report style: use descriptive caption
 
-1. It is not included in the figure. Usually placed below the figure.
-2. Starts with the word “figure” or “table” followed by a number and a colon
-3. One sentence to clearly explained What and How is being compared
-4. One sentence to summarize the main conclusion.
-5. Any other necessary context
++ It is not included in the figure. Usually placed below the figure.
++ Starts with the word “figure” or “table” followed by a number and a colon
++ One sentence to clearly explained What and How is being compared
++ One sentence to summarize the main conclusion.
++ Any other necessary context
 
 ```{r, echo = FALSE, fig.align='center'}
-knitr::include_graphics("../../Week 5/slides/images/fig-caption.png")
+knitr::include_graphics("../slides/images/fig-caption.png")
 ```
 
+**Note**: label not required, but can be useful for [cross-referencing](https://quarto.org/docs/authoring/cross-references.html)
 ---
-## Captions
+### Captions
 
 What this then looks like:
 
 ```{r, echo = FALSE, fig.align='center'}
-knitr::include_graphics("../../Week 5/slides/images/with-caption.png")
+knitr::include_graphics("../slides/images/with-caption.png")
 ```
----
-## Captions
 
-The caption only shows in the knit version of documents. Why we need a descriptive caption? How to check whether you have written a good descriptive caption?
+
+---
+### Captions
+
+The caption only shows in the rendered version of documents. Why we need a descriptive caption? How to check whether you have written a good descriptive caption?
 
 - The reader can capture your main argument without seeing the figure
 - The reader can capture the context of your figure without reading the other analysis in the formal report.
 
 ---
-## Writing About Figures in Reports
+### Writing About Figures in Reports
 
 A formal data analysis report requires you to answer the question with a figure and explain the potential reasons behind the figure image. Sometimes you need multiple figures to answer one question and sometimes you can answer multiple questions with one figure.
 
@@ -660,30 +692,7 @@ Once you generate one figures, here is what you should do:
 - Provide potential reasons and explain the conclusion
 
 ---
-## Word Choice
-
-In data writing, it is quite important that you know how to use different word to show your confidence in the statement. This is subjective but here is a list of words you may need, listed from the highest confidence to the lowest:
-
-`demonstrates`
-
-`shows`
-
-`indicates`
-
-`illustrates`
-
-`reveals`
-
-`suggests`
-
-`might indicate`
-
-`may suggest`
-
-`seems to suggest`
-
----
-## Example: Writing About Figures in Reports
+### Example: Writing About Figures in Reports
 
 Figure 2 indicates that there is no linear relationship between iris sepal width and petal width since the scatter plot did not show a clear linear shape on the distribution of the point.
 
