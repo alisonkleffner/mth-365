@@ -1,61 +1,125 @@
 ---
-title: "Week 5: Data Communication and Ethics"
+title: "Data Communication"
 author: 'DSC 365: Introduction to Data Science'
-date: "September 17, 2024"
-format: pdf
+date: "September 16, 2025"
+format: html
 ---
 
-```{r echo=FALSE, message=FALSE, warning = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
 library(tidyverse)
 library(knitr)
 library(RColorBrewer)
 ```
 
---------------------------------------------------------------------------
-# Data Science Ethics
+# Example: Hair Color
 
-Ethics in Data Science refers to the responsible and ethical use of the data throughout the entire data lifecycle. This includes the collection, storage, processing, analysis, and interpretation of various data
+The data `HairEyeColor` provides the information of hair colors and eye colors in a statistics class. The data is recorded in a three-way table. The first step is to convert the data into a column-wise data frame.
 
-One of the best selling "statistics" books is called *How to Lie with Statistics* by Darrell Huff (1954)
-  - Shows graphical tools to fool people even with accurate data that are still in use. 
-  
-As data scientists, we can play a role in shape discourse, so what responsibilities do we have?
+```{r}
+data(HairEyeColor)
+#HairEyeColor[,,1] #Male
+#HairEyeColor[,,2] #Female
 
-## ASA Guidelines for Statistical Practice
+newdata_male = as.data.frame(HairEyeColor[,,1]) 
+newdata_female = as.data.frame(HairEyeColor[,,2]) 
+newdata = rbind(newdata_male, newdata_female)
+newdata = newdata %>% 
+  mutate(Gender = rep(c("Male", "Female"), each  = 16))
 
-Revised in 2022: [Link](https://www.amstat.org/docs/default-source/amstat-documents/ethicalguidelines.pdf?Status=Master&sfvrsn=bdeeafdd_6/)
+hairData = newdata %>% 
+  group_by(Hair) %>%
+  summarise(Freq = sum(Freq))
 
-Some highlights: 
+hairData
+```
 
-- Protect and respect the rights and interests of human and animal subjects
-  + Data privacy (ex. HIPAA)
-  + Consider how your study would impact society, groups, and individuals (Remember the numbers are real people)
-- Uses methodology and data that are valid, relevant, and appropriate, without favoritism or prejudice.
-  + Ask for help if you don't know how to do something properly
-- Promotes reproducibility and replication, whether results are “significant” or not, by sharing data, methods, and documentation to the extent possible.
-- Don't only present significant results
+Suppose now we want to see the distribution of hair color in this class. What kind of the plot we should use?
 
-## Algorithmic Bias
+What is the difference between these two?
+```{r}
+hairData %>% 
+  ggplot(aes(x=Hair, y=Freq)) + 
+  geom_col(aes(color = Hair)) #<<
+```
 
-Algorithmic bias occurs when algorithms make decisions that systematically disadvantage certain groups of people
+```{r}
+hairData %>% 
+  ggplot(aes(x=Hair, y=Freq)) +  
+  geom_col(aes(fill = Hair)) #<<
+```
 
-- Biased data -> biased algorithms
-  + Ex. Some groups of people may be underrepresented or systematically excluded from data science efforts
-  
-  
-Some examples:
+It is a little weird that the color in the visualization does not match the color. Let’s try to define the color by ourselves.
 
-- Gender data gap
-  + Products, services and strategies are being generalized to women when the research behind them is not based on data involving women
-- Facial Recognition software: 
-  + Joy Buolamwini, a Ghanaian-American graduate student at MIT discovered that the dataset on which many of facial-recognition algorithms are tested contains 78 percent male faces and 84 percent white faces [(further reading)](http://proceedings.mlr.press/v81/buolamwini18a/buolamwini18a.pdf)
+```{r}
 
-### Is this Ethical? Discuss.
+ggplot(hairData, aes(x = Hair, y = Freq)) + 
+  geom_col(aes(fill = Hair)) +
+  scale_fill_manual(breaks = c("Black", "Brown", "Red", "Blond"), #<<
+                    values=c("black", "brown", "red", "yellow")) #<<
+```
 
-In the United States, most students apply for grants or subsidized loans to finance their college education. Part of this process involves filling in a federal government form called the Free Application for Federal Student Aid (FAFSA). The form asks for information about family income and assets. The form also includes a place for listing the universities to which the information is to be sent. The data collected by FAFSA includes confidential financial information (listing the schools eligible to receive the information is effectively giving permission to share the data with them).
 
-It turns out that the order in which the schools are listed carries important information. Students typically apply to several schools, but can attend only one of them. Until recently, admissions offices at some universities used the information as an important part of their models of whether an admitted student will accept admissions. The earlier in a list a school appears, the more likely the student is to attend that school.
+You may have realized that in the previous figure, the color red and brown are pretty close. For an extreme case, what if you have a reader who is color-blind? There are a lot of [research](https://jfly.uni-koeln.de/color/) on which palette then to use.
 
-Here’s the catch from the student’s point of view. Some institutions use statistical models to allocate grant aid where it is most likely to help ensure that a student enrolls. For these schools, the more likely a student is deemed to accept admissions, the lower the amount of grant aid they are likely to receive.
+```{r}
+cbPalette <- c("#000000","#E69F00","#56B4E9","#009E73","#F0E442")
 
-[Resource](https://mdsr-book.github.io/mdsr2e/ch-ethics.html)
+ggplot(hairData, aes(x = Hair, y = Freq)) + 
+  geom_col(aes(fill = Hair)) +
+  scale_fill_manual(values=cbPalette)
+```
+
+### Try it for yourself!!
+
+Now try by yourself (or with a group) with another type of figure.
+
+(a). Use the iris data below. Plot the figure to show the relation between Sepal.Length and Petal.Length.
+```{r}
+data(iris)
+```
+
+(b). Use colors to distinguish the species. Which function you have used? fill or color?
+
+(c). Use red to represents `virginica`, blue to represents `versicolor`, and yellow to represents `setosa`.
+
+(d). Use the color blind friendly color to distinguish three different species
+
+(e). Besides of the color, use different shape of the points to represents the difference (Hint: Use Google or the Help Documentation).
+
+
+# Captions
+
+There are two ways of writing a caption:
+
+1). In-Figure Style
+
+```{r}
+#| fig-align: center
+
+ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, group=Species)) + 
+  geom_point(aes(color = Species, shape = Species)) + 
+  xlab("Sepal Length") + 
+  ylab("Patal Length") +
+  ggtitle("Relation between Sepal Length and Petal Length") #<<
+```
+
+
+2). Formal report style: use descriptive caption
+
+```{r}
+#| label: fig-fig1
+#| fig-cap: "Scatter plot between Iris sepal length and Iris petal length. Different species are indicated by different color and shapes. In general, the length of the sepal and petal for Iris have a strong positive linear relationship."
+
+ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, group=Species)) + 
+  geom_point(aes(color = Species, shape = Species)) + 
+  xlab("Sepal Length") + 
+  ylab("Patal Length") +
+  ggtitle("Relation between Sepal Length and Petal Length") #<<
+```
+
+
+@fig-fig1 is a scatterplot (cross-reference example)

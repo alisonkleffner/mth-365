@@ -32,7 +32,17 @@ glimpse(gapminder)
 Picks columns from data frame. Suppose we only want the gdp and region column
 
 ```{r}
+gapminder %>% 
+  select(gdp, region) %>%
+  head() #show only first 6 rows
 
+gapminder %>% 
+  select(region, gdp) %>%
+  head() #show only first 6 rows
+
+gapminder %>% 
+  select(-gdp, -region) %>% # all columns but gdp/region
+  head() #show only first 6 rows
 ```
 
 ### 2. `filter()`
@@ -57,19 +67,38 @@ Selects every element of each row with the indicated filter value
 Suppose we only want data from the year 2000.
 
 ```{r}
+gapminder2000 <- gapminder %>%
+  filter(year == 2000)
+
+gapminder %>%
+  filter(country == "Albania")
 
 ```
 
 We can also combine functions!
 
 ```{r}
+gapminder %>%
+  filter(year == 2000) %>%
+  select(gdp, region)
 
+gapminder %>%
+  select(gdp, region) %>% #doesn't work :(
+  filter(year == 2000) 
 ```
 
 Now, let's take a look at the scatter plot between fertility and infant_mortality for year 2000 only.
 
 ```{r, warning=FALSE}
+gapminder %>%
+  filter(year == 2000) %>%
+  ggplot(aes(x = fertility, y = infant_mortality)) +
+  geom_point()
 
+gapminder2000 %>% #same thing as above
+  ggplot(aes(x = fertility, y = infant_mortality)) +
+  geom_point()
+  
 ```
 
 ### 3. `mutate()`
@@ -79,7 +108,12 @@ Now, let's take a look at the scatter plot between fertility and infant_mortalit
 Example: We'd like to calculate the gross domestic product per capita. 
 
 ```{r}
+gapminder %>%
+  mutate(gdp_pc = gdp/population) %>%
+  head()
 
+gapminder = gapminder %>%
+  mutate(gdp_pc = gdp/population)
 ```
 
 ### 4. `arrange()`
@@ -89,8 +123,17 @@ A way to sort/order your data in ascending or descending order
 How do we find out which countries have the high GDP per capital? Right now, the data is sorted by country, then year. We could use the `arrange()` command to resort in terms of another variable.
 
 ```{r}
+gapminder %>%
+  select(country, gdp_pc) %>%
+  arrange(gdp_pc) #default: ascending
 
+gapminder %>%
+  select(country, gdp_pc) %>%
+  arrange(desc(gdp_pc))
 
+gapminder %>%
+  select(country, gdp_pc) %>%
+  arrange(country, desc(gdp_pc))
 ```
 
 ### 5. `summarize()`
@@ -98,19 +141,28 @@ How do we find out which countries have the high GDP per capital? Right now, the
 If we want to compare summary statistics, we might use `summarize()`.
 
 ```{r}
-
+gapminder %>%
+  summarise(avg_gdp = mean(gdp),
+            sd_gdp = sd(gdp))
 ```
 
 Wait, why are these NAs?
 
 ```{r}
-
+gapminder %>%
+  filter(gdp != "NA") %>%
+  summarise(avg_gdp = mean(gdp),
+            sd_gdp = sd(gdp))
 ```
 
 The `summarize()` function sometimes go with `group_by` function. Instead of giving the summary information for the whole data, with a `group_by` function, it provides the summary information by groups.
 
 ```{r}
-
+gapminder %>%
+  filter(gdp != "NA") %>%
+  group_by(continent) %>%
+  summarise(avg_gdp = mean(gdp),
+            sd_gdp = sd(gdp))
 ```
 
 ### Try it for yourself
@@ -238,8 +290,7 @@ Use a common variable, called a *key*, to link the data.
 ### `inner_join()`
 
 ```{r}
-flights_carrier = flights %>%
-  inner_join(airlines, by = c("carrier" = "carrier"))
+flights_carrier <- inner_join(flights, airlines, by = "carrier")
 
 ```
 
