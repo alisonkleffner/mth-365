@@ -1,0 +1,448 @@
+---
+title: "DSC365: Introduction to Data Science"
+author: "tidyr and Function Writing"
+date: "September 23, 2025"
+format: html
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(knitr)
+library(RColorBrewer)
+```
+
+--------------------------------------------------------------------------------
+
+# tidyr
+
+### Throwback: What is tidy data?
+
+Remember: “Tidy” data is a standard way of mapping the meaning of a data set to its structure.
+
+1. Each variable forms a column.
+2. Each observation forms a row.
+3. Each type of observational unit forms a table.
+
+Any other arrangement of the data is called “messy”.
+
+Real data sets can, and often do, violate the three principles of tidy data in almost every way imaginable! 
+
+### What Makes Data tidy? Key-Value Pairs
+
+
++ Treatment and Patient uniquely describe a single row in the dataset.
+
++ Treatment and Patient are key variables,
+
++ Score is a measurement variable
+
++ This makes Treatment-Patient and Score a key-value pair
+
+Key-Value pairs (KVP) - also attribute-value, field-value, name-value: abstract data representation that allows a lot of flexibility
+
+One way of telling whether a data set is tidy is to check that all keys for a value are aligned in one row
+
+
+### Example: Untidy Data
+
+```{r}
+#| message: false
+
+library(reshape2)
+data("french_fries")
+head(french_fries)
+```
+
+```{r}
+#| warning: false
+#| fig-height: 3
+#| fig-align: "center"
+
+
+ggplot(french_fries) + 
+  geom_boxplot(aes(x="1_buttery", y=buttery), fill = "cyan4") +
+  geom_boxplot(aes(x = "2_grassy", y = grassy), fill = "darkorange2") +
+  geom_boxplot(aes(x = "3_painty", y = painty), fill = "darkorchid1") +
+  geom_boxplot(aes(x = "4_potato", y = potato), fill = "chartreuse3") +
+  geom_boxplot(aes(x = "5_rancid", y = rancid), fill = "deeppink") +
+  xlab("variable") + ylab("rating")
+```
+
+### Tidy your data using pivot_longer
+
+When pivoting longer, you need to specify:
+
++ the cols (identifiers)
++ the names_to (new column name)
++ the values_to (measures from cols)
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+
+### And reverse: `pivot_wider`
+
+Useful if we want to display things as a table
+
+When pivoting wider, you need to specify:
+
+- the names_from (column name that we want to widen)
+- the values_from (measures from column we want to widen)
+
+```{r}
+
+```
+
+Now we are back to your original dataset
+
+--------------------------------------------------------------------------------
+
+# Function Writing and Loops
+
+## Why Write your own Functions?
+
+Writing your own functions allow you to automate common tasks in a more powerful and general way than copy-and-pasting. 
+
+Writing a function has three big advantages over using copy-and-paste:
+
+- You can give a function an evocative name that makes your code easier to understand.
+
+- As requirements change, you only need to update code in one place, instead of many.
+
+- You eliminate the chance of making incidental mistakes when you copy and paste (i.e. updating a variable name in one place, but not in another).
+
+## When Should You Write A Function?
+
+You should consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e. you now have three copies of the same code). 
+
+For example, take a look at this code. What does it do? Notice any mistakes?
+
+```{r}
+df <- tibble::tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+
+df$a <- (df$a - min(df$a, na.rm = TRUE)) / 
+  (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE))
+df$b <- (df$b - min(df$b, na.rm = TRUE)) / 
+  (max(df$b, na.rm = TRUE) - min(df$a, na.rm = TRUE))
+df$c <- (df$c - min(df$c, na.rm = TRUE)) / 
+  (max(df$c, na.rm = TRUE) - min(df$c, na.rm = TRUE))
+df$d <- (df$d - min(df$d, na.rm = TRUE)) / 
+  (max(df$d, na.rm = TRUE) - min(df$d, na.rm = TRUE))
+```
+
+
+## How do you Write a Function?
+
+How many inputs do we have?
+
+```{r}
+(df$a - min(df$a, na.rm = TRUE)) /
+  (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE))
+```
+
+Three components of writing a function:
+
+1. You need to pick a **name** for the function
+
+2. You list the **inputs**, or arguments, to the function inside function.
+
+3. You place the code you have developed in **body** of the function, a `{` block that immediately follows `function(...)`.
+
+```{r}
+#| eval: false
+
+function_name <- function(inputs separated by commas){
+  #body: put code here
+  # what to do with those inputs
+}
+```
+
+By default they return the last value computed in the function
+
+### Example:
+
+```{r}
+add_2 <- function(x){
+  x + 2
+  1000
+}
+
+add_2(2)
+```
+
+
+```{r}
+add_2 <- function(x){
+  x + 2
+}
+
+add_2(2)
+```
+
+## Back to Rescale Example
+
+```{r}
+
+```
+
+
+## Conditional Executuion
+
+An `if` statement allows you to conditionally execute code. It looks like this:
+
+```{r}
+#| eval: false
+
+if (condition) {
+  # code executed when condition is TRUE
+} else {
+  # code executed when condition is FALSE
+}
+```
+
+
+Or can use the `ifelse` function:
+
+```{r}
+#| eval: false
+
+ifelse(condition, 
+       code executed when condition is TRUE, 
+       code executed when condition is FALSE)
+```
+
+
+### Example
+
+```{r}
+
+```
+
+
+### Your Turn
+
+1). Write your own mean function to find the mean of x :
+
+$$\bar{x} = \frac{\sum^n_{i=1}x_i}{n}$$
+
+```{r}
+set.seed(4)
+x <- round(runif(10, 0, 40),2)
+x #use this data to test
+```
+
+2). You want to write a function to calculate a discount based on the purchase amount:
+
+- If the amount is greater than or equal to 100, apply a 20% discount.
+- If the amount is between 50 and 99.99, apply a 10% discount.
+- If the amount is less than 50, no discount is applied.
+
+--------------------------------------------------------------------------------
+
+# Data Types
+
+
+## Data types in R
+
+R is (usually) good at figuring out the best data type, but sometimes we'll need to take corrective action! The five data types we'll interact with the most are:
+
+- Logical: Can take on values of either `TRUE` or `FALSE`
+- Double: numeric data with decimals.
+- Integer: are numeric data without decimals.
+- Character: The data type character is used when storing text, known as strings in R.
+  - The simplest ways to store data under the character format is by using "" around the piece of text
+- Factor: Used to represent categories
+  
+## Coercion
+
+When you mix data types within a vector, R will create the result with the data type that can most easily accommodate all the elements it contains. This conversion between modes of storage is called “coercion”. 
+
+- When R converts the mode of storage based on its content, it is referred to as “implicit coercion”.
+
+```{r}
+typeof(c(1, "Hello"))
+typeof(c(FALSE, 3L))
+typeof(c(1.2, 3L))
+typeof(NA)
+```
+
+## Example: Cat lovers
+
+A survey asked respondents their name and number of cats. The instructions said to enter the number of cats as a numerical value.
+
+```{r}
+cat_lovers <- read.csv("cat_lovers.csv")
+str(cat_lovers)
+```
+
+Any concerns with how the data was read in?
+
+Suppose we want to find the average number of cats:
+
+```{r}
+#| error: true
+
+```
+
+How about removing the NA value?
+
+```{r}
+#| error: true
+
+```
+
+What is the type of the `number_of_cats` variable?
+  
+```{r}
+
+```
+
+Are there any strange responses in the data?
+
+```{r} 
+
+```
+
+**Problem**: number_of_cats is a characters, when we want it to be a number. 
+
+### Attempt 1: convert to numeric, where the response that couldn't be converted to a number become `NA`
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+You can discard these two lines, but they are still useful information, just in different format.
+
+### Attempt 2: define a new variable?
+
+```{r}
+#| warning: false
+#| message: false
+
+```
+
+
+## Create new csv file
+
+You may want to save a copy of this new cleaned version of data. This way you can just read in your cleaned data, instead of running all the code each time you want to use that data set.
+
+```{r, eval=FALSE}
+#| eval: false
+
+write.csv(cat_lovers, file = "cat_lovers_clean.csv", 
+          row.names = FALSE)
+```
+
+- Will save file into your working directory!!
+
+## Data frames
+
+A data frame is the most commonly used data structure in R, they are just a list of equal length vectors (usually atomic, but you can use generic as well). 
+
+- Each vector is treated as a column and elements of the vectors as rows.
+
+A `tibble` is a type of data frame that ... makes your life (i.e. data analysis) easier.
+
+- Most often a data frame will be constructed by reading in from a file, but we can also create them from scratch.
+
+### Example: 
+
+How many respondents have below average number of cats?
+
+```{r}
+#| warning: false
+
+```
+
+Do you see any problem here?
+
+
+```{r}
+
+```
+
+### A possible solution: 
+
+`pull()` works like [[]] or `$` for data frames, and pulls out the value of a single column in a data frame. How does `pull()` work?
+
+```{r}
+
+```
+
+`pull()` can be your new best friend, when used correctly.
+
+```{r}
+
+```
+
+### Factors
+
+Factor: how R stores categorical variables. By default, R orders factors in alphabetical order. Use `fct_relevel` to force a particular order
+
+```{r}
+x = as.factor(cat_lovers$hand)
+glimpse(x)
+```
+
+```{r, fig.height=3.5, fig.width=8, fig.align='center'}
+
+```
+
+
+## Overrriding Data Types
+
+If you are absolutely sure of a data class, overwrite it in your tibble so that you don't need to keep having to keep track of it
+
+```{r}
+x <- "2"
+class(x)
+x <- as.numeric(x)
+class(x)
+
+```
+
+### Overriding Data Types: Weird Things About `R`
+
+```{r}
+class(cat_lovers$hand)
+typeof(cat_lovers$hand)
+```
+
+The `typeof function` is giving information that's at a "lower" level of abstraction. Factor variables (and also Dates) are stored as integers. 
+
+  - Determines the (R internal) type or storage mode of any object
+  
+- `class`: a simple generic function mechanism which can be used for an object-oriented style of programming. 
+
+So when working with data sets use `str`, `glimpse`, `class`
+
+
+## Recap
+
+Be careful about data types/classes
+
+  - If your data doesn't behave how you expect it to, implicit coercion might be the reason.
+    +  Sometimes `R` makes silly assumptions about your data class 
+  - Go in and investigate your data, apply the fix, _save your data_, live happily ever after.
+  - Think about your data in context, e.g. 0/1 variable is most likely a `factor`
+  - If you are absolutely sure of a data class, overwrite it in your tibble so that you don't need to keep having to keep track of it
+
+ 

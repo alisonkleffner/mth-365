@@ -164,4 +164,40 @@ star_data %>%
 
 ```
 
+---
+### Loops
+
+Another tool for reducing duplication is iteration, which helps you when you need to do the same thing to multiple inputs: repeating the same operation on different columns, or on different datasets. 
+
+- `for` loops are an example of imperative programming and is a good starting point
+
+ - They make iteration very explicit, so it’s obvious what’s happening. 
+
+<br>
+
+From Earlier:
+
+```{r, eval = FALSE}
+rescale01(df$a)
+rescale01(df$b)
+rescale01(df$c)
+rescale01(df$d)
+```
+
+
+---
+### Loops
+
+Loops have three main elements
+
+```{r}
+# 1. output
+output <- data.frame(matrix(NA, ncol = ncol(df), nrow = nrow(df)))
+for (i in seq_along(df)) {            # 2. sequence
+  output[,i] <- rescale01(df[[i]])      # 3. body
+}
+
+output
+```
+
 

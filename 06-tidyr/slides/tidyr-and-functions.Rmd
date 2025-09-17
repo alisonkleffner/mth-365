@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science"
 author: "tidyr and Function Writing"
-date: "September 24, 2024"
+date: "September 23, 2025"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -33,13 +33,13 @@ knit_hooks$set(output = function(x, options) {
 
 ## Announcements
 
-**Lab 4**: Work day Thursday September 26
+**Lab 4**: Work day Tuesday September 30
 
-- Due Thursday October 3rd, 2024 at 11:59 pm in Blueline
+- Due Tuesday October 7th at 11:59 pm in Blueline
 
 **Mini Project 2**
 
-- Due Thursday October 24 at 11:59 in Blueline
+- Due Thursday October 23rd at 11:59 in Blueline
 
 ---
 class:inverse
@@ -60,7 +60,7 @@ class:inverse
 
 ```{r, echo=FALSE}
 
-knitr::include_graphics("../../Week 6/slides/images/tidy-data-illustration.png")
+knitr::include_graphics("./images/tidy-data-illustration.png")
 
 ```
 
@@ -71,7 +71,7 @@ knitr::include_graphics("../../Week 6/slides/images/tidy-data-illustration.png")
 .pull-left[
 ```{r, echo=FALSE}
 
-knitr::include_graphics("../../Week 6/slides/images/tidy-data.png")
+knitr::include_graphics("./images/tidy-data.png")
 
 ```
 ].pull-right[
@@ -96,14 +96,14 @@ One way of telling whether a data set is tidy is to check that all keys for a va
 .pull-left[
 ```{r, echo=FALSE, fig.cap = "Tidy Data", out.height="70%", out.width="70%"}
 
-knitr::include_graphics("../../Week 6/slides/images/kp-tidy.png")
+knitr::include_graphics("./images/kp-tidy.png")
 
 ```
 ].pull-right[
 
 ```{r, echo=FALSE, fig.cap="Untidy Data", out.width="90%", fig.align='center'}
 
-knitr::include_graphics("../../Week 6/slides/images/kp-untidy.png")
+knitr::include_graphics("./images/kp-untidy.png")
 
 ```
 ]
@@ -111,31 +111,28 @@ knitr::include_graphics("../../Week 6/slides/images/kp-untidy.png")
 ---
 ### Example: Untidy Data
 
-```{r}
+```{r, echo = FALSE}
 library(reshape2)
 data("french_fries")
-head(french_fries)
+head(french_fries, n = 2)
 ```
 
----
-### This format is not ideal for Data Analysis
-
-```{r, warning=FALSE, fig.height=4.5, fig.align='center'}
+```{r, warning=FALSE, fig.height=3.5, fig.align='center', fig.width=8, }
 ggplot(french_fries) + 
-geom_boxplot(aes(x="1_buttery", y=buttery), fill = "cyan4") +
-geom_boxplot(aes(x = "2_grassy", y = grassy), fill = "darkorange2") +
-geom_boxplot(aes(x = "3_painty", y = painty), fill = "darkorchid1") +
-geom_boxplot(aes(x = "4_potato", y = potato), fill = "chartreuse3") +
-geom_boxplot(aes(x = "5_rancid", y = rancid), fill = "deeppink") +
-xlab("variable") + ylab("rating")
+  geom_boxplot(aes(x="1_buttery", y=buttery), fill="cyan") +
+  geom_boxplot(aes(x = "2_grassy", y=grassy), fill="forestgreen") +
+  geom_boxplot(aes(x = "3_painty", y=painty), fill="orchid1") +
+  geom_boxplot(aes(x = "4_potato", y=potato), fill="navy") +
+  geom_boxplot(aes(x = "5_rancid", y=rancid), fill="lavender") +
+  xlab("variable") + ylab("rating")
 ```
 
 ---
 ### Tidy your data using pivot_longer
 
-```{r, echo=FALSE, out.width="80%"}
+```{r, echo=FALSE, out.width="100%"}
 
-knitr::include_graphics("../../Week 6/slides/images/pivot_longer.png")
+knitr::include_graphics("./images/pivot_longer.png")
 
 ```
 
@@ -148,23 +145,22 @@ When pivoting longer, you need to specify:
 
 
 ---
-### `pivot_longer`
+#### `pivot_longer`
 
-```{r, }
-french_fries_long <- french_fries %>% 
-  pivot_longer(cols = potato:painty, #5:9
-               names_to = "variable", 
+```{r }
+ff_long <- french_fries %>% 
+  pivot_longer(cols=potato:painty, names_to = "var", 
                values_to = "rating")
-
-head(french_fries_long)
 ```
 
----
-### This format is better for Data Analysis
+```{r , echo = FALSE}
+head(ff_long, n = 2)
+```
 
-```{r, warning=FALSE, fig.height=4.5, fig.align='center'}
-ggplot(french_fries_long) + 
-  geom_boxplot(aes(x = variable, y = rating, fill = variable))
+--
+
+```{r, warning=FALSE, fig.height=4, fig.width=8, fig.align='center'}
+ggplot(ff_long) + geom_boxplot(aes(x = var, y = rating, fill = var))
 ```
 
 ---
@@ -174,7 +170,7 @@ Useful if we want to display things as a table:
 
 ```{r, echo=FALSE, out.width="80%"}
 
-knitr::include_graphics("../../Week 6/slides/images/pivot_wider.png")
+knitr::include_graphics("./images/pivot_wider.png")
 
 ```
 
@@ -188,15 +184,14 @@ When pivoting wider, you need to specify:
 ### `pivot_wider`
 
 ```{r}
-french_fries_wide <- french_fries_long %>% 
-  pivot_wider(names_from = variable, 
+ff_wide <- ff_long %>% 
+  pivot_wider(names_from = var, 
               values_from = rating, 
               values_fill = NA)
 
-head(french_fries_wide)
+head(ff_wide)
 ```
 
-Now we are back to your original dataset
 
 ---
 class:inverse
@@ -209,11 +204,11 @@ class:inverse
 <br>
 <br>
 .center[
-## Function Writing and Loops
+## Function Writing
 ]
 
 ---
-## Why Write your own Functions?
+### Why Write your own Functions?
 
 Writing your own functions allow you to automate common tasks in a more powerful and general way than copy-and-pasting. 
 
@@ -229,7 +224,7 @@ Writing a function has three big advantages over using copy-and-paste:
 ---
 ### When Should You Write A Function?
 
-You should consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e. you now have three copies of the same code). 
+You should consider writing a function whenever you’ve copied and pasted a block of code more than twice
 
 For example, take a look at this code. What does it do? Notice any mistakes?
 
@@ -317,21 +312,6 @@ rescale01(df$b)
 ```
 
 ---
-### Your Turn
-
-Write your own mean function to find the mean of x :
-
-$$\bar{x} = \frac{\sum^n_{i=1}x_i}{n}$$
-
-```{r}
-set.seed(4)
-x <- round(runif(10, 0, 40),2)
-x #use this data to test
-```
-
-
-
----
 ### Conditional Executuion
 
 An `if` statement allows you to conditionally execute code. It looks like this:
@@ -372,71 +352,25 @@ ifelse_example(-2)
 ```
 
 ---
-## Loops
+### Your Turn
 
-Another tool for reducing duplication is iteration, which helps you when you need to do the same thing to multiple inputs: repeating the same operation on different columns, or on different datasets. 
+1). Write your own mean function to find the mean of x :
 
-`for` loops are an example of imperative programming and is a good starting point
-
-- they make iteration very explicit, so it’s obvious what’s happening. 
-
-
----
-## Loops
-
-From Earlier:
-
-```{r, eval = FALSE}
-rescale01(df$a)
-rescale01(df$b)
-rescale01(df$c)
-rescale01(df$d)
-```
-
-While we shortened our copying with creating a function, we still have something copy/pasted more than twice.
-
----
-## Loops
-
-Loops have three main elements
+$$\bar{x} = \frac{\sum^n_{i=1}x_i}{n}$$
 
 ```{r}
-# 1. output
-output <- data.frame(matrix(NA, ncol = ncol(df), nrow = nrow(df)))
-for (i in seq_along(df)) {            # 2. sequence
-  output[,i] <- rescale01(df[[i]])      # 3. body
-}
-
-output
+set.seed(4)
+x <- round(runif(10, 0, 40),2)
+x #use this data to test
 ```
 
----
-### Your Turn:
 
-Compute the mean of every column in mtcars.
 
-```{r}
-data("mtcars")
-head(mtcars)
-```
+2). You want to write a function to calculate a discount based on the purchase amount:
 
----
-### `purrr` Package:
-
-`for` loops are quite verbose, and require quite a bit of bookkeeping code that is duplicated for every for loop. 
-
-- Functional programming (FP) offers tools to extract out this duplicated code, so each common for loop pattern gets its own function. 
-
-Each function takes a vector as input, applies a function to each piece, and then returns a new vector that’s the same length (and has the same names) as the input. The type of the vector is determined by the suffix to the map function:
-
-- `map()` makes a list.
-- `map_lgl()` makes a logical vector.
-- `map_int()` makes an integer vector.
-- `map_dbl()` makes a double vector.
-- `map_chr()` makes a character vector.
-
-Once you master these functions, you’ll find it takes much less time to solve iteration problems. - The important thing is that you solve the problem that you’re working on, not write the most concise and elegant code.
-
+- If the amount is greater than or equal to 100, apply a 20% discount.
+- If the amount is between 50 and 99.99, apply a 10% discount.
+- If the amount is less than 50, no discount is applied.
 
 
 ---
@@ -454,22 +388,19 @@ class:inverse
 ]
 
 ---
-## Data types in R
+### Data types in R
 
-R is (usually) good at figuring out the best data type, but sometimes we'll need to take corrective action! The four data types we'll interact with the most are:
+R is (usually) good at figuring out the best data type, but sometimes we'll need to take corrective action! The five data types we'll interact with the most are:
 
 - Logical: Can take on values of either `TRUE` or `FALSE`
 - Double: numeric data with decimals.
 - Integer: are numeric data without decimals.
-  - When R stores a number in a variable, it converts the number into a “double” value or a decimal type with at least two decimal places.
 - Character: The data type character is used when storing text, known as strings in R.
   - The simplest ways to store data under the character format is by using "" around the piece of text
-  - Note that everything inside "" will be considered as character, no matter if it looks like character or not.
-- lists: R objects which contain elements of different types like − numbers, strings, vectors
-
-
+- Factor: Used to represent categories
+  
 ---
-## Coercion
+### Coercion
 
 When you mix data types within a vector, R will create the result with the data type that can most easily accommodate all the elements it contains. This conversion between modes of storage is called “coercion”. 
 
@@ -491,7 +422,7 @@ typeof(NA)
 ]
 
 ---
-## Example: Cat lovers
+### Example: Cat lovers
 
 A survey asked respondents their name and number of cats. The instructions said to enter the number of cats as a numerical value.
 
@@ -503,7 +434,7 @@ str(cat_lovers)
 ```{r, message=FALSE, echo=FALSE}
 library(tidyverse)
 # Make sure to change the file directory
-cat_lovers <- read.csv("../../Week 6/slides/data/cat_lovers.csv")
+cat_lovers <- read.csv("./data/cat_lovers.csv")
 
 str(cat_lovers)
 ```
@@ -511,29 +442,25 @@ str(cat_lovers)
 Any concerns with how the data was read in?
 
 ---
-## Example: Cat lovers
+### Example: Cat lovers
 
-Suppose we want to find the average number of cats, so we write the line of code below:
+Suppose we want to find the average number of cats:
 
 ```{r, error=TRUE}
 cat_lovers %>% summarize(mean(number_of_cats))
 ```
 
----
-## Example: Cat lovers
+--
 
 How about removing the NA value?
 
 ```{r, error=TRUE}
-cat_lovers %>%
-  summarise(mean_cat = mean(number_of_cats, na.rm = TRUE))
+cat_lovers %>% summarise(mean_cat = mean(number_of_cats, na.rm=TRUE))
 ```
 
 
 ---
-## Example: Cat lovers
-
-Slow down.
+### Example: Cat lovers
 
 What is the type of the `number_of_cats` variable?
   
@@ -550,9 +477,9 @@ cat_lovers[48:54,2]
 ```
 
 ---
-## Example: Cat lovers
+### Example: Cat lovers
 
-**Problem**: number_of_cats is a characters, when we want it to be a number. However, we have some strange response.
+**Problem**: number_of_cats is a characters, when we want it to be a number. 
 
 **Attempt 1**: convert to numeric, where the response that couldn't be converted to a number become `NA`
 
@@ -563,7 +490,7 @@ str(cat_lovers)
 ```
 
 ---
-## Example: Cat lovers
+### Example: Cat lovers
 
 ```{r}
 cat_lovers[48:54,4]
@@ -571,10 +498,12 @@ cat_lovers %>%
   summarize(mean(number_of_cats_new, na.rm = TRUE))
 ```
 
-You can discard these two lines, but they are still useful information, just in different format. This is why surveys restrict entry values...How about we convert them with `case_when()` function. 
+<br>
+
+You can discard these two lines, but they are still useful information, just in different format. 
 
 ---
-## Example: Cat lovers
+### Example: Cat lovers
 
 **Attempt 2**: define a new variable?
 
@@ -593,7 +522,7 @@ cat_lovers2 %>% summarise(mean_cats = mean(number_of_cats))
 ```
 
 ---
-## Example: Cat lovers
+### Example: Cat lovers
 You may want to save a copy of this new cleaned version of data. This way you can just read in your cleaned data, instead of running all the code each time you want to use that data set.
 
 ```{r, eval=FALSE}
@@ -604,34 +533,22 @@ write.csv(cat_lovers, file = "cat_lovers_clean.csv",
 - Will save file into your working directory!!
 
 ---
-## Data "set" in R
-
-- "set" is in quotation marks because it is not a formal data class
-
-A tidy data "set" can be one of the following types:
-
-- `tibble`
-- `data.frame`
-
-We'll often work with `tibble`s:
-
-- `readr` package (e.g. `read_csv` function) loads data as a `tibble` by default
-- `tibble`s are part of the tidyverse, so they work well with other packages we are using
-- They make minimal assumptions about your data, so are less likely to cause hard to track bugs in your code
-
----
-## Data frames
+### Data frames
 
 A data frame is the most commonly used data structure in R, they are just a list of equal length vectors (usually atomic, but you can use generic as well). 
 
 - Each vector is treated as a column and elements of the vectors as rows.
+
+<br>
+<br>
+<br>
 
 A `tibble` is a type of data frame that ... makes your life (i.e. data analysis) easier.
 
 - Most often a data frame will be constructed by reading in from a file, but we can also create them from scratch.
 
 ---
-##Example: 
+### Example: 
 
 How many respondents have below average number of cats?
 
@@ -653,7 +570,7 @@ class(mean_cats)
 
 
 ---
-## A possible solution: 
+### A possible solution: 
 
 `pull()` works like [[]] or `$` for data frames, and pulls out the value of a single column in a data frame. How does `pull()` work?
 
@@ -669,17 +586,13 @@ cat_lovers2 %>% filter(number_of_cats < mean_cats) %>%
 
 `pull()` can be your new best friend, when used correctly.
 
-```{r,}
-class(mean_cats)
-```
 ---
 ### Factors
 
-Factor: how R stores categorical variables. By default, R orders factors in alphabetical order. Use `fct_relevel` to force a particular order
+Factor: By default, R orders factors in alphabetical order. Use `fct_relevel` to force a particular order
 
 ```{r, fig.height=3, fig.width=8, fig.align='center'}
 x = as.factor(cat_lovers$hand)
-glimpse(x)
 ```
 
 ```{r, fig.height=3.5, fig.width=8, fig.align='center'}
@@ -690,7 +603,7 @@ ggplot(cat_lovers, aes(x=hand, fill=hand)) + geom_bar()
 
 
 ---
-## Overrriding Data Types
+### Overrriding Data Types
 
 If you are absolutely sure of a data class, overwrite it in your tibble so that you don't need to keep having to keep track of it
 
@@ -706,7 +619,6 @@ class(x)
 ### Overriding Data Types: Weird Things About `R`
 
 ```{r}
-#cat_lovers$hand <- as.factor(cat_lovers$hand)
 class(cat_lovers$hand)
 typeof(cat_lovers$hand)
 ```
@@ -717,11 +629,8 @@ The `typeof function` is giving information that's at a "lower" level of abstrac
   
 - `class`: a simple generic function mechanism which can be used for an object-oriented style of programming. 
 
-So when working with data sets use `str`, `glimpse`, `class`
-
-
 ---
-## Recap
+### Recap
 
 Be careful about data types/classes
 
@@ -730,75 +639,4 @@ Be careful about data types/classes
   - Go in and investigate your data, apply the fix, _save your data_, live happily ever after.
   - Think about your data in context, e.g. 0/1 variable is most likely a `factor`
   - If you are absolutely sure of a data class, overwrite it in your tibble so that you don't need to keep having to keep track of it
-  - `mutate` the variable with the correct class
 
----
-class:inverse
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-.center[
-# Data Science Ethics
-
-]
----
-## Data Science Ethics
-
-Ethics in Data Science refers to the responsible and ethical use of the data throughout the entire data lifecycle. This includes the collection, storage, processing, analysis, and interpretation of various data
-
-One of the best selling "statistics" books is called *How to Lie with Statistics* by Darrell Huff (1954)
-  - Shows graphical tools to fool people even with accurate data that are still in use. 
-  
-As data scientists, we can play a role in shape discourse, so what responsibilities do we have?
-
----
-## ASA Guidelines for Statistical Practice
-
-Revised in 2022: [Link](https://www.amstat.org/docs/default-source/amstat-documents/ethicalguidelines.pdf?Status=Master&sfvrsn=bdeeafdd_6/)
-
-Some highlights: 
-
-- Protect and respect the rights and interests of human and animal subjects
-  + Data privacy (ex. HIPAA)
-  + Consider how your study would impact society, groups, and individuals (Remember the numbers are real people)
-- Uses methodology and data that are valid, relevant, and appropriate, without favoritism or prejudice.
-  + Ask for help if you don't know how to do something properly
-- Promotes reproducibility and replication, whether results are “significant” or not, by sharing data, methods, and documentation to the extent possible.
-- Don't only present significant results
-
----
-## Algorithmic Bias
-
-Algorithmic bias occurs when algorithms make decisions that systematically disadvantage certain groups of people
-
-- Biased data -> biased algorithms
-  + Ex. Some groups of people may be underrepresented or systematically excluded from data science efforts
-  
-  
-Some examples:
-
-- Gender data gap
-  + Products, services and strategies are being generalized to women when the research behind them is not based on data involving women
-- Facial Recognition software: 
-  + Joy Buolamwini, a Ghanaian-American graduate student at MIT discovered that the dataset on which many of facial-recognition algorithms are tested contains 78 percent male faces and 84 percent white faces [(further reading)](http://proceedings.mlr.press/v81/buolamwini18a/buolamwini18a.pdf)
-
----
-### Is this Ethical? Discuss.
-
-In the United States, most students apply for grants or subsidized loans to finance their college education. Part of this process involves filling in a federal government form called the Free Application for Federal Student Aid (FAFSA). The form asks for information about family income and assets. The form also includes a place for listing the universities to which the information is to be sent. The data collected by FAFSA includes confidential financial information (listing the schools eligible to receive the information is effectively giving permission to share the data with them).
-
-It turns out that the order in which the schools are listed carries important information. Students typically apply to several schools, but can attend only one of them. Until recently, admissions offices at some universities used the information as an important part of their models of whether an admitted student will accept admissions. The earlier in a list a school appears, the more likely the student is to attend that school.
-
-Here’s the catch from the student’s point of view. Some institutions use statistical models to allocate grant aid where it is most likely to help ensure that a student enrolls. For these schools, the more likely a student is deemed to accept admissions, the lower the amount of grant aid they are likely to receive.
-
-[Resource](https://mdsr-book.github.io/mdsr2e/ch-ethics.html)
-
- 
