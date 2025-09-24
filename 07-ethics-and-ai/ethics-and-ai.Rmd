@@ -1,0 +1,228 @@
+---
+title: "DSC365: Introduction to Data Science"
+author: "Ethics and AI"
+date: "September 25, 2025"
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r echo=FALSE, message=FALSE, warning = FALSE}
+library(tidyverse)
+library(knitr)
+library(RColorBrewer)
+
+
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = xfun::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+```
+
+## Announcements
+
+**Lab 4**: Work day Tuesday September 30
+
+- Due Tuesday October 7th at 11:59 pm in Blueline
+
+**Mini Project 2**
+
+- Due Thursday October 23rd at 11:59 in Blueline
+
+---
+### Data Science Ethics
+
+Ethics in Data Science refers to the responsible and ethical use of the data throughout the entire data lifecycle. This includes the collection, storage, processing, analysis, and interpretation of various data
+
+One of the best selling "statistics" books is called *How to Lie with Statistics* by Darrell Huff (1954)
+  - Shows graphical tools to fool people even with accurate data that are still in use. 
+  
+As data scientists, we can play a role in shape discourse, so what responsibilities do we have?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+[Source for Ethics Notes](https://mdsr-book.github.io/mdsr3e/08-ethics.html#sec-ethics-intro)
+---
+### ASA Guidelines for Statistical Practice
+
+Revised in 2022: [Link](https://www.amstat.org/docs/default-source/amstat-documents/ethicalguidelines.pdf?Status=Master&sfvrsn=bdeeafdd_6/)
+
+Some highlights: 
+
+- Protect and respect the rights and interests of human and animal subjects
+  + Data privacy (ex. HIPAA)
+  + Consider how your study would impact society, groups, and individuals (Remember the numbers are real people)
+- Uses methodology and data that are valid, relevant, and appropriate, without favoritism or prejudice.
+  + Ask for help if you don't know how to do something properly
+- Promotes reproducibility and replication, whether results are “significant” or not, by sharing data, methods, and documentation to the extent possible.
+- Don't only present significant results
+
+---
+### Other Ethical Guidelines (DataPractices.org)
+
+1. Use data to improve life for our users, customers, organizations, and communities.
+2. Create reproducible and extensible work.
+3. Build teams with diverse ideas, backgrounds, and strengths.
+4. Prioritize the continuous collection and availability of discussions and metadata.
+5. Clearly identify the questions and objectives that drive each project and use to guide both planning and refinement.
+6. Be open to changing our methods and conclusions in response to new knowledge.
+7. Recognize and mitigate bias in ourselves and in the data we use.
+8. Present our work in ways that empower others to make better-informed decisions.
+9. Consider carefully the ethical implications of choices we make when using data, and the impacts of our work on individuals and society.
+10. Respect and invite fair criticism while promoting the identification and open discussion of errors, risks, and unintended consequences of our work.
+11. Protect the privacy and security of individuals represented in our data.
+12. Help others to understand the most useful and appropriate applications of data to solve real-world problems.
+
+---
+### Scenarios - Discuss the Question Associated with each Scenario
+
+.center[
+**What principles of Data Ethics did these situations fail to meet?**
+]
+
+**Scenario 1**: Imai and Khanna (2016) built a racial prediction algorithm trained on voter registration records and the U.S. Census Bureau’s name list. The authors published a paper detailing the methodology and published the software on GitHub under an open-source license. The `wru` package (available on CRAN) returns predicted probabilities for a person’s race based on their last name alone, or their last name and address. Was publishing this model ethical? Does the code being open-source affect your answer? Is it ethical to use this software? Does your answer change depending on the intended use?
+
+
+**Scenario 2**: In May 2016, the online OpenPsych Forum published a paper by Kirkegaard and Bjerrekær (2016) titled “The OkCupid data set: A very large public data set of dating site users.” The data set contained 2,620 variables (usernames, gender, and dating preferences, etc) from 68,371 people scraped from the OkCupid website. The purpose for scraping was to create an interesting public data set. The data could help answer questions like if the zodiac sign of each user was associated with any of the other variables (spoiler: it wasn’t). The data scraping did not involve any illicit technology such as breaking passwords. Nonetheless, the author received many comments challenging the work as an ethical breach and accusing him of doxing people by releasing personal data. Does the work raise ethical issues?
+
+---
+### Algorithmic Bias
+
+Algorithms are at the core of many data science models and are being used to automate decision-making in settings
+
+Algorithmic bias occurs when algorithms make decisions that systematically disadvantage certain groups of people
+
+- Biased data -> biased algorithms
+  + Ex. Some groups of people may be underrepresented or systematically excluded from data science efforts
+  
+  
+Some examples:
+
+- Gender data gap
+  + Products, services and strategies are being generalized to women when the research behind them is not based on data involving women
+- Facial Recognition software: 
+  + Joy Buolamwini, a Ghanaian-American graduate student at MIT discovered that the dataset on which many of facial-recognition algorithms are tested contains 78 percent male faces and 84 percent white faces [(further reading)](http://proceedings.mlr.press/v81/buolamwini18a/buolamwini18a.pdf)
+
+---
+### Data Privacy 
+
+The ability to link multiple data sets and to use public information to identify individuals is a growing problem.
+
+**Example**: In 1996 when then-Governor of Massachusetts William Weld collapsed while attending a graduation ceremony at Bentley College. An MIT graduate student used information from a public data release by the Massachusetts Group Insurance Commission to identify Weld’s subsequent hospitalization records.
+
+
+---
+### Data Privacy: "Your Data"
+
+Every time we use apps, websites, and devices, our data is being collected and used or sold to others.
+- More importantly, decisions are made by law enforcement, financial institutions, and governments based on data that directly affect the lives of people.
+
+<br>
+
+--
+
+**Questions to Think About**:
+
+- What pieces of data have you left on the internet today? Think through everything you’ve logged into, clicked on, checked in, either actively or automatically, that might be tracking you. 
+  + Do you know where that data is stored? Who it can be accessed by? Whether it’s shared with others?
+  + What are you ok with that data being used for?
+
+---
+### Data Storage
+
+- Inadvertent disclosures of data can be even more damaging than planned disclosures. 
+  - Many Stories of protected data being made available on the internet with subsequent harm to those whose information is made accessible. 
+  - Such releases may be due to misconfigured databases, malware, theft, or by posting on a public forum. 
+- How to prevent?
+  - Practice safe computing
+  - To regularly audit their systems, and to 
+  - Implement plans to address computer and data security. 
+
+
+---
+### Generative AI
+
+Generative AI is a type of artificial intelligence (AI) that learns from existing data to create new, original content such as text, images, audio, and video
+  - Large Language Models
+
+Generative AI helps automate manual tasks, generating synthetic data, and enabling new ways to interact with data
+
+--
+
+**Lowering Activation Energy:**
+  - Make a Demo
+  - A bad first draft
+  - Fixing a bug you think will be a lot of work
+  - Work with an unfamiliar programming language
+  
+.center[
+"The key theme: LLMS make the cost of trying so low that you attempt things you'd normally postpoone, avoid, or never get around to."
+]
+- Claude Opus 4.1
+
+  
+
+---
+### Some Guidelines
+
+- Do not just copy-paste the prompt – for appropriate academic conduct, for your own learning, and for getting to better results faster
+- Engineer the prompt until the response starts to look like code you’re learning in the course
+- If the response is not correct, ask for a correction
+- Watch out for clear mistakes in the response
+
+---
+### Examples
+
+
+
+---
+### LLM Resources in R
+
+[Using LLMs in R Talk](https://www.youtube.com/watch?v=ctc2kx3LxG8) by Hadley Wickham
+  - Talk starts at 18:00
+  - [ellmer](https://ellmer.tidyverse.org/index.html)
+    + [btw](https://posit-dev.github.io/btw/)
+  - [Positron](https://positron.posit.co)
+  
+---
+### LLM Concerns
+
+- Cost/equality of access
+- Environmental Concerns
+- Data Privacy
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+[From Hadley Wickhams Talk at USCOTS25](https://www.causeweb.org/cause/files/no-bullshit-llmspdf)
