@@ -33,7 +33,7 @@ knit_hooks$set(output = function(x, options) {
 
 ```
 
-### Announcements
+## Announcements
 
 **Lab 4**
 
@@ -70,6 +70,11 @@ In statistics we are interested in a **population** of cases/people/objects. How
 
 Statistical methodology assumes that the cases are drawn from a much larger set of potential cases, so the given data are a sample of a larger population of potential cases. 
 
+--
+
+Statistical Inference: the process of using sample data to make conclusions about the underlying population the sample came from
+- Before we talk about methods for statistical inference, let's discuss uncertainty
+
 ---
 ### Uncertainty
 
@@ -79,13 +84,12 @@ What do we mean by uncertainty?
   + You’re certain if your results are repeatable. 
   + You’re uncertain if your results are subject to a lot of statistical fluctuations.
   
-<br>
-<br>
+--
 
 Why are Statisticians Always Uncertain?
  
 - Our data consists of a sample
-- We want to use our models, but there are always things that we can't account for in a model
+- We want to use our models to make a prediction, but there are always things that we can't account for in a model
 - Our observations are subject to measurement or reporting error
 - Our data arise from an intrinsically random or variable process
 
@@ -95,15 +99,44 @@ Why are Statisticians Always Uncertain?
 **Example**: You’ve been asked to develop a travel policy for business travelers going from New York City to Chicago. Assume that the `nycflights13` data set represents the complete population of flights.
 
 
-**Clean Data:** filter all the flights going to Chicago and with a non-NA value of arrival delay time.
+**First** filter all the flights going to Chicago and with a non-NA value of arrival delay time.
 
 ```{r}
 library(nycflights13)
 Chicago <- flights %>%
   filter(dest %in% c('ORD', 'MDW'), !is.na(arr_delay))
 
+nrow(Chicago)
+```
+
+---
+### Let's find a Sample (n=100)!
+
+```{r}
+set.seed(365)
+Sample100 <- Chicago %>% sample_n(size=100)
+```
+
+--
+
+How long of a delay should we expect based on the sample?
+
+```{r}
+Sample100 %>% summarize(min=min(arr_delay),
+                        q05=quantile(arr_delay, 0.05),
+                        mean=mean(arr_delay),
+                        median=median(arr_delay),
+                        max=max(arr_delay), 
+                        q95=quantile(arr_delay, 0.95),
+                        sd=sd(arr_delay))
+```
+
+--
+
+```{r}
 mean(Chicago$arr_delay) # population value
 ```
+
 
 ---
 ### What constitutes an “unacceptable” delay?
@@ -115,27 +148,6 @@ Chicago %>% mutate(less105 = arr_delay<=105) %>%
   group_by(less105) %>% 
   count() %>%
   mutate(pct = n / nrow(Chicago))
-```
-
----
-### Let's find a Sample (n=100)!
-
-How long of a delay should we expect based on the sample?
-
-```{r}
-set.seed(365)
-Sample100 <- Chicago %>% sample_n(size=100)
-```
-
-
-```{r}
-Sample100 %>% summarize(min=min(arr_delay),
-                        q05=quantile(arr_delay, 0.05),
-                        mean=mean(arr_delay),
-                        median=median(arr_delay),
-                        max=max(arr_delay), 
-                        q95=quantile(arr_delay, 0.95),
-                        sd=sd(arr_delay))
 ```
 
 
@@ -156,8 +168,14 @@ Sample100_2 %>% summarize(mean=mean(arr_delay),
 
 The sample mean is now 9.64. How does this compare to the previous sample? 
 
+--
+
+Different samples of data will have different sample statistics!
+
+-   In most real-world settings, we do not have access to the population data. We have only our one sample.
+
 ---
-### Sample Statistics 
+### Sample Statistics
 
 Statistic: A quantity computed from values in a sample to represent some characteristics
 
@@ -165,7 +183,10 @@ Examples:
 
 + Mean $(\bar{x})$
 + Proportion $(\hat{p})$
++ Median $(m)$
 + Standard Deviation $(s)$
+
+These are also called **point estimates**: single value from a sample to approximate this value in the population.
 
 ---
 ### Sampling Distributions
@@ -175,11 +196,23 @@ Sample statistics depend completely on the data. Different samples of data will 
 We need to figure out the reliability of a sample statistic from the sample itself. 
   + For now, though, we are going to use the population to develop some ideas about how to define reliability. 
 
+--
+
+If we draw many different samples from the population, each of size $n$, and calculated the sample statistic on each of those samples, how similar would the sample statistic be across all the samples?
+  + Create a sampling distribution
+
+--
+
+**Sampling distribution**: a set of probabilities represents the chance to see certain values of the statistics
 
 ---
 ### Creating a Sampling Distribution
 
-We could run the previous code multiple times to obtain our different samples or, we could speed it up:
+We could run the previous code multiple times to obtain our different samples
+
+--
+
+Or, we could speed it up:
 
 ```{r}
 n <- 100
@@ -199,10 +232,10 @@ head(chi_25_means)
 favstats(~mean_arr_delay, data=chi_25_means) #mosaic library
 ```
 
-```{r, fig.height=4.5, fig.width=8, fig.align='center', fig.alt="Density plot depicting the approximate sampling distribution of the sample mean. It is an approximate bell-shaped curve."}
+```{r, fig.height=4.5, fig.width=8, fig.align='center'}
 ggplot(chi_25_means, aes(x=mean_arr_delay)) + 
   geom_density(fill='turquoise', alpha=0.5) + 
-  labs(x='Approximate Sampling Distribution of Sample Mean')
+  labs(x='Sampling Distribution of Sample Mean')
 ```
 
 ---
@@ -216,11 +249,12 @@ ggplot(chi_25_means, aes(x=mean_arr_delay)) +
   + The standard deviation of a sampling distribution is called the **standard error**. This reflects the typical statistical fluctuation of our summary statistic
 
 ---
-### Discuss Reliability: Standard Error
+## Discuss Reliability: Standard Error
 
 **Standard error**: It describes the width of the sampling distribution.
 
 $$SE = \frac{s}{\sqrt{n}}$$
+--
 
 Example: What’s the standard error of the sample mean?
 
@@ -251,7 +285,7 @@ Means <- rbind(Means50 %>% mutate(n=50),
                Means500 %>% mutate(n=500))
 ```
 
-```{r, message=FALSE, warning=FALSE, fig.align='center', fig.height=4, fig.width=8, echo=FALSE, fig.alt="This figure shows the impact of sample size on sampling distributions. As the sample size increases from 50 to 500, the width or variability of the sampling distribution becomes narrower."}
+```{r, message=FALSE, warning=FALSE, fig.align='center', fig.height=4, fig.width=8, echo=FALSE}
 ggplot(dat=Means, aes(x=mean)) + 
   geom_density(aes(fill=as.factor(n))) + 
   facet_grid(~n)+xlab('Sample means') + guides(fill=FALSE)
@@ -259,9 +293,31 @@ ggplot(dat=Means, aes(x=mean)) +
 
 
 ---
+### How does n Affect the Sampling Distribution?
+
+
+A larger sample size produces a smaller standard error. 
+  - A larger sample size is more reliable than a smaller sample size
+
+--
+
+What happens to the confidence interval as the standard error decreases?
+
+--
+
++ Smaller Interval
+
+--
+
+For large sample sizes, the shape of the sampling distribution tends to bell-shaped
+
+
+---
 ### Bootstraping
 
 In the last example, we had access to the population data and so we could find the sampling distribution by repeatedly sampling from the population. 
+
+--
 
 **Bootstrap** is a method that allows us to approximate the sampling distribution even though we do not have the population.
 
@@ -272,12 +328,20 @@ When resampling, we sample with replacement.
   - Allows us to estimate the variability of the sample
   - Otherwise, would always get the same sample statistics as the observed value.
 
----
-### Bootstraping
-
+Bootstrapping does not create new cases (not for data collection)
 
 ---
-### Bootstraping: Let's take a small sample (n=3)
+## Bootstraping
+
+```{r, echo=FALSE, fig.align='center'}
+
+knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/08-statistical-foundations/slides/images/bootstrap.png")
+
+```
+
+  
+---
+## Bootstraping: Let's take a small sample (n=3)
 
 ```{r}
 f3 <- Chicago %>% sample_n(size=3) %>% dplyr::select(year,month,day)
@@ -287,6 +351,7 @@ f3 <- Chicago %>% sample_n(size=3) %>% dplyr::select(year,month,day)
 f3 
 ```
 
+--
 
 .pull-left[
 First Resample: 
@@ -303,10 +368,9 @@ f3 %>% slice_sample(n= 3,
 ]
 
 ---
-### Bootstrapping: Bigger Sample
+## Bootstrapping: Bigger Sample
 
-```{r, fig.height=4.5, fig.width=8, fig.align='center', fig.alt="Density plot of the bootstraped distribution for sample means. This is approximately normal and is similar in appearance to the sampling distribution."}
-
+```{r, fig.height=4.5, fig.width=8, fig.align='center'}
 Bootstrap_Means <- Sample100 %>% 
   specify(response = arr_delay) %>%
   generate(reps = 500, type = "bootstrap") %>%
@@ -329,6 +393,39 @@ favstats(~stat, data=Bootstrap_Means)
 Sampling Distribution:
 ```{r}
 favstats(~mean_arr_delay, data=chi_25_means)
+```
+
+--
+
+For moderate to large sample sizes and sufficient number of bootstraps, the bootstrap distribution approximates certain aspects of the sampling distribution, like the standard error and quantiles 
+
+
+```{r, echo=FALSE, fig.align='center', fig.height=6, fig.width=8, eval = FALSE}
+Boot1 <- Chicago %>%
+  sample_n(size=100) %>% 
+  specify(response = arr_delay) %>%
+  generate(reps = 1000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+
+Boot2 <- Chicago %>%
+  sample_n(size=100) %>% 
+  specify(response = arr_delay) %>%
+  generate(reps = 1000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+
+Boot3 <- Chicago %>%
+  sample_n(size=100) %>% 
+  specify(response = arr_delay) %>%
+  generate(reps = 1000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+
+BootSamples <- rbind(Boot1 %>% mutate(Sample=1), 
+               Boot2 %>% mutate(Sample=2), 
+               Boot3 %>% mutate(Sample=3))
+ggplot(data=BootSamples, aes(x=stat)) +
+  geom_density(aes(fill=as.factor(Sample))) +
+  facet_grid(~Sample)+xlab('Bootstrap Distributions') +
+  guides(fill=FALSE)
 ```
 
 ---
@@ -373,7 +470,7 @@ Correlation does not imply causation
 Simpson's paradox is a phenomenon where a trend appears in several groups of data but disappears or reverses when the groups are combined. 
 - The paradox can be resolved when confounding variables are appropriately addressed, but can lead to problematic interpretations if they are not. 
 
-```{r, echo=FALSE, fig.align='center', out.height="90%", out.width="85%", fig.alt="Graphic depicting an example of simpsons paradox. It shows that the overall trend between height and basketball success is negative, which seems suspicious. However, when we add a third variable of age we see the reason for this trend as the data points for ages are clumped together."}
+```{r, echo=FALSE, fig.align='center', out.height="90%", out.width="85%"}
 
 knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/08-statistical-foundations/slides/images/simpson-paradox.png")
 
@@ -409,6 +506,7 @@ knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/08-statistical-found
 
 ```
 
+--
 
 $H_0:$  Corso's picks for the winning football team was truly random during his career.
 
@@ -418,9 +516,9 @@ $H_A:$ Corso's picks for the winning football team was higher than what would be
 ---
 ### Null Distribution
 
+Our burning question: just how likely is it that Lee Corso could pick the winning team least 66 out of 104 times, assuming that he's just guessing?
 If he was just guessing, we'd expect him to correctly pick the correct team about half of the time, but we also have to account for the possibility that they just got lucky. Hence we want to simulate a random process, assuming the null hypothesis is true, called a **Null Distribution**
 
-<br>
 
 ```{r, echo = FALSE, fig.align='center', fig.width=10, fig.height=5}
 set.seed(4)
@@ -461,9 +559,10 @@ We often use 5% as the cutoff for whether the p-value is low enough that the dat
 
 - If p-value > $\alpha$, fail to reject $H_0$ in favor of $H_A$: The data do not provide convincing evidence for the alternative hypothesis.
 
-<br>
+--
 
 In our example, since 0.0111 < 0.05, we have evidence that Corso's picks for the winning football team was higher than what would be expected by random chance throughout his career.
+
 
 ---
 ### P-Values

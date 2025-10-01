@@ -1,16 +1,23 @@
+## ----echo=FALSE, message=FALSE, warning = FALSE-----------------------------
 library(tidyverse)
 library(knitr)
 library(RColorBrewer)
 library(mosaic)
 library(infer)
 
-
 ## ---------------------------------------------------------------------------
 library(nycflights13)
 Chicago <- flights %>%
   filter(dest %in% c('ORD', 'MDW'), !is.na(arr_delay))
 
-nrow(Chicago)
+mean(Chicago$arr_delay) # population value
+
+
+## ---------------------------------------------------------------------------
+Chicago %>% mutate(less105 = arr_delay<=105) %>% 
+  group_by(less105) %>% 
+  count() %>%
+  mutate(pct = n / nrow(Chicago))
 
 
 ## ---------------------------------------------------------------------------
@@ -26,17 +33,6 @@ Sample100 %>% summarize(min=min(arr_delay),
                         max=max(arr_delay), 
                         q95=quantile(arr_delay, 0.95),
                         sd=sd(arr_delay))
-
-
-## ---------------------------------------------------------------------------
-mean(Chicago$arr_delay) # population value
-
-
-## ---------------------------------------------------------------------------
-Chicago %>% mutate(less105 = arr_delay<=105) %>% 
-  group_by(less105) %>% 
-  count() %>%
-  mutate(pct = n / nrow(Chicago))
 
 
 ## ---------------------------------------------------------------------------
@@ -67,7 +63,7 @@ favstats(~mean_arr_delay, data=chi_25_means) #mosaic library
 ## ----fig.height=4.5, fig.width=8, fig.align='center'------------------------
 ggplot(chi_25_means, aes(x=mean_arr_delay)) + 
   geom_density(fill='turquoise', alpha=0.5) + 
-  labs(x='Sampling Distribution of Sample Mean')
+  labs(x='Approximate Sampling Distribution of Sample Mean')
 
 
 ## ---------------------------------------------------------------------------
@@ -138,17 +134,18 @@ favstats(~mean_arr_delay, data=chi_25_means)
 
 ## ----echo = FALSE, fig.align='center', fig.width=10, fig.height=5-----------
 set.seed(4)
-corso_sim = do(10000)*nflip(100)
+patriots_sim = do(10000)*nflip(100)
 
-ggplot(corso_sim) + 
+ggplot(patriots_sim) + 
   geom_histogram(aes(x=nflip), binwidth=1)
 
 
 ## ----echo = FALSE, fig.align='center', fig.width=10, fig.height=5-----------
+#sum(patriots_sim >= 19)
 
-corso_sim <- corso_sim %>% mutate(pvalue = ifelse(nflip < 62, "less", "greater"))
+patriots_sim <- patriots_sim %>% mutate(pvalue = ifelse(nflip < 62, "less", "greater"))
 
-ggplot(corso_sim) + 
+ggplot(patriots_sim) + 
   geom_histogram(aes(x=nflip, fill = pvalue), binwidth=1) +
   geom_vline(xintercept = 61.5) + 
   geom_text(x=64, y=500, label='P(>= 62 Wins) = 0.0111', colour='black', size=5) + theme(legend.position="none")
