@@ -1,7 +1,7 @@
 ---
 title: "MTH365: Introduction to Data Science"
 author: "Statistical Foundations"
-date: "October 1, 2024"
+date: "October 2, 2025"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -37,97 +37,89 @@ knit_hooks$set(output = function(x, options) {
 
 **Lab 4**
 
-- Due Thursday October 3rd, 2024 at 11:59 pm in Blueline
+- Due Thursday October 9th, 2025 at 11:59 pm in Blueline
 
-**Lab 5**: work day in class on Thursday October 10
+**Quiz 2**
 
-- Due Tuesday October 22nd, 2024 at 11:59 pm in Blueline
+- Last 30 minutes of class Thursday October 9th
+- Topics: Data Communication and Statistical Foundations
+
+**Lab 5**: work day in class on Thursday October 9th
+
+- Due Tuesday October 21st, 2025 at 11:59 pm in Blueline
 
 **Mini Project 2**
 
-- Due Thursday October 24 at 11:59 in Blueline
+- Due Thursday October 23rd at 11:59 in Blueline
 
 
 
 
 ---
-## Isn't this data science?
+### Isn't this data science?
 
 - Statistics: Statistics is a mathematically based field which seeks to collect and interpret quantitative data. 
 
 - Data science: Data science is a multidisciplinary filed which uses scientific methods, processes and system to extract information from data in a large range of forms. 
 
-Data science techniques can provide us a clean data and its visualization but statistical theory is still useful to figure out what the data is tell us. 
 
 ---
-## Samples and Population
+### Samples and Population
 
 In statistics we are interested in a **population** of cases/people/objects. However, often this population is too large to collect data on, so we take **samples** from the larger population.
 
 Statistical methodology assumes that the cases are drawn from a much larger set of potential cases, so the given data are a sample of a larger population of potential cases. 
 
-
----
-## Statistical Inference
+--
 
 Statistical Inference: the process of using sample data to make conclusions about the underlying population the sample came from
+- Before we talk about methods for statistical inference, let's discuss uncertainty
 
-Before we talk about methods for statistical inference, let's discuss uncertainty
-- Not only should report the point estimate, but should also quantify our uncertainty
-
---
+---
+### Uncertainty
 
 What do we mean by uncertainty?
 
 - Roughly equivalent to the notion of repeatability. 
   + You’re certain if your results are repeatable. 
   + You’re uncertain if your results are subject to a lot of statistical fluctuations.
+  
+--
 
----
-## Why are Statisticians Always Uncertain?
-
-
+Why are Statisticians Always Uncertain?
+ 
 - Our data consists of a sample
 - We want to use our models to make a prediction, but there are always things that we can't account for in a model
 - Our observations are subject to measurement or reporting error
 - Our data arise from an intrinsically random or variable process
 
---
-
-**Next**:
-- Why sample?
-- Requirements of a “good” sample?
-
-
 ---
-## Example: Setting travel policy by sampling from the population
+### Example: Setting travel policy through sampling
 
-Example: You’ve been asked to develop a travel policy for business travelers going from New York City to Chicago. Assume that the `nycflights13` data set represents the complete population of flights.
+**Example**: You’ve been asked to develop a travel policy for business travelers going from New York City to Chicago. Assume that the `nycflights13` data set represents the complete population of flights.
 
-What would we do?
 
-Let’s first filter all the flights going to Chicago and with a non-NA value of arrival delay time.
+**First** filter all the flights going to Chicago and with a non-NA value of arrival delay time.
 
 ```{r}
 library(nycflights13)
 Chicago <- flights %>%
   filter(dest %in% c('ORD', 'MDW'), !is.na(arr_delay))
+
+nrow(Chicago)
 ```
 
 ---
-### Let's find a Sample!
-
-Let's take a sample (n=100)!
+### Let's find a Sample (n=100)!
 
 ```{r}
 set.seed(365)
 Sample100 <- Chicago %>% sample_n(size=100)
 ```
 
----
-## Finding Summary Statistics
+--
 
-How long of a delay should we expect based on the sample? We can look at the mean, minimum, maximum, quantiles, and standard deviation to get some idea.
+How long of a delay should we expect based on the sample?
 
 ```{r}
 Sample100 %>% summarize(min=min(arr_delay),
@@ -139,6 +131,7 @@ Sample100 %>% summarize(min=min(arr_delay),
                         sd=sd(arr_delay))
 ```
 
+--
 
 ```{r}
 mean(Chicago$arr_delay) # population value
@@ -146,7 +139,7 @@ mean(Chicago$arr_delay) # population value
 
 
 ---
-## What constitutes an “unacceptable” delay?
+### What constitutes an “unacceptable” delay?
 
 How about an one and forty-five minuted delay (105 minutes)?
 
@@ -159,7 +152,7 @@ Chicago %>% mutate(less105 = arr_delay<=105) %>%
 
 
 ---
-## Take Another sample
+### Take Another sample
 
 
 ```{r}
@@ -173,16 +166,16 @@ Sample100_2 %>% summarize(mean=mean(arr_delay),
 ```
 
 
-The sample mean is now 9.64. Is this the same or different than the previous sample? How close is it to the population value?
+The sample mean is now 9.64. How does this compare to the previous sample? 
 
 --
 
 Different samples of data will have different sample statistics!
 
--   In most real-world settings, we do not have access to the population data. We have only our sample.
+-   In most real-world settings, we do not have access to the population data. We have only our one sample.
 
 ---
-## Sample Statistics
+### Sample Statistics
 
 Statistic: A quantity computed from values in a sample to represent some characteristics
 
@@ -196,7 +189,7 @@ Examples:
 These are also called **point estimates**: single value from a sample to approximate this value in the population.
 
 ---
-## Sampling Distributions
+### Sampling Distributions
 
 Sample statistics depend completely on the data. Different samples of data will have different sample statistics!
 
@@ -211,10 +204,9 @@ If we draw many different samples from the population, each of size $n$, and cal
 --
 
 **Sampling distribution**: a set of probabilities represents the chance to see certain values of the statistics
-+ [Animation](https://onlinestatbook.com/stat_sim/sampling_dist/index.html)
 
 ---
-## Creating a Sampling Distribution
+### Creating a Sampling Distribution
 
 We could run the previous code multiple times to obtain our different samples
 
@@ -234,22 +226,20 @@ head(chi_25_means)
 ```
 
 ---
-## Creating a Sampling Distribution
+### Creating a Sampling Distribution
+
 ```{r}
-# favstats() is in the mosaic library
-favstats(~mean_arr_delay, data=chi_25_means)
+favstats(~mean_arr_delay, data=chi_25_means) #mosaic library
 ```
 
---
-
-```{r, fig.height=4, fig.width=7, fig.align='center'}
+```{r, fig.height=4.5, fig.width=8, fig.align='center'}
 ggplot(chi_25_means, aes(x=mean_arr_delay)) + 
   geom_density(fill='turquoise', alpha=0.5) + 
   labs(x='Sampling Distribution of Sample Mean')
 ```
 
 ---
-## What does the Sampling Distribution tells us?
+### What does the Sampling Distribution tells us?
 
 - Where is the sampling distribution centered? 
   + The expected value of a statistical summary is the average of that summary’s sampling distribution—that is, the average value of that summary under repeated sampling from the same random process that generated our data.
@@ -278,55 +268,7 @@ favstats(~mean_arr_delay, data=chi_25_means)
 
 
 ---
-## Discuss Repeatability: Confidence Intervals
-
-Now suppose we want to report a range of plausible values that have a good shot at capturing the parameter instead of just the point estimate
-- Quantifying this requires a measurement of how much we would expect the sample population to vary from sample to sample
-
---
-
-**Approximate 95% Confidence interval**: If generate repeated samples, 95% of those intervals will contain the true population value.
-
-
-```{r, echo=FALSE, out.width="70%", fig.align='center'}
-
-knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/Week 7/slides/images/confidence-interval.png")
-
-```
-
-
----
-## Discuss Repeatability: Confidence Intervals
-
-Example: Calculate and interpret an approximate 95% confidence interval for the mean arrival delay.
-
-$$\bar{x} \pm 2*SE$$
-
-```{r}
-chi_25_means %>%
-  summarize(
-    x_bar = mean(mean_arr_delay),
-    se = sd(mean_arr_delay)
-  ) %>%
-  mutate(
-    ci_lower = x_bar - 2 * se, # approximately 95% of observations 
-    ci_upper = x_bar + 2 * se  # are within two standard errors
-  )
-
-```
-
----
-## Discuss Repeatability: Approximate 95% confidence interval
-
-```{r, fig.height=5, fig.width=7, fig.align='center'}
-ggplot(chi_25_means, aes(x=mean_arr_delay)) + 
-  geom_density(fill='turquoise', alpha=0.5) + 
-  labs(x='Sampling Distribution of Sample Mean') +
-  geom_vline(xintercept=c(-2.61, 16.6), color="red") #<<
-```
-
----
-## How does sample size affect the sampling distribution?
+### How does n Affect the Sampling Distribution?
 
 ```{r means, message=FALSE, warning=FALSE, cache=TRUE}
 Means50 <- do(1000)*(Chicago %>% sample_n(size=50) %>% 
@@ -351,7 +293,7 @@ ggplot(dat=Means, aes(x=mean)) +
 
 
 ---
-## How does sample size affect the sampling distribution?
+### How does n Affect the Sampling Distribution?
 
 
 A larger sample size produces a smaller standard error. 
@@ -371,7 +313,7 @@ For large sample sizes, the shape of the sampling distribution tends to bell-sha
 
 
 ---
-## Bootstraping
+### Bootstraping
 
 In the last example, we had access to the population data and so we could find the sampling distribution by repeatedly sampling from the population. 
 
@@ -393,7 +335,7 @@ Bootstrapping does not create new cases (not for data collection)
 
 ```{r, echo=FALSE, fig.align='center'}
 
-knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/Week 7/slides/images/bootstrap.png")
+knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/08-statistical-foundations/slides/images/bootstrap.png")
 
 ```
 
@@ -440,7 +382,7 @@ ggplot(Bootstrap_Means, aes(x=stat))+
 ```
 
 ---
-## Bootstrapping: Bigger Sample
+### Bootstrapping: Bigger Sample
 
 
 Bootstrap Sample:
@@ -487,19 +429,16 @@ ggplot(data=BootSamples, aes(x=stat)) +
 ```
 
 ---
-## Side Note: We want Quality Samples!
+### Side Note: We want Quality Samples!
 
 The quality of bootstrap estimates depends on the quality of the collected data.
   - So we want quality samples!
   
 Quality samples tend to be representative of the population of interest
 
---
-
-Is this class a quality sample of all Creighton students?
 
 ---
-## Outliers
+### Outliers
 
 Outliers: a data point that differs significantly from other observations
 
@@ -533,7 +472,7 @@ Simpson's paradox is a phenomenon where a trend appears in several groups of dat
 
 ```{r, echo=FALSE, fig.align='center', out.height="90%", out.width="85%"}
 
-knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/Week 7/slides/images/simpson-paradox.png")
+knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/08-statistical-foundations/slides/images/simpson-paradox.png")
 
 ```
 
@@ -541,49 +480,49 @@ knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/Week 7/slides/images
 ---
 ### Hypothesis Tests and its Perils
 
-Used to test an assumption about a population parameter
-
 Made up of 4 steps:
 
-1. Start with a null hypothesis $(H_0)$, that represents the status quo ("there is nothign going on")
+1). Write out your hypotheses for testing
 
-2. Set an alternative hypothesis $(H_A)$, that represents the research question, i.e. what we’re testing for
+- Start with a null hypothesis $(H_0)$, that represents the status quo ("there is nothign going on")
+- Set an alternative hypothesis $(H_A)$, that represents the research question, i.e. what we’re testing for
   - Can be one-sided $(<,>)$ or two-sided $(\neq)$
 
-3. Conduct a hypothesis test under the assumption that the null hypothesis is true
+2/3). Conduct a hypothesis test under the assumption that the null hypothesis is true
   - calculate a test-statistic/p-value 
 
-4. If the test results suggest that the data do not provide convincing evidence for the alternative hypothesis, stick with the null hypothesis
+4). If the test results suggest that the data do not provide convincing evidence for the alternative hypothesis, stick with the null hypothesis
   - If they do, then reject the null hypothesis in favor of the alternative
 
 
 ---
-### Example: New England Patriots
+### Example: Lee Corso Head Gear Picks
 
-The Patriots’ fan base is hugely devoted, probably due to their long run of success over nearly two decades. Many others, however, dislike the Patriots for their highly publicized cheating episodes, whether for deflating footballs or filming the practice sessions of their opponents. But did the Patriots cheat at the pre-game coin toss, which decides who starts the game with the ball?
+Lee Corso is a football analyst and broadcaster commonly known for his “headgear” picks on ESPNs College GameDay until his retirement earlier this season. But the real question is, does he know what he is talking about? We randomly selected 100 games and found he correctly picked 62 teams correctly out of 100 games (62%)
 
-Believe it or not, many people think so. That’s because, for a stretch of 25 games spanning the 2014-15 NFL seasons, the Patriots won 19 out of 25 coin tosses, for a suspiciously high 76% winning percentage. For the Patriots’ detractors, this fact was clear evidence that something fishy was going on. 
+```{r, echo=FALSE, fig.align='center', out.width="40%"}
 
-But before turning to fraud or the Force as an explanation, let’s take a closer look at the evidence. Just how likely is it that one team could win the pre-game coin toss at least 19 out of 25 times, assuming that there’s no cheating going on? We are going to examine this using a hypothesis test
+knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/08-statistical-foundations/slides/images/corso.png")
 
-
+```
 
 --
 
-$H_0:$  Pre-game coin toss in the Patriots’ games was truly random during the 2014-2015 NFL seasons.
+$H_0:$  Corso's picks for the winning football team was truly random during his career.
 
-$H_A:$ Patriots won the pre-game coin toss more often than what would be expected by random chance during the 2014-2015 NFL seasons.
+$H_A:$ Corso's picks for the winning football team was higher than what would be expected by random chance throughout his career.
 
 
 ---
-### New England Patriots: Null Distribution
+### Null Distribution
 
-Our burning question: just how likely is it that one team could win the pre-game coin toss at least 19 out of 25 times, assuming that there’s no cheating going on? We’d “expect” any given team to win only about half of its pre-game coin tosses, but we also have to account for the possibility that they just got lucky. Hence we want to simulate a random process, assuming the null hypothesis is true, called a **Null Distribution**
+Our burning question: just how likely is it that Lee Corso could pick the winning team least 66 out of 104 times, assuming that he's just guessing?
+If he was just guessing, we'd expect him to correctly pick the correct team about half of the time, but we also have to account for the possibility that they just got lucky. Hence we want to simulate a random process, assuming the null hypothesis is true, called a **Null Distribution**
 
 
 ```{r, echo = FALSE, fig.align='center', fig.width=10, fig.height=5}
 set.seed(4)
-patriots_sim = do(10000)*nflip(25)
+patriots_sim = do(10000)*nflip(100)
 
 ggplot(patriots_sim) + 
   geom_histogram(aes(x=nflip), binwidth=1)
@@ -593,27 +532,22 @@ ggplot(patriots_sim) +
 ---
 ### New England Patriots: P-value
 
-Test Statistic:
-```{r}
-sum(patriots_sim >= 19)
-```
-
---
 A **p-value** is the probability of observing a test statistic as extreme, or more extreme, than what observed, given that the null hypothesis is true.
 
-```{r, echo = FALSE, fig.align='center', fig.width=10, fig.height=4.5}
+<br>
+
+```{r, echo = FALSE, fig.align='center', fig.width=10, fig.height=5}
 #sum(patriots_sim >= 19)
 
-patriots_sim <- patriots_sim %>% mutate(pvalue = ifelse(nflip < 19, "less", "greater"))
+patriots_sim <- patriots_sim %>% mutate(pvalue = ifelse(nflip < 62, "less", "greater"))
 
 ggplot(patriots_sim) + 
   geom_histogram(aes(x=nflip, fill = pvalue), binwidth=1) +
-  geom_vline(xintercept = 18.5) + 
-  geom_text(x=21.5, y=100, label='P(>= 19 Wins) = 0.0083', colour='black', size=5) + theme(legend.position="none")
+  geom_vline(xintercept = 61.5) + 
+  geom_text(x=64, y=500, label='P(>= 62 Wins) = 0.0111', colour='black', size=5) + theme(legend.position="none")
 
 
 ```
-
 
 
 ---
@@ -627,40 +561,15 @@ We often use 5% as the cutoff for whether the p-value is low enough that the dat
 
 --
 
-In our example, since 0.0083 < 0.05, we have evidence that the New England Patriots won the coin toss more than what would be expected by random chance during the 2014-2015 NFL season.
+In our example, since 0.0111 < 0.05, we have evidence that Corso's picks for the winning football team was higher than what would be expected by random chance throughout his career.
 
 
 ---
-## P-Values
+### P-Values
 
 Using a p-value as a measure of statistical significance has both advantages and disadvantages:
-- The main advantage is that the p-value gives us a continuous measure of evidence against the null hypothesis. 
-  + The smaller the p-value, the more unlikely it is that we would have seen our data under the null hypothesis, and therefore the stronger (“more significant”) the evidence that the null hypothesis is false.
-- The main disadvantage is that the p-value is really, really hard to interpret correctly.
-  + Also has an "all or nothing" connotation
+- **Advantage** is that the p-value gives us a continuous measure of evidence against the null hypothesis. 
+- **Disadvantage** is that the p-value is really, really hard to interpret correctly.
+  + Also has an "all or nothing" connotation (unfortunately magic thresholds don't exist)
 
----
-### P-Value Controversy
-
-To avoid thinking too hard about what a p-value actually means, many people just shrug their shoulders and ask a simple question about any particular p-value they happen to encounter: is it less than some magic threshold? 
-- Unfortunately magic thresholds don't exist
-
---
-
-Need to distinguish between statistical significance and practical significance.
-
-- Statistical significance just means whether we reject $H_0$
-- Practical significance, means whether the numerical magnitude of something is large enough to matter to actual human persons
-  + Hypothesis tests with small differences in values can produce very low p-values if you have large sample size or the data have low variability.
-
-
----
-### New England Patriots: Conclusion
-
-But despite the small probability of such an extreme result, it’s hard to believe that the Patriots cheated on the coin toss, for a few reasons. 
-
---
-  - How? The coin toss would be extremely hard to manipulate, even if you were inclined to do so. 
-  - The Patriots are just one team, and this is just one 25-game stretch. But the NFL has 32 teams, so the probability that at least one of them would go on an unusual coin-toss winning streak over at least one 25-game stretch over a long time period is a lot larger than the number we’ve calculated. 
-  - After this 25-game stretch, the Patriots reverted back to a more typical coin-toss winning percentage, closer to 50%. 
 

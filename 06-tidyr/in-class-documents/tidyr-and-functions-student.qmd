@@ -331,7 +331,7 @@ A survey asked respondents their name and number of cats. The instructions said 
 
 ```{r}
 cat_lovers <- read.csv("./data/cat_lovers.csv")
-str(cat_lovers)
+glimpse(cat_lovers)
 ```
 
 Any concerns with how the data was read in? Number of cats should be numerical, and it's being read in as a character.
@@ -375,7 +375,7 @@ cat_lovers = cat_lovers %>%
 
 ```{r}
 str(cat_lovers)
-cat_lovers[48:54,4]
+cat_lovers[48:54,c(1,4)]
 ```
 
 You can discard these two lines, but they are still useful information, just in different format.
@@ -385,6 +385,16 @@ You can discard these two lines, but they are still useful information, just in 
 ```{r}
 #| warning: false
 #| message: false
+
+cat_lovers2 <- cat_lovers %>%
+  mutate(number_of_cats = case_when(
+    name == "Ginger Clark" ~ 2,
+    name == "Doug Bass" ~ 3,
+    .default = as.numeric(number_of_cats)
+  ))
+
+cat_lovers2 %>%
+  summarise(mean(number_of_cats))
 
 ```
 
@@ -398,6 +408,8 @@ You may want to save a copy of this new cleaned version of data. This way you ca
 
 write.csv(cat_lovers, file = "cat_lovers_clean.csv", 
           row.names = FALSE)
+
+getwd()
 ```
 
 - Will save file into your working directory!!
@@ -419,13 +431,15 @@ How many respondents have below average number of cats?
 ```{r}
 #| warning: false
 
+mean_cats <- cat_lovers2 %>%
+  summarise(mean(number_of_cats))
 ```
 
-Do you see any problem here?
+Do you see any problem here? Problem: mean_cats is a dataframe
 
 
 ```{r}
-
+cat_lovers2 %>% filter(number_of_cats < mean_cats)
 ```
 
 ### A possible solution: 
@@ -433,13 +447,15 @@ Do you see any problem here?
 `pull()` works like [[]] or `$` for data frames, and pulls out the value of a single column in a data frame. How does `pull()` work?
 
 ```{r}
-
+mean_cats <- cat_lovers2 %>%
+  summarise(mean_cats = mean(number_of_cats)) %>%
+  pull()
 ```
 
 `pull()` can be your new best friend, when used correctly.
 
 ```{r}
-
+cat_lovers2 %>% filter(number_of_cats < mean_cats)
 ```
 
 ### Factors
@@ -449,10 +465,20 @@ Factor: how R stores categorical variables. By default, R orders factors in alph
 ```{r}
 x = as.factor(cat_lovers$hand)
 glimpse(x)
+
+cat_lovers2 %>%
+  ggplot(aes(x = hand, fill = hand)) +
+  geom_bar()
 ```
 
 ```{r, fig.height=3.5, fig.width=8, fig.align='center'}
 
+cat_lovers2 <- cat_lovers2 %>%
+  mutate(hand = fct_relevel(hand, "left", "ambidextrous", "right"))
+
+cat_lovers2 %>%
+  ggplot(aes(x = hand, fill = hand)) +
+  geom_bar()
 ```
 
 
