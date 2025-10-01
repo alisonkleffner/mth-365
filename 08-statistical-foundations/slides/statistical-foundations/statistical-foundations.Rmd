@@ -106,18 +106,6 @@ mean(Chicago$arr_delay) # population value
 ```
 
 ---
-### What constitutes an “unacceptable” delay?
-
-How about an one and forty-five minuted delay (105 minutes)?
-
-```{r}
-Chicago %>% mutate(less105 = arr_delay<=105) %>% 
-  group_by(less105) %>% 
-  count() %>%
-  mutate(pct = n / nrow(Chicago))
-```
-
----
 ### Let's find a Sample (n=100)!
 
 How long of a delay should we expect based on the sample?
@@ -138,6 +126,17 @@ Sample100 %>% summarize(min=min(arr_delay),
                         sd=sd(arr_delay))
 ```
 
+---
+### What constitutes an “unacceptable” delay?
+
+How about an one and forty-five minuted delay (105 minutes)?
+
+```{r}
+Chicago %>% mutate(less105 = arr_delay<=105) %>% 
+  group_by(less105) %>% 
+  count() %>%
+  mutate(pct = n / nrow(Chicago))
+```
 
 ---
 ### Take Another sample

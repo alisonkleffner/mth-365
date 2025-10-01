@@ -105,8 +105,10 @@ Why are Statisticians Always Uncertain?
 library(nycflights13)
 Chicago <- flights %>%
   filter(dest %in% c('ORD', 'MDW'), !is.na(arr_delay))
+```
 
-nrow(Chicago)
+```{r}
+mean(Chicago$arr_delay) # population value
 ```
 
 ---
@@ -129,12 +131,6 @@ Sample100 %>% summarize(min=min(arr_delay),
                         max=max(arr_delay), 
                         q95=quantile(arr_delay, 0.95),
                         sd=sd(arr_delay))
-```
-
---
-
-```{r}
-mean(Chicago$arr_delay) # population value
 ```
 
 
@@ -291,25 +287,6 @@ ggplot(dat=Means, aes(x=mean)) +
   facet_grid(~n)+xlab('Sample means') + guides(fill=FALSE)
 ```
 
-
----
-### How does n Affect the Sampling Distribution?
-
-
-A larger sample size produces a smaller standard error. 
-  - A larger sample size is more reliable than a smaller sample size
-
---
-
-What happens to the confidence interval as the standard error decreases?
-
---
-
-+ Smaller Interval
-
---
-
-For large sample sizes, the shape of the sampling distribution tends to bell-shaped
 
 
 ---

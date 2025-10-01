@@ -22,11 +22,5 @@ Matrix
 ggformula
 mosaicData
 mosaic
-nycflights13
-mvtnorm
-survival
-MASS
-TH.data
-multcomp
-corrplot
 infer
+nycflights13

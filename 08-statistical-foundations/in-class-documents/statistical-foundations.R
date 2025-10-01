@@ -12,14 +12,6 @@ Chicago <- flights %>%
 
 mean(Chicago$arr_delay) # population value
 
-
-## ---------------------------------------------------------------------------
-Chicago %>% mutate(less105 = arr_delay<=105) %>% 
-  group_by(less105) %>% 
-  count() %>%
-  mutate(pct = n / nrow(Chicago))
-
-
 ## ---------------------------------------------------------------------------
 set.seed(365)
 Sample100 <- Chicago %>% sample_n(size=100)
@@ -33,6 +25,12 @@ Sample100 %>% summarize(min=min(arr_delay),
                         max=max(arr_delay), 
                         q95=quantile(arr_delay, 0.95),
                         sd=sd(arr_delay))
+
+## ---------------------------------------------------------------------------
+Chicago %>% mutate(less105 = arr_delay<=105) %>% 
+  group_by(less105) %>% 
+  count() %>%
+  mutate(pct = n / nrow(Chicago))
 
 
 ## ---------------------------------------------------------------------------
