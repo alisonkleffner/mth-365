@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>MTH365: Introduction to Data Science</title>
+    <title>DSC365: Introduction to Data Science</title>
     <meta charset="utf-8" />
     <meta name="author" content="Linear Models" />
-    <meta name="date" content="2024-10-03" />
+    <meta name="date" content="2025-10-07" />
     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -14,13 +14,13 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# MTH365: Introduction to Data Science
+# DSC365: Introduction to Data Science
 ]
 .author[
 ### Linear Models
 ]
 .date[
-### October 3, 2024
+### October 7, 2025
 ]
 
 ---
@@ -28,67 +28,86 @@ class: center, middle, inverse, title-slide
 
 
 
-## Announcements
+### Announcements
 
 **Lab 4**
 
-- Due Tonight at 11:59 pm in Blueline
+- Due Thursday October 9th, 2025 at 11:59 pm in Blueline
 
-**Lab 5**: work day in class on Thursday October 10
+**Quiz 2**
 
-- Due Tuesday October 22nd, 2024 at 11:59 pm in Blueline
+- Last 30 minutes of class Thursday October 9th
+- Topics: Data Communication and Statistical Foundations/Linear Models
+
+**Lab 5**: work day in class on Thursday October 9th
+
+- Due Tuesday October 21st, 2025 at 11:59 pm in Blueline
 
 **Mini Project 2**
 
-- Due Thursday October 24 at 11:59 in Blueline
+- Due Thursday October 23rd at 11:59 in Blueline
+
+
 
 ---
-## Language of Models
+### Language of Models
 
 Sometimes we want to know whether any variables are related, thus we need to fit a statistical model.
 
-- We will focus on linear models, but there are many other types of models too!
+- We will focus on linear models, but many other types of models too!
 
 .pull-left[
-![](linear-models_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+![](linear-models_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
 ].pull-right[
-![](linear-models_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](linear-models_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 
 ]
 
 
 ---
-## Fit a model
+### Fit a model
 
 Sometimes we want to know whether any variables are related, thus we need to fit a statistical model. 
 
 __Statistical models__: 
 
+&lt;br&gt;
+&lt;br&gt;
+
 There are two things we can do with fitting a model:
-1. Interpretation 
-2. Prediction
-
-Sometimes we are only interested in one of them, sometimes both. They have slightly different approaches and may lead to different choice and explanation of the model.
 
 ---
-## Fit a model
+### Fit a model
 
-Today's lecture we focus on interpretation and your mini-project 3 focuses on prediction. General steps for fitting a model for interpretation: 
-
-1. Look at your research question. Identify the response variable.
-2. Look at your data. Which variables may related to the response variables?
-3. Fit the variables to a statistical model
-4. Check the p-values to decide whether the variables is significant and interpret its meaning. 
+Today's lecture (and mini-project 2) focuses on interpretation, while mini-project 3 will focus on prediction. General steps for fitting a model for interpretation: 
 
 ---
-## Benefits and Drawbacks of Models
+### Vocabulary
 
-- **Benefits**: Models can sometimes reveal patterns that are not evident in a graph of the data.
-- **Drawbacks**: There is a real risk, however, that a model is imposing structure that is not really there on the scatter of data, just as people imagine animal shapes in the stars. A skeptical approach is always warranted.
+- **Response variable**: 
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+- **Explanatory variables**: 
+  
+---
+### Benefits and Drawbacks of Models
+
+- **Benefits**:
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+- **Drawbacks**: 
 
 ---
-
-## Looking for the potential correlation
+### Looking for the potential correlation
 
 __Example__: Review our NYC flight data. Is there any variable related to the arrival delay? If yes, how?
 
@@ -117,19 +136,20 @@ colnames(Chicago1000)
 ---
 ### Visualizing a Model
 
-The next step is to use a model. A popular model we can use is a Linear Model.
+The next step is to use a model. 
+  + A popular model we can use is a Linear Model.
 
-A Linear Model is easy to visualize when looking at the relationship between two numerical variables
 
 
 ``` r
 Chicago1000 %&gt;% 
-  ggplot(aes(x = hour, y = arr_delay)) + 
-  geom_point() + 
-  geom_smooth(method = "lm")
+  ggplot(aes(x = hour, y = arr_delay)) + geom_point() + 
+  geom_smooth(method = "lm") +
+  theme(axis.title.x = element_text(size = 18),
+        axis.title.y = element_text(size = 18))
 ```
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -137,25 +157,18 @@ Chicago1000 %&gt;%
 
 __Population Linear model__: The relation between the observation `\(Y\)` and independent variables `\(X_1,..., X_p\)` is formulated as 
 `$$Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon$$`
-- Y denotes the value of the response variable
-- `\(\beta_0\)` denotes the population intercept 
-- `\(\beta_1\)` denotes the population slope for the first predictor 
-- `\(X_1\)` denotes the value of the first predictor for each observation
-- `\(\epsilon\)` denotes the error
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
---
+
 
 __Sample Linear model__: `$$Y = \hat{\beta_0} + \hat{\beta_1}X_1 + ... + \hat{\beta_p}X_p$$`
 
-+ `\(\hat{\beta}\)` denotes an estimate of the predictors
 
----
-### Vocabulary
-
-- **Response variable**: Variable whose behavior or variation you are trying to understand (y-axis)
-  - For a linear regression model, this must be numeric
-- **Explanatory variables**: Other variables that you want to use to explain the variation in the response (x-axis)
-  
   
 ---
 ### Linear Model: One Numerical Predictor
@@ -190,28 +203,30 @@ summary(model)
 ---
 ### Linear Model: One Numerical Predictor
 
-Linear Model:
+**Linear Model**:
 
-`$$\hat{y} = -19.55 + 2.0384*hours$$`
+&lt;br&gt;
 
-**Coefficient Interpretation**: If the hour increases by one unit (one hour), then the arrival delay will increase by 2.0384 units (minute). 
+
+
+**Coefficient Interpretation**:
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 **Significance of Variable:** Hypothesis Test
 
-- `\(H_0: \hat{\beta}_1 = 0\)`
-- `\(H_0: \hat{\beta}_1 \neq 0\)`
 
-  + Since the p-value (7.23e-11) is smaller than 0.05, there is a "statistically significant" relationship between arrival delay and hour.
   
 ---
 ### Linear Model: One Categorical Predictor
 
-**Example**: What about carrier? Do different carriers lead to different average arrival delay?
+**Example**: What about carrier? 
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 
 
-+ Make sure `carrier` is being treated as a factor!
 
 
 ---
@@ -219,17 +234,16 @@ Linear Model:
 
 When a categorical explanatory variable has many levels, they're encoded to **dummy variables**
   
-  - For a categorical variable with `\(k\)` levels, we have `\(k-1\)` indicator variables (have a baseline)
-  - Each coefficient of an indicator variable describes the expected difference between that level compared to the baseline level
+
   
   
-| carrier        | AA           | B6  | MQ| UA | WN |
+| carrier        | AA           | B6  | MQ| 9E | WN |
 | ------------- |:----:| -----:|-----:|-----:|-----:|-----:|
-| 9E | 0 | 0 | 0 |  0 | 0|
+| UA | 0 | 0 | 0 |  0 | 0|
 | AA | 1 | 0 | 0 |  0 | 0|
 | B6 | 0 | 1 | 0 |  0 | 0|
 | MQ | 0 | 0 | 1 |  0 | 0|
-| UA | 0 | 0 | 0 |  1 | 0|
+| 9E | 0 | 0 | 0 |  1 | 0|
 | WN | 0 | 0 | 0 |  0 | 1|
 
 ---
@@ -240,8 +254,8 @@ When a categorical explanatory variable has many levels, they're encoded to **du
 Chicago1000$carrier = relevel(as.factor(Chicago1000$carrier), 
                               ref = "UA")
 
-model3 = lm(arr_delay ~ carrier, data = Chicago1000)
-broom::tidy(model3)
+model2 = lm(arr_delay ~ carrier, data = Chicago1000)
+broom::tidy(model2)
 ```
 
 ```
@@ -259,40 +273,31 @@ broom::tidy(model3)
 Carrier UA is the reference level and every other levels will be compared to it.
 
 ---
-## Linear Model with Categorical Explanatory
+### Linear Model with Categorical Explanatory
 
 Writing out the proper model:
 
 `$$\hat{\text{y}} = 4.86+4.35*\text{9E}-10.7*\text{AA}+20.8*\text{B6}+12.7*\text{MQ}+12.6*\text{WN}$$`
 
 
-For UA (Reference level):
+**For UA (Reference level)**:
 
-`\(\hat{Y} = 4.86 + 4.25(0) - 10.7(0) + 20.8(0) + 12.7(0) + 12.6(0) =\)`
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
-`\(\hat{Y} = 4.86\)`
 
---
 
-For AA: 
+**For AA:** 
 
---
-
-`\(\hat{Y} = 4.86 + 4.25(0) - 10.7(1) + 20.8(0) + 12.7(0) + 12.6(0) =\)`
-
-`\(\hat{Y} = -5.84\)`
 
 ---
-## Linear Model with Categorical Explanatory
+### Linear Model with Categorical Explanatory
 
 Interpreting p-value: 
 
-+ P-Value for `carrierAA` = 0.00468
-  - `\(H_0: \mu_{UA} = \mu_{AA}\)`
-  - `\(H_A: \mu_{UA} \neq \mu_{AA}\)`
-+ Meaning that we have evidence that UA and AA have significantly different departure delays.
 
-All p-values are comparing each category to the reference level, which we generally don't care about.
 
 
 ---
@@ -305,8 +310,8 @@ All p-values are comparing each category to the reference level, which we genera
 
 
 ``` r
-model4 = aov(arr_delay ~ carrier, data = Chicago1000)
-summary(model4)
+model3 = aov(arr_delay ~ carrier, data = Chicago1000)
+summary(model3)
 ```
 
 ```
@@ -317,61 +322,20 @@ summary(model4)
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-At least one of the carrier has different mean arrival delay than the others (p-value = 2.6e-08), thus carriers are significantly related to the arrival delay. 
+
+
 
 ---
-### ANOVA: Multiple Comparisons
+### Confounding Variables
 
-The ANOVA test itself provides only statistical evidence of a difference, but not any statistical evidence as to which mean or means are statistically different.
-
-Multiple comparisons conducts an analysis of all possible pairwise means. 
-
-An adjustment is needed to account for the number of comparisons taking place (we won't get into this). 
----
-## Statistical signficance: Multiple Comparisons
-
-
-``` r
-library(multcomp)
-model5 = glht(model4, linfct = mcp(carrier = "Tukey"))
-summary(model5, test = adjusted("holm"))
-```
-
-
-```
-## # A tibble: 15 × 7
-##    term    contrast null.value estimate std.error statistic adj.p.value
-##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-##  1 carrier 9E - UA           0   4.35        6.33    0.688   1         
-##  2 carrier AA - UA           0 -10.7         3.76   -2.83    0.0514    
-##  3 carrier B6 - UA           0  20.8         7.58    2.74    0.0620    
-##  4 carrier MQ - UA           0  12.7         5.30    2.40    0.149     
-##  5 carrier WN - UA           0  12.6         4.24    2.98    0.0356    
-##  6 carrier AA - 9E           0 -15.0         6.39   -2.35    0.151     
-##  7 carrier B6 - 9E           0  16.4         9.17    1.79    0.513     
-##  8 carrier MQ - 9E           0   8.36        7.39    1.13    1         
-##  9 carrier WN - 9E           0   8.28        6.68    1.24    1         
-## 10 carrier B6 - AA           0  31.5         7.63    4.12    0.000527  
-## 11 carrier MQ - AA           0  23.4         5.36    4.36    0.000203  
-## 12 carrier WN - AA           0  23.3         4.33    5.38    0.00000136
-## 13 carrier MQ - B6           0  -8.09        8.49   -0.952   1         
-## 14 carrier WN - B6           0  -8.16        7.88   -1.04    1         
-## 15 carrier WN - MQ           0  -0.0774      5.71   -0.0135  1
-```
-
----
-## Confounding
-
+.center[
 **"Correlation does not equal causation."**
+]
 
-What variables could be used in a model to _explain_ arrival delays?
 
-In other words, just because there is a "statistically significant relationship" between `\(x\)` and `\(y\)`, it doesn't mean that `\(x\)` is _causing_ changes in `\(y\)`.
-
-Other factors may affect (*confound*) the relationship between two variables.
 
 ---
-## Carrier as a confounder?
+### Carrier as a confounder?
 
 __Example__: Does carrier confound the relationship between arrival delay and hour?
 
@@ -383,26 +347,17 @@ Chicago1000 %&gt;% ggplot(aes(x = hour, y = arr_delay)) +
   aes(color = carrier)
 ```
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
-
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
-## Multiple Linear Regression
-
-**Until Now**: We've only had one predictor variable in our model. 
-
-But if we suspect a variable may affect the relationship between another variable and the response (or we have multiple predictor variables of interest), we need a way to test their significance.
-  - Overall F Test
-  - Individual tests
-  
----
+#### Multiple Linear Regression
 
 
 ``` r
-model6 = lm(arr_delay ~ hour + carrier, data = Chicago1000)
-summary(model6)
+model4 = lm(arr_delay ~ hour + carrier, data = Chicago1000)
 ```
+
 
 ```
 ## 
@@ -429,35 +384,40 @@ summary(model6)
 ## Multiple R-squared:  0.07917,	Adjusted R-squared:  0.07361 
 ## F-statistic: 14.23 on 6 and 993 DF,  p-value: 1.337e-15
 ```
-  
+
 ---
-## Overall F Test
+### Overall F Test
 
-Testing for significance of all predictor variables at once 
-- Null: The slope for all of the predictor variables is 0
-- Alternative: The slope for at least one of the predictor variables is not 0
+Testing for significance of all predictor variables at once: 
+- `\(H_0\)`:
 
-Asking, is the regression model containing at least one of the predictors useful in predicting the response?
+&lt;br&gt;
+&lt;br&gt;
+
+- `\(H_A\)`: 
+
 
 ---
 ### Individual Significance Tests
 
 Similar to model with one predictor variable, but p-value is calculated assuming all of the other variables are in the model.
 
-- `\(H_0: \hat{\beta}_1 = 0 \text{; assuming carrier is included}\)`
-- `\(H_0: \hat{\beta}_1 \neq 0 \text{; assuming carrier is included}\)`
+- `\(H_0\)`:
+
+&lt;br&gt;
+&lt;br&gt;
+
+- `\(H_A\)`: 
 
 
-Coefficients and p-values may change when variables are added and taken away. 
 
-+ An increase in the hour of departure increases the arrival delay by 1.9 minutes, assuming carrier is held constant
 
 ---
 ### Variable Selection
 
 - Adjusted `\(R^2\)`
 - AIC/BIC
-- Prediction Accuracy (next class period)
+- Prediction Accuracy (after Fall Break)
 
 **Note**: This is far from an exhaustive list
 
@@ -467,40 +427,34 @@ Coefficients and p-values may change when variables are added and taken away.
 How much of the variation in our response is explained by the model
 
 The Adjusted `\(R^2\)` does not automatically increase for additional variables
-  - If a variable is not useful, Adjusted `\(R^2\)` will decrease 
-  - Can use to help check variable importance
-  
 
-**Example**: 
-- For our model with hour and carrier: 7.361% of the variation in arrival delay is explained by the model 
-- For our model with hour only: 4.071% of the variation in arrival delay is explained by the model
+&lt;br&gt;
+&lt;br&gt;
+
+
 
 ---
 ### AIC and BIC
 
-Other methods to determine what variables to include in your model (model comparison).
-
-They may not always agree as to which is the best model, so generally people choose the model based on which one is best among the fit statistics most often.
-
---
-
-Other: Common Fit Statistics
 
 - AIC: penalize the inclusion of additional variables to a model. It adds a penalty that increases the error when including additional terms. 
 
 ``` r
-AIC(model6)
+AIC(model4)
 ```
 
 ```
 ## [1] 10475.09
 ```
 
+&lt;br&gt;
+&lt;br&gt;
+
 - BIC: Stronger penalty for including additional variables to the model.
 
 
 ``` r
-BIC(model6)
+BIC(model4)
 ```
 
 ```
@@ -511,15 +465,11 @@ BIC(model6)
 ---
 ### Now we can create a linear model, but is it appropriate?
 
-1. The response has a normal distribution
-2. We need to have a linear relationship
-3. Constant variance
-4. No perfect collinearity (i.e. one predictor isn’t a linear combination of another predictor in the model)
-  - Focus on numerical predictor variables
-5. Observations are independent
-  
+Has 5 Assumptions that needs to be met:
+
+
 ---
-## Assumption: Normality
+### Assumption: Normality
 
 - If the response has a non-normal distribution, the estimates will be biased
 
@@ -529,74 +479,71 @@ To check this assumption, we use a QQ-Plot
   
 
 ``` r
-plot(model6, which = 2)
+plot(model4, which = 2)
 ```
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-## Assumption: Linearity
+### Assumption: Linearity
 
 Look at the Residuals vs Fitted Plot
 - Look to see if there are any noticeable pattern in any of the plots
-- If pattern, linearity assumption is violated
+&lt;br&gt;
 
 
 ``` r
-plot(model6, which = 1)
+plot(model4, which = 1)
 ```
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-## Assumption: Constant Variance
+### Assumption: Constant Variance
 
 - Looking for a constant spread of the residuals
 - Don't want to see a narrowing or widening of points (fan shaped)
 
 
 ``` r
-plot(model6, which = 3)
+plot(model4, which = 3)
 ```
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-## Assumption: No Perfect Collinearity
+### Assumption: No Perfect Collinearity
 
-Collinearity - a linear relationship between two variables
-  - one predictor is a linear combination of another predictor in the model
-  - can't include revenue, profit, cost as profit = revenue-cost
+Collinearity - a linear relationship between two explanatory variables
+
+&lt;br&gt;
 
 
-High correlation between predictor variables
-  - Standard errors become inflated, which can lead to `\(\hat{\beta}\)` having the wrong sign in our predictors
-  - We interpret 1 variable while holding all others constant. Holding the others constant may not be possible
+Why bad?
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
   
-When is this an issue:
-- Generally, the absolute value of a correlation above 0.8 is considered serious (caution is typically advised once you hit around 0.6)
+When is this an issue?
+
 
 
 ---
-## Assumption: No Perfect Collinearity
+### Assumption: No Perfect Collinearity
 
 Let's look at the relationship between `air_time` and `distance`
 
 
 ``` r
 library(corrplot)
-```
-
-```
-## corrplot 0.92 loaded
-```
-
-``` r
 M &lt;- cor(Chicago1000[,c(15:16)])
 corrplot(M, method = "number", type = "upper")
 ```
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -604,19 +551,16 @@ corrplot(M, method = "number", type = "upper")
 
 - Non-constant variance is one of the most common model violations, however it is usually fixable by transforming the response (y) variable.
   + Common transformation is the log-transformation or square root
-  + Be careful with your interpretations (untransform your response variable)
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
 - If you notice a curve in your data, you can add a quadratic term
   + `\(\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X_1 + \hat{\beta_2}X_1^2\)`
   + `lm(arr_delay ~ hour + I(hour^2), data = Chicago1000)`
-- Interactions: used if you think two variables are related to each other
-  + Allows for different slopes (coefficient for an explanatory variable would change as another explanatory variable changes)
-    + `\(\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X_1 + \hat{\beta_2}X_2 \hat{\beta_3}X_1X_2\)`
-  + `int = lm(arr_delay ~ hour + carrier + hour:carrier, data = Chicago1000)`
-  
----
-## Your Turn!
 
-Choose some other explanatory variables and try them out! Can you find a good possible model for predicting arrival delay?
 
 
     </textarea>

@@ -1,0 +1,502 @@
+---
+title: "DSC365: Introduction to Data Science"
+author: "Linear Models"
+date: "October 7, 2025"
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r echo=FALSE, message=FALSE, warning = FALSE}
+library(tidyverse)
+library(knitr)
+library(RColorBrewer)
+library(mosaic)
+
+
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = xfun::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+```
+
+### Announcements
+
+**Lab 4**
+
+- Due Thursday October 9th, 2025 at 11:59 pm in Blueline
+
+**Quiz 2**
+
+- Last 30 minutes of class Thursday October 9th
+- Topics: Data Communication and Statistical Foundations/Linear Models
+
+**Lab 5**: work day in class on Thursday October 9th
+
+- Due Tuesday October 21st, 2025 at 11:59 pm in Blueline
+
+**Mini Project 2**
+
+- Due Thursday October 23rd at 11:59 in Blueline
+
+
+
+---
+### Language of Models
+
+Sometimes we want to know whether any variables are related, thus we need to fit a statistical model.
+
+- We will focus on linear models, but many other types of models too!
+
+.pull-left[
+```{r, message=FALSE, echo = FALSE}
+x = seq(-100, 100)    # just a sequence of numbers
+y = x + rnorm(length(x), 0, 50)      # generate linear association + noise
+
+xy <- data.frame(x,y)
+
+xy %>% ggplot(aes(x=x, y = y)) + geom_point() +
+  geom_smooth(method = "lm", color = "orange", se = FALSE) +
+  ggtitle("Linear Relationship") + theme(title = element_text(size = 24))
+```
+].pull-right[
+```{r, message=FALSE, echo = FALSE}
+x = seq(-100, 100)    # just a sequence of numbers
+y = x^2 + rnorm(length(x), 0, 1000)      # generate non-linear association + noise
+
+xy <- data.frame(x,y)
+
+xy %>% ggplot(aes(x=x, y = y)) + geom_point() +
+  geom_smooth(method = "loess", color = "purple", se = FALSE) +
+  geom_smooth(method = "lm", color = "orange", se = FALSE) +
+  ggtitle("Non-Linear Relationship") + theme(title = element_text(size = 24))
+```
+
+]
+
+
+---
+### Fit a model
+
+Sometimes we want to know whether any variables are related, thus we need to fit a statistical model. 
+
+__Statistical models__: 
+
+<br>
+<br>
+
+There are two things we can do with fitting a model:
+
+---
+### Fit a model
+
+Today's lecture (and mini-project 2) focuses on interpretation, while mini-project 3 will focus on prediction. General steps for fitting a model for interpretation: 
+
+---
+### Vocabulary
+
+- **Response variable**: 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+- **Explanatory variables**: 
+  
+---
+### Benefits and Drawbacks of Models
+
+- **Benefits**:
+
+<br>
+<br>
+<br>
+<br>
+
+- **Drawbacks**: 
+
+---
+### Looking for the potential correlation
+
+__Example__: Review our NYC flight data. Is there any variable related to the arrival delay? If yes, how?
+
+Consider a random sample of 1000 flights from NYC to Chicago in 2013.
+
+```{r, echo = FALSE}
+library(nycflights13)
+set.seed(14)
+Chicago1000 <- flights %>%
+  filter(dest %in% c('ORD', 'MDW'), !is.na(arr_delay)) %>% 
+  sample_n(size=1000)
+```
+
+Below are the column names of the data. Suppose we want to focus on if the time of the flights (`hour`) is related to the arrival delay (`arr_delay`)?
+
+```{r eval = FALSE}
+colnames(Chicago1000)
+```
+
+
+```{r, echo=FALSE}
+matrix(c(colnames(Chicago1000), ""), nrow = 5, ncol = 4) 
+```
+ 
+---
+### Visualizing a Model
+
+The next step is to use a model. 
+  + A popular model we can use is a Linear Model.
+
+
+```{r, message=FALSE, fig.align='center', fig.height=4, fig.width=9}
+Chicago1000 %>% 
+  ggplot(aes(x = hour, y = arr_delay)) + geom_point() + 
+  geom_smooth(method = "lm") +
+  theme(axis.title.x = element_text(size = 18),
+        axis.title.y = element_text(size = 18))
+```
+
+
+---
+### Linear model
+
+__Population Linear model__: The relation between the observation $Y$ and independent variables $X_1,..., X_p$ is formulated as 
+$$Y = \beta_0 + \beta_1X_1 + ... + \beta_pX_p + \epsilon$$
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+__Sample Linear model__: $$Y = \hat{\beta_0} + \hat{\beta_1}X_1 + ... + \hat{\beta_p}X_p$$
+
+
+  
+---
+### Linear Model: One Numerical Predictor
+
+```{r}
+model = lm(arr_delay ~ hour, data = Chicago1000)
+summary(model)
+```
+
+---
+### Linear Model: One Numerical Predictor
+
+**Linear Model**:
+
+<br>
+
+
+
+**Coefficient Interpretation**:
+
+<br>
+<br>
+<br>
+
+**Significance of Variable:** Hypothesis Test
+
+
+  
+---
+### Linear Model: One Categorical Predictor
+
+**Example**: What about carrier? 
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.align='center', fig.height=5, fig.width=8}
+Chicago1000 %>% 
+  ggplot(aes(x = carrier, y = arr_delay)) + 
+  geom_boxplot(aes(color = carrier)) +
+  theme(axis.title.x = element_text(size = 18),
+        axis.title.y = element_text(size = 18))
+```
+
+
+
+
+---
+### Linear Model: One Categorical Predictor
+
+When a categorical explanatory variable has many levels, they're encoded to **dummy variables**
+  
+
+  
+  
+| carrier        | AA           | B6  | MQ| 9E | WN |
+| ------------- |:----:| -----:|-----:|-----:|-----:|-----:|
+| UA | 0 | 0 | 0 |  0 | 0|
+| AA | 1 | 0 | 0 |  0 | 0|
+| B6 | 0 | 1 | 0 |  0 | 0|
+| MQ | 0 | 0 | 1 |  0 | 0|
+| 9E | 0 | 0 | 0 |  1 | 0|
+| WN | 0 | 0 | 0 |  0 | 1|
+
+---
+### Linear Model: One Categorical Predictor
+
+```{r}
+Chicago1000$carrier = relevel(as.factor(Chicago1000$carrier), 
+                              ref = "UA")
+
+model2 = lm(arr_delay ~ carrier, data = Chicago1000)
+broom::tidy(model2)
+```
+
+Carrier UA is the reference level and every other levels will be compared to it.
+
+---
+### Linear Model with Categorical Explanatory
+
+Writing out the proper model:
+
+$$\hat{\text{y}} = 4.86+4.35*\text{9E}-10.7*\text{AA}+20.8*\text{B6}+12.7*\text{MQ}+12.6*\text{WN}$$
+
+
+**For UA (Reference level)**:
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+**For AA:** 
+
+
+---
+### Linear Model with Categorical Explanatory
+
+Interpreting p-value: 
+
+
+
+
+---
+### Analysis of Variance (ANOVA)
+
+**Analysis of variance**: used to analyze the differences among means.
+
+
+**Question**: Does at least one of the carriers have a different mean arrival delay than the others
+
+```{r}
+model3 = aov(arr_delay ~ carrier, data = Chicago1000)
+summary(model3)
+```
+
+
+```{r, echo=FALSE, message = FALSE, eval = FALSE}
+library(multcomp)
+model5 = glht(model3, linfct = mcp(carrier = "Tukey"))
+s <- summary(model5, test = adjusted("holm"))
+broom::tidy(s)
+```
+
+---
+### Confounding Variables
+
+.center[
+**"Correlation does not equal causation."**
+]
+
+
+
+---
+### Carrier as a confounder?
+
+__Example__: Does carrier confound the relationship between arrival delay and hour?
+
+```{r, message=FALSE, fig.align='center', fig.height=4, fig.width=8}
+Chicago1000 %>% ggplot(aes(x = hour, y = arr_delay)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") + 
+  aes(color = carrier)
+```
+
+
+---
+#### Multiple Linear Regression
+
+```{r}
+model4 = lm(arr_delay ~ hour + carrier, data = Chicago1000)
+```
+
+```{r, echo = FALSE}
+summary(model4)
+```
+
+---
+### Overall F Test
+
+Testing for significance of all predictor variables at once: 
+- $H_0$:
+
+<br>
+<br>
+
+- $H_A$: 
+
+
+---
+### Individual Significance Tests
+
+Similar to model with one predictor variable, but p-value is calculated assuming all of the other variables are in the model.
+
+- $H_0$:
+
+<br>
+<br>
+
+- $H_A$: 
+
+
+
+
+---
+### Variable Selection
+
+- Adjusted $R^2$
+- AIC/BIC
+- Prediction Accuracy (after Fall Break)
+
+**Note**: This is far from an exhaustive list
+
+---
+### Adjusted $R^2$
+
+How much of the variation in our response is explained by the model
+
+The Adjusted $R^2$ does not automatically increase for additional variables
+
+<br>
+<br>
+
+
+
+---
+### AIC and BIC
+
+
+- AIC: penalize the inclusion of additional variables to a model. It adds a penalty that increases the error when including additional terms. 
+```{r}
+AIC(model4)
+```
+
+<br>
+<br>
+
+- BIC: Stronger penalty for including additional variables to the model.
+
+```{r}
+BIC(model4)
+```
+
+
+---
+### Now we can create a linear model, but is it appropriate?
+
+Has 5 Assumptions that needs to be met:
+
+
+---
+### Assumption: Normality
+
+- If the response has a non-normal distribution, the estimates will be biased
+
+To check this assumption, we use a QQ-Plot
+  - A scatterplot created by plotting two sets of quantiles against one another.
+  - If data is normal, we should see a roughly straight line
+  
+```{r, fig.align='center', fig.height=3.5, fig.width=8}
+plot(model4, which = 2)
+```
+
+---
+### Assumption: Linearity
+
+Look at the Residuals vs Fitted Plot
+- Look to see if there are any noticeable pattern in any of the plots
+<br>
+
+```{r, fig.align='center', fig.height=5, fig.width=8}
+plot(model4, which = 1)
+```
+
+---
+### Assumption: Constant Variance
+
+- Looking for a constant spread of the residuals
+- Don't want to see a narrowing or widening of points (fan shaped)
+
+```{r, fig.align='center', fig.height=5, fig.width=8}
+plot(model4, which = 3)
+```
+
+---
+### Assumption: No Perfect Collinearity
+
+Collinearity - a linear relationship between two explanatory variables
+
+<br>
+
+
+Why bad?
+
+<br>
+<br>
+<br>
+<br>
+<br>
+  
+When is this an issue?
+
+
+
+---
+### Assumption: No Perfect Collinearity
+
+Let's look at the relationship between `air_time` and `distance`
+
+```{r, fig.align='center', fig.height=5, fig.width=8}
+library(corrplot)
+M <- cor(Chicago1000[,c(15:16)])
+corrplot(M, method = "number", type = "upper")
+```
+
+
+---
+### Last Thing
+
+- Non-constant variance is one of the most common model violations, however it is usually fixable by transforming the response (y) variable.
+  + Common transformation is the log-transformation or square root
+
+<br>
+<br>
+<br>
+<br>
+
+- If you notice a curve in your data, you can add a quadratic term
+  + $\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X_1 + \hat{\beta_2}X_1^2$
+  + `lm(arr_delay ~ hour + I(hour^2), data = Chicago1000)`
+
+
+
