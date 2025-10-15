@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>MTH365: Introduction to Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Cross Validation and KNN" />
+    <meta name="date" content="2025-10-21" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# MTH365: Introduction to Data Science
+]
+.author[
+### Cross Validation and KNN
+]
+.date[
+### October 21, 2025
+]
+
+---
+
+
+
+
+### Announcements
+
+**Lab 5** (Linear Models)
+
+- Due Tuesday October 28th, 2025 at 11:59 pm in Blueline
+
+**Mini Project 2**
+
+- Due Thursday October 23 at 11:59 in Blueline
+
+**Quiz 3**: in class Tuesday October 28th
+
+- Covers: Prediction/KNN/Tree-Based Methods
+
+---
+class: inverse
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.center[
+## Cross Validation and Prediction
+]
+
+---
+### Statistical Models
+
+
+There are two things we can do with fitting a model:
+1. Interpretation 
+2. Prediction
+
+
+Calculating a prediction is easy:
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+Getting a good prediction is hard:
+
+
+---
+### No one best model
+
+.center["All models are wrong, some are just useful"]
+
+
+
+- Prediction Accuracy and Model Interpretability Trade-Off
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+- Bias vs Variance Trade-Off
+
+---
+### Bias vs Variance
+
+&lt;img src="../../Week 8/slides/images/bias-variance.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+### Over vs Under Fitting
+
+&lt;img src="../../09-cv-and-knn/slides/images/model-fit.png" width="2297" style="display: block; margin: auto;" /&gt;
+
+---
+### Splitting Our Data
+
+- Several steps to create a useful statistical model: parameter estimation, model selection, performance assessment, etc.
+
+  - Doing all of this on the entire data we have available can lead to overfitting
+  
+&lt;br&gt;
+&lt;br&gt;
+
+- To avoid overfitting, we split the data.
+
+
+
+---
+### Return to Flight Data
+
+Consider a random sample of 1000 flights from NYC to Chicago in 2013. We want to create a model to predict arrival delay.
+
+
+
+
++ Split it into a training and a testing set.
+
+
+``` r
+set.seed(365)
+test_id &lt;- sample(1:nrow(Chicago1000), 
+                  size=round(0.2*nrow(Chicago1000)))
+TEST &lt;- Chicago1000[test_id,]
+TRAIN &lt;- Chicago1000[-test_id,]
+```
+
++ Fit model to Training set:
+
+
+``` r
+model1 = lm(arr_delay ~ hour + dep_delay, data = TRAIN)
+```
+
++ Predict outcome on the Testing Set:
+
+
+``` r
+predictions &lt;- predict(model1, TEST)
+```
+
+---
+### Evaluate Performance: RMSE
+
+Root Mean Square Error (RMSE) - for numerical response
+
+
+`$$\text{RMSE} = \sqrt{\frac{\sum^{n}_{i=1}(y_i - \hat{y}_i)^2}{n}}$$`
+
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+RMSE for Test Set:
+
+
+``` r
+library(Metrics)
+rmse(TEST$arr_delay, predictions)
+```
+
+```
+## [1] 15.85379
+```
+
+
+
+---
+### Cross Validation
+
+Potential Problem with a single split into training/testing: you evaluated the model only once and you are not sure your good result is by luck or not
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+We can easily do this using cross validation 
+
+- A resampling method that uses different portions of the data to test and train a model on different iterations
+
+
+
+---
+### k-fold Cross Validation: Steps
+
+- Split the dataset into k subsets randomly
+  + Generally choose *k* = 5 or *k* = 10. 
+- Use k-1 subsets for training the model
+- Test the model against that one subset that was left in the previous step
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+  
+&lt;img src="../../09-cv-and-knn/slides/images/k-fold-cv1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+### k-fold Cross Validation
+
+
+``` r
+library(caret)
+train_control &lt;- trainControl(method = "cv", number = 5)
+
+model &lt;- train(arr_delay ~ hour + dep_delay, data = Chicago1000, 
+               trControl = train_control, method = "lm")
+model
+```
+
+```
+## Linear Regression 
+## 
+## 1000 samples
+##    2 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (5 fold) 
+## Summary of sample sizes: 800, 800, 800, 800, 800 
+## Resampling results:
+## 
+##   RMSE     Rsquared   MAE     
+##   19.0237  0.8312302  13.36263
+## 
+## Tuning parameter 'intercept' was held constant at a value of TRUE
+```
+
+
+
+---
+### k-fold Cross Validation
+
+Linear Regression does not have hyperparameters 
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+If you were working with a model with hyperparameters, best to do it this way:
+
+
+&lt;img src="../../09-cv-and-knn/slides/images/k-fold-cv2.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+### Caution with Linear Models: Extrapolation
+
+We extrapolate when we use the regression equation to produce a response value from an x-value that is outside the range of the observed x-values
+
+**Example:** Relationship between year and diameter of a dinner plate.
+
+&lt;img src="../../09-cv-and-knn/slides/images/extrapolation.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+class: inverse
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.center[
+## k Nearest Neighbors (KNN)
+]
+
+
+---
+### "Lazy" learning
+
+__Lazy learning__: no assumptions necessary to classify data
+
+
+
+__Example__: Consider the plot below - describe the relationship between x and y.
+
+&lt;img src="cross-validation-and-knn_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+### "Lazy" learning
+
+What if the data points belonged to three different groups, like this? How should a new data point, `\((0.2, 0.5)\)` be classified? What about `\((0.4, 0.2)\)`?
+
+&lt;img src="cross-validation-and-knn_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+### Bayes Classifier
+
+A good classifier minimizes Testing Error 
+
++ Bayes Classifier produce the lowest possible test error rate [(proof)](https://www.ee.columbia.edu/~vittorio/BayesProof.pdf)
+
+Bayes Classifier assigns each observation to is most likely class using:
+
+`$$P(Y = j|X = x_0)$$`
+**Problem**: Don't know the conditional distribution
+
+---
+### `\(k\)`-nearest neighbor (KNN) classifier: 
+
+
+A non-parametric supervised learning method that estimates the conditional probability.
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+&lt;img src="./images/knn-pic.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+---
+### KNN for Classification Steps
+
+In the KNN algorithm, `\(k\)` specifies the number of neighbors and its algorithm is as follows:
+
+
+
+---
+### `knn()`
+
+__Example__: Let's classify our new points 
+
+
+``` r
+library(class)
+```
+
+
+.pull-left[
+
+`\(k=2\)`?
+
+
+``` r
+knnMod1 = knn(train=data[,1:2], 
+          test = new.pts[,1:2], 
+          cl = data$group, 
+          k = 2, prob = TRUE)
+knnMod1
+```
+
+```
+## [1] A C
+## attr(,"prob")
+## [1] 1 1
+## Levels: A B C
+```
+
+].pull-right[
+
+ `\(k=10\)`?
+
+
+``` r
+knnMod2 = knn(train =data[,1:2], 
+          test = new.pts[,1:2], 
+          cl = data$group, 
+          k = 10, prob = TRUE)
+knnMod2
+```
+
+```
+## [1] A C
+## attr(,"prob")
+## [1] 0.7 0.8
+## Levels: A B C
+```
+
+]
+---
+### Advantages and Disadvantages of KNN
+
+Advantages:
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+Disdvantages:
+
+
+
+---
+### Choice of k
+
+&lt;img src="./images/choose-k.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+### Example: Credit Utilization
+
+__Example__: Use KNN to predict which utilization quantile a new customer falls into based on their application data (credit rating and age)? 
+
+
+
+
+
+&lt;img src="cross-validation-and-knn_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+### Example: Credit Utilization
+
+New applicants:
+
+Name|Age|Credit Rating
+---|---|---
+Lacey|33|750
+Zach|47|400
+Ashlee|21|250
+
+
+
+
+
+
+
+&lt;img src="cross-validation-and-knn_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+### Example: Credit Utilization
+
+.pull-left[
+`\(k=20\)`?
+
+
+``` r
+knn20 = knn(train = old[,1:2],
+            test = apps[,1:2],
+            cl = old[,3], 
+            k = 20, prob = TRUE)
+knn20
+```
+
+```
+## [1] Q3 Q4 Q2
+## attr(,"prob")
+## [1] 0.65 0.40 0.65
+## Levels: Q1 Q2 Q3 Q4
+```
+
+].pull-right[
+
+`\(k=100\)`?
+
+
+``` r
+knn100 = knn(train = old[,1:2],
+            test = apps[,1:2],
+            cl = old[,3], 
+            k = 100, prob= TRUE)
+knn100
+```
+
+```
+## [1] Q4 Q4 Q2
+## attr(,"prob")
+## [1] 0.44 0.46 0.45
+## Levels: Q1 Q2 Q3 Q4
+```
+]
+---
+### Evaluate Prediction Accuracy
+
+__Example__:We want to know if KNN is effective at predicting quartile membership using an applicant's age, credit rating, income, number of existing credit cards, and education level. I'll randomly select 100 observations for testing, and assign the other 300 to my training data set.
+
+
+``` r
+set.seed(365)
+test_ID = sample(1:nrow(Credit), size = 100)
+TEST = Credit[test_ID,]
+TRAIN = Credit[-test_ID, ]
+
+#only select variables we want
+knn_train = TRAIN %&gt;% dplyr::select(Age, Rating, Income, 
+                                    Cards, Education)
+knn_test = TEST %&gt;% dplyr::select(Age, Rating, Income, 
+                                  Cards, Education) 
+```
+
+---
+### Evaluate models 
+
+Now, we'll set the testing data as "new data", and make predictions using the k-nearest neighbors from the training data.
+
+
+``` r
+knn50 = knn(train = knn_train, 
+            test = knn_test,
+            cl = TRAIN$Quartile, 
+            k = 50, prob = TRUE)
+knn50
+```
+
+```
+##   [1] Q4 Q1 Q4 Q1 Q4 Q3 Q4 Q4 Q1 Q4 Q2 Q2 Q4 Q4 Q3 Q1 Q1 Q3 Q4 Q1 Q4 Q2 Q3 Q2 Q2 Q4 Q3 Q4 Q4 Q2 Q2 Q2 Q3
+##  [34] Q2 Q1 Q4 Q4 Q3 Q3 Q2 Q1 Q2 Q3 Q4 Q1 Q4 Q3 Q2 Q4 Q4 Q4 Q2 Q4 Q1 Q4 Q1 Q1 Q2 Q1 Q1 Q1 Q4 Q1 Q4 Q4 Q1
+##  [67] Q4 Q4 Q4 Q4 Q2 Q1 Q4 Q2 Q3 Q2 Q2 Q1 Q1 Q4 Q2 Q4 Q2 Q3 Q2 Q4 Q1 Q4 Q4 Q2 Q4 Q4 Q4 Q4 Q2 Q2 Q4 Q2 Q1
+## [100] Q2
+## attr(,"prob")
+##   [1] 0.66 0.86 0.54 0.96 0.50 0.40 0.36 0.52 0.96 0.66 0.54 0.56 0.54 0.42 0.38 0.96 0.92 0.42 0.46 0.98
+##  [21] 0.44 0.52 0.40 0.54 0.60 0.46 0.46 0.42 0.62 0.52 0.52 0.56 0.40 0.54 0.58 0.46 0.52 0.38 0.46 0.52
+##  [41] 0.96 0.44 0.44 0.42 0.98 0.50 0.44 0.48 0.54 0.46 0.50 0.58 0.46 0.90 0.50 0.94 0.96 0.42 0.96 0.82
+##  [61] 0.54 0.48 0.54 0.58 0.44 0.96 0.44 0.46 0.58 0.54 0.34 0.96 0.44 0.58 0.42 0.34 0.54 0.96 0.96 0.42
+##  [81] 0.60 0.52 0.56 0.40 0.48 0.54 0.64 0.34 0.60 0.56 0.44 0.50 0.48 0.50 0.46 0.52 0.44 0.58 0.78 0.58
+## Levels: Q1 Q2 Q3 Q4
+```
+
+---
+### Evaluate models: Classification Accuracy 
+
+Now, we'll set the testing data as "new data", and make predictions using the k-nearest neighbors from the training data.
+
+
+``` r
+#Create Confusion Matrix
+t = table(knn50, TEST$Quartile)
+t
+```
+
+```
+##      
+## knn50 Q1 Q2 Q3 Q4
+##    Q1 18  2  1  1
+##    Q2  4 16  5  1
+##    Q3  0  3  7  2
+##    Q4  0  8 16 16
+```
+
+``` r
+sum(diag(t))/nrow(TEST) #Classification Accuracy
+```
+
+```
+## [1] 0.57
+```
+
+---
+### Scaling Data
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+``` r
+knn_train_scale &lt;- knn_train %&gt;% scale()
+knn_test_scale &lt;- knn_test %&gt;% scale()
+
+knn50_scale = knn(train = knn_train_scale, 
+            test = knn_test_scale,
+            cl = TRAIN$Quartile, 
+            k = 50, prob = TRUE)
+
+
+t_scale = table(knn50_scale, TEST$Quartile)
+
+sum(diag(t_scale))/nrow(TEST) #Classification Accuracy
+```
+
+```
+## [1] 0.44
+```
+
+---
+### KNN for Regression 
+
+Can also use KNN to predict a quantiative response 
+  + Alternative to Linear Regression
+
+In the KNN algorithm, `\(k\)` specifies the number of neighbors and its algorithm is as follows:
+
+
+---
+### Example: Credit Utilization
+
+
+
+``` r
+knn_train = TRAIN %&gt;% dplyr::select(Age, Rating, Income, Cards, 
+                                    Education)
+knn_test = TEST %&gt;% dplyr::select(Age, Rating, Income, Cards, 
+                                  Education) 
+
+knn50 = FNN::knn.reg(train = knn_train, 
+            test = knn_test,
+            y = TRAIN$Utilization, 
+            k = 50)
+
+head(knn50$pred, n = 5)
+```
+
+```
+## [1] 0.157343839 0.011478125 0.144051032 0.005360386 0.142495141
+```
+
+``` r
+rmse(TEST$Utilization, knn50$pred)
+```
+
+```
+## [1] 0.0386645
+```
+
+---
+### Linear Regression vs KNN Regression
+
+**In General**: 
+
+.center[
+Parametric approaches will outperform nonparametric approaches if the parametric form that has been selected is close to the true form of the data
+]
+
+&lt;br&gt;
+
+So in situations where the relationship is nonlinear, KNN regression may perform better than Linear Regression
+
+- But, Linear Regression may actually perform better than KNN as the number of variables (dimensions) increase
+  + Curse of dimensionality
+
+  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

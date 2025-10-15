@@ -482,3 +482,14 @@ data("iris")
 3. Using your most important variables, create a decision tree
 4. Evaluate your decision Tree
 
+---
+## Summary 
+
+Linear model: The basic model for regression, easy for interpretation, but has strict assumption thus hard to get a better prediction
+
+Decision tree: Can be applied to regression and classification. Has good data visualization but it has high variance. 
+
+Random Forest: a collection of tree models. Hard for interpretation but it can output variable importance. Can be useful if you have a lot of variable and what want to select the most useful ones. Also, if you have variables are not independent with each other, it performs better than the linear model. 
+
+KNN：Can be applied to regression and classification. relatively fast, no assumption need and add data anytime. May affect the accuracy if we have too many variables and need to use CV to decide the k value. 
+
