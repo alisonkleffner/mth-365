@@ -4,7 +4,7 @@
     <title>DSC365: Introduction to Data Science</title>
     <meta charset="utf-8" />
     <meta name="author" content="Decision Trees and Random Forests" />
-    <meta name="date" content="2024-10-22" />
+    <meta name="date" content="2025-10-23" />
     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ### Decision Trees and Random Forests
 ]
 .date[
-### October 22, 2024
+### October 23, 2025
 ]
 
 ---
@@ -36,34 +36,46 @@ class: center, middle, inverse, title-slide
 
 ## Announcements
 
-**Lab 5**: Due Tuesday October 22nd, 2024 at 11:59 pm in Blueline
+**Lab 5** (Linear Models)
+
+- Due Tuesday October 28th, 2025 at 11:59 pm in Blueline
+- Will start Lab 6 in class on Tuesday
 
 **Mini Project 2**
 
-- Due Thursday October 24 at 11:59 in Blueline
+- Due Tonight at 11:59 in Blueline
 
-**Lab 6**: work day in class on Thursday October 24
+**Quiz 3**: in class Tuesday October 28th
 
-- Due Tuesday October 29th, 2024 at 11:59 pm in Blueline
+- Covers: Prediction/KNN/Tree-Based Methods
 
 ---
-## Supervised vs Unsupervised Learning
+### Supervised vs Unsupervised Learning
 
 Learning techniques fall into two categories:
 
-1. Supervised learning: Use input data (predictors) to predict the value of an output data (response variable). If the output data is continuous, we call it regression. If the output data is categorical, we call it classification.
-  -  You’re familiar with some (simple) supervised learning techniques already: like a linear model: y ~ x1 + x2 + x3
-2. Unsupervised learning: There is no response variable. We try to learn the pattern of the input data, usually by clustering them into several groups.
+1). Supervised learning:
 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+2). Unsupervised learning: 
 
 ---
-## Tree-Based Methods
+### Tree-Based Methods
 
 - Can be used for both regression and classification
-  + Regression models have a quantitative response variable (and can thus often be visualized as a geometric surface) 
-  + Classification models have a categorical response (and are often visualized as a discrete surface).
+  + Regression models `\(\longrightarrow\)`  quantitative response variable
+&lt;br&gt;
+
+  + Classification models `\(\longrightarrow\)` categorical response 
+&lt;br&gt;
+
+
 - These involve stratifying or segmenting the predictor space into a number of simple regions
-  + Have a set of decision rules that can be summarized in a tree
 
 
 ---
@@ -82,29 +94,29 @@ glimpse(GSS)
 ```
 ## Rows: 9,423
 ## Columns: 18
-## $ YEAR     &lt;int&gt; 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 201…
-## $ NEWSFROM &lt;chr&gt; "Not applicable", "Not applicable", "Not applicable", "Not applicable", "Tv", "Not appl…
-## $ HAPPY    &lt;chr&gt; "Pretty happy", "Not too happy", "Not too happy", "Not too happy", "Very happy", "Prett…
-## $ RELIG    &lt;chr&gt; "Catholic", "None", "Catholic", "Catholic", "Protestant", "None", "Catholic", "Protesta…
-## $ GRASS    &lt;chr&gt; "Don't know", "Legal", "Not applicable", "Not legal", "Not legal", "Legal", "Don't know…
-## $ COURTS   &lt;chr&gt; "About right", "Too harsh", "Not harsh enough", "Not harsh enough", "Not harsh enough",…
-## $ ENERGY   &lt;chr&gt; "Too little", "Too little", "Don't know", "About right", "Don't know", "Too little", "T…
-## $ EDUC     &lt;chr&gt; "Not applicable", "Too little", "Too little", "Not applicable", "About right", "Too lit…
-## $ ENVIR    &lt;chr&gt; "Not applicable", "Too little", "Too little", "Not applicable", "About right", "Too lit…
-## $ POLVIEWS &lt;chr&gt; "Slightly liberal", "Liberal", "Don't know", "Liberal", "Slightly liberal", "Slightly l…
-## $ PARTYID  &lt;chr&gt; "Democrat", "Democrat", "Democrat", "Republican", "Independent", "Democrat", "Independe…
-## $ REGION   &lt;chr&gt; "Middle atlantic", "Middle atlantic", "Middle atlantic", "Middle atlantic", "Middle atl…
-## $ INCOME   &lt;chr&gt; "$25000 or more", "$15000 - 19999", "$20000 - 24999", "$8000 to 9999", "Don't know", "$…
-## $ SEX      &lt;chr&gt; "Male", "Female", "Female", "Female", "Female", "Male", "Female", "Female", "Female", "…
-## $ DEGREE   &lt;chr&gt; "Bachelor", "Bachelor", "Lt high school", "Lt high school", "Lt high school", "Lt high …
-## $ AGE      &lt;chr&gt; "31", "23", "71", "82", "78", "40", "46", "80", "31", "No answer", "31", "21", "58", "3…
-## $ MARITAL  &lt;chr&gt; "Never married", "Never married", "Divorced", "Widowed", "Married", "Never married", "D…
-## $ BALLOT   &lt;chr&gt; "Ballot b", "Ballot b", "Ballot a", "Ballot b", "Ballot c", "Ballot b", "Ballot c", "Ba…
+## $ YEAR     &lt;int&gt; 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010…
+## $ NEWSFROM &lt;chr&gt; "Not applicable", "Not applicable", "Not applicable", "Not applicable", "Tv", "Not…
+## $ HAPPY    &lt;chr&gt; "Pretty happy", "Not too happy", "Not too happy", "Not too happy", "Very happy", "…
+## $ RELIG    &lt;chr&gt; "Catholic", "None", "Catholic", "Catholic", "Protestant", "None", "Catholic", "Pro…
+## $ GRASS    &lt;chr&gt; "Don't know", "Legal", "Not applicable", "Not legal", "Not legal", "Legal", "Don't…
+## $ COURTS   &lt;chr&gt; "About right", "Too harsh", "Not harsh enough", "Not harsh enough", "Not harsh eno…
+## $ ENERGY   &lt;chr&gt; "Too little", "Too little", "Don't know", "About right", "Don't know", "Too little…
+## $ EDUC     &lt;chr&gt; "Not applicable", "Too little", "Too little", "Not applicable", "About right", "To…
+## $ ENVIR    &lt;chr&gt; "Not applicable", "Too little", "Too little", "Not applicable", "About right", "To…
+## $ POLVIEWS &lt;chr&gt; "Slightly liberal", "Liberal", "Don't know", "Liberal", "Slightly liberal", "Sligh…
+## $ PARTYID  &lt;chr&gt; "Democrat", "Democrat", "Democrat", "Republican", "Independent", "Democrat", "Inde…
+## $ REGION   &lt;chr&gt; "Middle atlantic", "Middle atlantic", "Middle atlantic", "Middle atlantic", "Middl…
+## $ INCOME   &lt;chr&gt; "$25000 or more", "$15000 - 19999", "$20000 - 24999", "$8000 to 9999", "Don't know…
+## $ SEX      &lt;chr&gt; "Male", "Female", "Female", "Female", "Female", "Male", "Female", "Female", "Femal…
+## $ DEGREE   &lt;chr&gt; "Bachelor", "Bachelor", "Lt high school", "Lt high school", "Lt high school", "Lt …
+## $ AGE      &lt;chr&gt; "31", "23", "71", "82", "78", "40", "46", "80", "31", "No answer", "31", "21", "58…
+## $ MARITAL  &lt;chr&gt; "Never married", "Never married", "Divorced", "Widowed", "Married", "Never married…
+## $ BALLOT   &lt;chr&gt; "Ballot b", "Ballot b", "Ballot a", "Ballot b", "Ballot c", "Ballot b", "Ballot c"…
 ```
 ]
 
 ---
-## Let's Clean Our Data! Yay!
+### Let's Clean Our Data! Yay!
 
 - Let's only look at one year, say 2016, and remove "Not applicable from our response"
 
@@ -134,7 +146,7 @@ GSS$AGE &lt;- as.numeric(GSS$AGE)
 ```
 
 ---
-## Testing data v. training data
+### Testing data v. Training data
 
 **Goal**: Use Age to predict people’s opinion of marijuana legalization.
 
@@ -146,7 +158,7 @@ TEST &lt;- GSS[test_id,]
 TRAIN &lt;- GSS[-test_id,]
 ```
 
---
+&lt;br&gt;
 
 How many people in the training data set support marijuana legalization?
 
@@ -165,25 +177,37 @@ TRAIN %&gt;% group_by(LEGAL) %&gt;% summarize(n=n())
 
 
 ---
-## Decision Trees
+### Decision Trees
 
 Decision trees: A tree-like model of decisions and their possible consequences
 
 - Has flowchart-like structure in which each...
-  + Internal node represents a "test" on an attribute (decision node), 
-  - Branch represents the outcome of the test, 
-  - Leaf node represents a class label (decision taken after computing all attributes). 
-- The paths from root to leaf represent classification rules.
-- Can be applied on both regression and classification problems.
 
-&lt;img src="../../Week 9/slides/images/decision-tree.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+&lt;img src="./images/decision-tree.png" width="75%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Decision Trees (Classification)
+### Decision Trees (Classification)
 
-We first divide the predictor space into *J* distinct non-overlapping regions. We predict that each observation belongs to the most commonly occurring class of training observations in the region to which it belongs.
 
---
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 How to decide to split?
 
@@ -192,23 +216,28 @@ How to decide to split?
   + So several competing methods for building decision trees
 
 ---
-## Decision Trees (Classification)
+### Decision Trees (Classification)
 
 Recursive Partitioning: Split an infinite # of times until some stopping criterion is reached.
 
 Split:
-  + Gini Index (default): `$$G = \sum^{K}_{k=1}\hat{p}_{mk}(1-\hat{p}_{mk})$$`
-where `\(\hat{p}_{mk}\)` is the proportion of training observations in the *m*th region that are from the *k*th class
-    + Gini Index is a measure of node purity
+  + Gini Index (default): 
     
-    
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
 Stop:
 
-- Complexity parameter: Prunes splits that don't sufficiently improve a model's predictive power
+- Complexity parameter
 
   
 ---
-## Fitting A Decision Tree (Classification)
+### Fitting A Decision Tree (Classification)
 
 
 ``` r
@@ -242,19 +271,7 @@ fancyRpartPlot(tree)
 
 
 
-&lt;img src="../../Week 9/slides/images/tree1.png" width="75%" style="display: block; margin: auto;" /&gt;
-
----
-### Visualizing using ggplot
-
-
-``` r
-TRAIN %&gt;% ggplot(aes(x=LEGAL, y=AGE)) + 
-  geom_hline(yintercept=69, col='black') + 
-  geom_jitter(alpha=0.5, aes(col=LEGAL))
-```
-
-&lt;img src="decision-trees-random-forests_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="./images/tree1.png" width="75%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Visualizing using ggplot
@@ -262,16 +279,18 @@ TRAIN %&gt;% ggplot(aes(x=LEGAL, y=AGE)) +
 
 ``` r
 TRAIN %&gt;% ggplot(aes(x=LEGAL, y=AGE)) +
-geom_boxplot(aes(col=LEGAL))
+geom_boxplot(aes(col=LEGAL)) +
+  geom_hline(yintercept=69, col='black') 
 ```
 
-&lt;img src="decision-trees-random-forests_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="decision-trees-random-forests_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
-## Evaluating a decision tree
+### Evaluating a decision tree
 
 - Confusion Matrix
 - Classification Accuracy
+
 ---
 ### Confusion Matrix
 
@@ -334,7 +353,7 @@ sum(diag(confusion_test))/nrow(TEST)
 
 
 ---
-## Tuning Parameter: Complexity parameter
+### Tuning Parameter: Complexity parameter
 
 Using recursive paritioning can overfit the training data - Prune Tree 
 
@@ -372,14 +391,25 @@ rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass,
 
 
 ---
-## Decision Trees (Regression)
+### Decision Trees (Regression)
 
-We first divide the predictor space into *J* distinct non-overlapping regions. Then for every observation that falls into the region `\(R_j\)`, we make the same prediction, which is simply the mean of the response values for the training observations in `\(R_j\)`.
-
-
---
 
 &lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+
+
 
 How to decide to split?
 
@@ -401,13 +431,12 @@ fancyRpartPlot(tree2)
 
 
 
-&lt;img src="../../Week 9/slides/images/tree2.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./images/tree2.png" width="75%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Prediction for Decision Regression Tree
 
-We can still use the predict function to predict our regression decision tree outputs. Can then find the RMSE using these predictions. Can also print out the complexity parameter information to assess fit.
-
+We can still use the predict function to predict our regression decision tree outputs. 
 
 ``` r
 TEST &lt;- TEST %&gt;% filter(MARITAL != "No answer") 
@@ -421,66 +450,82 @@ predict(tree2, TEST , method = "anova") %&gt;% head()
 ```
 
 &lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
 
 **Be Careful**: Can only predict using categorical variables located in the Training Set
-
----
-### Try by Yourself
-
-What if we try to use both age and political affiliation to predict the view on marijuana legalization? Visualize the tree and calculate the classification accuracy.
-
 
 ---
 ### Trees Versus Linear Models
 
 - If the relationship between the features and the response is well approximated by
 a linear model: 
-  + linear regression (exploits linear structure). 
-- If instead there is a highly nonlinear and complex relationship between the features and the response as indicated by model: 
-  + decision trees
-
+  + Linear regression 
+  
+&lt;br&gt;
 &lt;br&gt;
 
-**But should also consider other things like testing error and interpretability**
+- If instead there is a highly nonlinear and complex relationship between the features and the response as indicated by model: 
+  + Decision trees
+
+
 
 ---
 ### Advantages and Disadvantages of Decision Trees
 
-- Easy to explain to people
-  + Can visualize
-  + Mirrors human decision-making
-- Can handle qualitative predictors without dummy variables
-- However, they generally do not have the same level of predictive accuracy as other approaches
-  + Can approve prediction accuracy by aggregating many trees!
-  
-  
+**Advantages**
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+**Disadvantages** 
   
 ---
 ### Random Forests
 
 A random forest is collection of decision trees that are aggregated by majority rule
 
-  - Random forest will expect you to have a relatively large number of input variables.
-
+  
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 &lt;br&gt;
 
-When to use random forest
+When to use random forest:
 
-  - When there are a lot of variables and you have no idea why one may be useful to explain the response variable.
-  - Potential collinearity in the predictors.
+
 
 ---
-## Building a Random Forest
+### Building a Random Forest
 
 In building a random forest, each time a split in a tree is considered, a random sample of *m* predictors is chosen as split candidates from the full set of *p* predictors. 
 
-- A fresh sample of *m* predictors is taken at each split
-- Typically we choose *m* `\(\approx \sqrt{p}\)` 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 Hence, at each split in the tree, the algorithm is not even allowed to consider a majority of the available predictors. Why is this a good thing?
 
 ---
-## Random Forests 
+### Random Forests 
 
 **Example**: Which variables are most important for predicting views on marijuana legalization?
 
@@ -518,7 +563,7 @@ forest_grass
 ]
 
 ---
-## Random Forests: Prediction
+### Random Forests: Prediction
 
 
 ``` r
@@ -589,7 +634,7 @@ fancyRpartPlot(tree4)
 
 
 
-&lt;img src="../../Week 9/slides/images/tree4.png" width="2437" style="display: block; margin: auto;" /&gt;
+&lt;img src="./images/tree4.png" width="2437" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Your Turn: Age
@@ -611,6 +656,17 @@ data("iris")
 2. Fit a random Forest Model (Species)- Decide variable importance
 3. Using your most important variables, create a decision tree
 4. Evaluate your decision Tree
+
+---
+### Summary 
+
+Linear model: The basic model for regression, easy for interpretation, but has strict assumption thus hard to get a better prediction
+
+Decision tree: Can be applied to regression and classification. Has good data visualization but it has high variance. 
+
+Random Forest: a collection of tree models. Hard for interpretation but it can output variable importance. Can be useful if you have a lot of variable and what want to select the most useful ones. Also, if you have variables are not independent with each other, it performs better than the linear model. 
+
+KNN：Can be applied to regression and classification. relatively fast, no assumption need and add data anytime. May affect the accuracy if we have too many variables and need to use CV to decide the k value. 
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

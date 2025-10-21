@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science"
 author: "Decision Trees and Random Forests"
-date: "October 22, 2024"
+date: "October 23, 2025"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -41,34 +41,46 @@ knit_hooks$set(output = function(x, options) {
 
 ## Announcements
 
-**Lab 5**: Due Tuesday October 22nd, 2024 at 11:59 pm in Blueline
+**Lab 5** (Linear Models)
+
+- Due Tuesday October 28th, 2025 at 11:59 pm in Blueline
+- Will start Lab 6 in class on Tuesday
 
 **Mini Project 2**
 
-- Due Thursday October 24 at 11:59 in Blueline
+- Due Tonight at 11:59 in Blueline
 
-**Lab 6**: work day in class on Thursday October 24
+**Quiz 3**: in class Tuesday October 28th
 
-- Due Tuesday October 29th, 2024 at 11:59 pm in Blueline
+- Covers: Prediction/KNN/Tree-Based Methods
 
 ---
-## Supervised vs Unsupervised Learning
+### Supervised vs Unsupervised Learning
 
 Learning techniques fall into two categories:
 
-1. Supervised learning: Use input data (predictors) to predict the value of an output data (response variable). If the output data is continuous, we call it regression. If the output data is categorical, we call it classification.
-  -  You’re familiar with some (simple) supervised learning techniques already: like a linear model: y ~ x1 + x2 + x3
-2. Unsupervised learning: There is no response variable. We try to learn the pattern of the input data, usually by clustering them into several groups.
+1). Supervised learning:
 
+<br>
+<br>
+<br>
+<br>
+<br>
+
+2). Unsupervised learning: 
 
 ---
-## Tree-Based Methods
+### Tree-Based Methods
 
 - Can be used for both regression and classification
-  + Regression models have a quantitative response variable (and can thus often be visualized as a geometric surface) 
-  + Classification models have a categorical response (and are often visualized as a discrete surface).
+  + Regression models $\longrightarrow$  quantitative response variable
+<br>
+
+  + Classification models $\longrightarrow$ categorical response 
+<br>
+
+
 - These involve stratifying or segmenting the predictor space into a number of simple regions
-  + Have a set of decision rules that can be summarized in a tree
 
 
 ---
@@ -83,13 +95,13 @@ glimpse(GSS)
 ```
 
 ```{r, echo = FALSE}
-GSS <- read.csv("../../Week 9/slides/GSS2016.csv")
+GSS <- read.csv("./GSS2016.csv")
 glimpse(GSS)
 ```
 ]
 
 ---
-## Let's Clean Our Data! Yay!
+### Let's Clean Our Data! Yay!
 
 - Let's only look at one year, say 2016, and remove "Not applicable from our response"
 
@@ -113,7 +125,7 @@ GSS$AGE <- as.numeric(GSS$AGE)
 ```
 
 ---
-## Testing data v. training data
+### Testing data v. Training data
 
 **Goal**: Use Age to predict people’s opinion of marijuana legalization.
 
@@ -124,7 +136,7 @@ TEST <- GSS[test_id,]
 TRAIN <- GSS[-test_id,]
 ```
 
---
+<br>
 
 How many people in the training data set support marijuana legalization?
 
@@ -134,29 +146,41 @@ TRAIN %>% group_by(LEGAL) %>% summarize(n=n())
 
 
 ---
-## Decision Trees
+### Decision Trees
 
 Decision trees: A tree-like model of decisions and their possible consequences
 
 - Has flowchart-like structure in which each...
-  + Internal node represents a "test" on an attribute (decision node), 
-  - Branch represents the outcome of the test, 
-  - Leaf node represents a class label (decision taken after computing all attributes). 
-- The paths from root to leaf represent classification rules.
-- Can be applied on both regression and classification problems.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ```{r, echo=FALSE, fig.align='center',out.width="75%"}
 
-knitr::include_graphics("../../Week 9/slides/images/decision-tree.png")
+knitr::include_graphics("./images/decision-tree.png")
 
 ```
 
 ---
-## Decision Trees (Classification)
+### Decision Trees (Classification)
 
-We first divide the predictor space into *J* distinct non-overlapping regions. We predict that each observation belongs to the most commonly occurring class of training observations in the region to which it belongs.
 
---
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 How to decide to split?
 
@@ -165,23 +189,28 @@ How to decide to split?
   + So several competing methods for building decision trees
 
 ---
-## Decision Trees (Classification)
+### Decision Trees (Classification)
 
 Recursive Partitioning: Split an infinite # of times until some stopping criterion is reached.
 
 Split:
-  + Gini Index (default): $$G = \sum^{K}_{k=1}\hat{p}_{mk}(1-\hat{p}_{mk})$$
-where $\hat{p}_{mk}$ is the proportion of training observations in the *m*th region that are from the *k*th class
-    + Gini Index is a measure of node purity
+  + Gini Index (default): 
     
-    
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 Stop:
 
-- Complexity parameter: Prunes splits that don't sufficiently improve a model's predictive power
+- Complexity parameter
 
   
 ---
-## Fitting A Decision Tree (Classification)
+### Fitting A Decision Tree (Classification)
 
 ```{r}
 #install.packages('rpart')
@@ -207,17 +236,8 @@ tree <- rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass)
 
 ```{r, echo=FALSE, fig.align='center',out.width="75%"}
 
-knitr::include_graphics("../../Week 9/slides/images/tree1.png")
+knitr::include_graphics("./images/tree1.png")
 
-```
-
----
-### Visualizing using ggplot
-
-```{r, warning=FALSE, fig.height=6, fig.width=8, fig.align='center'}
-TRAIN %>% ggplot(aes(x=LEGAL, y=AGE)) + 
-  geom_hline(yintercept=69, col='black') + 
-  geom_jitter(alpha=0.5, aes(col=LEGAL))
 ```
 
 ---
@@ -225,14 +245,16 @@ TRAIN %>% ggplot(aes(x=LEGAL, y=AGE)) +
 
 ```{r, warning=FALSE, fig.height=6, fig.width=8, fig.align='center'}
 TRAIN %>% ggplot(aes(x=LEGAL, y=AGE)) +
-geom_boxplot(aes(col=LEGAL))
+geom_boxplot(aes(col=LEGAL)) +
+  geom_hline(yintercept=69, col='black') 
 ```
 
 ---
-## Evaluating a decision tree
+### Evaluating a decision tree
 
 - Confusion Matrix
 - Classification Accuracy
+
 ---
 ### Confusion Matrix
 
@@ -269,7 +291,7 @@ sum(diag(confusion_test))/nrow(TEST)
 
 
 ---
-## Tuning Parameter: Complexity parameter
+### Tuning Parameter: Complexity parameter
 
 Using recursive paritioning can overfit the training data - Prune Tree 
 
@@ -289,14 +311,25 @@ rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass,
 
 
 ---
-## Decision Trees (Regression)
+### Decision Trees (Regression)
 
-We first divide the predictor space into *J* distinct non-overlapping regions. Then for every observation that falls into the region $R_j$, we make the same prediction, which is simply the mean of the response values for the training observations in $R_j$.
-
-
---
 
 <br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+
+
 
 How to decide to split?
 
@@ -321,15 +354,14 @@ tree2 <- rpart(AGE~POLVIEWS + MARITAL, data=TRAIN)
 
 ```{r, echo=FALSE, fig.align='center',out.width="75%"}
 
-knitr::include_graphics("../../Week 9/slides/images/tree2.png")
+knitr::include_graphics("./images/tree2.png")
 
 ```
 
 ---
 ### Prediction for Decision Regression Tree
 
-We can still use the predict function to predict our regression decision tree outputs. Can then find the RMSE using these predictions. Can also print out the complexity parameter information to assess fit.
-
+We can still use the predict function to predict our regression decision tree outputs. 
 ```{r}
 TEST <- TEST %>% filter(MARITAL != "No answer") 
 
@@ -337,66 +369,82 @@ predict(tree2, TEST , method = "anova") %>% head()
 ```
 
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 **Be Careful**: Can only predict using categorical variables located in the Training Set
-
----
-### Try by Yourself
-
-What if we try to use both age and political affiliation to predict the view on marijuana legalization? Visualize the tree and calculate the classification accuracy.
-
 
 ---
 ### Trees Versus Linear Models
 
 - If the relationship between the features and the response is well approximated by
 a linear model: 
-  + linear regression (exploits linear structure). 
-- If instead there is a highly nonlinear and complex relationship between the features and the response as indicated by model: 
-  + decision trees
-
+  + Linear regression 
+  
+<br>
 <br>
 
-**But should also consider other things like testing error and interpretability**
+- If instead there is a highly nonlinear and complex relationship between the features and the response as indicated by model: 
+  + Decision trees
+
+
 
 ---
 ### Advantages and Disadvantages of Decision Trees
 
-- Easy to explain to people
-  + Can visualize
-  + Mirrors human decision-making
-- Can handle qualitative predictors without dummy variables
-- However, they generally do not have the same level of predictive accuracy as other approaches
-  + Can approve prediction accuracy by aggregating many trees!
-  
-  
+**Advantages**
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+**Disadvantages** 
   
 ---
 ### Random Forests
 
 A random forest is collection of decision trees that are aggregated by majority rule
 
-  - Random forest will expect you to have a relatively large number of input variables.
-
+  
+<br>
+<br>
+<br>
 <br>
 
-When to use random forest
+When to use random forest:
 
-  - When there are a lot of variables and you have no idea why one may be useful to explain the response variable.
-  - Potential collinearity in the predictors.
+
 
 ---
-## Building a Random Forest
+### Building a Random Forest
 
 In building a random forest, each time a split in a tree is considered, a random sample of *m* predictors is chosen as split candidates from the full set of *p* predictors. 
 
-- A fresh sample of *m* predictors is taken at each split
-- Typically we choose *m* $\approx \sqrt{p}$ 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 Hence, at each split in the tree, the algorithm is not even allowed to consider a majority of the available predictors. Why is this a good thing?
 
 ---
-## Random Forests 
+### Random Forests 
 
 **Example**: Which variables are most important for predicting views on marijuana legalization?
 
@@ -418,7 +466,7 @@ forest_grass
 ]
 
 ---
-## Random Forests: Prediction
+### Random Forests: Prediction
 
 ```{r}
 TEST <- TEST %>%
@@ -458,7 +506,7 @@ tree4 <- rpart(LEGAL~AGE+PARTYID, data=TRAIN)
 
 ```{r, echo=FALSE, fig.align='center'}
 
-knitr::include_graphics("../../Week 9/slides/images/tree4.png")
+knitr::include_graphics("./images/tree4.png")
 
 ```
 
@@ -483,7 +531,7 @@ data("iris")
 4. Evaluate your decision Tree
 
 ---
-## Summary 
+### Summary 
 
 Linear model: The basic model for regression, easy for interpretation, but has strict assumption thus hard to get a better prediction
 

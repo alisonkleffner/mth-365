@@ -1,5 +1,5 @@
 ---
-title: "MTH365: Introduction to Data Science"
+title: "DSC365: Introduction to Data Science"
 author: "Cross Validation and KNN"
 date: "October 21, 2025"
 output: 
