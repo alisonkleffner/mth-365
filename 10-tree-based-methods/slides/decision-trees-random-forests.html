@@ -47,7 +47,7 @@ class: center, middle, inverse, title-slide
 
 **Quiz 3**: in class Tuesday October 28th
 
-- Covers: Prediction/KNN/Tree-Based Methods
+- Covers: Prediction/KNN/Decsion Trees
 
 ---
 ### Supervised vs Unsupervised Learning
@@ -191,12 +191,14 @@ Decision trees: A tree-like model of decisions and their possible consequences
 &lt;br&gt;
 &lt;br&gt;
 
-&lt;img src="./images/decision-tree.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./images/decision-tree.png" width="75%" style="display: block; margin: auto auto auto 0;" /&gt;
 
 ---
 ### Decision Trees (Classification)
 
 
+&lt;br&gt;
+&lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
@@ -218,18 +220,19 @@ How to decide to split?
 ---
 ### Decision Trees (Classification)
 
-Recursive Partitioning: Split an infinite # of times until some stopping criterion is reached.
+Recursive Partitioning: Split infinite # of times until reach stopping criterion.
 
 Split:
   + Gini Index (default): 
+  
+`$$G = \sum_{k=1}^{K} \hat{p}_{mk}(1-\hat{p}_{mk})$$` where `\(\hat{p}_{mk}\)` is the proportion of training observations in `\(m^{th}\)` region from `\(k^{th}\)` class.
     
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+
 
 Stop:
 
@@ -399,23 +402,17 @@ rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass,
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
-
 &lt;br&gt;
-
 &lt;br&gt;
-
 &lt;br&gt;
-
 &lt;br&gt;
-
-
+&lt;br&gt;
 
 
 How to decide to split?
 
-- Find regions `\((R_j)\)` that minimizes the residual sum of squares `$$RSS = \sum^{J}_{j=1}\sum_{i \in R_j}(y_i - \hat{y}_{R_j})^2)$$`. 
-
-  - Stops when you reach some criterion (cp).
+- Find regions `\((R_j)\)` that minimizes the residual sum of squares `$$RSS = \sum^{J}_{j=1}\sum_{i \in R_j}(y_i - \hat{y}_{R_j})^2$$`
+  - Stops when you reach some criterion (cp)
 
 
 ---
@@ -519,8 +516,7 @@ In building a random forest, each time a split in a tree is considered, a random
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
+
 
 Hence, at each split in the tree, the algorithm is not even allowed to consider a majority of the available predictors. Why is this a good thing?
 
@@ -635,27 +631,6 @@ fancyRpartPlot(tree4)
 
 
 &lt;img src="./images/tree4.png" width="2437" style="display: block; margin: auto;" /&gt;
-
----
-### Your Turn: Age
-
-Which variables are most important for predicting `Age`? Use these to create a Decision Tree. Note: Check column name when you arrange the importance variables.
-
-
----
-### If Time: Iris Data
-
-Here is the data from credit card customers. One variable that credit card companies are often interested in is utilization: how much of the available credit limit is currently being “used”?
-
-
-``` r
-data("iris")
-```
-
-1. Separate into training and testing set
-2. Fit a random Forest Model (Species)- Decide variable importance
-3. Using your most important variables, create a decision tree
-4. Evaluate your decision Tree
 
 ---
 ### Summary 

@@ -52,7 +52,7 @@ knit_hooks$set(output = function(x, options) {
 
 **Quiz 3**: in class Tuesday October 28th
 
-- Covers: Prediction/KNN/Tree-Based Methods
+- Covers: Prediction/KNN/Decsion Trees
 
 ---
 ### Supervised vs Unsupervised Learning
@@ -160,7 +160,7 @@ Decision trees: A tree-like model of decisions and their possible consequences
 <br>
 <br>
 
-```{r, echo=FALSE, fig.align='center',out.width="75%"}
+```{r, echo=FALSE, fig.align='left',out.width="75%"}
 
 knitr::include_graphics("./images/decision-tree.png")
 
@@ -170,6 +170,8 @@ knitr::include_graphics("./images/decision-tree.png")
 ### Decision Trees (Classification)
 
 
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -191,18 +193,19 @@ How to decide to split?
 ---
 ### Decision Trees (Classification)
 
-Recursive Partitioning: Split an infinite # of times until some stopping criterion is reached.
+Recursive Partitioning: Split infinite # of times until reach stopping criterion.
 
 Split:
   + Gini Index (default): 
+  
+$$G = \sum_{k=1}^{K} \hat{p}_{mk}(1-\hat{p}_{mk})$$ where $\hat{p}_{mk}$ is the proportion of training observations in $m^{th}$ region from $k^{th}$ class.
     
 <br>
 <br>
 <br>
 <br>
 <br>
-<br>
-<br>
+
 
 Stop:
 
@@ -319,23 +322,17 @@ rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass,
 <br>
 <br>
 <br>
-
 <br>
-
 <br>
-
 <br>
-
 <br>
-
-
+<br>
 
 
 How to decide to split?
 
-- Find regions $(R_j)$ that minimizes the residual sum of squares $$RSS = \sum^{J}_{j=1}\sum_{i \in R_j}(y_i - \hat{y}_{R_j})^2)$$. 
-
-  - Stops when you reach some criterion (cp).
+- Find regions $(R_j)$ that minimizes the residual sum of squares $$RSS = \sum^{J}_{j=1}\sum_{i \in R_j}(y_i - \hat{y}_{R_j})^2$$
+  - Stops when you reach some criterion (cp)
 
 
 ---
@@ -438,8 +435,7 @@ In building a random forest, each time a split in a tree is considered, a random
 <br>
 <br>
 <br>
-<br>
-<br>
+
 
 Hence, at each split in the tree, the algorithm is not even allowed to consider a majority of the available predictors. Why is this a good thing?
 
@@ -509,26 +505,6 @@ tree4 <- rpart(LEGAL~AGE+PARTYID, data=TRAIN)
 knitr::include_graphics("./images/tree4.png")
 
 ```
-
----
-### Your Turn: Age
-
-Which variables are most important for predicting `Age`? Use these to create a Decision Tree. Note: Check column name when you arrange the importance variables.
-
-
----
-### If Time: Iris Data
-
-Here is the data from credit card customers. One variable that credit card companies are often interested in is utilization: how much of the available credit limit is currently being “used”?
-
-```{r}
-data("iris")
-```
-
-1. Separate into training and testing set
-2. Fit a random Forest Model (Species)- Decide variable importance
-3. Using your most important variables, create a decision tree
-4. Evaluate your decision Tree
 
 ---
 ### Summary 
