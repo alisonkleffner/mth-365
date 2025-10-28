@@ -1,0 +1,286 @@
+---
+title: "Cluster Analysis"
+author: 'DSC 365: Introduction to Data Science'
+date: "October 30, 2025"
+format: html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, fig.align = "center", fig.width = 12, fig.height = 3)
+```
+
+# Recommended Reading
+
+- *Modern Data Science with R* Ch 12: Unsupervised Learning
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+# Unsupervised Learning
+
+- **Unsupervised learning**: There is no response variable. We try to learn the patterns of the input data, usually by *clustering* them into several groups.
+
+
+- Focus on two methods: Clustering vs. Principal Components
+  + Clustering and principal components are two techniques that are designed to group the data together.
+  + **Cluster Analysis**: 
+  + **Principal Component Analysis (PCA)**:
+  
+# Cluster Analysis
+
+## In General
+
+- Partition observations into distinct groups so that observations in a group are similar and observations in different groups are quite different
+  + Will need to define similar/different (can be domain specific)
+  
+## Data
+
+We're going to work with the `gapminder` data set.
+
+```{r}
+library(dslabs)
+data(gapminder)
+glimpse(gapminder)
+```
+
+Since each country is repeated by year, we're going to choose a single year to focus on.
+  
+  - Using `2015` since it is the most recent year with the most variables included
+  
+```{r}
+gapminder_2015 <- gapminder %>% filter(year == 2015)
+```
+
+  
+
+## Main Clustering Techniques
+
+Great number of clustering methods! Going to focus on the two most common:
+
+1. Hierarchical Clustering: once two observations are clustered (or separated) they will always be together in the same cluster (or separated)
+  
+  - Agglomerative **(focus)**
+  - Divisive 
+
+2. Non-Hierarchical: Data partitioned into an initial set of clusters, where cluster memberships is then altered. Can change clusters. 
+  
+  - K-Means **(focus)**
+  - K-Medoid
+  
+  
+## K-Means Clustering
+
+Nonhierarchical clustering partitions the data into a pre-specified fixed number of non-overlapping clusters and rearranges the cluster memberships according to some optimization criteria. Here we are going to focus on K-means.
+
+### Properties:
+
+
+### Algorithm:
+
+**Idea**: 
+
+  + Essentially want to solve the problem: $\text{minimize}_{C_1, \dots, C_K} (\sum^K_{k=1}W(C_k))$
+    + Want total within cluster variation $(W(C_k))$ to be as small as possible
+    + Many different ways to define $W(C_k)$. Using squared Euclidean distance is the most common (sum of all paired squared euclidean distances between observations in the $k^{th}$ cluster divided by the number of observations in the $k^{th}$ cluster).
+
+**Problem:** 
+  + **Solution:** 
+  
+**Steps:**
+
+1. Randomly assign a number (1,...,*k*) to each of the observations. These serve as the initial cluster assignments for the observations.
+2. Iterate until the clusters stop changing. 
+  + For each of the *k* clusters, compute cluster centroid (a vector of the *p* feature means for the observations of the $k^{th}$ cluster). 
+  + Assign each observation to the cluster whose centroid is closest (generally using euclidean distance).
+  
+With these steps will reach a local optimum:
+
+
+### How do you choose *k*?
+
+- No definitive answer. Somewhat subjective.
+- [Some methods](https://www.datanovia.com/en/lessons/determining-the-optimal-number-of-clusters-3-must-know-methods/#:~:text=A%20high%20average%20silhouette%20width,(Kaufman%20and%20Rousseeuw%201990))
+
+
+### Code:
+
+The data is already "categorized" by continent and region. Clustering allows us to find other, possibly unconsidered, similarities between points.
+
+Let's start with a two-variable clustering (`fertility` and `life_expectancy`) on countries in the Americas.
+
+```{r}
+gap_fle <- gapminder_2015 %>%
+  filter(continent == "Americas") %>%
+  filter(fertility != 'NA') %>%
+  select(fertility, life_expectancy)
+
+
+
+```
+
+What does this look like?
+
+```{r}
+
+```
+
+What if we choose fewer clusters?
+
+```{r}
+
+```
+
+#### Try Yourself
+
+Now let's add a third variable: `infant_mortality`. Try with different $k$ values and make a data visualization with `fertility` and `life_expectancy`.
+
+```{r}
+
+```
+
+
+## Hiearchical (Agglomerative)
+
+Doesn't require that we know the number of clusters. Additionally, we are able to obtain a tree-based representation of observations called a **dendrogram**
+
+- **Agglomerative** (bottom-up) clustering: 
+
+### Algorithm:
+
+**Steps:**
+
+1. Define a dissimilarity measure between each pair of observations (most often using Euclidean Distance). Start with each of the *n* observations in it's own cluster. 
+
+2. Iterative:
+  + Each of the *n* observations is in it's own cluster. The two clusters that are most similar (ie. smallest Euclidean distance) are fused, so now we have $n-1$ clusters.
+  + Next two observations/clusters that are most similar are fused for $n-2$ clusters.
+
+3. Proceed until all observations are fused together to belong to a single cluster.
+
+
+
+**Problem:** 
+
+Output will depend on linkage method and dissimilarity measure (chosen based on data and research question at hand).
+
+### Code
+
+1. Calculate a measure of similarity between all pairs of observations.
+
+- So let's calculate a "distance" measure for every pair of countries in North and South America. We'll start simple with a two-variable clustering (`fertility` and `life_expectancy`) on countries in the Americas.
+
+```{r}
+gap_fle <- gapminder_2015 %>%
+  filter(continent == "Americas") %>%
+  select(fertility, life_expectancy, country)
+
+
+```
+
+- Let's look at what is contained in `gap_dist`
+
+```{r}
+
+```
+
+2. Use a Clustering method to cluster observations based on the similarity values, where resulting clusterings hopefully have small within cluster variability and large among cluster variation. The resulting plot of the clustering is called a dendrogram.
+
+```{r}
+
+```
+
+
+### Reading a Dendrogram:
+
+
+
+
+### Obtaining a Certain number of clusters
+
+If you just want cut the dendrogram to obtain only a certain number of clusters, can use the `cutree` function. Generally based on eye test for a sensible number.
+
+```{r}
+
+
+```
+
+Can then visualize the clusters with the data
+
+```{r, warning = FALSE}
+
+```
+
+
+**Note:** clusters obtained by cutting a dendrogram are nested within clusters obtained by cutting the dendrogram at a greater height
+  + This assumption might be unrealistic.
+
+
+#### Try Yourself
+
+Let's expand this, and add more variables (`infant_mortality`, `life_expectancy`, `fertility` and `popualtion`). Try to cluster using hierarchical clustering and visualize the dendrogram. For the sake of visualizing the dendrogram, just use the data for the Americas.
+
+```{r, warning = FALSE}
+
+```
+
+# Practical Issues
+
+## General:
+
+
+## Standardizing Inputs
+
+Sometimes, the results of the clustering are more dependent on the variation in variables in the data set, as Euclidean distance calculations uses non-standardized variables (assumes variables are identical).
+
+- Generally, the variables with a bigger unit scale will contribute more to the Euclidean distance, leading to a biased estimate of clusters
+
+```{r}
+data_scale = gapminder_2015 %>%
+  filter(continent == "Americas") %>%
+  filter(infant_mortality != 'NA') %>%
+  select(infant_mortality, life_expectancy) %>%
+  scale() %>% as.data.frame()
+```
+
+
+```{r}
+k <- 5
+
+set.seed(4)
+kmeans_clusters <- kmeans(data_scale, centers=k, nstart=10)
+
+
+kmeans_clusters$cluster <- as.factor(kmeans_clusters$cluster)
+
+ggplot(data_scale, aes(x=infant_mortality, y=life_expectancy)) + geom_point() + 
+  aes(color=kmeans_clusters$cluster, pch=kmeans_clusters$cluster) +
+  labs(y = "Life Expectancy", x = "Infant Mortality",
+       color = "Cluster", shape = "Cluster")
+```
+
+#### Try Yourself
+
+Now let's add a third variable: `infant_mortality`. Standardize the values and use k-means and hierarchical. Make a data visualization with `fertility` and `life_expectancy`. Compare this to data visualization for previous example
+
+
+```{r}
+
+```
+
+
+
+# In Summary
+
+**Hierarchical clustering**: 
+
+- No need to decide the cluster number before the clustering
+- Reproducible result 
+- Computationally slow
+
+**k-means clustering**: 
+
+- Need to decide the cluster number first 
+- Randomness may lead to different result
+- Computationally fast
+

@@ -1,0 +1,178 @@
+---
+title: "DSC365: Introduction to Data Science"
+author: "Principal Component Analysis"
+date: "October 30, 2025"
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r echo=FALSE, message=FALSE, warning = FALSE}
+library(tidyverse)
+library(knitr)
+library(mosaic)
+library(infer)
+library(caret)
+
+
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = xfun::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+```
+
+```{css, echo = FALSE}
+.tiny .remark-code { /*Change made here*/
+  font-size: 70% !important;
+}
+```
+
+## Announcements
+
+**Lab 5** (Linear Models)
+
+- Due Tuesday October 28th, 2025 at 11:59 pm in Blueline
+- Will start Lab 6 in class on Tuesday
+
+**Mini Project 2**
+
+- Due Tonight at 11:59 in Blueline
+
+**Quiz 3**: in class Tuesday October 28th
+
+- Covers: Prediction/KNN/Decsion Trees
+
+---
+
+## Unsupervised Learning
+
+- **Unsupervised learning**: There is no response variable. We try to learn the patterns of the input data, ususally by *clustering* them into several groups.
+
+- Focus on two methods: Clustering vs. Principal Components
+  + Clustering and principal components are two techniques that are designed to group the data together.
+  + **Cluster Analysis** groups the observations that are similar to each other based on the distances between variables (how observations hang together)
+  + **Principal Component Analysis (PCA)** groups the variables and creates new variables that better represents the data (how variables hang together).
+  
+---  
+## Principal Component Analysis (PCA)
+
+Sometimes a data set has a lot of variables. Some of these variables carry *lots* of information. Others carry *little to no* information. PCA can help reduce the dimensions of data by summarizing most of the variation into fewer dimensions called components. 
+
+**PCA**: the process of computing the principal components and using them to perform a change of basis on the data, sometimes using only the first few principal components and ignoring the rest.
+
+- Principal components: are a set of new orthogonal variables that are constructed as linear combinations
+or mixtures of the initial variables that best fit the data.
+
+---
+### Data
+
+The Happy Planet Index is a measure of a country’s ecological and societal “well-being”.
+
+```{r}
+library(readxl)
+happyplanet2016 <- read_excel("happyplanet2016.xlsx")
+glimpse(happyplanet2016)
+```
+
+Can we distill this down to a few important variables or ideas?
+
+---
+### Fitting a PCA
+
+The Happy Planet Index is calculated using a weighted average of these variables. It wouldn’t make sense to try to find linear combinations with a variable that’s already a linear combination, so we remove it. 
+
+How are the other variables related?
+
+
+```{r}
+happyplanet2 <- na.omit(happyplanet2016[,-8])
+
+
+```
+
+---
+How many components should we choose?
+
+```{r, message=FALSE}
+#install.packages("factoextra")
+library(factoextra)
+
+```
+
+Hopefully the first few PCs will account for a large percentage of the total variation.
+
+Can also create a bi-plot - provides visualization of PCA outputs
+
++ Perpendicular vectors indicate the variables explain totally different types of information and are uncorrelated.
++ Two variables in the same direction are strongly positively correlated and vectors in the opposite direction are highly negatively correlated. 
+
+```{r}
+
+```
+
+
+---
+### `ggbiplot`
+
+Sometimes you might want to use an R package that isn’t hosted on CRAN. One common place to host R packages is GitHub. If you know the user’s Git “repository”, you can install the package using the `install_github` function from the `devtools` library.
+
+```{r, message=FALSE}
+#install.packages('devtools')
+library(devtools)
+
+#install_github("vqv/ggbiplot")
+library(ggbiplot)
+ggbiplot(happy_pca)
+```
+
+Can use `ggbiplot` to add groups to help interpret PCs.
+
+```{r}
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE)
+```
+
+---
+Can also visualize other PCs besides the first two.
+
+```{r}
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE, choices=c(3,4))
+```
+
+
+---
+
+#### Try Yourself
+
+Try the PCA with the gapminder data. Use all four variables (`infant_mortality`, `life_expectancy`, `fertility` and `popualtion`) try to make a data visualization to show the relations between the variables.
+
+```{r}
+
+```
+
+
+---
+
+### In Summary
+
+Advantages:
+
+- Reduced dimensions
+- PCs are independent (no correlation)
+
+Disadvantages:
+
+- Interpretability! Sometimes PCs are easy to interpret. Other times. . . it’s a stretch at best.
+
+
