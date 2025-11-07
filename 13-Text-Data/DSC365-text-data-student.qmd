@@ -1,9 +1,14 @@
 ---
 title: "Text Mining"
 author: 'DSC 365: Introduction to Data Science'
-date: "November 5, 2024"
+date: "November 6, 2025"
 format: html
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, fig.align = "center", fig.width = 12, fig.height = 3)
+```
+
 
 ```{r, message=FALSE}
 library(tidyverse)
@@ -22,7 +27,7 @@ Text data is one of the most common type of data in the modern world. Usually, i
 
 ## Taylor Swift Tweets data
 
-Following a data set that captures tweets from Taylor Swift between 2009 and 2022. (https://www.kaggle.com/datasets/thedevastator/taylor-swift-s-social-media-performance-tweet-en). We will briefly cover web scraping at the end of this course.
+Following a data set that captures tweets from Taylor Swift between 2009 and 2022. (https://www.kaggle.com/datasets/thedevastator/taylor-swift-s-social-media-performance-tweet-en). We will briefly cover web scraping next week.
 
 ```{r}
 library(readr)
@@ -101,10 +106,6 @@ Words has meaning, thus an emotion can be associated with each word, and the tex
 ```{r}
 library(syuzhet)
 
-get_sentiment("happy", method = "syuzhet")
-get_sentiment("sad", method = "syuzhet")
-get_sentiment("It was a nice day even though I lost the game. ", method = "syuzhet")
-
 ```
 
 ### Try by yourself
@@ -112,7 +113,7 @@ get_sentiment("It was a nice day even though I lost the game. ", method = "syuzh
 Following is a sample IMDB people data.
 
 ```{r}
-imdb= read.csv("../Week 11/imdb.csv")
+imdb= read.csv("imdb.csv")
 glimpse(imdb)
 ```
 
@@ -128,7 +129,7 @@ Create some other variables based on this data: 1. Whether the person is an acto
 
 Sometimes we need to clean the data to generate a data that easier for analysis. We can find patterns in the data using regular expressions (https://www.datacamp.com/tutorial/regex-r-regular-expressions-guide)
 
--   A **regular expression** is a sequence of characters that specify a match pattern to search for in a larger text
+-   A **regular expression** is a sequence of characters that specify a match pattern to search for in a larger text
 
 ```{r}
 num_string <- "phone: 123-456-7890, nuid: 12345678, ssn: 123-45-6789"

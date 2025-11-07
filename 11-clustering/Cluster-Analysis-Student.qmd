@@ -24,8 +24,10 @@ library(tidyverse)
 
 - Focus on two methods: Clustering vs. Principal Components
   + Clustering and principal components are two techniques that are designed to group the data together.
-  + **Cluster Analysis**: 
-  + **Principal Component Analysis (PCA)**:
+  + **Cluster Analysis**: group observation together based on similarities between observations
+  + **Principal Component Analysis (PCA)**: group variables together and creates new variables that better represent the data
+  
+ Drawback to unsupervised methods - more subjective, as there is no universal way to validate results. 
   
 # Cluster Analysis
 
@@ -40,6 +42,7 @@ We're going to work with the `gapminder` data set.
 
 ```{r}
 library(dslabs)
+library(tidyverse)
 data(gapminder)
 glimpse(gapminder)
 ```
@@ -60,7 +63,7 @@ Great number of clustering methods! Going to focus on the two most common:
 
 1. Hierarchical Clustering: once two observations are clustered (or separated) they will always be together in the same cluster (or separated)
   
-  - Agglomerative **(focus)**
+  - Agglomerative **(focus)** - bottom-up
   - Divisive 
 
 2. Non-Hierarchical: Data partitioned into an initial set of clusters, where cluster memberships is then altered. Can change clusters. 
@@ -75,17 +78,20 @@ Nonhierarchical clustering partitions the data into a pre-specified fixed number
 
 ### Properties:
 
+- Each observation must belong to a cluster
+- No observation can be in more than one cluster
+
 
 ### Algorithm:
 
-**Idea**: 
+**Idea**: good clusters have within cluster variation that is as small as possible
 
   + Essentially want to solve the problem: $\text{minimize}_{C_1, \dots, C_K} (\sum^K_{k=1}W(C_k))$
     + Want total within cluster variation $(W(C_k))$ to be as small as possible
     + Many different ways to define $W(C_k)$. Using squared Euclidean distance is the most common (sum of all paired squared euclidean distances between observations in the $k^{th}$ cluster divided by the number of observations in the $k^{th}$ cluster).
 
-**Problem:** 
-  + **Solution:** 
+**Problem:** very difficult minimization problem as there are so many ways to partition your n observations into k clusters.
+  + **Solution:** find a local optimum
   
 **Steps:**
 
@@ -95,6 +101,8 @@ Nonhierarchical clustering partitions the data into a pre-specified fixed number
   + Assign each observation to the cluster whose centroid is closest (generally using euclidean distance).
   
 With these steps will reach a local optimum:
+  + Results dependent on initial random cluster assignments for the observations in Step 1. 
+    - Run k-means multiple times with different initial cluster memberships
 
 
 ### How do you choose *k*?
@@ -115,20 +123,35 @@ gap_fle <- gapminder_2015 %>%
   filter(fertility != 'NA') %>%
   select(fertility, life_expectancy)
 
+k <- 4 #must first define number of clusters
 
-
+set.seed(4) #make results repeatable
+kmeans_clusters <- kmeans(gap_fle, centers = k, nstart = 10)
 ```
 
 What does this look like?
 
 ```{r}
+clust <- as.factor(kmeans_clusters$cluster)
 
+gap_fle %>%
+  ggplot(aes(x = fertility, y = life_expectancy, color = clust)) +
+  geom_point()
 ```
 
 What if we choose fewer clusters?
 
 ```{r}
+k <- 3 #must first define number of clusters
 
+set.seed(4) #make results repeatable
+kmeans_clusters <- kmeans(gap_fle, centers = k, nstart = 10)
+
+clust <- as.factor(kmeans_clusters$cluster)
+
+gap_fle %>%
+  ggplot(aes(x = fertility, y = life_expectancy, color = clust)) +
+  geom_point()
 ```
 
 #### Try Yourself
@@ -144,7 +167,7 @@ Now let's add a third variable: `infant_mortality`. Try with different $k$ value
 
 Doesn't require that we know the number of clusters. Additionally, we are able to obtain a tree-based representation of observations called a **dendrogram**
 
-- **Agglomerative** (bottom-up) clustering: 
+- **Agglomerative** (bottom-up) clustering: start with observations in clusters by itself (leaves) and combine clusters up until everything in combined (trunk)
 
 ### Algorithm:
 
@@ -159,8 +182,11 @@ Doesn't require that we know the number of clusters. Additionally, we are able t
 3. Proceed until all observations are fused together to belong to a single cluster.
 
 
-
-**Problem:** 
+**Problem:** how to define dissimilarity when have clusters of multiple observations
+  - Linkage Method: how define dissimilarity between clusters
+  - Two most common:
+    + Average: compute all pairwise dissimilarities between Cluster A and Cluster B. Record the average of all the dissimilarities
+    + Complete (default): compute all pairwise dissimilarities between Cluster A and Cluster B. Record the largest of the dissimilarities.
 
 Output will depend on linkage method and dissimilarity measure (chosen based on data and research question at hand).
 
@@ -175,25 +201,34 @@ gap_fle <- gapminder_2015 %>%
   filter(continent == "Americas") %>%
   select(fertility, life_expectancy, country)
 
+rownames(gap_fle) <- gap_fle$country
+
+gap_dist <- dist(gap_fle[,1:2])
 
 ```
 
 - Let's look at what is contained in `gap_dist`
 
 ```{r}
-
+as.matrix(gap_dist)[1:5, 1:5] #don't really need to look at
 ```
 
 2. Use a Clustering method to cluster observations based on the similarity values, where resulting clusterings hopefully have small within cluster variability and large among cluster variation. The resulting plot of the clustering is called a dendrogram.
 
 ```{r}
+clusters <- hclust(gap_dist, method = "complete")
 
+plot(clusters, hang = -1, cex = 0.5)
 ```
 
 
 ### Reading a Dendrogram:
 
-
+- As we move up the tree, leaves begin to fuse into branches
+  + The earlier in the tree these fusions happen, the more similar observations are
+- Height (vertical axis) gives an idea of how different observations/clusters are 
+  + Larger height -> more different
+- Can't draw similarity conclusions based on horizontal distance, rather draw these conclusions based on the vertical distance  
 
 
 ### Obtaining a Certain number of clusters
@@ -201,14 +236,17 @@ gap_fle <- gapminder_2015 %>%
 If you just want cut the dendrogram to obtain only a certain number of clusters, can use the `cutree` function. Generally based on eye test for a sensible number.
 
 ```{r}
-
-
+clust2 <- cutree(clusters, 4)
 ```
 
 Can then visualize the clusters with the data
 
 ```{r, warning = FALSE}
+gap_fle2 <- cbind(gap_fle, clust2)
 
+gap_fle2 %>% 
+  ggplot(aes(x = fertility, y = life_expectancy, color = as.factor(clust2))) +
+  geom_point()
 ```
 
 
@@ -227,6 +265,13 @@ Let's expand this, and add more variables (`infant_mortality`, `life_expectancy`
 # Practical Issues
 
 ## General:
+
+- Should try several choices and chose one with more interpretable solution (k? linkage? dissimilarity measures?)
+- No consensus method for validating clusters - work in progress
+  + Clustering sub-groups or noise?
+- Not guaranteed to be robust - different subsets create different clusters
+- both of methods force observations into a cluster, when they might not actually belong to a cluster (outliers)
+  + Mixture Models
 
 
 ## Standardizing Inputs

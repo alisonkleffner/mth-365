@@ -1,0 +1,140 @@
+---
+title: "Principal Component Analyssis"
+author: 'DSC 365: Introduction to Data Science'
+date: "November 4, 2025"
+format: html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Recommended Reading
+
+- *Modern Data Science with R* Ch 12: Unsupervised Learning
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+
+# Principal Component Analysis (PCA)
+
+Sometimes a data set has a lot of variables. Some of these variables carry *lots* of information. Others carry *little to no* information. PCA can help reduce the dimensions of data by summarizing most of the variation into fewer dimensions called components. 
+
+
+**PCA**: the process of computing the principal components and seeking a small number of these that are as interesting as possible.
+  - "interesting": 
+  - Principal components: 
+
+## Overview of Steps
+
+1. Standardize the data
+2. Calculate the Covariance Matrix -> matrix of joint variability between variables
+3. Find Principal Components
+  + First Principal Component of a set of features $X_1, \dots X_p$ is a normalized linear combination of the features: $Z_1 = \phi_{11}X_1 + \phi_{21}X_2 + \cdots + \phi_{p1}X_p$ that has the largest variance.
+    - Normalized: $\sum^p_{j=1} \phi^2_{j1} = 1$
+    - To find the loadings, solve the optimization problem: $\text{maximize}_{\phi_{11}, \dots \phi_{p1}}(\frac{1}{n}\sum^{n}_{i=1}(\sum^{p}_{j=1}\phi_{j1}x_{ij})^2)$
+  + Second Principal Component: maximal variance out of all linear combinations that are uncorrelated (orthogonal) with $Z_1$
+      - Direction is perpendicular to $Z_1$
+      - To find: similar maximization problem with similar constraint
+4. Select the number of components that capture most of the variation
+  + Proportion of variance explained: 
+      
+## Example
+
+### Data
+
+The Happy Planet Index is a measure of a country’s ecological and societal “well-being”.
+
+```{r}
+library(readxl)
+happyplanet2016 <- read_excel("happyplanet2016.xlsx")
+glimpse(happyplanet2016)
+```
+
+Can we distill this down to a few important variables or ideas?
+
+### Fitting a PCA
+
+The Happy Planet Index is calculated using a weighted average of these variables. It wouldn’t make sense to try to find linear combinations with a variable that’s already a linear combination, so we remove it. 
+
+How are the other variables related?
+
+
+```{r}
+
+```
+
+### Number of Components?
+
+```{r, message=FALSE}
+#install.packages("factoextra")
+library(factoextra)
+
+```
+
+Hopefully the first few PCs will account for a large percentage of the total variation.
+
+### Biplot
+
+Can also create a bi-plot - provides visualization of PCA outputs
+
+
+```{r}
+
+```
+
+
+#### `ggbiplot`
+
+Sometimes you might want to use an R package that isn’t hosted on CRAN. One common place to host R packages is GitHub. If you know the user’s Git “repository”, you can install the package using the `install_github` function from the `devtools` library.
+
+```{r, message=FALSE}
+#install.packages('devtools')
+library(devtools)
+
+#Now in CRAN
+#install_github("vqv/ggbiplot")
+library(ggbiplot)
+
+
+
+```
+
+Can use `ggbiplot` to add groups to help interpret PCs.
+
+```{r}
+
+```
+
+Can also visualize other PCs besides the first two.
+
+```{r}
+```
+
+### In Summary
+
+Advantages:
+
+
+
+Disadvantages:
+
+
+
+
+#### Try Yourself
+
+Try the PCA with the gapminder data. Use all four variables (`infant_mortality`, `life_expectancy`, `fertility` and `popualtion`) try to make a data visualization to show the relations between the variables.
+
+```{r}
+library(dslabs)
+data(gapminder)
+gapminder_2015 <- gapminder %>% filter(year == "2015")
+
+
+```
+
+
+
