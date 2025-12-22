@@ -4,36 +4,33 @@
     <title>Welcome to DSC365: Introduction to Data Science!</title>
     <meta charset="utf-8" />
     <meta name="author" content="Alison Kleffner" />
-    <meta name="date" content="2025-08-19" />
+    <meta name="date" content="2026-01-13" />
     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="modal.css" type="text/css" />
+    <link rel="stylesheet" href="sizeformat.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
-class: center, middle, inverse, title-slide
 
-.title[
-# Welcome to DSC365: Introduction to Data Science!
-]
-.author[
-### Alison Kleffner
-]
-.date[
-### August 19, 2025
-]
+
+
+
+
+class:inverse
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+## DSC365: Intro to Data Science
+### Welcome to DSC365
+#### January 13, 2026
 
 ---
 
-
-
-
-
 ## Homework
 
-- Software downloaded by beginning of class on **Thursday August 21**
+- Software downloaded by beginning of class on **Thursday January 15**
   + Should hopefully have time at end of class
-
 
 
 ---
@@ -44,10 +41,7 @@ class: center, middle, inverse, title-slide
 - Master and PhD in Statistics at University of Nebraska at Lincoln
 - Thesis: *Visualization and Modeling of Multivariate Data in Environmental Applications*
 
---
-
-&lt;br&gt;
-&lt;br&gt;
+???
 
 **Now let introduce yourselves! Get into groups of 2-3**
 
@@ -144,7 +138,7 @@ If you have never used *R* (or even heard of it) before, it is totally OK! We wi
 .pull-left[
 - Breathe
 - Mistakes are ok!
-- Ask for help, Google is your friend!
+- Ask for help!
 - Translate code into plain English
 - Don't reinvent the wheel
 - Walk away
@@ -155,40 +149,55 @@ If you have never used *R* (or even heard of it) before, it is totally OK! We wi
 ]
 
 ---
-
 ### What is R?
 
 *R* is a free software environment and programming language for statistical computing and graphics
 
+- Created by Ross Ihaka and Robert Gentleman in 1993; Formally released by the [**R Core Group**](https://www.r-project.org/contributors.html) in 1997. 
 - Open-source
 - **Interpreted language**: we interact with R through a “command line” interpreter, which translates our “code” to machine code
 - CRAN (comprehensive R archive network) is R's central software repository. Contains contributed packages
 - New major release once a year
 
-&lt;img src="../images/base-r.png" alt="Visual of the R Console. This is the place where you would type R code." width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../images/base-r.png" alt="Visual of the R Console. This is the place where you would type R code." width="50%" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
-
 ### What is R Studio?
 
 Every R installation comes with the *R* Console, so we don’t actually need an additional program to interface with R. BUT most of people who uses *R* ALSO uses RStudio to interact with it.
 
+- History
+  + **RStudio** was released in 2011 by J.J. Allaire.
+  + They make money off the IDE and other helper software.
+  + In 2020, RStudio became a PBC (*Public Benefit Corp*), meaning they are legally obligated to support education and open-source development.
 - “Integrated Development Environment”
-- Clean user interface
+  + Clean user interface
 
-&lt;img src="../images/rstudio.png" alt="Picture of the R Studio Interface. The top left is called the script and it is where you can write your code. You can save your script to access the code later. The bottom left is the Console which looks idential to base R. This is where you will see your outputs. The top right is the enviroment tab where you will see all the data you import and any created objects. The bottom right is where plots will appear and you can find a list of downloaded packages." width="90%" style="display: block; margin: auto;" /&gt;
+---
+### Eventually... Move to Positron
+
+From it's [website](https://positron.posit.co): "Positron unifies exploration and production work in one free, AI-assisted environment, empowering the full spectrum of data science in Python and R"
+
+- Positron is under much more active development, with a rapidly expanding set of features. RStudio’s development, on the other hand, is much more focused on bug fixes and product stability.
+- First stable release in July 2025 
+  + I have been told there is still some things it needs to work through.
+
 
 ---
 
 ### Implication of Open-Source Software
 
-Because *R* is open source, users can contribute *R* packages to add additional functions and capabilities (more than 19,000 as of March 2023). 
+Because *R* is open source...
 
-- A complete list can be found [here](https://cran.r-project.org/web/packages/available_packages_by_name.html)
-- Pro: New statistical/data science techniques are added to CRAN, Bioconductor (another package repository), GitHub, etc. daily
-- Con: No standard syntax! Not all are well documented
+- No one company owns *R* (similar to Python)
+- This means nobody can sell their **R** code!
+  + But you can sell "helpers" like **RStudio**.
+- Users can contribute *R* packages to add additional functions and capabilities (more than 19,000 as of March 2023). 
+  + A complete list can be found [here](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+  + Pro: New statistical/data science techniques are added to CRAN, Bioconductor (another package repository), GitHub, etc. daily
+  + Con: No standard syntax! Not all are well documented
 
 ---
 
@@ -217,8 +226,8 @@ Quarto provides “an authoring framework for data science”. In an Quarto docu
 &lt;br&gt;
 &lt;br&gt;
 **More on this next week**
----
 
+---
 ### Let's Install it Together
 
 1. Download and run the R installer for your operating system from CRAN
@@ -238,13 +247,73 @@ Go with all default options
 &lt;br&gt;
 
 **Other Option**: If you would prefer to not download it to your computer: https://posit.cloud
+
+
+---
+### R Studio Set-Up
+
+&lt;img src="./images/rstudio.png" alt="Picture of the R Studio Interface. The top left is called the script and it is where you can write your code. You can save your script to access the code later. The bottom left is the Console which looks idential to base R. This is where you will see your outputs. The top right is the enviroment tab where you will see all the data you import and any created objects. The bottom right is where plots will appear and you can find a list of downloaded packages." width="100%" style="display: block; margin: auto;" /&gt;
+
+To Create a Script, Click the Following: File -&gt; New File -&gt; R script
+
+---
+### R Studio Set-Up - Editor (Top Left)
+
+&lt;img src="./images/editor.jpeg" alt="Zoomed in view of the Editor window, where the user can write and save code. Highlighted in the top right of the picture is the Run button, which runs the line of code your cursor is placed on." width="90%" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+
+**Shortcuts for running code**: To run code from your script:
++ Windows: Ctrl + Enter
++ Mac: Cmd + Enter
+
+---
+### R Studio Set-Up - Console (Bottom Left)
+
+&lt;img src="./images/console.jpeg" alt="Zoomed in view of the console window. Code output will appear at the bottom of this window." width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+### R Studio Set-Up - Environment  (Top Right)
+
+&lt;img src="./images/environment.jpeg" alt="Zoomed in view of the Environment tab, where loaded in datasets will appear ready for use. Highlighed are the buttons that are helpful. The import dataset button offers a point-and-click method to load in a dataset. Additionally, the broom button will clear the environment." width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+### R Studio Set-Up - Environment  (Bottom Right)
+
+&lt;!-- Trigger the Modal --&gt;
+&lt;img id='imgfiles' src='./images/files.png' alt='Files' width='30%'&gt;
+&lt;!-- Trigger the Modal --&gt;
+&lt;img id='imgpackages' src='./images/packages.png' alt='Packages' width='30%'&gt;
+&lt;!-- Trigger the Modal --&gt;
+&lt;img id='imghelp' src='./images/help.png' alt='Help' width='30%'&gt;
+&lt;!-- The Modal --&gt;
+&lt;div id='modalfiles' class='modal'&gt;
+  &lt;!-- Modal Content (The Image) --&gt;
+  &lt;img class='modal-content' id='imgmodalfiles'&gt;
+  &lt;!-- Modal Caption (Image Text) --&gt;
+  &lt;div id='captionfiles' class='modal-caption'&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- The Modal --&gt;
+&lt;div id='modalpackages' class='modal'&gt;
+  &lt;!-- Modal Content (The Image) --&gt;
+  &lt;img class='modal-content' id='imgmodalpackages'&gt;
+  &lt;!-- Modal Caption (Image Text) --&gt;
+  &lt;div id='captionpackages' class='modal-caption'&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- The Modal --&gt;
+&lt;div id='modalhelp' class='modal'&gt;
+  &lt;!-- Modal Content (The Image) --&gt;
+  &lt;img class='modal-content' id='imgmodalhelp'&gt;
+  &lt;!-- Modal Caption (Image Text) --&gt;
+  &lt;div id='captionhelp' class='modal-caption'&gt;&lt;/div&gt;
+&lt;/div&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": true
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
@@ -341,6 +410,160 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
+
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
+          }
+</script>
 
 <script>
 slideshow._releaseMath = function(el) {

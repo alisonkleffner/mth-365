@@ -177,20 +177,7 @@ star_wars2<- tibble(
   + Player's first year in MLB (`1stYr`)
 
 ```{r}
-url <- "https://www.baseball-reference.com/teams/KCR/2025-roster.shtml"
-html <- read_html(url)
 
-names <- html %>% html_nodes("#the40man a") %>% html_text()
-position <- html %>% html_nodes("#the40man .left+ .right") %>% html_text()
-age <- html %>% html_nodes("#the40man .right:nth-child(8)") %>% html_text()
-first_year <- html %>% html_nodes("#the40man .right:nth-child(14)") %>% html_text()
-
-royals_2025 = tibble(
-  Player = names,
-  Position = position,
-  Age = age,
-  First_MLB_Year = first_year
-)
 
 ```
 

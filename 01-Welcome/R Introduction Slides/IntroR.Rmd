@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science"
 author: "Introduction to R"
-date: "August 21, 2025"
+date: "January 15, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -86,12 +86,11 @@ class:inverse
 <br><br><br>
 ## DSC365: Intro to Data Science
 ### Introduction to R
-#### August 21, 2025
+#### January 15, 2026
 
 ---
-## Agenda
+### Agenda
 
-- R Studio Set-Up
 - R as a Calculator
 - Basic Functions
 - Installing Packages
@@ -103,72 +102,13 @@ class:inverse
 <br>
 <br>
 <br>
-
-**Note**: Please follow along and run the code in the file *IntroR.R* found in BlueLine
-
----
-### R Studio Set-Up
-
-```{r, echo=FALSE, out.width="100%", fig.align='center', fig.alt = "Picture of the R Studio Interface. The top left is called the script and it is where you can write your code. You can save your script to access the code later. The bottom left is the Console which looks idential to base R. This is where you will see your outputs. The top right is the enviroment tab where you will see all the data you import and any created objects. The bottom right is where plots will appear and you can find a list of downloaded packages."}
-
-knitr::include_graphics("../images/rstudio.png")
-
-```
-
-To Create a Script, Click the Following: File -> New File -> R script
-
----
-### R Studio Set-Up - Editor (Top Left)
-
-```{r, echo=FALSE, out.width="100%", fig.align='center', fig.alt= "Zoomed in view of the Editor window, where the user can write and save code. Highlighted in the top right of the picture is the Run button, which runs the line of code your cursor is placed on."}
-
-knitr::include_graphics("../images/editor.jpeg")
-
-```
-
+<br>
+<br>
+<br>
+<br>
 <br>
 
-**Shortcuts for running code**: To run code from your script:
-+ Windows: Ctrl + Enter
-+ Mac: Cmd + Enter
-
----
-### R Studio Set-Up - Console (Bottom Left)
-
-```{r, echo=FALSE, out.width="100%", fig.align='center', fig.alt= "Zoomed in view of the console window. Code output will appear at the bottom of this window."}
-
-knitr::include_graphics("../images/console.jpeg")
-
-```
-
----
-### R Studio Set-Up - Environment  (Top Right)
-
-```{r, echo=FALSE, out.width="100%", fig.align='center', fig.alt="Zoomed in view of the Environment tab, where loaded in datasets will appear ready for use. Highlighed are the buttons that are helpful. The import dataset button offers a point-and-click method to load in a dataset. Additionally, the broom button will clear the environment."}
-
-knitr::include_graphics("../images/environment.jpeg")
-
-```
-
----
-### R Studio Set-Up - Environment  (Bottom Right)
-
-```{r, results='asis', echo=FALSE, fig.align='center'}
-
-i1 <- img_modal(src = "../images/files.png", alt = "Files",other=list(width="30%"))
-i2 <- img_modal(src = "../images/packages.png", alt = "Packages",other=list(width="30%"))
-i3 <- img_modal(src = "../images/help.png", alt = "Help",other=list(width="30%"))
-
-c(str_split(i1, "\\n", simplify = T)[1:2],
-  str_split(i2, "\\n", simplify = T)[1:2],
-  str_split(i3, "\\n", simplify = T)[1:2],
-  str_split(i1, "\\n", simplify = T)[3:9],
-  str_split(i2, "\\n", simplify = T)[3:9],
-  str_split(i3, "\\n", simplify = T)[3:9]
-  ) %>% paste(collapse = "\n") %>% cat()
-
-```
-
+**Note**: Please follow along and run the code in the file *IntroR.R* found in BlueLine
 
 ---
 ### Writing Code for People
@@ -182,7 +122,7 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
   - We will learn more about this next week.
   
 ---
-### Giant Calculator!
+#### Giant Calculator!
 
 .pull-left[
 ```{r}
@@ -190,32 +130,17 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 5-2 #Subtraction
 3*2 #Multiplication
 9/3 #Division 
+sqrt(4) #square root
+2^3 #exponent
 ```
 ].pull-right[
 ```{r}
-sqrt(4) #square root
-2^3 #exponent
 exp(3) #exponential function
 log(10) #natural log
-```
-]
-
----
-### Giant Calculator!
-
-.pull-left[
-```{r}
-log(10, base = 10)
 abs(-1) #absolute value
 floor(3.7) #round down
 ceiling(3.2) #round up
-```
-].pull-right[
-```{r}
-round(3.2)
-pi
-sin(pi/2)
-5%%3 #division remainder
+round(3.2) #typical rounding rules
 ```
 ]
 
@@ -239,6 +164,8 @@ Calculates using your Order of Operations, so be careful with `()`
 
 ---
 ### Creating Variables
+
+A variable is like a container that hold something.
 
 We can create variables using the assignment operator `<-`
 
@@ -377,35 +304,45 @@ do_this(to_this)
 *R* has pre-made functions found in packages, but later in the semester we will talk about how to create your own functions
 
 ---
+### Directories & File Paths
+
+- A **directory** is just a fancy name for a folder.
+- Your **working directory** is the folder that `R` "thinks" it lives in at the moment.
+  - If you save things you have created, they save to your working directory by default.
+
+- A **path** describes where a certain file or directory lives.
+
+```{r}
+getwd()
+```
+
+- Organize your folders carefully, and name them meaningfully:
+  - `/Users/akl95311/DSC365/lab1/` rather than `Desktop/stuff/`
+  
+---
 ### Load Data
 
 - **Course focus**: .csv file (download from Chrome)
 
 - **Recommendation**: Save the data set to the same file folder as your R file
 
-*Method 1* (Manual):
-```{r, eval = FALSE}
-getwd() #What is your working directory
-setwd() # Change Working directory
-```
-
-**Method 2*:
+**Method 1**:
 
 1). Session -> Set Working Directory -> Choose Directory -> Select folder data set is located -> Apply
 
 2).  
 ```{r, eval=FALSE}
-data = read.csv("movie-2018.csv")
+data <- read.csv("movie-2018.csv")
 ```
 
 ```{r, echo=FALSE}
-data = read.csv("../data/movie-2018.csv")
+data <- read.csv("../data/movie-2018.csv")
 ```
 
 ---
 ### Load Data
 
-**Method 3*: Import Data set in Environment Tab
+**Method 2**: Import Data set in Environment Tab
 
 - Works well for .csv/.xlsx files 
 - Environment Tab -> Import Dataset -> From Text -> Find Dataset -> "Open" -> "Import"
@@ -422,6 +359,22 @@ head(data, n = 3) #make sure data loads in correctly
 ```
 
 ---
+### Variable Types
+
++ A **value** is a basic unit of stuff that a program works with.
+
++ Values have **types**:
+
+  1. **logical / boolean**: FALSE/TRUE or 0/1 values.
+
+  2. **integer**: whole numbers.
+
+  3. **double / float / numeric**: decimal numbers.
+
+  4. **character / string** - holds text, usually enclosed in quotes.
+
+
+---
 ### Check Variable Types
 
 ```{r, linewidth=140}
@@ -429,11 +382,12 @@ glimpse(data)
 ```
 
 <br>
-Note: The purpose of checking variable types is to make sure R is understanding what each column is representing.
+<br>
+
+**Note**: The purpose of checking variable types is to make sure R is understanding what each column is representing.
 
 ---
-
-## Change Variable Types
+### Change Variable Types
 
 *R* does not always read in the variables correctly. For example, `Average.audience` is being read in as a character, when it should be a number. We can change this!
 
@@ -447,10 +401,19 @@ class(data$Average.audience)
 
 ```
 
+<br>
+<br>
+
+
 [More about Data Types](https://www.geeksforgeeks.org/r-data-types/)
 
 ---
 ### Selecting Specific Row/Column
+
+We use **square brackets** [] to access elements within data structures.
+
+  + In R, we start indexing from 1.
+  
 
 ```{r}
 data[1,] #first row
@@ -461,7 +424,7 @@ data[,1] #first column
 ### Selecting Specific Row/Column
 
 ```{r}
-data[1:2,c(2,5,7)] #row: 1-2, column: 2,5,7
+data[1:4,c(2,5,7)] #row: 1-2, column: 2,5,7
 ```
 
 We can use `$` to specify columns as well
@@ -490,7 +453,7 @@ table(data$Primary.Genre)
 
 
 ---
-## Built-In Statistical Functions
+### Built-In Statistical Functions
 
 ```{r}
 mean(data$Domestic.Gross, na.rm = TRUE) #na.rm removes missing values
@@ -531,8 +494,6 @@ Stay up-to-date with R: [R Community Blog](https://rweekly.org)
 
 + An *error* will terminate a program from being ran
 
-+ Google is a beautiful thing
-
 
 ---
 ### Learning to code can be challenging
@@ -550,7 +511,7 @@ Artwork by @allison_horst
 
 Here is a few strategies if your code does not work:
 
-- Google!
+- Google/AI!
     + Whenever you see an error message, start by googling it. If you’re lucky, you’ll discover that it’s a common error with a known solution. When googling, improve your chances of a good match by removing any variable names or values that are specific to your problem.
 
 - Make sure the problem does exist.
@@ -576,17 +537,27 @@ knitr::include_graphics("~/Documents/Classes/MTH365/mth-365/01-Welcome/R Introdu
 - Rubber ducking [(Source)](https://duckly.com/blog/improve-how-to-code-with-rubber-duck-debugging/)
 
 ---
-### Two Common Errors
+### A Couple Common Errors
 
 1). Typos:
 
 ```{r, error = TRUE}
-maen(c(1, 7, 13))
+example_error <- 5
+exampleerror
 ```
 
 2). Unloaded Package
 ```{r, error = TRUE}
 favstats(data$Domestic.Gross)
 ```
+
+3). Wrong Data Type
+
+```{r, error = TRUE}
+"a" + 2
+```
+
+
+
 
 

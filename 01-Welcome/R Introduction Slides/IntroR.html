@@ -4,7 +4,7 @@
     <title>DSC365: Introduction to Data Science</title>
     <meta charset="utf-8" />
     <meta name="author" content="Introduction to R" />
-    <meta name="date" content="2025-08-21" />
+    <meta name="date" content="2026-01-15" />
     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
@@ -23,12 +23,11 @@ class:inverse
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
 ## DSC365: Intro to Data Science
 ### Introduction to R
-#### August 21, 2025
+#### January 15, 2026
 
 ---
-## Agenda
+### Agenda
 
-- R Studio Set-Up
 - R as a Calculator
 - Basic Functions
 - Installing Packages
@@ -40,68 +39,13 @@ class:inverse
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
-
-**Note**: Please follow along and run the code in the file *IntroR.R* found in BlueLine
-
----
-### R Studio Set-Up
-
-&lt;img src="../images/rstudio.png" alt="Picture of the R Studio Interface. The top left is called the script and it is where you can write your code. You can save your script to access the code later. The bottom left is the Console which looks idential to base R. This is where you will see your outputs. The top right is the enviroment tab where you will see all the data you import and any created objects. The bottom right is where plots will appear and you can find a list of downloaded packages." width="100%" style="display: block; margin: auto;" /&gt;
-
-To Create a Script, Click the Following: File -&gt; New File -&gt; R script
-
----
-### R Studio Set-Up - Editor (Top Left)
-
-&lt;img src="../images/editor.jpeg" alt="Zoomed in view of the Editor window, where the user can write and save code. Highlighted in the top right of the picture is the Run button, which runs the line of code your cursor is placed on." width="100%" style="display: block; margin: auto;" /&gt;
-
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 &lt;br&gt;
 
-**Shortcuts for running code**: To run code from your script:
-+ Windows: Ctrl + Enter
-+ Mac: Cmd + Enter
-
----
-### R Studio Set-Up - Console (Bottom Left)
-
-&lt;img src="../images/console.jpeg" alt="Zoomed in view of the console window. Code output will appear at the bottom of this window." width="100%" style="display: block; margin: auto;" /&gt;
-
----
-### R Studio Set-Up - Environment  (Top Right)
-
-&lt;img src="../images/environment.jpeg" alt="Zoomed in view of the Environment tab, where loaded in datasets will appear ready for use. Highlighed are the buttons that are helpful. The import dataset button offers a point-and-click method to load in a dataset. Additionally, the broom button will clear the environment." width="100%" style="display: block; margin: auto;" /&gt;
-
----
-### R Studio Set-Up - Environment  (Bottom Right)
-
-&lt;!-- Trigger the Modal --&gt;
-&lt;img id='imgfiles' src='../images/files.png' alt='Files' width='30%'&gt;
-&lt;!-- Trigger the Modal --&gt;
-&lt;img id='imgpackages' src='../images/packages.png' alt='Packages' width='30%'&gt;
-&lt;!-- Trigger the Modal --&gt;
-&lt;img id='imghelp' src='../images/help.png' alt='Help' width='30%'&gt;
-&lt;!-- The Modal --&gt;
-&lt;div id='modalfiles' class='modal'&gt;
-  &lt;!-- Modal Content (The Image) --&gt;
-  &lt;img class='modal-content' id='imgmodalfiles'&gt;
-  &lt;!-- Modal Caption (Image Text) --&gt;
-  &lt;div id='captionfiles' class='modal-caption'&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;!-- The Modal --&gt;
-&lt;div id='modalpackages' class='modal'&gt;
-  &lt;!-- Modal Content (The Image) --&gt;
-  &lt;img class='modal-content' id='imgmodalpackages'&gt;
-  &lt;!-- Modal Caption (Image Text) --&gt;
-  &lt;div id='captionpackages' class='modal-caption'&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;!-- The Modal --&gt;
-&lt;div id='modalhelp' class='modal'&gt;
-  &lt;!-- Modal Content (The Image) --&gt;
-  &lt;img class='modal-content' id='imgmodalhelp'&gt;
-  &lt;!-- Modal Caption (Image Text) --&gt;
-  &lt;div id='captionhelp' class='modal-caption'&gt;&lt;/div&gt;
-&lt;/div&gt;
-
+**Note**: Please follow along and run the code in the file *IntroR.R* found in BlueLine
 
 ---
 ### Writing Code for People
@@ -116,7 +60,7 @@ To Create a Script, Click the Following: File -&gt; New File -&gt; R script
   - We will learn more about this next week.
   
 ---
-### Giant Calculator!
+#### Giant Calculator!
 
 .pull-left[
 
@@ -151,7 +95,6 @@ To Create a Script, Click the Following: File -&gt; New File -&gt; R script
 ```
 ## [1] 3
 ```
-].pull-right[
 
 ``` r
 sqrt(4) #square root
@@ -168,6 +111,7 @@ sqrt(4) #square root
 ```
 ## [1] 8
 ```
+].pull-right[
 
 ``` r
 exp(3) #exponential function
@@ -183,20 +127,6 @@ log(10) #natural log
 
 ```
 ## [1] 2.302585
-```
-]
-
----
-### Giant Calculator!
-
-.pull-left[
-
-``` r
-log(10, base = 10)
-```
-
-```
-## [1] 1
 ```
 
 ``` r
@@ -222,38 +152,13 @@ ceiling(3.2) #round up
 ```
 ## [1] 4
 ```
-].pull-right[
 
 ``` r
-round(3.2)
+round(3.2) #typical rounding rules
 ```
 
 ```
 ## [1] 3
-```
-
-``` r
-pi
-```
-
-```
-## [1] 3.141593
-```
-
-``` r
-sin(pi/2)
-```
-
-```
-## [1] 1
-```
-
-``` r
-5%%3 #division remainder
-```
-
-```
-## [1] 2
 ```
 ]
 
@@ -283,6 +188,8 @@ Calculates using your Order of Operations, so be careful with `()`
 
 ---
 ### Creating Variables
+
+A variable is like a container that hold something.
 
 We can create variables using the assignment operator `&lt;-`
 
@@ -455,27 +362,41 @@ do_this(to_this)
 *R* has pre-made functions found in packages, but later in the semester we will talk about how to create your own functions
 
 ---
+### Directories &amp; File Paths
+
+- A **directory** is just a fancy name for a folder.
+- Your **working directory** is the folder that `R` "thinks" it lives in at the moment.
+  - If you save things you have created, they save to your working directory by default.
+
+- A **path** describes where a certain file or directory lives.
+
+
+``` r
+getwd()
+```
+
+```
+## [1] "/Users/akl95311/Documents/Classes/MTH365/mth-365/01-Welcome/R Introduction Slides"
+```
+
+- Organize your folders carefully, and name them meaningfully:
+  - `/Users/akl95311/DSC365/lab1/` rather than `Desktop/stuff/`
+  
+---
 ### Load Data
 
 - **Course focus**: .csv file (download from Chrome)
 
 - **Recommendation**: Save the data set to the same file folder as your R file
 
-*Method 1* (Manual):
-
-``` r
-getwd() #What is your working directory
-setwd() # Change Working directory
-```
-
-**Method 2*:
+**Method 1**:
 
 1). Session -&gt; Set Working Directory -&gt; Choose Directory -&gt; Select folder data set is located -&gt; Apply
 
 2).  
 
 ``` r
-data = read.csv("movie-2018.csv")
+data &lt;- read.csv("movie-2018.csv")
 ```
 
 
@@ -483,7 +404,7 @@ data = read.csv("movie-2018.csv")
 ---
 ### Load Data
 
-**Method 3*: Import Data set in Environment Tab
+**Method 2**: Import Data set in Environment Tab
 
 - Works well for .csv/.xlsx files 
 - Environment Tab -&gt; Import Dataset -&gt; From Text -&gt; Find Dataset -&gt; "Open" -&gt; "Import"
@@ -501,19 +422,31 @@ head(data, n = 3) #make sure data loads in correctly
 ```
 
 ```
-##                Film           Script.Type Average.critics Average.audience Primary.Genre
-## 1         12 Strong            adaptation              54               64         drama
-## 2 7 Days in Entebbe based on a true story              38               49      thriller
-## 3     A Quiet Place   original screenplay              89               79        horror
-##   Opening.Weekend Domestic.Gross Foreign.Gross Worldwide.Gross Budget...million.
-## 1        15815025       45500164      21533253        67033417                35
-## 2         1592645        3189220       5465548         8654768                NA
-## 3        50203562      188024361     144559086       332583447                17
-##   Release.Date..US.
-## 1         19-Jan-18
-## 2         16-Mar-18
-## 3          6-Apr-18
+## Film Script.Type Average.critics Average.audience Primary.Genre
+## 1 12 Strong adaptation 54 64 drama
+## 2 7 Days in Entebbe based on a true story 38 49 thriller
+## 3 A Quiet Place original screenplay 89 79 horror
+## Opening.Weekend Domestic.Gross Foreign.Gross Worldwide.Gross Budget...million. Release.Date..US.
+## 1 15815025 45500164 21533253 67033417 35 19-Jan-18
+## 2 1592645 3189220 5465548 8654768 NA 16-Mar-18
+## 3 50203562 188024361 144559086 332583447 17 6-Apr-18
 ```
+
+---
+### Variable Types
+
++ A **value** is a basic unit of stuff that a program works with.
+
++ Values have **types**:
+
+  1. **logical / boolean**: FALSE/TRUE or 0/1 values.
+
+  2. **integer**: whole numbers.
+
+  3. **double / float / numeric**: decimal numbers.
+
+  4. **character / string** - holds text, usually enclosed in quotes.
+
 
 ---
 ### Check Variable Types
@@ -526,25 +459,26 @@ glimpse(data)
 ```
 ## Rows: 160
 ## Columns: 11
-## $ Film              &lt;chr&gt; "12 Strong", "7 Days in Entebbe", "A Quiet Place", "A Simple F…
-## $ Script.Type       &lt;chr&gt; "adaptation", "based on a true story", "original screenplay", …
-## $ Average.critics   &lt;chr&gt; "54", "38", "89", "76", "89", "48", "32", "28", "65", "73", "7…
-## $ Average.audience  &lt;chr&gt; "64", "49", "79", "74", "84", "29", "57", "33", "65", "74", "8…
-## $ Primary.Genre     &lt;chr&gt; "drama", "thriller", "horror", "thriller", "drama", "adventure…
-## $ Opening.Weekend   &lt;chr&gt; "15815025", "1592645", "50203562", "16011689", "42908051", "33…
-## $ Domestic.Gross    &lt;int&gt; 45500164, 3189220, 188024361, 53548586, 202110867, 100478608, …
-## $ Foreign.Gross     &lt;chr&gt; "21533253", "5465548", "144559086", "41285014", "188000000", "…
-## $ Worldwide.Gross   &lt;int&gt; 67033417, 8654768, 332583447, 94833600, 390110867, 132675864, …
-## $ Budget...million. &lt;dbl&gt; 35.00, NA, 17.00, 20.00, 36.00, 125.00, 10.00, 19.00, 35.00, 5…
-## $ Release.Date..US. &lt;chr&gt; "19-Jan-18", "16-Mar-18", "6-Apr-18", "14-Sep-18", "5-Oct-18",…
+## $ Film              &lt;chr&gt; "12 Strong", "7 Days in Entebbe", "A Quiet Place", "A Simple Favor", "A Star…
+## $ Script.Type       &lt;chr&gt; "adaptation", "based on a true story", "original screenplay", "adaptation", …
+## $ Average.critics   &lt;chr&gt; "54", "38", "89", "76", "89", "48", "32", "28", "65", "73", "76", "83", "79"…
+## $ Average.audience  &lt;chr&gt; "64", "49", "79", "74", "84", "29", "57", "33", "65", "74", "83", "69", "77"…
+## $ Primary.Genre     &lt;chr&gt; "drama", "thriller", "horror", "thriller", "drama", "adventure", "drama", "c…
+## $ Opening.Weekend   &lt;chr&gt; "15815025", "1592645", "50203562", "16011689", "42908051", "33123609", "2798…
+## $ Domestic.Gross    &lt;int&gt; 45500164, 3189220, 188024361, 53548586, 202110867, 100478608, 3000943, 50596…
+## $ Foreign.Gross     &lt;chr&gt; "21533253", "5465548", "144559086", "41285014", "188000000", "32197256", "-"…
+## $ Worldwide.Gross   &lt;int&gt; 67033417, 8654768, 332583447, 94833600, 390110867, 132675864, 3000943, 50596…
+## $ Budget...million. &lt;dbl&gt; 35.00, NA, 17.00, 20.00, 36.00, 125.00, 10.00, 19.00, 35.00, 51.00, 3.00, 40…
+## $ Release.Date..US. &lt;chr&gt; "19-Jan-18", "16-Mar-18", "6-Apr-18", "14-Sep-18", "5-Oct-18", "9-Mar-18", "…
 ```
 
 &lt;br&gt;
-Note: The purpose of checking variable types is to make sure R is understanding what each column is representing.
+&lt;br&gt;
+
+**Note**: The purpose of checking variable types is to make sure R is understanding what each column is representing.
 
 ---
-
-## Change Variable Types
+### Change Variable Types
 
 *R* does not always read in the variables correctly. For example, `Average.audience` is being read in as a character, when it should be a number. We can change this!
 
@@ -567,10 +501,19 @@ class(data$Average.audience)
 ## [1] "numeric"
 ```
 
+&lt;br&gt;
+&lt;br&gt;
+
+
 [More about Data Types](https://www.geeksforgeeks.org/r-data-types/)
 
 ---
 ### Selecting Specific Row/Column
+
+We use **square brackets** [] to access elements within data structures.
+
+  + In R, we start indexing from 1.
+  
 
 
 ``` r
@@ -578,10 +521,10 @@ data[1,] #first row
 ```
 
 ```
-##        Film Script.Type Average.critics Average.audience Primary.Genre Opening.Weekend
-## 1 12 Strong  adaptation              54               64         drama        15815025
-##   Domestic.Gross Foreign.Gross Worldwide.Gross Budget...million. Release.Date..US.
-## 1       45500164      21533253        67033417                35         19-Jan-18
+##        Film Script.Type Average.critics Average.audience Primary.Genre Opening.Weekend Domestic.Gross
+## 1 12 Strong  adaptation              54               64         drama        15815025       45500164
+##   Foreign.Gross Worldwide.Gross Budget...million. Release.Date..US.
+## 1      21533253        67033417                35         19-Jan-18
 ```
 
 ``` r
@@ -589,166 +532,86 @@ data[,1] #first column
 ```
 
 ```
-##   [1] "12 Strong"                                  
-##   [2] "7 Days in Entebbe"                          
-##   [3] "A Quiet Place"                              
-##   [4] "A Simple Favor"                             
-##   [5] "A Star is Born"                             
-##   [6] "A Wrinkle in Time"                          
-##   [7] "A.X.L."                                     
-##   [8] "Action Point"                               
-##   [9] "Adrift"                                     
-##  [10] "Alpha"                                      
-##  [11] "American Animals"                           
-##  [12] "Annihilation"                               
-##  [13] "Ant-Man and the Wasp"                       
-##  [14] "Aquaman "                                   
-##  [15] "Avengers: Infinity War"                     
-##  [16] "Baaghi 2"                                   
-##  [17] "Bad Samaritan"                              
-##  [18] "Bad Times at the El Royale"                 
-##  [19] "Beirut (aka The Negotiator)"                
-##  [20] "Black Panther"                              
-##  [21] "BlacKkKlansman"                             
-##  [22] "Blindspotting"                              
-##  [23] "Blockers"                                   
-##  [24] "Bohemian Rhapsody"                          
-##  [25] "Book Club"                                  
-##  [26] "Breaking In"                                
-##  [27] "Bumblebee"                                  
-##  [28] "Call Me By Your Name"                       
-##  [29] "Chappaquiddick"                             
-##  [30] "Christopher Robin"                          
-##  [31] "Crazy Rich Asians"                          
-##  [32] "Creed II"                                   
-##  [33] "Deadpool 2"                                 
-##  [34] "Death Wish"                                 
-##  [35] "Den of Thieves"                             
-##  [36] "Detective Chinatown 2"                      
-##  [37] "Disobedience"                               
-##  [38] "Dog Days"                                   
-##  [39] "Dr Seuss' The Grinch"                       
-##  [40] "Early Man"                                  
-##  [41] "Eighth Grade"                               
-##  [42] "Every Day"                                  
-##  [43] "Fantastic Beasts: The Crimes of Grindelwald"
-##  [44] "Fifty Shades Freed"                         
-##  [45] "Finding Your Feet"                          
-##  [46] "First Man"                                  
-##  [47] "First Reformed"                             
-##  [48] "Forever My Girl"                            
-##  [49] "Game Night"                                 
-##  [50] "God's Not Dead: A Light in Darkness"        
-##  [51] "Goosebumps 2: Haunted Halloween"            
-##  [52] "Gotti"                                      
-##  [53] "Green Book"                                 
-##  [54] "Gringo"                                     
-##  [55] "Halloween "                                 
-##  [56] "Hearts Beat Loud"                           
-##  [57] "Hereditary"                                 
-##  [58] "Holmes and Watson"                          
-##  [59] "Hostiles"                                   
-##  [60] "Hotel Artemis"                              
-##  [61] "Hotel Transylvania 3: Summer Vacation"      
-##  [62] "Hunter Killer"                              
-##  [63] "I Can Only Imagine"                         
-##  [64] "I Feel Pretty"                              
-##  [65] "Incredibles 2"                              
-##  [66] "Insidious: The Last Key"                    
-##  [67] "Instant Family"                             
-##  [68] "Isle of Dogs"                               
-##  [69] "Jurassic World: Fallen Kingdom"             
-##  [70] "La Boda de Valentina"                       
-##  [71] "Lean on Pete"                               
-##  [72] "Leave No Trace"                             
-##  [73] "Life of the Party"                          
-##  [74] "Love, Simon"                                
-##  [75] "Mamma Mia: Here We Go Again!"               
-##  [76] "Mary Poppins Returns"                       
-##  [77] "Maze Runner: The Death Cure"                
-##  [78] "Midnight Sun"                               
-##  [79] "Mile 22"                                    
-##  [80] "Mission: Impossible - Fallout"              
-##  [81] "Molly's Game"                               
-##  [82] "Mortal Engines"                             
-##  [83] "Night School"                               
-##  [84] "Nobody's Fool"                              
-##  [85] "Ocean’s 8"                                  
-##  [86] "Operation Finale"                           
-##  [87] "Operation Red Sea"                          
-##  [88] "Overboard"                                  
-##  [89] "Overlord"                                   
-##  [90] "Pacific Rim: Uprising"                      
-##  [91] "Paddington 2"                               
-##  [92] "Papillon"                                   
-##  [93] "Paul, Apostle of Christ"                    
-##  [94] "Peppermint"                                 
-##  [95] "Peter Rabbit"                               
-##  [96] "Proud Mary"                                 
-##  [97] "Puzzle"                                     
-##  [98] "Raid"                                       
-##  [99] "Ralph Breaks the Internet"                  
-## [100] "Rampage"                                    
-## [101] "Ready Player One"                           
-## [102] "Red Sparrow"                                
-## [103] "Robin Hood"                                 
-## [104] "Samson"                                     
-## [105] "Searching"                                  
-## [106] "Second Act"                                 
-## [107] "Sgt. Stubby: An American Hero"              
-## [108] "Sherlock Gnomes"                            
-## [109] "Show Dogs"                                  
-## [110] "Sicario: Day of the Soldado"                
-## [111] "Skyscraper"                                 
-## [112] "Slender Man"                                
-## [113] "Smallfoot"                                  
-## [114] "Solo: A Star Wars Story"                    
-## [115] "Sorry to Bother You"                        
-## [116] "Spider-man: Into the Spider-verse"          
-## [117] "Super Troopers 2"                           
-## [118] "Superfly"                                   
-## [119] "Tag"                                        
-## [120] "Teen Titans Go! To The Movies"              
-## [121] "The 15:17 to Paris"                         
-## [122] "The Commuter"                               
-## [123] "The Darkest Minds"                          
-## [124] "The Death of Stalin"                        
-## [125] "The Equalizer 2"                            
-## [126] "The Favourite"                              
-## [127] "The First Purge"                            
-## [128] "The Girl in the Spider's Web"               
-## [129] "The Happytime Murders"                      
-## [130] "The Hate U Give"                            
-## [131] "The House with a Clock in its Walls"        
-## [132] "The Hurricane Heist"                        
-## [133] "The Leisure Seeker"                         
-## [134] "The Meg"                                    
-## [135] "The Miracle Season"                         
-## [136] "The Mule"                                   
-## [137] "The Nun"                                    
-## [138] "The Nutcracker and the Four Realms"         
-## [139] "The Post"                                   
-## [140] "The Predator"                               
-## [141] "The Rider"                                  
-## [142] "The Seagull"                                
-## [143] "The Spy Who Dumped Me"                      
-## [144] "The Strangers: Prey at Night"               
-## [145] "Thoroughbreds"                              
-## [146] "Tomb Raider"                                
-## [147] "Traffik"                                    
-## [148] "Truth or Dare"                              
-## [149] "Tully"                                      
-## [150] "Tyler Perry's Acrimony"                     
-## [151] "Uncle Drew"                                 
-## [152] "Unfriended: Dark Web"                       
-## [153] "Unsane"                                     
-## [154] "Upgrade"                                    
-## [155] "Venom"                                      
-## [156] "Vice"                                       
-## [157] "White Boy Rick"                             
-## [158] "Widows"                                     
-## [159] "Winchester"                                 
-## [160] "You Were Never Really Here"
+##   [1] "12 Strong"                                   "7 Days in Entebbe"                          
+##   [3] "A Quiet Place"                               "A Simple Favor"                             
+##   [5] "A Star is Born"                              "A Wrinkle in Time"                          
+##   [7] "A.X.L."                                      "Action Point"                               
+##   [9] "Adrift"                                      "Alpha"                                      
+##  [11] "American Animals"                            "Annihilation"                               
+##  [13] "Ant-Man and the Wasp"                        "Aquaman "                                   
+##  [15] "Avengers: Infinity War"                      "Baaghi 2"                                   
+##  [17] "Bad Samaritan"                               "Bad Times at the El Royale"                 
+##  [19] "Beirut (aka The Negotiator)"                 "Black Panther"                              
+##  [21] "BlacKkKlansman"                              "Blindspotting"                              
+##  [23] "Blockers"                                    "Bohemian Rhapsody"                          
+##  [25] "Book Club"                                   "Breaking In"                                
+##  [27] "Bumblebee"                                   "Call Me By Your Name"                       
+##  [29] "Chappaquiddick"                              "Christopher Robin"                          
+##  [31] "Crazy Rich Asians"                           "Creed II"                                   
+##  [33] "Deadpool 2"                                  "Death Wish"                                 
+##  [35] "Den of Thieves"                              "Detective Chinatown 2"                      
+##  [37] "Disobedience"                                "Dog Days"                                   
+##  [39] "Dr Seuss' The Grinch"                        "Early Man"                                  
+##  [41] "Eighth Grade"                                "Every Day"                                  
+##  [43] "Fantastic Beasts: The Crimes of Grindelwald" "Fifty Shades Freed"                         
+##  [45] "Finding Your Feet"                           "First Man"                                  
+##  [47] "First Reformed"                              "Forever My Girl"                            
+##  [49] "Game Night"                                  "God's Not Dead: A Light in Darkness"        
+##  [51] "Goosebumps 2: Haunted Halloween"             "Gotti"                                      
+##  [53] "Green Book"                                  "Gringo"                                     
+##  [55] "Halloween "                                  "Hearts Beat Loud"                           
+##  [57] "Hereditary"                                  "Holmes and Watson"                          
+##  [59] "Hostiles"                                    "Hotel Artemis"                              
+##  [61] "Hotel Transylvania 3: Summer Vacation"       "Hunter Killer"                              
+##  [63] "I Can Only Imagine"                          "I Feel Pretty"                              
+##  [65] "Incredibles 2"                               "Insidious: The Last Key"                    
+##  [67] "Instant Family"                              "Isle of Dogs"                               
+##  [69] "Jurassic World: Fallen Kingdom"              "La Boda de Valentina"                       
+##  [71] "Lean on Pete"                                "Leave No Trace"                             
+##  [73] "Life of the Party"                           "Love, Simon"                                
+##  [75] "Mamma Mia: Here We Go Again!"                "Mary Poppins Returns"                       
+##  [77] "Maze Runner: The Death Cure"                 "Midnight Sun"                               
+##  [79] "Mile 22"                                     "Mission: Impossible - Fallout"              
+##  [81] "Molly's Game"                                "Mortal Engines"                             
+##  [83] "Night School"                                "Nobody's Fool"                              
+##  [85] "Ocean’s 8"                                   "Operation Finale"                           
+##  [87] "Operation Red Sea"                           "Overboard"                                  
+##  [89] "Overlord"                                    "Pacific Rim: Uprising"                      
+##  [91] "Paddington 2"                                "Papillon"                                   
+##  [93] "Paul, Apostle of Christ"                     "Peppermint"                                 
+##  [95] "Peter Rabbit"                                "Proud Mary"                                 
+##  [97] "Puzzle"                                      "Raid"                                       
+##  [99] "Ralph Breaks the Internet"                   "Rampage"                                    
+## [101] "Ready Player One"                            "Red Sparrow"                                
+## [103] "Robin Hood"                                  "Samson"                                     
+## [105] "Searching"                                   "Second Act"                                 
+## [107] "Sgt. Stubby: An American Hero"               "Sherlock Gnomes"                            
+## [109] "Show Dogs"                                   "Sicario: Day of the Soldado"                
+## [111] "Skyscraper"                                  "Slender Man"                                
+## [113] "Smallfoot"                                   "Solo: A Star Wars Story"                    
+## [115] "Sorry to Bother You"                         "Spider-man: Into the Spider-verse"          
+## [117] "Super Troopers 2"                            "Superfly"                                   
+## [119] "Tag"                                         "Teen Titans Go! To The Movies"              
+## [121] "The 15:17 to Paris"                          "The Commuter"                               
+## [123] "The Darkest Minds"                           "The Death of Stalin"                        
+## [125] "The Equalizer 2"                             "The Favourite"                              
+## [127] "The First Purge"                             "The Girl in the Spider's Web"               
+## [129] "The Happytime Murders"                       "The Hate U Give"                            
+## [131] "The House with a Clock in its Walls"         "The Hurricane Heist"                        
+## [133] "The Leisure Seeker"                          "The Meg"                                    
+## [135] "The Miracle Season"                          "The Mule"                                   
+## [137] "The Nun"                                     "The Nutcracker and the Four Realms"         
+## [139] "The Post"                                    "The Predator"                               
+## [141] "The Rider"                                   "The Seagull"                                
+## [143] "The Spy Who Dumped Me"                       "The Strangers: Prey at Night"               
+## [145] "Thoroughbreds"                               "Tomb Raider"                                
+## [147] "Traffik"                                     "Truth or Dare"                              
+## [149] "Tully"                                       "Tyler Perry's Acrimony"                     
+## [151] "Uncle Drew"                                  "Unfriended: Dark Web"                       
+## [153] "Unsane"                                      "Upgrade"                                    
+## [155] "Venom"                                       "Vice"                                       
+## [157] "White Boy Rick"                              "Widows"                                     
+## [159] "Winchester"                                  "You Were Never Really Here"
 ```
 
 ---
@@ -756,13 +619,15 @@ data[,1] #first column
 
 
 ``` r
-data[1:2,c(2,5,7)] #row: 1-2, column: 2,5,7
+data[1:4,c(2,5,7)] #row: 1-2, column: 2,5,7
 ```
 
 ```
 ##             Script.Type Primary.Genre Domestic.Gross
 ## 1            adaptation         drama       45500164
 ## 2 based on a true story      thriller        3189220
+## 3   original screenplay        horror      188024361
+## 4            adaptation      thriller       53548586
 ```
 
 We can use `$` to specify columns as well
@@ -773,8 +638,8 @@ head(data$Film)
 ```
 
 ```
-## [1] "12 Strong"         "7 Days in Entebbe" "A Quiet Place"     "A Simple Favor"   
-## [5] "A Star is Born"    "A Wrinkle in Time"
+## [1] "12 Strong"         "7 Days in Entebbe" "A Quiet Place"     "A Simple Favor"    "A Star is Born"   
+## [6] "A Wrinkle in Time"
 ```
 
 
@@ -821,18 +686,16 @@ table(data$Primary.Genre)
 ```
 
 ```
-## 
-##       action    adventure    animation black comedy       comedy        crime 
-##           30           14            4            2           22            5 
-##        drama      fantasy       horror      musical      romance       sci-fi 
-##           40            2           10            2            4            2 
-##     thriller 
-##           23
+##
+## action adventure animation black comedy comedy crime drama fantasy
+## 30 14 4 2 22 5 40 2
+## horror musical romance sci-fi thriller
+## 10 2 4 2 23
 ```
 
 
 ---
-## Built-In Statistical Functions
+### Built-In Statistical Functions
 
 
 ``` r
@@ -903,8 +766,6 @@ Stay up-to-date with R: [R Community Blog](https://rweekly.org)
 
 + An *error* will terminate a program from being ran
 
-+ Google is a beautiful thing
-
 
 ---
 ### Learning to code can be challenging
@@ -918,7 +779,7 @@ Artwork by @allison_horst
 
 Here is a few strategies if your code does not work:
 
-- Google!
+- Google/AI!
     + Whenever you see an error message, start by googling it. If you’re lucky, you’ll discover that it’s a common error with a known solution. When googling, improve your chances of a good match by removing any variable names or values that are specific to your problem.
 
 - Make sure the problem does exist.
@@ -940,17 +801,18 @@ Here is a few strategies if your code does not work:
 - Rubber ducking [(Source)](https://duckly.com/blog/improve-how-to-code-with-rubber-duck-debugging/)
 
 ---
-### Two Common Errors
+### A Couple Common Errors
 
 1). Typos:
 
 
 ``` r
-maen(c(1, 7, 13))
+example_error &lt;- 5
+exampleerror
 ```
 
 ```
-## Error in maen(c(1, 7, 13)): could not find function "maen"
+## Error in eval(expr, envir, enclos): object 'exampleerror' not found
 ```
 
 2). Unloaded Package
@@ -962,6 +824,20 @@ favstats(data$Domestic.Gross)
 ```
 ## Error in favstats(data$Domestic.Gross): could not find function "favstats"
 ```
+
+3). Wrong Data Type
+
+
+``` r
+"a" + 2
+```
+
+```
+## Error in "a" + 2: non-numeric argument to binary operator
+```
+
+
+
 
 
     </textarea>
@@ -1321,6 +1197,108 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
           /* When the user clicks on the modalImg, close it*/
           modalImgspellingerror.onclick = function() {
             modalspellingerror.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalfiles = document.getElementById('modalfiles');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgfiles = document.getElementById('imgfiles');
+          var modalImgfiles = document.getElementById('imgmodalfiles');
+          var captionTextfiles = document.getElementById('captionfiles');
+          imgfiles.onclick = function(){
+            modalfiles.style.display = 'block';
+            modalImgfiles.src = this.src;
+            captionTextfiles.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgfiles.onclick = function() {
+            modalfiles.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalpackages = document.getElementById('modalpackages');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgpackages = document.getElementById('imgpackages');
+          var modalImgpackages = document.getElementById('imgmodalpackages');
+          var captionTextpackages = document.getElementById('captionpackages');
+          imgpackages.onclick = function(){
+            modalpackages.style.display = 'block';
+            modalImgpackages.src = this.src;
+            captionTextpackages.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgpackages.onclick = function() {
+            modalpackages.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhelp = document.getElementById('modalhelp');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghelp = document.getElementById('imghelp');
+          var modalImghelp = document.getElementById('imgmodalhelp');
+          var captionTexthelp = document.getElementById('captionhelp');
+          imghelp.onclick = function(){
+            modalhelp.style.display = 'block';
+            modalImghelp.src = this.src;
+            captionTexthelp.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghelp.onclick = function() {
+            modalhelp.style.display = 'none';
           }
 </script>
 <script>
