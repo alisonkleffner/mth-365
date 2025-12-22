@@ -1,7 +1,7 @@
 ---
 title: 'Hello R and Quarto!'
 author: 'DSC 365'
-date: "August 26, 2025"
+date: "January 20, 2026"
 format: html
 ---
 
@@ -35,6 +35,7 @@ Now that the packages are installed, you'll need to load them to work with the f
 
 ```{r}
 #| message=  FALSE
+
 library(tidyverse) 
 library(datasauRus)
 ```
@@ -66,20 +67,6 @@ Once you extract the information, sometimes you need to save it for the later us
 ```
 
 If you run the above line, nothing will show as the result but if you check the environment, we now have a new variable called *x_value* which you can use later. For example, you can print it out below. 
-
-```{r}
-
-```
-
-### Try it for yourself
-
-1. Extract the y variable from the data and assign it to a new variable
-
-```{r}
-
-```
-
-2. Extract the 100th observation from the data, assign it to a new variable and print it out. (Can I name the new variable as 100obs? or does it have to be obs100? )
 
 ```{r}
 

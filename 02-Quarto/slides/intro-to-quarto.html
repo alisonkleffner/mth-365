@@ -4,7 +4,7 @@
     <title>DSC365: Introduction to Data Science!</title>
     <meta charset="utf-8" />
     <meta name="author" content="Basic R and Quarto" />
-    <meta name="date" content="2025-08-26" />
+    <meta name="date" content="2026-01-20" />
     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ### Basic R and Quarto
 ]
 .date[
-### August 26, 2025
+### January 20, 2026
 ]
 
 ---
@@ -31,7 +31,8 @@ class: center, middle, inverse, title-slide
 ## Announcements
 
 - Start Lab 1 in class on Thursday!
-  + Due **Thursday September 4th, 2025 at 11:59 pm** (extra time due to Labor Day)
+  + Due **Thursday January 29th, 2025 at 11:59 pm**
+  + There will be an in-class portion that you will work on in groups
   
   
 &lt;br&gt;
@@ -51,6 +52,32 @@ class: center, middle, inverse, title-slide
 
 
 **Document**: DSC365-quarto-intro-student.qmd
+
+---
+### Scripts + Notebooks
+
+.pull-left[
+**Scripts**
+
++ **Scripts:** (`File &gt; New File &gt; R Script`) are files of code that are meant to be run on their own.
++ A file you can save to easily return to later.
++ You can run code interactively in a script by:
+  + highlighting lines of code and hitting run.
+  + placing your cursor on a line of code and hitting `ctrl + enter` or `command + enter`.
+
+].pull-right[
+
+**Notebooks:**
+
+Notebooks are implementations of **literate programming**.
+
++ They allow you to integrate code, output, text, images, etc. into a single document.
++ E.g.,
+  + R Markdown notebook
+  + **Quarto notebook**
+  + Jupyter notebook
+
+]
 
 ---
 ### Replicability vs Reproducability
@@ -189,7 +216,7 @@ When you render your .qmd file, Quarto will run each code chunk and embed the re
 
 
 ---
-## Create Code Chunk:
+### Create Code Chunk:
 
 .pull-left[
 Option 1:
@@ -216,9 +243,9 @@ There are many options to give you greater control over what is shown in the com
 
 - message=FALSE: don't show messages from R in the pdf
 
-- include=FALSE: don't include any R output in the document. 
-
 - cache=FALSE: re-run all of the code every time.
+
+&lt;br&gt;
 
 Let's look at these options in [the documentation](https://yihui.org/knitr/options/) 
 
@@ -243,6 +270,18 @@ You can also **bold** important words
 &lt;br&gt;
 
 [More Markdown Basics](https://srvanderplas.github.io/stat-computing-r-python/part-tools/06-documents.html#review-quarto-formatting)
+
+---
+### Rendering your Quarto Document
+
+When you click **Render**:
+
+-   Your file is saved.
+-   The R code written in your *.qmd* file gets run **in order**.
+    -   It starts from scratch, even if you previously ran some of the code.
+-   A new file is created.
+    -   If your Quarto file is called "Lab1.qmd", then a file called "Lab1.html" will be created.
+    -   This will be saved in the same folder as "Lab1.qmd".
 
 ---
 ### Visual Editor
