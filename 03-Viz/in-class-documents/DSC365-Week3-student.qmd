@@ -1,7 +1,7 @@
 ---
 title: 'Data Viz with ggplot'
 author: 'DSC 365: Introduction to Data Science'
-date: "September 2, 2025"
+date: "January 27, 2026"
 format: html
 
 execute: 
@@ -39,25 +39,14 @@ Data set is posted in BlueLine. Download this data set, and save it to your comp
 2. Navigate to your CSV data set. Make sure that the first row contains column names.
 3. Import the data.
 
-
 ```{r}
+#Update what is inside "" with the file path on your computer
+
 hate_crimes <- read_csv("hate_crimes.csv")
 ```
 
 
-## A simple plot?
-
-__Basic Format of a Plot__:
-
-`data and aesthetics + plot type + options`
-
-The data, aesthetics, and plot type are necessary to create a plot. For example, below is what happens when we just specify the data and aesthetics.
-
-```{r}
-ggplot(hate_crimes, aes(x = median_income, y = hate_crimes_fbi))
-```
-
-## Variable type
+## Variable types
 
 After specifying the data and aesthetics, we need to decide the plot type. In order to do that, we need to know the variable type(s). There are two different ways to distinguish the variables. 
 

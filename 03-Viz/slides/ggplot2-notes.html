@@ -4,7 +4,7 @@
     <title>DSC365: Introduction to Data Science</title>
     <meta charset="utf-8" />
     <meta name="author" content="Data Viz with ggplot2" />
-    <meta name="date" content="2025-09-02" />
+    <meta name="date" content="2026-01-27" />
     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ### Data Viz with ggplot2
 ]
 .date[
-### September 2, 2025
+### January 27, 2026
 ]
 
 ---
@@ -29,17 +29,18 @@ class: center, middle, inverse, title-slide
 
 
 
-## Announcements
+### Announcements
 
 - Start Lab 2 in class on Thursday!
-  + Due **Tuesday September 9th, 2025 at 11:59 pm** 
+  + Due **Tuesday February 3rd, 2026 at 11:59 pm** 
   
 - Will Discuss Mini-Project 1 on Thursday
-  + Due **Thursday September 18th, 2025 at 12:29 pm** (ie. before class starts)
+  + Due **Thursday February 12th, 2026 at 3:29 pm** (ie. before class starts)
 
 - Quiz #1
-  + Last 30 Minutes on Thursday September 11
+  + Last 30 Minutes on Thursday February 5
   + Quarto, ggplot2, dplyr 
+
 ---
 
 &lt;img src="../../03-Viz/slides/images/ggplot2.png" width="2356" style="display: block; margin: auto;" /&gt;
@@ -130,11 +131,12 @@ Based on The Grammar of Graphics where the components are independent, meaning w
 A plot consists of several mostly independent specifications:
 
 1. **aesthetics** - links between data variables and graphical features (position, color, shape, size)
-2. **layers** - geometric elements (points, lines, rectangles, text,...)
+2. **geometries** - geometric elements (points, lines, rectangles, text,...)
 3. **scales** - scales map values in data space values in the aesthetic space. Scales change the coordinate space of an aesthetic, but don't change the underlying value (change at visual level, not mathematical)
 4. **coordinate system** 
-5. **faceting** - facets allow you to split plot by other variables to produce many sub-plots
-6. **theme** - formating items, such as background color, fonts, margins...
+5. **statistics**: mean, quantiles, etc
+6. **faceting** - facets allow you to split plot by other variables to produce many sub-plots
+7. **theme** - formating items, such as background color, fonts, margins...
 
 &lt;br&gt;
 &lt;br&gt;
@@ -164,6 +166,11 @@ head(diamonds)
 ```
 
 ---
+### Plot Plan
+
+&lt;img src="../../03-Viz/slides/images/plot-plan.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
 ### We Begin with the Data
 
 
@@ -171,7 +178,7 @@ head(diamonds)
 *ggplot(data=diamonds)
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](ggplot2-notes_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 
 ---
 ### Then we specify the aesthetic mappings
@@ -181,7 +188,7 @@ head(diamonds)
 *ggplot(data=diamonds, aes(x=carat, y = price))
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](ggplot2-notes_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ---
 ### Then we choose a geom
@@ -192,7 +199,7 @@ ggplot(data=diamonds, aes(x=carat, y = price)) +
 * geom_point()
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](ggplot2-notes_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 ---
 ### We can then add an aesthetic
@@ -203,7 +210,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 *   geom_point(aes(colour = cut))
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](ggplot2-notes_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 ---
 ### And add another layer
 
@@ -219,7 +226,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](ggplot2-notes_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
 ---
 ### Mapping aesthetics vs setting aesthetics
@@ -236,7 +243,7 @@ ggplot(data = diamonds, aes(x = carat, y = price) +
 ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](ggplot2-notes_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 ---
 ### Facet
@@ -254,7 +261,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](ggplot2-notes_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 
 
 ---

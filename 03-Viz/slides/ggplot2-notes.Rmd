@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science"
 author: "Data Viz with ggplot2"
-date: "September 2, 2025"
+date: "January 27, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -32,17 +32,18 @@ knit_hooks$set(output = function(x, options) {
 ```
 
 
-## Announcements
+### Announcements
 
 - Start Lab 2 in class on Thursday!
-  + Due **Tuesday September 9th, 2025 at 11:59 pm** 
+  + Due **Tuesday February 3rd, 2026 at 11:59 pm** 
   
 - Will Discuss Mini-Project 1 on Thursday
-  + Due **Thursday September 18th, 2025 at 12:29 pm** (ie. before class starts)
+  + Due **Thursday February 12th, 2026 at 3:29 pm** (ie. before class starts)
 
 - Quiz #1
-  + Last 30 Minutes on Thursday September 11
+  + Last 30 Minutes on Thursday February 5
   + Quarto, ggplot2, dplyr 
+
 ---
 
 ```{r, echo=FALSE, fig.align='center'}
@@ -195,11 +196,12 @@ knitr::include_graphics("../../03-Viz/slides/images/template.png")
 A plot consists of several mostly independent specifications:
 
 1. **aesthetics** - links between data variables and graphical features (position, color, shape, size)
-2. **layers** - geometric elements (points, lines, rectangles, text,...)
+2. **geometries** - geometric elements (points, lines, rectangles, text,...)
 3. **scales** - scales map values in data space values in the aesthetic space. Scales change the coordinate space of an aesthetic, but don't change the underlying value (change at visual level, not mathematical)
 4. **coordinate system** 
-5. **faceting** - facets allow you to split plot by other variables to produce many sub-plots
-6. **theme** - formating items, such as background color, fonts, margins...
+5. **statistics**: mean, quantiles, etc
+6. **faceting** - facets allow you to split plot by other variables to produce many sub-plots
+7. **theme** - formating items, such as background color, fonts, margins...
 
 <br>
 <br>
@@ -213,6 +215,15 @@ A plot consists of several mostly independent specifications:
 ```{r}
 library(tidyverse)
 head(diamonds)
+```
+
+---
+### Plot Plan
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+
+knitr::include_graphics("../../03-Viz/slides/images/plot-plan.png")
+
 ```
 
 ---
