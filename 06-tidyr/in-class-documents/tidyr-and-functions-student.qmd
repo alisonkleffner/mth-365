@@ -33,6 +33,15 @@ Real data sets can, and often do, violate the three principles of tidy data in a
 
 ### What Makes Data tidy? Key-Value Pairs
 
+| Patient      | Treatment | Score|
+|--------------|-----------|------|
+| John Smith   | A         | NA   |
+| John Smith   | B         | 18   |
+| Jane Doe     | A         | 4    |
+| Jane Doe     | B         | 1    |
+| Mary Johnson | A         | 6    |
+| Mary Johnson | B         | 7    |
+
 
 + Treatment and Patient uniquely describe a single row in the dataset.
 
@@ -46,6 +55,8 @@ Key-Value pairs (KVP) - also attribute-value, field-value, name-value: abstract 
 
 One way of telling whether a data set is tidy is to check that all keys for a value are aligned in one row
 
+
+[Picture](https://www.garrickadenbuie.com/project/tidyexplain/#tidy-data)
 
 ### Example: Untidy Data
 
@@ -81,15 +92,13 @@ When pivoting longer, you need to specify:
 + the values_to (measures from cols)
 
 ```{r}
-ff_long <- pivot_longer(french_fries, cols = potato:painty,
-                        names_to = "variable",
-                        values_to = "value")
 
-head(ff_long)
+
 ```
 
 ```{r}
-ggplot(ff_long) + geom_boxplot(aes(x=variable, y = value, fill = variable))
+
+
 ```
 
 
@@ -103,14 +112,13 @@ When pivoting wider, you need to specify:
 - the values_from (measures from column we want to widen)
 
 ```{r}
-ff_wide <- ff_long %>%
-  pivot_wider(names_from = "variable",
-              values_from = "value")
 
-head(ff_wide)
+
 ```
 
 Now we are back to your original dataset
+
+[Animation](https://www.garrickadenbuie.com/project/tidyexplain/#pivot-wider-and-longer)
 
 --------------------------------------------------------------------------------
 
@@ -159,7 +167,7 @@ How many inputs do we have?
 
 ```{r}
 (df$a - min(df$a, na.rm = TRUE)) /
-  (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE)) #one input: df$a
+  (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE)) 
 ```
 
 Three components of writing a function:
@@ -184,33 +192,19 @@ By default they return the last value computed in the function
 ### Example:
 
 ```{r}
-add_2 <- function(x){
-  x + 2
-  1000
-}
 
-add_2(2)
 ```
 
 
 ```{r}
-add_2 <- function(x){
-  x + 2
-}
 
-add_2(12)
 ```
 
 ## Back to Rescale Example
 
 ```{r}
-rescale1 <- function(x){
-  (x - min(x, na.rm = TRUE)) /
-  (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
-}
 
-rescale1(df$a)
-rescale1(df$b)
+
 ```
 
 
@@ -239,19 +233,8 @@ ifelse(condition,
 
 ```{r}
 #Function that tells us if number positive, negative, or zero
-ifelse_example <- function(x){
-  if(x > 0){
-    "The value is positive"
-  } else if (x == 0){
-    "The value is zero"
-  } else {
-    "The value is negative"
-  }
-}
 
-ifelse_example(4)
-ifelse_example(-4)
-ifelse_example(0)
+
 ```
 
 
@@ -264,13 +247,6 @@ set.seed(4)
 x <- round(runif(10, 0, 40),2)
 x #use this data to test
 
-
-mean_function <- function(x){
-  sum(x)/length(x)
-}
-
-mean_function(x)
-mean(x)
 ```
 
 2). You want to write a function to calculate a discount based on the purchase amount:
@@ -280,19 +256,8 @@ mean(x)
 - If the amount is less than 50, no discount is applied.
 
 ```{r}
-calculate_discount <- function(amount){
-  if (amount >= 100){
-    amount*0.2
-  } else if(amount < 50){
-    amount*0
-  } else {
-    amount*0.1
-  }
-}
 
-calculate_discount(120)
-calculate_discount(40)
-calculate_discount(60)
+
 ```
 
 
@@ -340,28 +305,30 @@ Suppose we want to find the average number of cats:
 
 ```{r}
 #| error: true
-cat_lovers %>%
-  summarise(mean(number_of_cats))
+
+
 ```
 
 How about removing the NA value?
 
 ```{r}
 #| error: true
-cat_lovers %>%
-  summarise(mean(number_of_cats, na.rm = TRUE))
+
+
 ```
 
 What is the type of the `number_of_cats` variable?
   
 ```{r}
-typeof(cat_lovers$number_of_cats)
+
+
 ```
 
 Are there any strange responses in the data?
 
 ```{r} 
-cat_lovers[48:54,2]
+
+
 ```
 
 **Problem**: number_of_cats is a characters, when we want it to be a number. 
@@ -369,13 +336,13 @@ cat_lovers[48:54,2]
 ### Attempt 1: convert to numeric, where the response that couldn't be converted to a number become `NA`
 
 ```{r}
-cat_lovers = cat_lovers %>%
-  mutate(number_of_cats_new = as.numeric(number_of_cats))
+
+
 ```
 
 ```{r}
-str(cat_lovers)
-cat_lovers[48:54,c(1,4)]
+
+
 ```
 
 You can discard these two lines, but they are still useful information, just in different format.
@@ -386,15 +353,8 @@ You can discard these two lines, but they are still useful information, just in 
 #| warning: false
 #| message: false
 
-cat_lovers2 <- cat_lovers %>%
-  mutate(number_of_cats = case_when(
-    name == "Ginger Clark" ~ 2,
-    name == "Doug Bass" ~ 3,
-    .default = as.numeric(number_of_cats)
-  ))
 
-cat_lovers2 %>%
-  summarise(mean(number_of_cats))
+
 
 ```
 
@@ -406,10 +366,7 @@ You may want to save a copy of this new cleaned version of data. This way you ca
 ```{r, eval=FALSE}
 #| eval: false
 
-write.csv(cat_lovers, file = "cat_lovers_clean.csv", 
-          row.names = FALSE)
 
-getwd()
 ```
 
 - Will save file into your working directory!!
@@ -431,15 +388,15 @@ How many respondents have below average number of cats?
 ```{r}
 #| warning: false
 
-mean_cats <- cat_lovers2 %>%
-  summarise(mean(number_of_cats))
+
 ```
 
 Do you see any problem here? Problem: mean_cats is a dataframe
 
 
 ```{r}
-cat_lovers2 %>% filter(number_of_cats < mean_cats)
+
+
 ```
 
 ### A possible solution: 
@@ -447,15 +404,15 @@ cat_lovers2 %>% filter(number_of_cats < mean_cats)
 `pull()` works like [[]] or `$` for data frames, and pulls out the value of a single column in a data frame. How does `pull()` work?
 
 ```{r}
-mean_cats <- cat_lovers2 %>%
-  summarise(mean_cats = mean(number_of_cats)) %>%
-  pull()
+
+
 ```
 
 `pull()` can be your new best friend, when used correctly.
 
 ```{r}
-cat_lovers2 %>% filter(number_of_cats < mean_cats)
+
+
 ```
 
 ### Factors
@@ -463,22 +420,14 @@ cat_lovers2 %>% filter(number_of_cats < mean_cats)
 Factor: how R stores categorical variables. By default, R orders factors in alphabetical order. Use `fct_relevel` to force a particular order
 
 ```{r}
-x = as.factor(cat_lovers$hand)
-glimpse(x)
 
-cat_lovers2 %>%
-  ggplot(aes(x = hand, fill = hand)) +
-  geom_bar()
+
 ```
 
 ```{r, fig.height=3.5, fig.width=8, fig.align='center'}
 
-cat_lovers2 <- cat_lovers2 %>%
-  mutate(hand = fct_relevel(hand, "left", "ambidextrous", "right"))
 
-cat_lovers2 %>%
-  ggplot(aes(x = hand, fill = hand)) +
-  geom_bar()
+
 ```
 
 

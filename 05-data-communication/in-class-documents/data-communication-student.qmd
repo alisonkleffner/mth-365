@@ -1,7 +1,7 @@
 ---
 title: "Data Communication"
 author: 'DSC 365: Introduction to Data Science'
-date: "September 16, 2025"
+date: "February 10, 2026"
 format: html
 ---
 
@@ -47,8 +47,6 @@ hairData %>%
 ```
 
 ```{r}
-#| fig-cap: "Figure 1: This is a figure caption"
-
 hairData %>% 
   ggplot(aes(x=Hair, y=Freq)) +  
   geom_col(aes(fill = Hair)) #<<
@@ -80,48 +78,39 @@ ggplot(hairData, aes(x = Hair, y = Freq)) +
 Now try by yourself (or with a group) with another type of figure.
 
 (a). Use the iris data below. Plot the figure to show the relation between Sepal.Length and Petal.Length.
-```{r}
-data(iris)
 
-ggplot(iris, aes(x = Sepal.Length, y = Petal.Length)) +
-  geom_point()
+```{r}
+
 ```
 
 (b). Use colors to distinguish the species. Which function you have used? fill or color?
 
 ```{r}
 
-ggplot(iris, aes(x = Sepal.Length, y = Petal.Length)) +
-  geom_point(aes(color = Species))
+
 ```
 
 
 (c). Use red to represents `virginica`, blue to represents `versicolor`, and yellow to represents `setosa`.
 
 ```{r}
-ggplot(iris, aes(x = Sepal.Length, y = Petal.Length)) +
-  geom_point(aes(color = Species)) +
-  scale_color_manual(breaks = c("virginica", "versicolor", "setosa"),
-                     values = c("red", "blue", "yellow"))
+
+
 ```
 
 
 (d). Use the color blind friendly color to distinguish three different species
 
 ```{r}
-cbPalette <- c("#000000","#E69F00","#56B4E9")
 
-ggplot(iris, aes(x = Sepal.Length, y = Petal.Length)) +
-  geom_point(aes(color = Species)) +
-  scale_color_manual(values = cbPalette)
+
 ```
 
 (e). Besides of the color, use different shape of the points to represents the difference (Hint: Use Google or the Help Documentation).
 
 ```{r}
-ggplot(iris, aes(x = Sepal.Length, y = Petal.Length)) +
-  geom_point(aes(color = Species, shape = Species)) +
-  scale_color_manual(values = cbPalette)
+
+
 ```
 
 

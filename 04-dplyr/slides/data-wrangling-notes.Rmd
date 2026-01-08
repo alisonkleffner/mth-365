@@ -159,14 +159,14 @@ knitr::include_graphics("../../04-dplyr/slides/images/untidy1.png")
 ```
 
 #### Option 2
-```{r, echo=FALSE, out.width="80%", fig.alt="Example 1 of a dataset in spreadsheet format. Have four columns for patient and each of the three names of the patients. The rows are for each treatment."}
+```{r, echo=FALSE, out.width="80%", fig.alt="Example 2 of a dataset in spreadsheet format. Have four columns for patient and each of the three names of the patients. The rows are for each treatment."}
 
 knitr::include_graphics("../../04-dplyr/slides/images/untidy2.png")
 
 ```
 ].pull-right[
 #### Option 3
-```{r, echo=FALSE, out.width="80%", fig.alt="Example 1 of a dataset in spreadsheet format. Have three columns for patient, treatment, and score. Has six rows, one for each person and treatment combination."}
+```{r, echo=FALSE, out.width="80%", fig.alt="Example 3 of a dataset in spreadsheet format. Have three columns for patient, treatment, and score. Has six rows, one for each person and treatment combination."}
 
 knitr::include_graphics("../../04-dplyr/slides/images/tidy-data.png")
 

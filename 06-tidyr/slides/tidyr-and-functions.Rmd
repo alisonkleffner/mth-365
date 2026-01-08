@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science"
 author: "tidyr and Function Writing"
-date: "September 23, 2025"
+date: "February 17, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -33,13 +33,13 @@ knit_hooks$set(output = function(x, options) {
 
 ## Announcements
 
-**Lab 4**: Work day Tuesday September 30
+**Lab 4**: Work day Tuesday February 24
 
-- Due Tuesday October 7th at 11:59 pm in Blueline
+- Due Tuesday March 3rd at 11:59 pm in Blueline
 
 **Mini Project 2**
 
-- Due Thursday October 23rd at 11:59 in Blueline
+- Due Thursday March 19th at 11:59 in Blueline
 
 ---
 class:inverse
@@ -58,7 +58,7 @@ class:inverse
 ---
 ### Throwback: What is tidy data?
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.alt="This is a visualization connecting the definition of a tidy dataset to a picture of a dataset."}
 
 knitr::include_graphics("./images/tidy-data-illustration.png")
 
@@ -69,7 +69,7 @@ knitr::include_graphics("./images/tidy-data-illustration.png")
 ### What Makes Data tidy? Key-Value Pairs
 
 .pull-left[
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.alt="Example of a tidy dataset. Have three columns for patient, treatment, and score. Has six rows, one for each person and treatment combination."}
 
 knitr::include_graphics("./images/tidy-data.png")
 
@@ -94,14 +94,14 @@ Key-Value pairs (KVP) - also attribute-value, field-value, name-value: abstract 
 One way of telling whether a data set is tidy is to check that all keys for a value are aligned in one row:
 
 .pull-left[
-```{r, echo=FALSE, fig.cap = "Tidy Data", out.height="70%", out.width="70%"}
+```{r, echo=FALSE, fig.cap = "Tidy Data", out.height="70%", out.width="70%", fig.alt = "An example of a tidy dataset, highlighting the key-value pair to confirm that these values are aligned in a single row"}
 
 knitr::include_graphics("./images/kp-tidy.png")
 
 ```
 ].pull-right[
 
-```{r, echo=FALSE, fig.cap="Untidy Data", out.width="90%", fig.align='center'}
+```{r, echo=FALSE, fig.cap="Untidy Data", out.width="90%", fig.align='center', fig.alt = "An example of an untidy dataset, highlighting the key-value pair. For the two key variables, one is a column header, and one is a row number. Hence the principles of tidy data are not met."}
 
 knitr::include_graphics("./images/kp-untidy.png")
 
@@ -117,7 +117,8 @@ data("french_fries")
 head(french_fries, n = 2)
 ```
 
-```{r, warning=FALSE, fig.height=3.5, fig.align='center', fig.width=8, }
+```{r, warning=FALSE, fig.height=3.5, fig.align='center', fig.width=8, fig.alt = "Boxplots comparing the ratings of different attributes of french fries."}
+
 ggplot(french_fries) + 
   geom_boxplot(aes(x="1_buttery", y=buttery), fill="cyan") +
   geom_boxplot(aes(x = "2_grassy", y=grassy), fill="forestgreen") +
@@ -130,7 +131,7 @@ ggplot(french_fries) +
 ---
 ### Tidy your data using pivot_longer
 
-```{r, echo=FALSE, out.width="100%"}
+```{r, echo=FALSE, out.width="100%", fig.alt = "Illustration displaying how to transform a dataset from wide format to long format. Color is added to connect the same information in both datasets."}
 
 knitr::include_graphics("./images/pivot_longer.png")
 
@@ -159,7 +160,7 @@ head(ff_long, n = 2)
 
 --
 
-```{r, warning=FALSE, fig.height=4, fig.width=8, fig.align='center'}
+```{r, warning=FALSE, fig.height=4, fig.width=8, fig.align='center', fig.alt = "Boxplots comparing the ratings of different attributes of french fries."}
 ggplot(ff_long) + geom_boxplot(aes(x = var, y = rating, fill = var))
 ```
 
@@ -168,7 +169,7 @@ ggplot(ff_long) + geom_boxplot(aes(x = var, y = rating, fill = var))
 
 Useful if we want to display things as a table:
 
-```{r, echo=FALSE, out.width="80%"}
+```{r, echo=FALSE, out.width="80%", fig.alt = "Illustration displaying how to transform a dataset from long format to wide format. Color is added to connect the same information in both datasets."}
 
 knitr::include_graphics("./images/pivot_wider.png")
 
@@ -595,7 +596,7 @@ Factor: By default, R orders factors in alphabetical order. Use `fct_relevel` to
 x = as.factor(cat_lovers$hand)
 ```
 
-```{r, fig.height=3.5, fig.width=8, fig.align='center'}
+```{r, fig.height=3.5, fig.width=8, fig.align='center', fig.alt = "Bar chart of the frequency of different types of handedness in the cat lovers dataset."}
 cat_lovers = cat_lovers %>%  
   mutate(hand=fct_relevel(hand,"left","ambidextrous","right"))
 ggplot(cat_lovers, aes(x=hand, fill=hand)) + geom_bar()

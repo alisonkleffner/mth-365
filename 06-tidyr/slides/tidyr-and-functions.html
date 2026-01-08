@@ -4,7 +4,7 @@
     <title>DSC365: Introduction to Data Science</title>
     <meta charset="utf-8" />
     <meta name="author" content="tidyr and Function Writing" />
-    <meta name="date" content="2025-09-23" />
+    <meta name="date" content="2026-02-17" />
     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ### tidyr and Function Writing
 ]
 .date[
-### September 23, 2025
+### February 17, 2026
 ]
 
 ---
@@ -30,13 +30,13 @@ class: center, middle, inverse, title-slide
 
 ## Announcements
 
-**Lab 4**: Work day Tuesday September 30
+**Lab 4**: Work day Tuesday February 24
 
-- Due Tuesday October 7th at 11:59 pm in Blueline
+- Due Tuesday March 3rd at 11:59 pm in Blueline
 
 **Mini Project 2**
 
-- Due Thursday October 23rd at 11:59 in Blueline
+- Due Thursday March 19th at 11:59 in Blueline
 
 ---
 class:inverse
@@ -55,14 +55,14 @@ class:inverse
 ---
 ### Throwback: What is tidy data?
 
-&lt;img src="./images/tidy-data-illustration.png" width="2339" /&gt;
+&lt;img src="./images/tidy-data-illustration.png" alt="This is a visualization connecting the definition of a tidy dataset to a picture of a dataset." width="2339" /&gt;
 
 
 ---
 ### What Makes Data tidy? Key-Value Pairs
 
 .pull-left[
-&lt;img src="./images/tidy-data.png" width="696" /&gt;
+&lt;img src="./images/tidy-data.png" alt="Example of a tidy dataset. Have three columns for patient, treatment, and score. Has six rows, one for each person and treatment combination." width="696" /&gt;
 ].pull-right[
 
 + Treatment and Patient uniquely describe a single row in the dataset.
@@ -84,13 +84,13 @@ One way of telling whether a data set is tidy is to check that all keys for a va
 
 .pull-left[
 &lt;div class="figure"&gt;
-&lt;img src="./images/kp-tidy.png" alt="Tidy Data" width="70%" height="70%" /&gt;
+&lt;img src="./images/kp-tidy.png" alt="An example of a tidy dataset, highlighting the key-value pair to confirm that these values are aligned in a single row" width="70%" height="70%" /&gt;
 &lt;p class="caption"&gt;Tidy Data&lt;/p&gt;
 &lt;/div&gt;
 ].pull-right[
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="./images/kp-untidy.png" alt="Untidy Data" width="90%" /&gt;
+&lt;img src="./images/kp-untidy.png" alt="An example of an untidy dataset, highlighting the key-value pair. For the two key variables, one is a column header, and one is a row number. Hence the principles of tidy data are not met." width="90%" /&gt;
 &lt;p class="caption"&gt;Untidy Data&lt;/p&gt;
 &lt;/div&gt;
 ]
@@ -116,12 +116,12 @@ ggplot(french_fries) +
   xlab("variable") + ylab("rating")
 ```
 
-&lt;img src="tidyr-and-functions_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="tidyr-and-functions_files/figure-html/unnamed-chunk-7-1.png" alt="Boxplots comparing the ratings of different attributes of french fries." style="display: block; margin: auto;" /&gt;
 
 ---
 ### Tidy your data using pivot_longer
 
-&lt;img src="./images/pivot_longer.png" width="100%" /&gt;
+&lt;img src="./images/pivot_longer.png" alt="Illustration displaying how to transform a dataset from wide format to long format. Color is added to connect the same information in both datasets." width="100%" /&gt;
 
 
 When pivoting longer, you need to specify:
@@ -157,14 +157,14 @@ ff_long &lt;- french_fries %&gt;%
 ggplot(ff_long) + geom_boxplot(aes(x = var, y = rating, fill = var))
 ```
 
-&lt;img src="tidyr-and-functions_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="tidyr-and-functions_files/figure-html/unnamed-chunk-11-1.png" alt="Boxplots comparing the ratings of different attributes of french fries." style="display: block; margin: auto;" /&gt;
 
 ---
 ### And reverse: `pivot_wider`
 
 Useful if we want to display things as a table:
 
-&lt;img src="./images/pivot_wider.png" width="80%" /&gt;
+&lt;img src="./images/pivot_wider.png" alt="Illustration displaying how to transform a dataset from long format to wide format. Color is added to connect the same information in both datasets." width="80%" /&gt;
 
 
 When pivoting wider, you need to specify:
@@ -803,7 +803,7 @@ cat_lovers = cat_lovers %&gt;%
 ggplot(cat_lovers, aes(x=hand, fill=hand)) + geom_bar()
 ```
 
-&lt;img src="tidyr-and-functions_files/figure-html/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="tidyr-and-functions_files/figure-html/unnamed-chunk-40-1.png" alt="Bar chart of the frequency of different types of handedness in the cat lovers dataset." style="display: block; margin: auto;" /&gt;
 
 
 ---
