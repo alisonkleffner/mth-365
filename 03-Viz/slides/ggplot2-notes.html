@@ -43,7 +43,7 @@ class: center, middle, inverse, title-slide
 
 ---
 
-&lt;img src="../../03-Viz/slides/images/ggplot2.png" width="2356" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../03-Viz/slides/images/ggplot2.png" alt="Cartoon diplaying building a visualization like an artist paints a painting." width="2356" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -58,7 +58,7 @@ Our brain is good at processing large amounts of data quickly!
 + Communicating Information
 
 
-&lt;img src="../../03-Viz/slides/images/sun-pic.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../03-Viz/slides/images/sun-pic.png" alt="The Hertzsprung-Russell Diagram displaying the relationshing between the brightness and and color of starts and how this relationship also shows the lifecycle of the star." width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 class:primary
@@ -81,7 +81,7 @@ class:primary
 class:primary
 ### Datasaurus: Plots
 
-&lt;img src="ggplot2-notes_files/figure-html/quartet-plots-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ggplot2-notes_files/figure-html/quartet-plots-1.png" alt="Visualization of scatterplots for six datasets from the datasaurus dozen dataset. Shows that while these datasets all have the same correlation coefficent, the plots show very different types of relationships." style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -99,7 +99,7 @@ By making different visual choices, you can use graphs to highlight different as
 
 - For example, here are three ways of displaying the same data:
 
-&lt;img src="ggplot2-notes_files/figure-html/plots-3-1.png"  /&gt;
+&lt;img src="ggplot2-notes_files/figure-html/plots-3-1.png" alt="Depiction of three different ways to display the same dataset about the frequency of diamond cut types. The first is a regular bar chart, the second is a filled bar chart and the last is a pie chart."  /&gt;
 
 
 ---
@@ -110,10 +110,10 @@ Based on The Grammar of Graphics where the components are independent, meaning w
 
 .pull-left[
 
-&lt;img src="../../03-Viz/slides/images/ggplot-hex.png" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../03-Viz/slides/images/ggplot-hex.png" alt="Hex logo for ggplot2 package." width="40%" style="display: block; margin: auto;" /&gt;
 ].pull-right[
 
-&lt;img src="../../03-Viz/slides/images/template.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../03-Viz/slides/images/template.png" alt="Code template to create a plot using the ggplot function." width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -168,7 +168,7 @@ head(diamonds)
 ---
 ### Plot Plan
 
-&lt;img src="../../03-Viz/slides/images/plot-plan.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../03-Viz/slides/images/plot-plan.png" alt="Visualization relating variables in a dataset to its correpsonding components on a plot." width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### We Begin with the Data
@@ -178,7 +178,7 @@ head(diamonds)
 *ggplot(data=diamonds)
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+&lt;img src="ggplot2-notes_files/figure-html/unnamed-chunk-8-1.png" alt="Visualization of the gray plot background that is the default for ggplot. Happens when only call in the dataset but no specific variables."  /&gt;
 
 ---
 ### Then we specify the aesthetic mappings
@@ -188,7 +188,7 @@ head(diamonds)
 *ggplot(data=diamonds, aes(x=carat, y = price))
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+&lt;img src="ggplot2-notes_files/figure-html/unnamed-chunk-9-1.png" alt="Builds on previous picture, where we now have added our two variables to the gpplot code. The appropriate axes labels now appear."  /&gt;
 
 ---
 ### Then we choose a geom
@@ -199,7 +199,7 @@ ggplot(data=diamonds, aes(x=carat, y = price)) +
 * geom_point()
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+&lt;img src="ggplot2-notes_files/figure-html/unnamed-chunk-11-1.png" alt="Builds on previous picture where we have now added a geometry, a point. So now a point is diplayed for each observation."  /&gt;
 
 ---
 ### We can then add an aesthetic
@@ -210,7 +210,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 *   geom_point(aes(colour = cut))
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+&lt;img src="ggplot2-notes_files/figure-html/unnamed-chunk-13-1.png" alt="Identical to previous plot, except now each point is colored by the cut of the diamond for that observation."  /&gt;
 ---
 ### And add another layer
 
@@ -226,7 +226,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+&lt;img src="ggplot2-notes_files/figure-html/unnamed-chunk-15-1.png" alt="Identical to previous plot, except now we have added a line that summarises the relationship between carat and price."  /&gt;
 
 ---
 ### Mapping aesthetics vs setting aesthetics
@@ -243,7 +243,7 @@ ggplot(data = diamonds, aes(x = carat, y = price) +
 ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+&lt;img src="ggplot2-notes_files/figure-html/unnamed-chunk-17-1.png" alt="Now instead of one line depicting the overall relationhip there are now five lines, one for each of the diamond cuts."  /&gt;
 
 ---
 ### Facet
@@ -261,7 +261,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
 ```
 
-![](ggplot2-notes_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+&lt;img src="ggplot2-notes_files/figure-html/unnamed-chunk-19-1.png" alt="Instead of maintaing all of this information on one plot, now we have broken out the data into five faceted plots, one for each cut, so now we can more easily visualize the relationship between carat and price for each diamond type."  /&gt;
 
 
 ---

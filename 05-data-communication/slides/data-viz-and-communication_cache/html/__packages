@@ -12,3 +12,6 @@ knitr
 RColorBrewer
 dslabs
 fivethirtyeight
+ggsci
+gridExtra
+datasauRus

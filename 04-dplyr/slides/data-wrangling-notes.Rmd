@@ -101,7 +101,7 @@ class:inverse
   + Intro to R, Quarto, ggplot2, dplyr 
   
 - **Mini-Project 1**
-  + Due **Thursday February 12th, 2026 at 2:29 pm** (ie. before class starts)
+  + Due **Thursday February 12th, 2026 at 3:29 pm** (ie. before class starts)
   + Presentations during class that day
 
 
@@ -112,7 +112,7 @@ Most **datasets** are made up of *rows* and *columns*. They are  a collection of
 
 **Data Wrangling** can be defined as the process of cleaning, organizing, and transforming  raw data into the desired format for analysts to use for prompt decision making. 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.alt="This is a visualization of the data science flowchart, where the steps related to data wrangling are highlighted. The steps involve importing the data, tidying the data, and transforming the data."}
 
 knitr::include_graphics("../../04-dplyr/slides/images/data-flowchart.png")
 
@@ -136,7 +136,7 @@ knitr::include_graphics("../../04-dplyr/slides/images/data-flowchart.png")
 ---
 ### What is tidy data?
 
-```{r, echo=FALSE, out.width="90%"}
+```{r, echo=FALSE, out.width="90%", fig.alt="This is a visualization connecting the definition of a tidy dataset to a picture of a dataset."}
 
 knitr::include_graphics("../../04-dplyr/slides/images/tidy-data-illustration.png")
 
@@ -152,21 +152,21 @@ There are different ways of encoding the same information
 .pull-left[
 #### Option 1
 
-```{r, echo=FALSE, out.width="70%"}
+```{r, echo=FALSE, out.width="70%", fig.alt="Example 1 of a dataset in spreadsheet format. Have three columns for patient, treatment A, and treatment B with 3 observations."}
 
 knitr::include_graphics("../../04-dplyr/slides/images/untidy1.png")
 
 ```
 
 #### Option 2
-```{r, echo=FALSE, out.width="80%"}
+```{r, echo=FALSE, out.width="80%", fig.alt="Example 1 of a dataset in spreadsheet format. Have four columns for patient and each of the three names of the patients. The rows are for each treatment."}
 
 knitr::include_graphics("../../04-dplyr/slides/images/untidy2.png")
 
 ```
 ].pull-right[
 #### Option 3
-```{r, echo=FALSE, out.width="80%"}
+```{r, echo=FALSE, out.width="80%", fig.alt="Example 1 of a dataset in spreadsheet format. Have three columns for patient, treatment, and score. Has six rows, one for each person and treatment combination."}
 
 knitr::include_graphics("../../04-dplyr/slides/images/tidy-data.png")
 
@@ -185,7 +185,7 @@ Rules of `dyplr`:
 - Subsequent arguments say what to do with that data frame
 - Always returns a data frame
 
-```{r, echo=FALSE, out.width="70%", fig.align='center'}
+```{r, echo=FALSE, out.width="70%", fig.align='center', fig.alt="This is a picture of the hex logo for dplyr along with the four main dplyr verbs."}
 
 knitr::include_graphics("../../04-dplyr/slides/images/dplyr.png")
 
@@ -203,7 +203,7 @@ In programming, a pipe is a technique for passing information from one process t
 + f(x) %>% g(y) is equivalent to g(f(x),y)
 + Recently `R` has developed the native pipe operator: `|>`
 
-```{r, echo=FALSE, fig.align='center'}
+```{r, echo=FALSE, fig.align='center', fig.alt="Illustration of how the pipe operator that is a part of tidyverse works in connecting dplyr verbs together in the same line of code."}
 
 knitr::include_graphics("../../04-dplyr/slides/images/pipe.png")
 
@@ -233,9 +233,9 @@ There are some of the primary dplyr verbs, representing distinct data analysis t
 
 .center[
 
-```{r, results='asis', echo=FALSE, fig.align='center'}
+```{r, results='asis', echo=FALSE, fig.align='center', fig.alt="Illustration of how the select function works."}
 
-i1 <- img_modal(src = "./images/select.png", alt = "from MDSR book", other=list(width="100%"))
+i1 <- img_modal(src = "./images/select.png", alt = "Illustration of how the select function works (from MDSR book)", other=list(width="100%"))
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i1, "\\n", simplify = T)[3:9]
@@ -253,9 +253,9 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 .pull-left[
 
-```{r, results='asis', echo=FALSE, fig.align='center'}
+```{r, results='asis', echo=FALSE, fig.align='center', fig.alt="Cartoon of how the filter function works."}
 
-i1 <- img_modal(src = "./images/filter.png", alt = "by Allison Horst", other=list(width="100%"))
+i1 <- img_modal(src = "./images/filter.png", alt = "Cartoon of how the filter function works (by Allison Horst)", other=list(width="100%"))
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i1, "\\n", simplify = T)[3:9]
@@ -265,9 +265,9 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 ].pull-right[
 
-```{r, results='asis', echo=FALSE, fig.align='center'}
+```{r, results='asis', echo=FALSE, fig.align='center', fig.alt="Illustration of how the filter function works with a dataset."}
 
-i2 <- img_modal(src = "./images/filter2.png", alt = "from MDSR book", other=list(width="100%"))
+i2 <- img_modal(src = "./images/filter2.png", alt = "Illustration of how the filter function works with a dataset (from MDSR book)", other=list(width="100%"))
 
 c(str_split(i2, "\\n", simplify = T)[1:2],
   str_split(i2, "\\n", simplify = T)[3:9]
@@ -285,9 +285,9 @@ c(str_split(i2, "\\n", simplify = T)[1:2],
 
 .pull-left[
 
-```{r, results='asis', echo=FALSE, fig.align='center'}
+```{r, results='asis', echo=FALSE, fig.align='center', fig.alt="Cartoon of how the mutate function works."}
 
-i1 <- img_modal(src = "./images/mutate.png", alt = "by Allison Horst", other=list(width="100%"))
+i1 <- img_modal(src = "./images/mutate.png", alt = "Cartoon of how the mutate function works (by Allison Horst)", other=list(width="100%"))
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i1, "\\n", simplify = T)[3:9]
@@ -297,9 +297,9 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 ].pull-right[
 
-```{r, results='asis', echo=FALSE, fig.align='center'}
+```{r, results='asis', echo=FALSE, fig.align='center', fig.alt="Illustration of how the mutate function works with a dataset."}
 
-i2 <- img_modal(src = "./images/mutate2.png", alt = "from MDSR book", other=list(width="100%"))
+i2 <- img_modal(src = "./images/mutate2.png", alt = "Illustration of how the mutate function works with a dataset (from MDSR book)", other=list(width="100%"))
 
 c(str_split(i2, "\\n", simplify = T)[1:2],
   str_split(i2, "\\n", simplify = T)[3:9]
@@ -316,9 +316,9 @@ c(str_split(i2, "\\n", simplify = T)[1:2],
 
 .center[
 
-```{r, results='asis', echo=FALSE, fig.align='center'}
+```{r, results='asis', echo=FALSE, fig.align='center', fig.alt="Illustration of how the arrange function works with a dataset."}
 
-i1 <- img_modal(src = "./images/arrange.png", alt = "from MDSR book", other=list(width="100%"))
+i1 <- img_modal(src = "./images/arrange.png", alt = "Illustration of how the arrange function works with a dataset (from MDSR book)", other=list(width="100%"))
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i1, "\\n", simplify = T)[3:9]
@@ -335,9 +335,9 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 .center[
 
-```{r, results='asis', echo=FALSE, fig.align='center'}
+```{r, results='asis', echo=FALSE, fig.align='center', fig.alt="Illustration of how the summarize function works with a dataset."}
 
-i1 <- img_modal(src = "./images/summarize.png", alt = "from MDSR book", other=list(width="100%"))
+i1 <- img_modal(src = "./images/summarize.png", alt = "Illustration of how the summarize function works with a dataset (from MDSR book)", other=list(width="100%"))
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i1, "\\n", simplify = T)[3:9]

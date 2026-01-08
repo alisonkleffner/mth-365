@@ -46,7 +46,7 @@ knit_hooks$set(output = function(x, options) {
 
 ---
 
-```{r, echo=FALSE, fig.align='center'}
+```{r, echo=FALSE, fig.align='center', fig.alt="Cartoon diplaying building a visualization like an artist paints a painting."}
 
 knitr::include_graphics("../../03-Viz/slides/images/ggplot2.png")
 
@@ -65,7 +65,7 @@ Our brain is good at processing large amounts of data quickly!
 + Communicating Information
 
 
-```{r, echo=FALSE, fig.align='center', out.width="70%"}
+```{r, echo=FALSE, fig.align='center', out.width="70%", fig.alt="The Hertzsprung-Russell Diagram displaying the relationshing between the brightness and and color of starts and how this relationship also shows the lifecycle of the star."}
 
 knitr::include_graphics("../../03-Viz/slides/images/sun-pic.png")
 
@@ -103,7 +103,8 @@ quartet_summary %>%
 class:primary
 ### Datasaurus: Plots
 
-```{r, , quartet-plots, fig.height = 7, fig.width = 9, fig.align = "center", echo = FALSE}
+```{r, , quartet-plots, fig.height = 7, fig.width = 9, fig.align = "center", echo = FALSE, fig.alt="Visualization of scatterplots for six datasets from the datasaurus dozen dataset. Shows that while these datasets all have the same correlation coefficent, the plots show very different types of relationships."}
+
 ggplot(datasaurus_dozen_filter, aes(x = x, y = y, colour = dataset))+
     geom_point()+
     #theme_void()+
@@ -127,7 +128,8 @@ By making different visual choices, you can use graphs to highlight different as
 
 - For example, here are three ways of displaying the same data:
 
-```{r plots-3, fig.align='bottom', fig.height=4.5, fig.width=15, echo = FALSE}
+```{r plots-3, fig.align='bottom', fig.height=4.5, fig.width=15, echo = FALSE, fig.alt="Depiction of three different ways to display the same dataset about the frequency of diamond cut types. The first is a regular bar chart, the second is a filled bar chart and the last is a pie chart."}
+
 data(diamonds)
 
 # bar chart
@@ -167,14 +169,14 @@ Based on The Grammar of Graphics where the components are independent, meaning w
 
 .pull-left[
 
-```{r, echo=FALSE, out.width="40%", fig.align = "center"}
+```{r, echo=FALSE, out.width="40%", fig.align = "center", fig.alt="Hex logo for ggplot2 package."}
 
 knitr::include_graphics("../../03-Viz/slides/images/ggplot-hex.png")
 
 ```
 ].pull-right[
 
-```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+```{r, echo=FALSE, out.width="100%", fig.align = "center", fig.alt="Code template to create a plot using the ggplot function."}
 
 knitr::include_graphics("../../03-Viz/slides/images/template.png")
 
@@ -220,7 +222,7 @@ head(diamonds)
 ---
 ### Plot Plan
 
-```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+```{r, echo=FALSE, out.width="100%", fig.align = "center", fig.alt="Visualization relating variables in a dataset to its correpsonding components on a plot."}
 
 knitr::include_graphics("../../03-Viz/slides/images/plot-plan.png")
 
@@ -229,14 +231,14 @@ knitr::include_graphics("../../03-Viz/slides/images/plot-plan.png")
 ---
 ### We Begin with the Data
 
-```{r, fig.height=5, fig.width=10, echo = TRUE}
+```{r, fig.height=5, fig.width=10, echo = TRUE, fig.alt="Visualization of the gray plot background that is the default for ggplot. Happens when only call in the dataset but no specific variables."}
 ggplot(data=diamonds) #<<
 ```
 
 ---
 ### Then we specify the aesthetic mappings
 
-```{r, fig.width=10, fig.height=5, echo = TRUE}
+```{r, fig.width=10, fig.height=5, echo = TRUE, fig.alt="Builds on previous picture, where we now have added our two variables to the gpplot code. The appropriate axes labels now appear."}
 ggplot(data=diamonds, aes(x=carat, y = price)) #<<
 ```
 
@@ -248,7 +250,7 @@ ggplot(data=diamonds, aes(x=carat, y = price)) +
   geom_point() #<<
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.height=5}
+```{r, echo=FALSE, fig.width=10, fig.height=5, fig.alt="Builds on previous picture where we have now added a geometry, a point. So now a point is diplayed for each observation."}
 ggplot(data = diamonds, aes(x = carat, y = price)) +
     geom_point() + 
     scale_color_locuszoom()
@@ -262,7 +264,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
     geom_point(aes(colour = cut)) #<<
 ```
 
-```{r, echo=FALSE, fig.width=10, fig.height=5}
+```{r, echo=FALSE, fig.width=10, fig.height=5, fig.alt="Identical to previous plot, except now each point is colored by the cut of the diamond for that observation."}
 ggplot(data = diamonds, aes(x = carat, y = price)) +
     geom_point(aes(colour = cut)) + 
     scale_color_locuszoom()
@@ -276,7 +278,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
     geom_smooth() #<<
 ```
 
-```{r, echo = FALSE, fig.width=10, fig.height=5}
+```{r, echo = FALSE, fig.width=10, fig.height=5, fig.alt="Identical to previous plot, except now we have added a line that summarises the relationship between carat and price."}
 ggplot(data = diamonds, aes(x = carat, y = price)) +
     geom_point(aes(colour = cut)) +
     geom_smooth() + 
@@ -292,7 +294,8 @@ ggplot(data = diamonds, aes(x = carat, y = price) +
     geom_smooth(aes(fill = cut), colour = "lightgrey") #<<
 ```
 
-```{r, fig.width=10, fig.height=5, echo = FALSE}
+```{r, fig.width=10, fig.height=5, echo = FALSE, fig.alt="Now instead of one line depicting the overall relationhip there are now five lines, one for each of the diamond cuts."}
+
 ggplot(data = diamonds, aes(x = carat, y = price)) +
     geom_point(aes(colour = cut), size = 2, alpha = .5) + 
     scale_color_locuszoom() + 
@@ -310,7 +313,8 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
     facet_wrap(~cut) #<<
 ```
 
-```{r, fig.width=10, fig.height=5, echo = FALSE}
+```{r, fig.width=10, fig.height=5, echo = FALSE, fig.alt="Instead of maintaing all of this information on one plot, now we have broken out the data into five faceted plots, one for each cut, so now we can more easily visualize the relationship between carat and price for each diamond type."}
+
 ggplot(data = diamonds, aes(x = carat, y = price)) +
     geom_point(aes(colour = cut), size = 2, alpha = .5) +
     geom_smooth(aes(fill = cut), colour = "lightgrey") +
