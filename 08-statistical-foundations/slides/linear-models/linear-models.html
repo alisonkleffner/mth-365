@@ -4,7 +4,7 @@
     <title>DSC365: Introduction to Data Science</title>
     <meta charset="utf-8" />
     <meta name="author" content="Linear Models" />
-    <meta name="date" content="2025-10-07" />
+    <meta name="date" content="2026-03-03" />
     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ### Linear Models
 ]
 .date[
-### October 7, 2025
+### March 3, 2026
 ]
 
 ---
@@ -32,20 +32,20 @@ class: center, middle, inverse, title-slide
 
 **Lab 4**
 
-- Due Thursday October 9th, 2025 at 11:59 pm in Blueline
+- Due Tuesday March 3rd at 11:59 pm in Blueline
 
 **Quiz 2**
 
-- Last 30 minutes of class Thursday October 9th
+- Last 30 minutes of class Thursday March 5th 
 - Topics: Data Communication and Statistical Foundations/Linear Models
 
-**Lab 5**: work day in class on Thursday October 9th
+**Lab 5**: work day in class on Thursday March 5th
 
-- Due Tuesday October 21st, 2025 at 11:59 pm in Blueline
+- Due Tuesday March 24th at 11:59 pm in Blueline
 
 **Mini Project 2**
 
-- Due Thursday October 23rd at 11:59 in Blueline
+- Due Thursday March 19th at 11:59 in Blueline
 
 
 
@@ -57,9 +57,9 @@ Sometimes we want to know whether any variables are related, thus we need to fit
 - We will focus on linear models, but many other types of models too!
 
 .pull-left[
-![](linear-models_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-2-1.png" alt="An example of a scatterplot that has a linear relationship between the two variables."  /&gt;
 ].pull-right[
-![](linear-models_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-3-1.png" alt="An example of a scatterplot that has a non-linear relationship between the two variables. The relationship looks like a parabola."  /&gt;
 
 ]
 
@@ -79,7 +79,7 @@ There are two things we can do with fitting a model:
 ---
 ### Fit a model
 
-Today's lecture (and mini-project 2) focuses on interpretation, while mini-project 3 will focus on prediction. General steps for fitting a model for interpretation: 
+Today's lecture (and mini-project 2) focuses on interpretation, while mini-project 3 will focus on prediction. 
 
 ---
 ### Vocabulary
@@ -109,18 +109,13 @@ Today's lecture (and mini-project 2) focuses on interpretation, while mini-proje
 ---
 ### Looking for the potential correlation
 
-__Example__: Review our NYC flight data. Is there any variable related to the arrival delay? If yes, how?
+__Example__: Review our NYC flight data. What variables, if any, are related to flight arrival delays?
 
 Consider a random sample of 1000 flights from NYC to Chicago in 2013.
 
 
 
 Below are the column names of the data. Suppose we want to focus on if the time of the flights (`hour`) is related to the arrival delay (`arr_delay`)?
-
-
-``` r
-colnames(Chicago1000)
-```
 
 
 
@@ -133,23 +128,14 @@ colnames(Chicago1000)
 ## [5,] "sched_dep_time" "carrier"        "air_time" ""
 ```
  
+
 ---
 ### Visualizing a Model
 
-The next step is to use a model. 
   + A popular model we can use is a Linear Model.
 
 
-
-``` r
-Chicago1000 %&gt;% 
-  ggplot(aes(x = hour, y = arr_delay)) + geom_point() + 
-  geom_smooth(method = "lm") +
-  theme(axis.title.x = element_text(size = 18),
-        axis.title.y = element_text(size = 18))
-```
-
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-6-1.png" alt="A scatterplot of hour versus arrival delay, where a linear regression line was also included." style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -203,7 +189,7 @@ summary(model)
 ---
 ### Linear Model: One Numerical Predictor
 
-**Linear Model**:
+**Fitted Linear Model**:
 
 &lt;br&gt;
 
@@ -224,7 +210,7 @@ summary(model)
 
 **Example**: What about carrier? 
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-8-1.png" alt="Boxplots comparing the arrival delay by carrier." style="display: block; margin: auto;" /&gt;
 
 
 
@@ -298,9 +284,8 @@ Writing out the proper model:
 Interpreting p-value: 
 
 
+???
 
-
----
 ### Analysis of Variance (ANOVA)
 
 **Analysis of variance**: used to analyze the differences among means.
@@ -332,7 +317,17 @@ summary(model3)
 **"Correlation does not equal causation."**
 ]
 
+- A common concern with observational data is that correlations are distorted by other variables -&gt; **confounding variables**
+  - Addressing confounding is straightforward if these variables are measured (ex. can add them to model)
 
+---
+### Confounding Variables and Simpson's Paradox
+
+
+Simpson's paradox is a phenomenon where a trend appears in several groups of data but disappears or reverses when the groups are combined. 
+- The paradox can be resolved when confounding variables are appropriately addressed, but can lead to problematic interpretations if they are not. 
+
+&lt;img src="../images/simpson-paradox.png" alt="Graphic depicting an example of simpsons paradox. It shows that the overall trend between height and basketball success is negative, which seems suspicious. However, when we add a third variable of age we see the reason for this trend as the data points for ages are clumped together." width="85%" height="90%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Carrier as a confounder?
@@ -385,7 +380,8 @@ model4 = lm(arr_delay ~ hour + carrier, data = Chicago1000)
 ## F-statistic: 14.23 on 6 and 993 DF,  p-value: 1.337e-15
 ```
 
----
+???
+
 ### Overall F Test
 
 Testing for significance of all predictor variables at once: 
@@ -411,18 +407,8 @@ Similar to model with one predictor variable, but p-value is calculated assuming
 
 
 
-
 ---
-### Variable Selection
-
-- Adjusted `\(R^2\)`
-- AIC/BIC
-- Prediction Accuracy (after Fall Break)
-
-**Note**: This is far from an exhaustive list
-
----
-### Adjusted `\(R^2\)`
+### Variable Selection: Adjusted `\(R^2\)`
 
 How much of the variation in our response is explained by the model
 
@@ -430,36 +416,6 @@ The Adjusted `\(R^2\)` does not automatically increase for additional variables
 
 &lt;br&gt;
 &lt;br&gt;
-
-
-
----
-### AIC and BIC
-
-
-- AIC: penalize the inclusion of additional variables to a model. It adds a penalty that increases the error when including additional terms. 
-
-``` r
-AIC(model4)
-```
-
-```
-## [1] 10475.09
-```
-
-&lt;br&gt;
-&lt;br&gt;
-
-- BIC: Stronger penalty for including additional variables to the model.
-
-
-``` r
-BIC(model4)
-```
-
-```
-## [1] 10514.35
-```
 
 
 ---
@@ -482,7 +438,7 @@ To check this assumption, we use a QQ-Plot
 plot(model4, which = 2)
 ```
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-16-1.png" alt="QQplot for model using hour and carrier to predict arrival delay." style="display: block; margin: auto;" /&gt;
 
 ---
 ### Assumption: Linearity
@@ -496,7 +452,7 @@ Look at the Residuals vs Fitted Plot
 plot(model4, which = 1)
 ```
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-17-1.png" alt="Residuals vs Fitted Plot for model using hour and carrier to predict arrival delay." style="display: block; margin: auto;" /&gt;
 
 ---
 ### Assumption: Constant Variance
@@ -509,7 +465,7 @@ plot(model4, which = 1)
 plot(model4, which = 3)
 ```
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-18-1.png" alt="Scale-Location plot for model using hour and carrier to predict arrival delay." style="display: block; margin: auto;" /&gt;
 
 ---
 ### Assumption: No Perfect Collinearity
@@ -543,7 +499,18 @@ M &lt;- cor(Chicago1000[,c(15:16)])
 corrplot(M, method = "number", type = "upper")
 ```
 
-&lt;img src="linear-models_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="linear-models_files/figure-html/unnamed-chunk-19-1.png" alt="Correlattion plot, where each pairwise correlation between numeric expalanatory variables are calculated and colored by the strength and direction of this correlation." style="display: block; margin: auto;" /&gt;
+
+---
+### Outliers
+
+Outliers: a data point that differs significantly from other observations
+
+When you have an outlier:
+
+- Identify the potential outlier
+- Try to understand why it is an outlier
+- Only remove it if you are sure it is caused by completely random error, or not related to your research focus.
 
 
 ---

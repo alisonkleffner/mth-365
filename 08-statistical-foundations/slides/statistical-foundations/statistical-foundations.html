@@ -4,7 +4,7 @@
     <title>DSC365: Introduction to Data Science</title>
     <meta charset="utf-8" />
     <meta name="author" content="Statistical Foundations" />
-    <meta name="date" content="2025-10-02" />
+    <meta name="date" content="2026-02-26" />
     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ### Statistical Foundations
 ]
 .date[
-### October 2, 2025
+### February 26, 2026
 ]
 
 ---
@@ -32,38 +32,43 @@ class: center, middle, inverse, title-slide
 
 **Lab 4**
 
-- Due Thursday October 9th, 2025 at 11:59 pm in Blueline
+- Due Tuesday March 3rd at 11:59 pm in Blueline
 
 **Quiz 2**
 
-- Last 30 minutes of class Thursday October 9th
-- Topics: Data Communication and Statistical Foundations
+- Last 30 minutes of class Thursday March 5th 
+- Topics: Data Communication and Statistical Foundations/Linear Models
 
-**Lab 5**: work day in class on Thursday October 9th
+**Lab 5**: work day in class on Thursday March 5th
 
-- Due Tuesday October 21st, 2025 at 11:59 pm in Blueline
+- Due Tuesday March 24th at 11:59 pm in Blueline
 
 **Mini Project 2**
 
-- Due Thursday October 23rd at 11:59 in Blueline
-
+- Due Thursday March 19th at 11:59 in Blueline
 
 
 
 ---
 ### Isn't this data science?
 
-- Statistics: Statistics is a mathematically based field which seeks to collect and interpret quantitative data. 
+- Statistics: 
 
-- Data science: Data science is a multidisciplinary filed which uses scientific methods, processes and system to extract information from data in a large range of forms. 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+- Data science:  
 
 
 ---
 ### Samples and Population
 
-In statistics we are interested in a **population** of cases/people/objects. However, often this population is too large to collect data on, so we take **samples** from the larger population.
+In statistics we are interested in a **population** of cases/people/objects.
+- Often this population is too large to collect data on, so we take **samples** from the larger population.
 
-Statistical methodology assumes that the cases are drawn from a much larger set of potential cases, so the given data are a sample of a larger population of potential cases. 
+Statistical methodology assumes that the cases are drawn from a much larger set of potential cases
 
 ---
 ### Uncertainty
@@ -71,18 +76,16 @@ Statistical methodology assumes that the cases are drawn from a much larger set 
 What do we mean by uncertainty?
 
 - Roughly equivalent to the notion of repeatability. 
-  + You’re certain if your results are repeatable. 
-  + You’re uncertain if your results are subject to a lot of statistical fluctuations.
-  
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 
 Why are Statisticians Always Uncertain?
  
-- Our data consists of a sample
-- We want to use our models, but there are always things that we can't account for in a model
-- Our observations are subject to measurement or reporting error
-- Our data arise from an intrinsically random or variable process
+
 
 ---
 ### Example: Setting travel policy through sampling
@@ -199,8 +202,7 @@ Examples:
 Sample statistics depend completely on the data. Different samples of data will have different sample statistics!
 
 We need to figure out the reliability of a sample statistic from the sample itself. 
-  + For now, though, we are going to use the population to develop some ideas about how to define reliability. 
-
+ 
 
 ---
 ### Creating a Sampling Distribution
@@ -257,18 +259,24 @@ ggplot(chi_25_means, aes(x=mean_arr_delay)) +
 ### What does the Sampling Distribution tells us?
 
 - Where is the sampling distribution centered? 
-  + The expected value of a statistical summary is the average of that summary’s sampling distribution—that is, the average value of that summary under repeated sampling from the same random process that generated our data.
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 - How spread out is the sampling distribution? 
-  + The answer to this question provides a quantitative measure of repeatability, and therefore statistical uncertainty.
-  + The standard deviation of a sampling distribution is called the **standard error**. This reflects the typical statistical fluctuation of our summary statistic
 
 ---
 ### Discuss Reliability: Standard Error
 
 **Standard error**: It describes the width of the sampling distribution.
 
-`$$SE = \frac{s}{\sqrt{n}}$$`
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 Example: What’s the standard error of the sample mean?
 
@@ -316,14 +324,9 @@ Means500 &lt;- do(1000)*(Chicago %&gt;% sample_n(size=500) %&gt;%
 
 In the last example, we had access to the population data and so we could find the sampling distribution by repeatedly sampling from the population. 
 
-**Bootstrap** is a method that allows us to approximate the sampling distribution even though we do not have the population.
+**Bootstrap:** allows us to approximate the sampling distribution even though we do not have the population.
 
-In bootstraping we think of our sample as if it were the population. 
-  - Still drawing many new samples from our original sample (**Resampling**). 
 
-When resampling, we sample with replacement.
-  - Allows us to estimate the variability of the sample
-  - Otherwise, would always get the same sample statistics as the observed value.
 
 ---
 ### Bootstraping
@@ -425,63 +428,23 @@ favstats(~mean_arr_delay, data=chi_25_means)
 ```
 
 ---
-### Side Note: We want Quality Samples!
-
-The quality of bootstrap estimates depends on the quality of the collected data.
-  - So we want quality samples!
-  
-Quality samples tend to be representative of the population of interest
-
-
----
-### Outliers
-
-Outliers: a data point that differs significantly from other observations
-
-When you have an outlier:
-
-- Identify the potential outlier
-- Try to understand why it is an outlier
-- Only remove it if you are sure it is caused by completely random error, or not related to your research focus.
-
----
-### Confounding Variables and Simpson's Paradox
-
-.center[
-Correlation does not imply causation
-]
-
-&lt;br&gt;
-
-- A common concern with observational data is that correlations are distorted by other variables -&gt; *confounding variables*
-  + Randomized trials control for this; but not always practical
-  
-- In observational studies, addressing confounding is straightforward if these variables are measured (ex. can add them to model)
-
-
----
-### Confounding Variables and Simpson's Paradox
-
-
-Simpson's paradox is a phenomenon where a trend appears in several groups of data but disappears or reverses when the groups are combined. 
-- The paradox can be resolved when confounding variables are appropriately addressed, but can lead to problematic interpretations if they are not. 
-
-&lt;img src="../images/simpson-paradox.png" alt="Graphic depicting an example of simpsons paradox. It shows that the overall trend between height and basketball success is negative, which seems suspicious. However, when we add a third variable of age we see the reason for this trend as the data points for ages are clumped together." width="85%" height="90%" style="display: block; margin: auto;" /&gt;
-
-
----
 ### Hypothesis Tests and its Perils
 
-Made up of 4 steps:
+.center[
+Used to check if a claim about the population is true]
+
 
 1). Write out your hypotheses for testing
 
-- Start with a null hypothesis `\((H_0)\)`, that represents the status quo ("there is nothign going on")
-- Set an alternative hypothesis `\((H_A)\)`, that represents the research question, i.e. what we’re testing for
+- Nnull hypothesis `\((H_0)\)`: the status quo ("there is nothign going on")
+- Alternative hypothesis `\((H_A)\)`: that represents the research question, i.e. what we’re testing for
   - Can be one-sided `\((&lt;,&gt;)\)` or two-sided `\((\neq)\)`
 
-2/3). Conduct a hypothesis test under the assumption that the null hypothesis is true
-  - calculate a test-statistic/p-value 
+2/3). Calculate a test-statistic/p-value under assumption `\((H_0)\)` is true
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 4). If the test results suggest that the data do not provide convincing evidence for the alternative hypothesis, stick with the null hypothesis
   - If they do, then reject the null hypothesis in favor of the alternative
@@ -490,34 +453,34 @@ Made up of 4 steps:
 ---
 ### Example: Lee Corso Head Gear Picks
 
-Lee Corso is a football analyst and broadcaster commonly known for his “headgear” picks on ESPNs College GameDay until his retirement earlier this season. But the real question is, does he know what he is talking about? We randomly selected 100 games and found he correctly picked 62 teams correctly out of 100 games (62%)
+Lee Corso is a football analyst/broadcaster known for his “headgear” picks on ESPNs College GameDay until his recent retirement. But the real question is, does he know what he is talking about? We randomly selected 100 games and found he correctly picked 62 teams correctly out of 100 games (62%)
 
-&lt;img src="../images/corso.png" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../images/corso.png" alt="Image of Lee Corse wearing a corn hat after he picked Nebraska to win." width="35%" style="display: block; margin: auto;" /&gt;
 
 
-`\(H_0:\)`  Corso's picks for the winning football team was truly random during his career.
 
-`\(H_A:\)` Corso's picks for the winning football team was higher than what would be expected by random chance throughout his career.
 
 
 ---
 ### Null Distribution
 
-If he was just guessing, we'd expect him to correctly pick the correct team about half of the time, but we also have to account for the possibility that they just got lucky. Hence we want to simulate a random process, assuming the null hypothesis is true, called a **Null Distribution**
+- If he was just guessing, we'd expect him to correctly pick the correct team about half of the time
+  + Hence we want to simulate a random process, assuming the null hypothesis is true, called a **Null Distribution**
 
 &lt;br&gt;
 
-&lt;img src="statistical-foundations_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="statistical-foundations_files/figure-html/unnamed-chunk-22-1.png" alt="Histogram of a simulated null distribution that looks approximately normal." style="display: block; margin: auto;" /&gt;
 
 
 ---
-### New England Patriots: P-value
+### Lee Corso: P-value
 
-A **p-value** is the probability of observing a test statistic as extreme, or more extreme, than what observed, given that the null hypothesis is true.
+**p-value:**
 
 &lt;br&gt;
+&lt;br&gt;
 
-&lt;img src="statistical-foundations_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="statistical-foundations_files/figure-html/unnamed-chunk-23-1.png" alt="Same histrogram as the previous slide, however now a line is drawn at the value of the calculated test statistic. The shaded region on the plot represents the p-value." style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -529,17 +492,7 @@ We often use 5% as the cutoff for whether the p-value is low enough that the dat
 
 - If p-value &gt; `\(\alpha\)`, fail to reject `\(H_0\)` in favor of `\(H_A\)`: The data do not provide convincing evidence for the alternative hypothesis.
 
-&lt;br&gt;
 
-In our example, since 0.0111 &lt; 0.05, we have evidence that Corso's picks for the winning football team was higher than what would be expected by random chance throughout his career.
-
----
-### P-Values
-
-Using a p-value as a measure of statistical significance has both advantages and disadvantages:
-- **Advantage** is that the p-value gives us a continuous measure of evidence against the null hypothesis. 
-- **Disadvantage** is that the p-value is really, really hard to interpret correctly.
-  + Also has an "all or nothing" connotation (unfortunately magic thresholds don't exist)
 
 
     </textarea>
