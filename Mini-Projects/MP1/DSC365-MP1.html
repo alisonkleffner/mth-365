@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Due February 12 at 3:29 pm in BlueLine (ie. before class starts)">
+
+<title>Mini Project 1: Find a Data Set and Present</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="DSC365-MP1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="DSC365-MP1_files/libs/quarto-html/quarto.js"></script>
+<script src="DSC365-MP1_files/libs/quarto-html/popper.min.js"></script>
+<script src="DSC365-MP1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="DSC365-MP1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="DSC365-MP1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="DSC365-MP1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="DSC365-MP1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="DSC365-MP1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="DSC365-MP1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Mini Project 1: Find a Data Set and Present</h1>
+<p class="subtitle lead">DSC 365: Introduction to Data Science</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Due February 12 at 3:29 pm in BlueLine (ie. before class starts) </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<strong>Task</strong>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pick a data set and present to your classmates!</p>
+</div>
+</div>
+<section id="steps" class="level1">
+<h1>Steps:</h1>
+<section id="develop-a-research-question-and-pick-a-data-set" class="level3">
+<h3 class="anchored" data-anchor-id="develop-a-research-question-and-pick-a-data-set">1. Develop a Research Question and Pick a Data Set:</h3>
+<ol type="1">
+<li>The response variable should be a numerical variable.</li>
+<li>Should have more than 200 observations and 10 or more (useful) explanatory variables</li>
+<li>Ideally the explanatory variables would be a mix of numerical and categorical variables</li>
+<li>Do not use data that has been used in a lecture or labs</li>
+<li>The data set should be able to answer a real-life question (use real data - be careful with Kaggle)</li>
+</ol>
+<p>Here are some places you can use to find a data set:</p>
+<ol type="1">
+<li>UCI Data Repository- https://archive.ics.uci.edu/datasets</li>
+<li>Kaggle: https://www.kaggle.com/datasets</li>
+<li>Tidy Tuesday: https://github.com/rfordatascience/tidytuesday</li>
+<li>Government Data: https://catalog.data.gov/dataset</li>
+<li>FiveThirtyEight: https://data.fivethirtyeight.com/</li>
+<li>Google Data set search: https://datasetsearch.research.google.com/</li>
+<li>Awesome Public Data sets: https://github.com/awesomedata/awesome-public-datasets</li>
+<li>Some sports data sets:</li>
+</ol>
+<ul>
+<li>https://sportsandsociety.osu.edu/sports-data-sets</li>
+<li>https://data.scorenetwork.org/</li>
+<li>https://www.nflfastr.com/</li>
+<li>https://hockeyr.netlify.app/</li>
+</ul>
+<ol start="9" type="1">
+<li>IPUMS USA: https://usa.ipums.org/usa/ (US Census Data for Social, Economic, and Health Research)</li>
+<li>IPUMS Higher Ed: https://highered.ipums.org/highered/ (survey data on scientists and engineers)</li>
+<li>BuzzFeed News: https://github.com/BuzzFeedNews/everything?tab=readme-ov-file</li>
+</ol>
+<p>You are not limited to these. Pick something that is interesting to you!</p>
+<section id="note" class="level4">
+<h4 class="anchored" data-anchor-id="note">Note:</h4>
+<p>Only two people are allowed to use the same data set. In BlueLine there is a page called “Mini Project Data Sets”. Update this with your data set once you find it.</p>
+</section>
+</section>
+<section id="exploratory-data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="exploratory-data-analysis">2. Exploratory Data Analysis</h3>
+<p>Perform EDA on your data to learn more about it (summary statistics, plots, etc.)</p>
+</section>
+<section id="presentation-tell-people-about-your-data" class="level3">
+<h3 class="anchored" data-anchor-id="presentation-tell-people-about-your-data">3. Presentation: Tell people about your data!</h3>
+<p>Once you have picked your data and have learned more about it, the next step is to tell people about it.</p>
+<p>You need to make slides for the presentation, with no more than 10 slides. <strong>Please submit you slides in PDF/pptx to BlueLine 3:29pm on Thursday February 12th (ie. before class). The presentations will be during class on February 12 during lecture.</strong></p>
+<p>Here is a list of things you need to include in your presentation:</p>
+<ol type="1">
+<li>A title to address your research question.</li>
+<li>Describe your research question. Why is it interesting?</li>
+<li>Introduce your data. Where did you find it (cite your data)? How was it collected? What is the size?</li>
+<li>Briefly discuss any concerns about your data (eg. any variables are missing but maybe important? Potential outliers?)</li>
+<li>Introduce your variables. What is your response variable? What are the explanatory variables? Do not just simply list the variable names, try to group them by thinking about whether there may be connections between them.</li>
+<li>Show and explain two EDA plots. The plots should have a clear title and axis labels.</li>
+<li>Do not include any R code in the slides.</li>
+<li>Presentation should be easy to follow and slides should be easy to read.</li>
+<li>Presentation should be between 4-5 minutes.</li>
+</ol>
+<p>The total score is 50.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

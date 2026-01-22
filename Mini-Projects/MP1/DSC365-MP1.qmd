@@ -1,0 +1,77 @@
+---
+title: "Mini Project 1: Find a Data Set and Present"
+subtitle: "DSC 365: Introduction to Data Science"
+author: "Due February 12 at 3:29 pm in BlueLine (ie. before class starts)" 
+
+format: html
+---
+
+:::{.callout-note}
+# **Task**
+
+Pick a data set and present to your classmates!
+
+:::
+
+
+
+# Steps:
+
+### 1. Develop a Research Question and Pick a Data Set:
+
+1. The response variable should be a numerical variable.
+2. Should have more than 200 observations and 10 or more (useful) explanatory variables
+3. Ideally the explanatory variables would be a mix of numerical and categorical variables
+4. Do not use data that has been used in a lecture or labs
+5. The data set should be able to answer a real-life question (use real data - be careful with Kaggle)
+
+
+Here are some places you can use to find a data set:
+
+1. UCI Data Repository- https://archive.ics.uci.edu/datasets
+2. Kaggle: https://www.kaggle.com/datasets
+3. Tidy Tuesday: https://github.com/rfordatascience/tidytuesday
+4. Government Data: https://catalog.data.gov/dataset
+5. FiveThirtyEight: https://data.fivethirtyeight.com/
+6. Google Data set search: https://datasetsearch.research.google.com/
+7. Awesome Public Data sets: https://github.com/awesomedata/awesome-public-datasets
+8. Some sports data sets: 
+  - https://sportsandsociety.osu.edu/sports-data-sets
+  - https://data.scorenetwork.org/
+  - https://www.nflfastr.com/
+  - https://hockeyr.netlify.app/
+9. IPUMS USA: https://usa.ipums.org/usa/ (US Census Data for Social, Economic, and Health Research)
+10. IPUMS Higher Ed: https://highered.ipums.org/highered/ (survey data on scientists and engineers)
+11. BuzzFeed News: https://github.com/BuzzFeedNews/everything?tab=readme-ov-file
+
+
+You are not limited to these. Pick something that is interesting to you!
+
+#### Note:
+
+Only two people are allowed to use the same data set. In BlueLine there is a page called "Mini Project Data Sets". Update this with your data set once you find it.
+
+### 2. Exploratory Data Analysis
+
+Perform EDA on your data to learn more about it (summary statistics, plots, etc.)
+
+### 3. Presentation: Tell people about your data!
+
+Once you have picked your data and have learned more about it, the next step is to tell people about it.
+
+You need to make slides for the presentation, with no more than 10 slides. **Please submit you slides in PDF/pptx to BlueLine 3:29pm on Thursday February 12th (ie. before class). The presentations will be during class on February 12 during lecture.**
+
+Here is a list of things you need to include in your presentation:
+
+1. A title to address your research question.
+2. Describe your research question. Why is it interesting?
+3. Introduce your data. Where did you find it (cite your data)? How was it collected? What is the size?
+4. Briefly discuss any concerns about your data (eg. any variables are missing but maybe important? Potential outliers?)
+5. Introduce your variables. What is your response variable? What are the explanatory variables? Do not just simply list the variable names, try to group them by thinking about whether there may be connections between them. 
+6. Show and explain two EDA plots. The plots should have a clear title and axis labels.
+7. Do not include any R code in the slides. 
+8. Presentation should be easy to follow and slides should be easy to read.
+9. Presentation should be between 4-5 minutes.
+
+The total score is 50.
+

@@ -24,7 +24,7 @@ Today we will work with two packages: `datasauRus` which contains the data set, 
 Install these packages by running the following code. You can do that in a Quarto document by clicking the green arrow "Run" button. You should have installed `tidyverse` already last week.
 
 ```{r}
-#install.packages("datasauRus")
+#install.packages("datasauRus") - don't need to do again
 ```
 
 Another way to install the package: Click on the "Packages" tab, and click the Install button. Type the package name and click install.
@@ -66,7 +66,7 @@ Once you extract the information, sometimes you need to save it for the later us
 
 ```
 
-If you run the above line, nothing will show as the result but if you check the environment, we now have a new variable called *x_value* which you can use later. For example, you can print it out below. 
+If you run the above line, nothing will show as the result but if you check the environment, we now have a new variable called *xval* which you can use later. For example, you can print it out below. 
 
 ```{r}
 
@@ -75,6 +75,10 @@ If you run the above line, nothing will show as the result but if you check the 
 ## Basic data summary
 
 Another piece of information people want to know is how many rows and how many columns does the `datasaurus_dozen` file have? What are the variables included in the data frame? To answer those questions, we can do:
+
+```{r}
+
+```
 
 ```{r}
 
