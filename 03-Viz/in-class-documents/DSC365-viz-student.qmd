@@ -42,7 +42,7 @@ Data set is posted in BlueLine. Download this data set, and save it to your comp
 ```{r}
 #Update what is inside "" with the file path on your computer
 
-hate_crimes <- read_csv("hate_crimes.csv")
+hate_crimes <- read_csv("data/hate_crimes.csv")
 ```
 
 

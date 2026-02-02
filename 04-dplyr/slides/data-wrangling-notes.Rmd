@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science"
 author: "Data Wrangling: dplyr"
-date: "February 6, 2026"
+date: "February 3, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -88,7 +88,7 @@ class:inverse
 <br><br><br>
 ## DSC365: Intro to Data Science
 ### Data Wrangling: dplyr
-#### February 6, 2026
+#### February 3, 2026
 
 ---
 ### Announcements
@@ -97,7 +97,7 @@ class:inverse
   + Due **Tuesday February 17th, 2026 at 11:59 pm** 
   
 - Quiz #1
-  + Last 30 Minutes on Thursday February 7
+  + Last 30 Minutes on Thursday February 5
   + Intro to R, Quarto, ggplot2, dplyr 
   
 - **Mini-Project 1**
@@ -117,6 +117,7 @@ Most **datasets** are made up of *rows* and *columns*. They are  a collection of
 knitr::include_graphics("../../04-dplyr/slides/images/data-flowchart.png")
 
 ```
+
 [Data Wrangling Flowchart](https://r4ds.had.co.nz/wrangle-intro.html) by Hadley Wickham and Garrett Grolemund
 
 ---
