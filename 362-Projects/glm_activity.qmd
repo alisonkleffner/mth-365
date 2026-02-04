@@ -1,0 +1,33 @@
+---
+title: "GLM Activity"
+format: html
+---
+
+:::{.callout-note}
+
+**Instructions**: Get into 5 groups. While each group will work on each of the distributions, each group will be put in charge of one example they will explain to the class.
+
+**For each, ...**
+
+1. Show that the distribution is part of the exponential family
+
+2. Identify the canonical link
+
+3. Find it's mean and variance
+:::
+
+**Distributions:**
+
+a. **Bernoulli**: Y = 1 for a sucess, 0 for a failure; $p(y) = p^y(1-p)^{1-y}$ 
+
+b. **Poisson**: $p(y) = \frac{e^{-\lambda}\lambda^y}{y!}$ where $y = 0, 1, 2, \dots \infty$
+
+c. **Exponential**: Y = time spent waiting for the first event in a Poisson Process with an average rate of $\lambda$ $(y \in [0, \infty))$; $f(y) = \lambda e^{-\lambda y}$
+
+d. **Geometric**: Y = number of failures before the first success in a Bernoulli process (for y = 0, 1, 2, 3...): $p(y) = (1-p)^yp$
+
+e. **Gamma (for fixed r)**: time spent waiting for the $r^{th}$ event in a Poisson process $(\lambda$ = average rate for events per unit; for $y \in [0,\infty)$):
+$f(y;\lambda) = \frac{\lambda^r}{\Gamma(r)} y^{r-1} e^{-\lambda y}$
+
+
+
