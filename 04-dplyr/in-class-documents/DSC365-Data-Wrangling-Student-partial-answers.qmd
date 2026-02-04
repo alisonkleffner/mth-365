@@ -219,8 +219,7 @@ Non-matches are filled in by NA
 `right_join(`) works symmetric
 
 ```{r}
-
-
+left_join(df1, df2, by="id")
 ```
 
 #### inner_join()
@@ -228,8 +227,7 @@ Non-matches are filled in by NA
 Only matches from both data sets are kept
 
 ```{r}
-
-
+inner_join(df1, df2, by="id")
 ```
 
 #### full_join()
@@ -237,8 +235,7 @@ Only matches from both data sets are kept
 All ids are kept, missings are filled in with NA
 
 ```{r}
-
-
+full_join(df1, df2, by="id")
 ```
 
 ## Traps of joins
@@ -296,15 +293,14 @@ Use a common variable, called a *key*, to link the data.
 ### `inner_join()`
 
 ```{r}
-
-
+flights_carrier = flights %>%
+  inner_join(airlines, by = c("carrier" = "carrier"))
 ```
 
 Did it work?
 
 ```{r}
-
-
+glimpse(flights_carrier)
 ```
 
 ## Your Turn: Departure delays on United
@@ -312,41 +308,55 @@ Did it work?
 1.  Create a new data set, `flights2` that contains the carrier name, year, month, day, departure delay, arrival delay, origin airport, destination airport, and flight number.
 
 ```{r}
-
-
+flights2 <- flights %>%
+  select(carrier, year, month, day, dep_delay, arr_delay, origin, dest, flight)
 ```
 
 2.  Filter the data set to only show United Airlines flights. What month in 2013 did United Airlines have the most flights from the New York Area?
 
 ```{r}
+flightsUA <- flights2 %>% filter(carrier == "UA")
 
-
+flightsUA %>%
+  group_by(month) %>%
+  summarize(N= n()) %>%
+  arrange(desc(N))
 ```
 
 3.  How many unique destinations does United Airlines serve from the New York Area?
 
 ```{r}
-
-
+flightsUA %>%
+  group_by(dest) %>%
+  summarise(N = n())
 ```
 
 4.  How many unique unique destinations does United Airlines run from each of the three area airports?
 
 ```{r}
+flightsUA %>%
+  group_by(origin, dest) %>%
+  summarise(N = n())
 
 
+flightsUA %>%
+  group_by(origin) %>%
+  summarise(N = length(unique(dest)))
 ```
 
 5.  What is the average departure delay of a United Airlines flight leaving any New York area airport?
 
 ```{r}
-
-
+flightsUA %>%
+  filter(!is.na(dep_delay)) %>%
+  summarize(dep_delay = mean(dep_delay))
 ```
 
 6.  What is the average departure delay of a United Airlines flight leaving JFK? LGA? EWR?
 
 ```{r}
-
-
+flightsUA %>%
+  filter(!is.na(dep_delay)) %>%
+  group_by(origin) %>%
+  summarize(dep_delay = mean(dep_delay))
 ```

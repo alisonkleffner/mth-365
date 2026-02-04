@@ -1,0 +1,79 @@
+---
+title: "Project 1: Working with Count Data"
+subtitle: "MTH 362: Statistical Modeling"
+
+format: html
+---
+
+::: callout-note
+# **Due Date**
+
+-   Project 1: Tuesday March 3, 2026 at 11:59 pm
+
+Turn in two files: 
+
+- Report (PDF/HTML file) 
+- R code (qmd file)
+:::
+
+Goal: Perform an analysis with a count response variable.
+
+However, there are some guidelines you need to follow.
+
+Data:
+
+1.  The response variable should be a count variable $(y = 1,..., n)$.
+2.  The data size should be larger than 200 and the number of predictors should be more than 10.
+3.  Do not use the data that has mentioned in the lecture.
+4.  The dataset should be able to answer a real-life question and should be real data (not simulated - be careful with Kaggle).
+
+Here are some sources that you can find a data:
+
+1.  UCI Data Repository- https://archive.ics.uci.edu/datasets
+2.  Kaggle: https://www.kaggle.com/datasets
+3.  Tidy Tuesday: https://github.com/rfordatascience/tidytuesday
+4.  Government Data: https://catalog.data.gov/dataset
+5.  FiveThirtyEight: https://data.fivethirtyeight.com/
+6.  Google Data set search: https://datasetsearch.research.google.com/
+7.  Awesome Public Data sets: https://github.com/awesomedata/awesome-public-datasets
+8.  Some sports data sets:
+
+-   https://sportsandsociety.osu.edu/sports-data-sets
+-   https://data.scorenetwork.org/
+-   https://www.nflfastr.com/
+-   https://hockeyr.netlify.app/
+
+9.  IPUMS USA: https://usa.ipums.org/usa/ (US Census Data for Social, Economic, and Health Research)
+10. IPUMS Higher Ed: https://highered.ipums.org/highered/ (survey data on scientists and engineers)
+11. BuzzFeed News: https://github.com/BuzzFeedNews/everything?tab=readme-ov-file
+
+
+Your submission should include:
+
+1.  **Introduction (15 points)**: Basic introduction to the research question and the data. Make sure to cite where you got your data! Explain why research question is important. Include relevant background information (ie. how data collected, define non-obvious variables, number of observations...). What is your response variable?
+2.  **Exploratory data analysis (15 pts)**: including graphs of the relevant variables in your data set and descriptions of any patterns present in the plot. Graphs should be numbered and include captions (see `quarto-help.qmd` for how to make a figure caption in quarto).
+3.  **Models (25 pts)** Try at least two different models used with count data (normal, poisson, negative binomial, zero-inflated) and discuss the reason of the choices.
+    -   Determine which model is more appropriate for your data (ie. decided on a final model). Discuss reasons (check assumptions, goodness of fit, etc).
+4.  **Variable selection (10 pts):** Perform variable selection on the final model. Discuss variable selection method/process. Is this model substantially better than the full model?
+5.  **Interpret Model (10 pts):** Interpret results of final model (coefficients, model fit, etc).
+6.  **Conclusion (10 pts):** A conclusion of the analysis - including answer research question, areas for improvement and future work.
+7.  **Formatting (10 pts):** Your submissions should be professionally written and formatted 
+    - Title related to research question/data
+    - Spelling and grammar 
+    - Section Headers
+    - Do not include full variable selection output (use `trace = 0`)
+    - No R messages/warnings
+    - Avoid excess R output. If going to have output, need to talk about it.
+    - 10ish page limit
+8.  Please submit **both** Quarto file with code and a PDF/html with **only outputs**. **(5 pts)**
+    -   If you are struggling with making your outputted PDF/html look nice, see: `quarto-help.qmd`
+
+Total points possible: 100
+
+**Note**: If submitting an html, make sure to include the following in your YAML. Otherwise I won't be able to see your plot outputs in BlueLine (see labs for an example):
+
+```{r, eval=FALSE}
+format: 
+ html:
+  embed-resources: true
+```
