@@ -122,10 +122,7 @@ class:inverse
 
 To visually display data, information is encoded into a graph. The viewer then visually decodes this information, known as graphical perception, to gain knowledge. 
 
-In previous weeks we have discussed how to choose the right plot to visualize the data. This week we will focus on the other two principles:
-
-- Keep it simple
-- Show the data clearly
+In previous weeks we have discussed how to choose the right plot to visualize the data. This week we will focus on the other design choices to aid in graphical perception:
 
 
 
@@ -134,17 +131,15 @@ In previous weeks we have discussed how to choose the right plot to visualize th
 
 A general guideline is to use simplicity in the design. 
 
-- Minimize the number of unique symbols
-- A sample of graphics found that graphics with the best overall ratings had fewer features on average [(Source)](https://www.jstor.org/stable/24737226?seq=1). 
-- Beauty with the addition of unnecessary features does not always equal good content
 
 ---
 ### Show the Data Clearly
 
-Here authors wanted to display the relationship between the average lifespan and lifespan standard deviation of different countries by labeling each point by sex and education level. Additionally, they denoted the country, represented by each point, by including its name on the chart
+**Goal**: display the relationship between the average lifespan and lifespan standard deviation of different countries by labeling each point by sex and education level. Countries are represented by each point, with the country names also appearing
 
 .pull-left[
-```{r, results='asis', echo=FALSE, fig.align='center', out.width="70%"}
+```{r, results='asis', echo=FALSE, fig.align='center', out.width="70%", fig.alt="Original plot that shows each observation on the same scatterplot, where different symbols are used to represent the differeng groups"}
+
 i1 <- img_modal(src = "../slides/images/unclear-graph.png", alt = "Original plot that shows each observation on the same scatterplot, where different symbols are used to represent the differeng groups")
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
@@ -153,8 +148,9 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 ```
 ].pull-right[
-```{r, results='asis', echo=FALSE, fig.align='center'}
-i1 <- img_modal(src = "../slides/images/better-graph.png", alt = "Improved visualization that facets each scatterplot by country so can reduce the clutter. problem from the original plot.")
+```{r, results='asis', echo=FALSE, fig.align='center', fig.alt="Improved visualization that facets each scatterplot by country so can reduce the clutter problem from the original plot."}
+
+i1 <- img_modal(src = "../slides/images/better-graph.png", alt = "Improved visualization that facets each scatterplot by country so can reduce the clutter problem from the original plot.")
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i1, "\\n", simplify = T)[3:9]
@@ -162,17 +158,33 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 ```
 ]
+
+[(Source)](https://www.jstor.org/stable/24737226?seq=1)
+
 ---
 ### Show the Data Clearly: Preattentive Features
 
-Pre-Attentive Features are things that "jump out" in less than 500 ms [(source)](https://www.sciencedirect.com/science/article/abs/pii/S0734189X85800049)
+Pre-Attentive Features:  
 
-+ Color, shape, angle, movement, spatial localization
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-There is a hierarchy of features
-+ Color is stronger than shape
+There is a hierarchy of features:
 
-Reduces the amount of work users of your graph have to do when they view it [(source)](https://www.tandfonline.com/doi/full/10.1080/10618600.2016.1209116)
+<br>
+<br>
+<br>
+<br>
+
+
+Articles: [Aricle 1](https://www.tandfonline.com/doi/full/10.1080/10618600.2016.1209116), [Article 2](https://www.sciencedirect.com/science/article/abs/pii/S0734189X85800049)
 
 ---
 class:primary
@@ -229,7 +241,7 @@ ggplot(data, aes(x, y)) + geom_point(aes(colour = shape, shape = color), size = 
 ]
 
 ---
-### Show Data Clearly: Pie vs Bar Chart
+### Show Data Clearly: Pie Charts are Bad
 
 .pull-left[
 ```{r diamonds1, echo = FALSE, fig.align='center', fig.alt="Pie Chart of the diamonds dataset showing the frequency of each cut in the dataset."}
@@ -257,26 +269,29 @@ diamonds %>% ggplot() + geom_bar(aes(x=cut,fill = cut)) + ggtitle("Bar Chart")
 
 Anything that can be put into a pie chart can also be put into a bar chart
 
-- Research has shown that people have more difficulty with angle measurements than length measurements, so always prefer bar chart over pie chart [(paper)](https://www.jstor.org/stable/2288400?seq=1). 
+- Research has shown that people have more difficulty with angle measurements than length measurements [(paper)](https://www.jstor.org/stable/2288400?seq=1). 
 
 
 
 ---
 ### Show Data Clearly: Color
 
-+ Hue: shade of color (red, orange, yellow...)
++ Hue: 
 
-+ Intensity: amount of color
+<br>
 
-+ Both color and hue are pre-attentive. Bigger contrast corresponds to faster detection.
++ Intensity:
 
-+ When choosing color schemes, we will want mappings from data to color that are not just numerically but also perceptually uniform
-
-+ Distinguish between sequential scales and categorical scales
-
-+ Be conscious of what color means
+<br>
 
 
+When choosing color schemes:
+  + Want mappings from data to color that are not just numerically but also perceptually uniform
+  + Distinguish between sequential scales and categorical scales
+  + Be conscious of what color means
+
+
+<br>
 <br>
 
 [(source)](https://ieeexplore.ieee.org/document/773961)
@@ -366,9 +381,10 @@ Suggestions:
 ---
 ### Example: Hair Color
 
-The data `HairEyeColor` provides the information of hair colors and eye colors in a statistics class. The data is recorded in a three-way table. The first step is to convert the data into a column-wise data frame.
+The data `HairEyeColor` provides information of hair eye colors in a statistics class. Suppose now we want to see the distribution of hair color in this class. 
 
-```{r, echo = FALSE}
+
+```{r, echo = FALSE, include=FALSE}
 data(HairEyeColor)
 #HairEyeColor[,,1] #Male
 #HairEyeColor[,,2] #Female
@@ -386,12 +402,6 @@ hairData = newdata %>%
 hairData
 ```
 
-Suppose now we want to see the distribution of hair color in this class. What kind of the plot we should use?
-
----
-### Example: Hair Color
-
-What is the difference between these two?
 .pull-left[
 
 ```{r, fig.alt="Bar chart displaying the frequency of each hair color in the data set, where color equals hair is used to color the boundary of each bar."}
@@ -497,10 +507,8 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 ---
 ### What's Wrong with These Plots?
 
-Identify the issues with the plots, and talk about how you would fix them?
-
 .pull-left[
-```{r, results='asis', echo=FALSE, fig.align='center', out.height=="80%"}
+```{r, results='asis', echo=FALSE, fig.align='center', out.height=="75%"}
 
 i1 <- img_modal(src = "../slides/images/bad-pie.PNG", alt = "Pie chart of how people voted for president in 2016.")
 i3 <- img_modal(src = "../slides/images/bad-color.png", alt = "Map of suicide rates by country with a bad color scheme.")
@@ -514,7 +522,7 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 ```
 ].pull-right[
 
-```{r, results='asis', echo=FALSE, fig.align='center', out.width="90%"}
+```{r, results='asis', echo=FALSE, fig.align='center', out.width="75%"}
 
 i2 <- img_modal(src = "../slides/images/bad-line.PNG", alt = "Line chart of Asian Hate Crime reports over time.")
 i4 <- img_modal(src = "../slides/images/bad-bar.png", alt = "Bar Chart of Number of Covid-19 cases by country over time.")
@@ -622,9 +630,7 @@ class:inverse
 
 Your visualizations should include:
 
-- Clearly labeled axes
-- Clear and descriptive captions
-- Readable and easily understandable legends (if applicable)
+
 
 ---
 ### Labels

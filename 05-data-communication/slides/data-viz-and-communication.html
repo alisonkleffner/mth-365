@@ -59,10 +59,7 @@ class:inverse
 
 To visually display data, information is encoded into a graph. The viewer then visually decodes this information, known as graphical perception, to gain knowledge. 
 
-In previous weeks we have discussed how to choose the right plot to visualize the data. This week we will focus on the other two principles:
-
-- Keep it simple
-- Show the data clearly
+In previous weeks we have discussed how to choose the right plot to visualize the data. This week we will focus on the other design choices to aid in graphical perception:
 
 
 
@@ -71,14 +68,11 @@ In previous weeks we have discussed how to choose the right plot to visualize th
 
 A general guideline is to use simplicity in the design. 
 
-- Minimize the number of unique symbols
-- A sample of graphics found that graphics with the best overall ratings had fewer features on average [(Source)](https://www.jstor.org/stable/24737226?seq=1). 
-- Beauty with the addition of unnecessary features does not always equal good content
 
 ---
 ### Show the Data Clearly
 
-Here authors wanted to display the relationship between the average lifespan and lifespan standard deviation of different countries by labeling each point by sex and education level. Additionally, they denoted the country, represented by each point, by including its name on the chart
+**Goal**: display the relationship between the average lifespan and lifespan standard deviation of different countries by labeling each point by sex and education level. Countries are represented by each point, with the country names also appearing
 
 .pull-left[
 &lt;!-- Trigger the Modal --&gt;
@@ -92,7 +86,7 @@ Here authors wanted to display the relationship between the average lifespan and
 &lt;/div&gt;
 ].pull-right[
 &lt;!-- Trigger the Modal --&gt;
-&lt;img id='imgbettergraph' src='../slides/images/better-graph.png' alt='Improved visualization that facets each scatterplot by country so can reduce the clutter. problem from the original plot.' =''&gt;
+&lt;img id='imgbettergraph' src='../slides/images/better-graph.png' alt='Improved visualization that facets each scatterplot by country so can reduce the clutter problem from the original plot.' =''&gt;
 &lt;!-- The Modal --&gt;
 &lt;div id='modalbettergraph' class='modal'&gt;
   &lt;!-- Modal Content (The Image) --&gt;
@@ -101,17 +95,33 @@ Here authors wanted to display the relationship between the average lifespan and
   &lt;div id='captionbettergraph' class='modal-caption'&gt;&lt;/div&gt;
 &lt;/div&gt;
 ]
+
+[(Source)](https://www.jstor.org/stable/24737226?seq=1)
+
 ---
 ### Show the Data Clearly: Preattentive Features
 
-Pre-Attentive Features are things that "jump out" in less than 500 ms [(source)](https://www.sciencedirect.com/science/article/abs/pii/S0734189X85800049)
+Pre-Attentive Features:  
 
-+ Color, shape, angle, movement, spatial localization
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
-There is a hierarchy of features
-+ Color is stronger than shape
+There is a hierarchy of features:
 
-Reduces the amount of work users of your graph have to do when they view it [(source)](https://www.tandfonline.com/doi/full/10.1080/10618600.2016.1209116)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+Articles: [Aricle 1](https://www.tandfonline.com/doi/full/10.1080/10618600.2016.1209116), [Article 2](https://www.sciencedirect.com/science/article/abs/pii/S0734189X85800049)
 
 ---
 class:primary
@@ -147,7 +157,7 @@ class:primary
 ]
 
 ---
-### Show Data Clearly: Pie vs Bar Chart
+### Show Data Clearly: Pie Charts are Bad
 
 .pull-left[
 &lt;img src="data-viz-and-communication_files/figure-html/diamonds1-1.png" alt="Pie Chart of the diamonds dataset showing the frequency of each cut in the dataset." style="display: block; margin: auto;" /&gt;
@@ -159,26 +169,29 @@ class:primary
 
 Anything that can be put into a pie chart can also be put into a bar chart
 
-- Research has shown that people have more difficulty with angle measurements than length measurements, so always prefer bar chart over pie chart [(paper)](https://www.jstor.org/stable/2288400?seq=1). 
+- Research has shown that people have more difficulty with angle measurements than length measurements [(paper)](https://www.jstor.org/stable/2288400?seq=1). 
 
 
 
 ---
 ### Show Data Clearly: Color
 
-+ Hue: shade of color (red, orange, yellow...)
++ Hue: 
 
-+ Intensity: amount of color
+&lt;br&gt;
 
-+ Both color and hue are pre-attentive. Bigger contrast corresponds to faster detection.
++ Intensity:
 
-+ When choosing color schemes, we will want mappings from data to color that are not just numerically but also perceptually uniform
-
-+ Distinguish between sequential scales and categorical scales
-
-+ Be conscious of what color means
+&lt;br&gt;
 
 
+When choosing color schemes:
+  + Want mappings from data to color that are not just numerically but also perceptually uniform
+  + Distinguish between sequential scales and categorical scales
+  + Be conscious of what color means
+
+
+&lt;br&gt;
 &lt;br&gt;
 
 [(source)](https://ieeexplore.ieee.org/document/773961)
@@ -227,25 +240,11 @@ Suggestions:
 ---
 ### Example: Hair Color
 
-The data `HairEyeColor` provides the information of hair colors and eye colors in a statistics class. The data is recorded in a three-way table. The first step is to convert the data into a column-wise data frame.
+The data `HairEyeColor` provides information of hair eye colors in a statistics class. Suppose now we want to see the distribution of hair color in this class. 
 
 
-```
-## # A tibble: 4 × 2
-##   Hair   Freq
-##   &lt;fct&gt; &lt;dbl&gt;
-## 1 Black   108
-## 2 Brown   286
-## 3 Red      71
-## 4 Blond   127
-```
 
-Suppose now we want to see the distribution of hair color in this class. What kind of the plot we should use?
 
----
-### Example: Hair Color
-
-What is the difference between these two?
 .pull-left[
 
 
@@ -360,8 +359,6 @@ class:inverse
 
 ---
 ### What's Wrong with These Plots?
-
-Identify the issues with the plots, and talk about how you would fix them?
 
 .pull-left[
 &lt;!-- Trigger the Modal --&gt;
@@ -502,9 +499,7 @@ class:inverse
 
 Your visualizations should include:
 
-- Clearly labeled axes
-- Clear and descriptive captions
-- Readable and easily understandable legends (if applicable)
+
 
 ---
 ### Labels
@@ -711,6 +706,3678 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
 
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modaluncleargraph = document.getElementById('modaluncleargraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imguncleargraph = document.getElementById('imguncleargraph');
+          var modalImguncleargraph = document.getElementById('imgmodaluncleargraph');
+          var captionTextuncleargraph = document.getElementById('captionuncleargraph');
+          imguncleargraph.onclick = function(){
+            modaluncleargraph.style.display = 'block';
+            modalImguncleargraph.src = this.src;
+            captionTextuncleargraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImguncleargraph.onclick = function() {
+            modaluncleargraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbettergraph = document.getElementById('modalbettergraph');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbettergraph = document.getElementById('imgbettergraph');
+          var modalImgbettergraph = document.getElementById('imgmodalbettergraph');
+          var captionTextbettergraph = document.getElementById('captionbettergraph');
+          imgbettergraph.onclick = function(){
+            modalbettergraph.style.display = 'block';
+            modalImgbettergraph.src = this.src;
+            captionTextbettergraph.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbettergraph.onclick = function() {
+            modalbettergraph.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalcompgraphs = document.getElementById('modalcompgraphs');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgcompgraphs = document.getElementById('imgcompgraphs');
+          var modalImgcompgraphs = document.getElementById('imgmodalcompgraphs');
+          var captionTextcompgraphs = document.getElementById('captioncompgraphs');
+          imgcompgraphs.onclick = function(){
+            modalcompgraphs.style.display = 'block';
+            modalImgcompgraphs.src = this.src;
+            captionTextcompgraphs.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgcompgraphs.onclick = function() {
+            modalcompgraphs.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadpie = document.getElementById('modalbadpie');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadpie = document.getElementById('imgbadpie');
+          var modalImgbadpie = document.getElementById('imgmodalbadpie');
+          var captionTextbadpie = document.getElementById('captionbadpie');
+          imgbadpie.onclick = function(){
+            modalbadpie.style.display = 'block';
+            modalImgbadpie.src = this.src;
+            captionTextbadpie.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadpie.onclick = function() {
+            modalbadpie.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadcolor = document.getElementById('modalbadcolor');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadcolor = document.getElementById('imgbadcolor');
+          var modalImgbadcolor = document.getElementById('imgmodalbadcolor');
+          var captionTextbadcolor = document.getElementById('captionbadcolor');
+          imgbadcolor.onclick = function(){
+            modalbadcolor.style.display = 'block';
+            modalImgbadcolor.src = this.src;
+            captionTextbadcolor.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadcolor.onclick = function() {
+            modalbadcolor.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadline = document.getElementById('modalbadline');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadline = document.getElementById('imgbadline');
+          var modalImgbadline = document.getElementById('imgmodalbadline');
+          var captionTextbadline = document.getElementById('captionbadline');
+          imgbadline.onclick = function(){
+            modalbadline.style.display = 'block';
+            modalImgbadline.src = this.src;
+            captionTextbadline.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadline.onclick = function() {
+            modalbadline.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionstate = document.getElementById('modalelectionstate');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionstate = document.getElementById('imgelectionstate');
+          var modalImgelectionstate = document.getElementById('imgmodalelectionstate');
+          var captionTextelectionstate = document.getElementById('captionelectionstate');
+          imgelectionstate.onclick = function(){
+            modalelectionstate.style.display = 'block';
+            modalImgelectionstate.src = this.src;
+            captionTextelectionstate.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionstate.onclick = function() {
+            modalelectionstate.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectionpop = document.getElementById('modalelectionpop');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectionpop = document.getElementById('imgelectionpop');
+          var modalImgelectionpop = document.getElementById('imgmodalelectionpop');
+          var captionTextelectionpop = document.getElementById('captionelectionpop');
+          imgelectionpop.onclick = function(){
+            modalelectionpop.style.display = 'block';
+            modalImgelectionpop.src = this.src;
+            captionTextelectionpop.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectionpop.onclick = function() {
+            modalelectionpop.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalelectoral = document.getElementById('modalelectoral');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgelectoral = document.getElementById('imgelectoral');
+          var modalImgelectoral = document.getElementById('imgmodalelectoral');
+          var captionTextelectoral = document.getElementById('captionelectoral');
+          imgelectoral.onclick = function(){
+            modalelectoral.style.display = 'block';
+            modalImgelectoral.src = this.src;
+            captionTextelectoral.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgelectoral.onclick = function() {
+            modalelectoral.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalmeaninterval = document.getElementById('modalmeaninterval');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgmeaninterval = document.getElementById('imgmeaninterval');
+          var modalImgmeaninterval = document.getElementById('imgmodalmeaninterval');
+          var captionTextmeaninterval = document.getElementById('captionmeaninterval');
+          imgmeaninterval.onclick = function(){
+            modalmeaninterval.style.display = 'block';
+            modalImgmeaninterval.src = this.src;
+            captionTextmeaninterval.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgmeaninterval.onclick = function() {
+            modalmeaninterval.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalhurricane = document.getElementById('modalhurricane');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imghurricane = document.getElementById('imghurricane');
+          var modalImghurricane = document.getElementById('imgmodalhurricane');
+          var captionTexthurricane = document.getElementById('captionhurricane');
+          imghurricane.onclick = function(){
+            modalhurricane.style.display = 'block';
+            modalImghurricane.src = this.src;
+            captionTexthurricane.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImghurricane.onclick = function() {
+            modalhurricane.style.display = 'none';
+          }
+</script>
 <script>
         /* Get the modal*/
           var modaluncleargraph = document.getElementById('modaluncleargraph');
