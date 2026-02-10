@@ -372,12 +372,14 @@ You can take a test designed to screen for colorblindness [here](https://eyeque.
 
 Suggestions:
 + Design for a black-and-white photocopier
-+ Use a monochromatic color gradient scheme where possible.
-+ Suggested 2-color gradient: blue/purple - white - orange
-+ Utilize double encoding: use color and another aesthetic (line type, shape)
-+ Avoid any scheme that uses green-yellow-red signaling if you have a target audience that may include colorblind people.
-+ Can use [this website](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) to help pick palettes as well
-+ The `viridis package` (from last week's lab) contains a set of color scales designed to span as wide a palette as possible.
++ Colors
+  + A monochromatic color gradient scheme where possible.
+  + Suggested 2-color gradient: blue/purple - white - orange
+  + Avoid: green-yellow-red signaling
+  + The `viridis package` (from last week's lab) contains a set of color scales designed to span as wide a palette as possible.
+  + [This website](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) can help pick palettes as well
++ Utilize double encoding
+
 ---
 ### Example: Hair Color
 
@@ -487,11 +489,12 @@ class:inverse
 ---
 ### Common Ways to Misreprsent Data
 
-- Scales!
-- Omitting Data
-- Cherry picking the data
-- Misleading pie chart/Using the wrong chart type
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 
 ```{r, results='asis', echo=FALSE, fig.align='center'}
@@ -510,8 +513,8 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 .pull-left[
 ```{r, results='asis', echo=FALSE, fig.align='center', out.height=="75%"}
 
-i1 <- img_modal(src = "../slides/images/bad-pie.PNG", alt = "Pie chart of how people voted for president in 2016.")
-i3 <- img_modal(src = "../slides/images/bad-color.png", alt = "Map of suicide rates by country with a bad color scheme.")
+i1 <- img_modal(src = "../slides/images/bad-pie.PNG", alt = "Pie chart of how people voted for president in 2016.", other=list(width="90%"))
+i3 <- img_modal(src = "../slides/images/bad-color.png", alt = "Map of suicide rates by country with a bad color scheme.", other=list(width="85%"))
 
 c(str_split(i1, "\\n", simplify = T)[1:2],
   str_split(i3, "\\n", simplify = T)[1:2],
@@ -524,8 +527,8 @@ c(str_split(i1, "\\n", simplify = T)[1:2],
 
 ```{r, results='asis', echo=FALSE, fig.align='center', out.width="75%"}
 
-i2 <- img_modal(src = "../slides/images/bad-line.PNG", alt = "Line chart of Asian Hate Crime reports over time.")
-i4 <- img_modal(src = "../slides/images/bad-bar.png", alt = "Bar Chart of Number of Covid-19 cases by country over time.")
+i2 <- img_modal(src = "../slides/images/bad-line.PNG", alt = "Line chart of Asian Hate Crime reports over time.", other=list(width="100%"))
+i4 <- img_modal(src = "../slides/images/bad-bar.png", alt = "Bar Chart of Number of Covid-19 cases by country over time.", other=list(width="100%"))
 
 
 c(str_split(i2, "\\n", simplify = T)[1:2],
@@ -694,15 +697,21 @@ knitr::include_graphics("../slides/images/with-caption.png")
 ---
 ### Captions
 
-The caption only shows in the rendered version of documents. Why we need a descriptive caption? How to check whether you have written a good descriptive caption?
+The caption only shows in the rendered version of documents. Why we need a descriptive caption? 
 
-- The reader can capture your main argument without seeing the figure
-- The reader can capture the context of your figure without reading the other analysis in the formal report.
+1).  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+2).  
 
 ---
 ### Writing About Figures in Reports
-
-A formal data analysis report requires you to answer the question with a figure and explain the potential reasons behind the figure image. Sometimes you need multiple figures to answer one question and sometimes you can answer multiple questions with one figure.
 
 Once you generate one figures, here is what you should do:
 
@@ -720,15 +729,6 @@ Figure 2 indicates that there is no linear relationship between iris sepal width
 Meanwhile, the three species does have clear different distributions of the sepal width and petal width and within a species, the the sepal width and petal width may have a positive linear relationship except Setosa, which does not have a clear trend.
 
 The relative size of different iris species is similar to what we have found in Figure 1, where Virginica tends to have the largest size among all three while Setosa is the smallest. One of the potential reasons for the different sizes may be the habitat condition while Virginica tends to grow in the places with enough sunshine but Setosa prefers relatively dark and wet environment.
-
----
-### Your Turn
-
-1. Add a figure caption to one of your plots from the `iris` try for yourself example
-
-2. Practice writing a couple of sentence about the plot chosen.
-
-3. See if you can find your own misleading data visualizations (r/dataisugly sometimes has some "good" ones).
 
 
 
