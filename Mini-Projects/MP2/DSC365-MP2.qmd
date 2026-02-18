@@ -1,0 +1,51 @@
+---
+title: "Mini Project 2: Preliminary Analysis"
+subtitle: "DSC 365: Introduction to Data Science"
+author: "Due March 19 at 11:59 pm in BlueLine" 
+
+format: html
+---
+
+:::{.callout-note}
+# **Task**
+
+Perform a preliminary analysis on your data! In this Mini Project, we are going to focus on the interpretation of your model. Mini Project 3 will introduce predictions.
+
+In Mini Project 1, you have chosen a data set to analyze. Please review the feedback about your data before you move to the next step. If you want to change your data, please let me know.
+
+:::
+
+--------------------------------------------------
+
+Now we have a data set, the next step is to perform some preliminary analysis about your data to try and answer your research question. You need to write a report about your findings. **Please submit your report in HTML or PDF to Blueline by March 19 at 11:59 pm, the Thursday after Spring Break.**
+
+--------------------------------------------------
+
+Below is a list of items you need to include in your report. You should notice that some of these should have been included in your earlier presentation:
+
+1. A **title** related to your research question.
+2. An **introduction** to describe your research question. Why it is interesting (ie. why should people care about the research you are doing)? Please include proper citations when necessary.
+3. **Introduce your data**. Where did you find it (cite it) and what is the size? Address the quality of your data. From MP1, should have at least 10 explanatory variables with at least 200 observations. Address how the data was collected.
+4. **Introduce your variables**. Which is the response variable (must be numerical)? What are the explanatory variables? Do not simply list all variable names, try to group the variables to think about whether there are any connections between them or whether there may exists some correlation.
+5. **EDA**. Show and explain at least two EDA plots. The plots need to have a clear title and axis label. Figures should also be numbered and include a caption. Reference the figure numbers in your report. 
+6. Fit a **linear model** and show the summary table.
+7. **Interpret** the summary output from the linear model. Use the output to help answer your research question. 
+8. Explain if you think the model is **fitting the data properly** (ie. verify assumptions, interpret $R^2$).
+9. Have a **conclusion** including a brief summary of your work to answer your research question and write about some areas for potential future work.
+10. Do not include any R code/R messages/R warnings in the report.
+11. Beware of excess output - if going to include something in your report, you must talk about it. 
+12. Report must be understandable to a person with minimal statistical knowledge and to those who do not know much about your subject area addressed in the research question (ie. define variable that are not intuitive, etc)
+13. The report should not exceed 10 pages, including the plots.
+14. Report should be organized (section headers, flow) and you should proofread (minimal spelling/grammar issues).
+15. Make sure to address any comments from MP1
+
+**Note 1**: You do not need to submit your .qmd for this step of the Mini-Project. If you want some help making your rendered document look nice, see `quarto-help.qmd`. 
+
+**Note 2**: If submitting an html, make sure to include the following in your YAML. Otherwise I won't be able to see your plot outputs in BlueLine (see labs for an example). Double check when you submit that the documents looks like it submitted correctly. I will take off points if I have to ask you to resubmit:
+
+```{r, eval=FALSE}
+format: 
+ html:
+  embed-resources: true
+```
+
