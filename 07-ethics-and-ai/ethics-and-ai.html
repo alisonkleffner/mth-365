@@ -7,39 +7,28 @@
     <meta name="date" content="2026-02-19" />
     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="modal.css" type="text/css" />
+    <link rel="stylesheet" href="sizeformat.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
-class: center, middle, inverse, title-slide
 
-.title[
-# DSC365: Introduction to Data Science
-]
-.author[
+
+
+
+
+
+
+class:inverse
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+## DSC365: Introduction to Data Science
 ### Ethics and AI
-]
-.date[
-### February 19, 2026
-]
+#### February 19, 2026
 
 ---
 
-
-
-
-## Announcements
-
-**Lab 4**: Work day Tuesday February 24
-
-- Due Tuesday March 3rd at 11:59 pm in Blueline
-
-**Mini Project 2**
-
-- Due Thursday March 19th at 11:59 in Blueline
-
-
----
 ### Data Science Ethics
 
 Ethics in Data Science refers to the responsible and ethical use of the data throughout the entire data lifecycle. This includes the collection, storage, processing, analysis, and interpretation of various data
@@ -58,6 +47,20 @@ As data scientists, we can play a role in shape discourse, so what responsibilit
 &lt;br&gt;
 
 [Source for Ethics Notes](https://mdsr-book.github.io/mdsr3e/08-ethics.html#sec-ethics-intro)
+
+---
+### Example:
+
+&lt;!-- Trigger the Modal --&gt;
+&lt;img id='imgbadbar' src='./images/bad-bar.png' alt='Bar Chart of Number of Covid-19 cases by country over time.' width='80%'&gt;
+&lt;!-- The Modal --&gt;
+&lt;div id='modalbadbar' class='modal'&gt;
+  &lt;!-- Modal Content (The Image) --&gt;
+  &lt;img class='modal-content' id='imgmodalbadbar'&gt;
+  &lt;!-- Modal Caption (Image Text) --&gt;
+  &lt;div id='captionbadbar' class='modal-caption'&gt;&lt;/div&gt;
+&lt;/div&gt;
+
 ---
 ### ASA Guidelines for Statistical Practice
 
@@ -67,27 +70,26 @@ Some highlights:
 
 - Protect and respect the rights and interests of human and animal subjects
   + Data privacy (ex. HIPAA)
+  + Not collecting more data then necessary
   + Consider how your study would impact society, groups, and individuals (Remember the numbers are real people)
 - Uses methodology and data that are valid, relevant, and appropriate, without favoritism or prejudice.
   + Ask for help if you don't know how to do something properly
 - Promotes reproducibility and replication, whether results are “significant” or not, by sharing data, methods, and documentation to the extent possible.
-- Don't only present significant results
 
 ---
 ### Other Ethical Guidelines 
 
 1. Use data to improve life for our users, customers, organizations, and communities.
 2. Build teams with diverse ideas, backgrounds, and strengths.
-3. Prioritize the continuous collection and availability of discussions and metadata.
-4. Clearly identify the questions and objectives that drive each project and use to guide both planning and refinement.
-5. Be open to changing our methods and conclusions in response to new knowledge.
-6. Recognize and mitigate bias in ourselves and in the data we use.
-7. Consider carefully the ethical implications of choices we make when using data, and the impacts of our work on individuals and society.
-8. Respect and invite fair criticism while promoting the identification and open discussion of errors, risks, and unintended consequences of our work.
-9. Help others to understand the most useful and appropriate applications of data to solve real-world problems.
+3. Clearly identify the questions and objectives that drive each project and use to guide both planning and refinement.
+4. Be open to changing our methods and conclusions in response to new knowledge.
+  - Respect and invite fair criticism while promoting the identification and open discussion of errors, risks, and unintended consequences of our work.
+5. Recognize and mitigate bias in ourselves and in the data we use.
+6. Consider carefully the ethical implications of choices we make when using data, and the impacts of our work on individuals and society.
+7. Help others to understand the most useful and appropriate applications of data to solve real-world problems.
 
 ---
-### Scenarios - Discuss the Question Associated with each Scenario
+### Discuss Questions within each Scenario
 
 .center[
 **What principles of Data Ethics did these situations fail to meet?**
@@ -224,7 +226,7 @@ Generative AI helps automate manual tasks, generating synthetic data, and enabli
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": true
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
@@ -321,6 +323,211 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
+
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
+<script>
+        /* Get the modal*/
+          var modalbadbar = document.getElementById('modalbadbar');
+        /* Get the image and insert it inside the modal - use its 'alt' text as a caption*/
+        var imgbadbar = document.getElementById('imgbadbar');
+          var modalImgbadbar = document.getElementById('imgmodalbadbar');
+          var captionTextbadbar = document.getElementById('captionbadbar');
+          imgbadbar.onclick = function(){
+            modalbadbar.style.display = 'block';
+            modalImgbadbar.src = this.src;
+            captionTextbadbar.innerHTML = this.alt;
+          }
+          /* When the user clicks on the modalImg, close it*/
+          modalImgbadbar.onclick = function() {
+            modalbadbar.style.display = 'none';
+          }
+</script>
 
 <script>
 slideshow._releaseMath = function(el) {
