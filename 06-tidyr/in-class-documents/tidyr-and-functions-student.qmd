@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science"
 author: "tidyr and Function Writing"
-date: "September 23, 2025"
+date: "Febraury 17, 2026"
 format: html
 ---
 
@@ -62,7 +62,6 @@ One way of telling whether a data set is tidy is to check that all keys for a va
 
 ```{r}
 #| message: false
-
 library(reshape2)
 data("french_fries")
 head(french_fries)
@@ -72,7 +71,7 @@ head(french_fries)
 #| warning: false
 #| fig-height: 3
 #| fig-align: "center"
-
+#| fig-cap: "This is a caption"
 
 ggplot(french_fries) + 
   geom_boxplot(aes(x="1_buttery", y=buttery), fill = "cyan4") +
@@ -92,12 +91,16 @@ When pivoting longer, you need to specify:
 + the values_to (measures from cols)
 
 ```{r}
-
-
+french_fries_long <- french_fries %>%
+  pivot_longer(cols =  potato:painty,
+               names_to = "characteristics",
+               values_to = "rating")
+head(french_fries_long)
 ```
 
 ```{r}
-
+ggplot(french_fries_long) +
+  geom_boxplot(aes(x = characteristics, y = rating, fill = characteristics))
 
 ```
 
@@ -112,8 +115,10 @@ When pivoting wider, you need to specify:
 - the values_from (measures from column we want to widen)
 
 ```{r}
-
-
+french_fries_wide <- french_fries_long %>%
+  pivot_wider(names_from = characteristics,
+              values_from = rating)
+head(french_fries_wide)
 ```
 
 Now we are back to your original dataset
@@ -153,7 +158,7 @@ df <- tibble::tibble(
 df$a <- (df$a - min(df$a, na.rm = TRUE)) / 
   (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE))
 df$b <- (df$b - min(df$b, na.rm = TRUE)) / 
-  (max(df$b, na.rm = TRUE) - min(df$a, na.rm = TRUE))
+  (max(df$b, na.rm = TRUE) - min(df$a, na.rm = TRUE)) #should update to df$b
 df$c <- (df$c - min(df$c, na.rm = TRUE)) / 
   (max(df$c, na.rm = TRUE) - min(df$c, na.rm = TRUE))
 df$d <- (df$d - min(df$d, na.rm = TRUE)) / 
@@ -167,7 +172,7 @@ How many inputs do we have?
 
 ```{r}
 (df$a - min(df$a, na.rm = TRUE)) /
-  (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE)) 
+  (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE)) #only have one unique input
 ```
 
 Three components of writing a function:
@@ -192,19 +197,34 @@ By default they return the last value computed in the function
 ### Example:
 
 ```{r}
+add2 <- function(x){
+  x + 2
+}
 
+add2(3)
 ```
 
 
 ```{r}
+add2_wrong <- function(x){
+  x + 2
+  1000
+}
+
+add2_wrong(3)
 
 ```
 
 ## Back to Rescale Example
 
 ```{r}
+rescale <- function(x){
+  (x - min(x, na.rm = TRUE)) /
+  (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
+}
 
-
+rescale(df$a)
+rescale(df$b)
 ```
 
 
@@ -220,11 +240,21 @@ if (condition) {
 } else {
   # code executed when condition is FALSE
 }
+
+
+if (condition) {
+  # code executed when condition is TRUE
+} else if (condition) {
+  # code executed when condition is FALSE
+} else {
+  
+}
 ```
 Or can use the `ifelse` function:
 ```{r}
 #| eval: false
-ifelse(condition, 
+#| 
+ifelse(condition, #easier to use with mutate for making new columns
        code executed when condition is TRUE, 
        code executed when condition is FALSE)
 ```
@@ -234,8 +264,22 @@ ifelse(condition,
 ```{r}
 #Function that tells us if number positive, negative, or zero
 
+ifelse_example <- function(x){
+  if(x > 0){
+    "This value is positive"
+  } else if(x==0){
+    "This value is 0"
+  } else{
+    "This value is negative"
+  }
+}
+
+ifelse_example(2)
+ifelse_example(0)
+ifelse_example(-2)
 
 ```
+
 
 
 ### Your Turn
@@ -247,6 +291,12 @@ set.seed(4)
 x <- round(runif(10, 0, 40),2)
 x #use this data to test
 
+my_mean <- function(x){
+  sum(x)/length(x)
+}
+
+my_mean(x)
+mean(x)
 ```
 
 2). You want to write a function to calculate a discount based on the purchase amount:
@@ -256,8 +306,17 @@ x #use this data to test
 - If the amount is less than 50, no discount is applied.
 
 ```{r}
+calculate_discount <- function(x){
+  if (x >= 100){
+    x*0.2
+  }else if (x < 50){
+    0
+  } else{
+    x*0.1
+  }
+}
 
-
+calculate_discount(120)
 ```
 
 
@@ -284,10 +343,8 @@ When you mix data types within a vector, R will create the result with the data 
 - When R converts the mode of storage based on its content, it is referred to as “implicit coercion”.
 
 ```{r}
-typeof(c(1, "Hello"))
-typeof(c(FALSE, 3L))
-typeof(c(1.2, 3L))
-typeof(NA)
+typeof(c(1, "Hello")) #forcing 1 into a character
+c(1, "Hello")
 ```
 
 ## Example: Cat lovers
@@ -295,7 +352,7 @@ typeof(NA)
 A survey asked respondents their name and number of cats. The instructions said to enter the number of cats as a numerical value.
 
 ```{r}
-cat_lovers <- read.csv("./data/cat_lovers.csv")
+cat_lovers <- read.csv("~/Documents/Classes/MTH365/mth-365-instructor/06-tidyr/data/cat_lovers.csv")
 glimpse(cat_lovers)
 ```
 
@@ -306,7 +363,8 @@ Suppose we want to find the average number of cats:
 ```{r}
 #| error: true
 
-
+cat_lovers %>%
+  summarise(mean(number_of_cats))
 ```
 
 How about removing the NA value?
@@ -314,20 +372,21 @@ How about removing the NA value?
 ```{r}
 #| error: true
 
-
+cat_lovers %>%
+  summarise(mean(number_of_cats, na.rm = TRUE))
 ```
 
 What is the type of the `number_of_cats` variable?
   
 ```{r}
-
+typeof(cat_lovers$number_of_cats) #character - why we can't calculate mean
 
 ```
 
 Are there any strange responses in the data?
 
 ```{r} 
-
+cat_lovers[48:54, 2]
 
 ```
 
@@ -436,10 +495,6 @@ Factor: how R stores categorical variables. By default, R orders factors in alph
 If you are absolutely sure of a data class, overwrite it in your tibble so that you don't need to keep having to keep track of it
 
 ```{r}
-x <- "2"
-class(x)
-x <- as.numeric(x)
-class(x)
 
 ```
 

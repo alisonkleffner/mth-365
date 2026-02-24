@@ -111,7 +111,8 @@ As data scientists, we can play a role in shape discourse, so what responsibilit
 
 [Source for Ethics Notes](https://mdsr-book.github.io/mdsr3e/08-ethics.html#sec-ethics-intro)
 
----
+???
+
 ### Example:
 
 ```{r, results='asis', echo=FALSE, fig.align='center', out.width="75%"}
