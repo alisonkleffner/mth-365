@@ -37,7 +37,7 @@ knit_hooks$set(output = function(x, options) {
 
 **Lab 4**
 
-- Due Tuesday March 3rd at 11:59 pm in Blueline
+- Due Thursday March 5th at 11:59 pm in Blueline
 
 **Quiz 2**
 
@@ -48,7 +48,7 @@ knit_hooks$set(output = function(x, options) {
 
 - Due Tuesday March 24th at 11:59 pm in Blueline
 
-**Mini Project 2**
+[**Mini Project 2**](https://alisonkleffner.github.io/mth-365/Mini-Projects/MP2/DSC365-MP2.html)
 
 - Due Thursday March 19th at 11:59 in Blueline
 
