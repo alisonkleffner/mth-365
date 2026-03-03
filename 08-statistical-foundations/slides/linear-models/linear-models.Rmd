@@ -36,7 +36,7 @@ knit_hooks$set(output = function(x, options) {
 
 **Lab 4**
 
-- Due Tuesday March 3rd at 11:59 pm in Blueline
+- Due Thursday March 5th at 11:59 pm in Blueline
 
 **Quiz 2**
 
@@ -131,11 +131,9 @@ Today's lecture (and mini-project 2) focuses on interpretation, while mini-proje
 - **Drawbacks**: 
 
 ---
-### Looking for the potential correlation
+### Looking for Potential Correlation
 
-__Example__: Review our NYC flight data. What variables, if any, are related to flight arrival delays?
-
-Consider a random sample of 1000 flights from NYC to Chicago in 2013.
+__Example__: Review NYC flight data. What variables, if any, are related to flight arrival delays? Consider a random sample of 1000 flights from NYC to Chicago in 2013.
 
 ```{r, echo = FALSE}
 library(nycflights13)
@@ -145,18 +143,8 @@ Chicago1000 <- flights %>%
   sample_n(size=1000)
 ```
 
-Below are the column names of the data. Suppose we want to focus on if the time of the flights (`hour`) is related to the arrival delay (`arr_delay`)?
-
-
-```{r, echo=FALSE}
-matrix(c(colnames(Chicago1000), ""), nrow = 5, ncol = 4) 
-```
- 
-
----
-### Visualizing a Model
-
-  + A popular model we can use is a Linear Model.
+**Focus**: if the time of the flights (`hour`) is related to arrival delay (`arr_delay`)?
++ A popular model we can use is a Linear Model.
 
 
 ```{r, message=FALSE, fig.align='center', fig.height=5, fig.width=10, echo=FALSE, fig.alt="A scatterplot of hour versus arrival delay, where a linear regression line was also included."}
@@ -316,10 +304,14 @@ broom::tidy(s)
 **"Correlation does not equal causation."**
 ]
 
-- A common concern with observational data is that correlations are distorted by other variables -> **confounding variables**
+- A common concern with observational data is that correlations are distorted by other variables 
+<br>
+<br>
+
   - Addressing confounding is straightforward if these variables are measured (ex. can add them to model)
 
----
+???
+
 ### Confounding Variables and Simpson's Paradox
 
 
@@ -474,12 +466,11 @@ Outliers: a data point that differs significantly from other observations
 
 When you have an outlier:
 
-- Identify the potential outlier
-- Try to understand why it is an outlier
-- Only remove it if you are sure it is caused by completely random error, or not related to your research focus.
 
 
----
+
+???
+
 ### Last Thing
 
 - Non-constant variance is one of the most common model violations, however it is usually fixable by transforming the response (y) variable.
