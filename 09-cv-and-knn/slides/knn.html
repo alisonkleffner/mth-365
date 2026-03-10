@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DSC365: Introduction to Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="KNN" />
+    <meta name="date" content="2026-03-19" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# DSC365: Introduction to Data Science
+]
+.author[
+### KNN
+]
+.date[
+### March 19, 2026
+]
+
+---
+
+
+
+
+### Announcements
+
+**Mini Project 2**
+
+- Due Tonight at 11:59 in Blueline
+
+**Lab 5** (Linear Models)
+
+- Due Tuesday March 24th at 11:59 pm in Blueline
+
+**Quiz 3**: in class Thursday March 26th
+
+- Covers: Prediction/KNN/Tree-Based Methods
+
+---
+### "Lazy" learning
+
+__Lazy learning__: no assumptions necessary to classify data
+
+&lt;br&gt;
+&lt;br&gt;
+
+__Example__: Consider the plot below - describe the relationship between x and y.
+
+&lt;img src="knn_files/figure-html/unnamed-chunk-3-1.png" alt="" style="display: block; margin: auto;" /&gt;
+
+---
+### "Lazy" learning
+
+What if the data points belonged to three different groups, like this? How should a new data point, `\((0.2, 0.5)\)` be classified? What about `\((0.4, 0.2)\)`?
+
+&lt;img src="knn_files/figure-html/unnamed-chunk-4-1.png" alt="" style="display: block; margin: auto;" /&gt;
+
+---
+### Bayes Classifier
+
+A good classifier minimizes Testing Error 
+
++ Bayes Classifier produce the lowest possible test error rate [(proof)](https://www.ee.columbia.edu/~vittorio/BayesProof.pdf)
+
+Bayes Classifier assigns each observation to is most likely class using:
+
+`$$P(Y = j|X = x_0)$$`
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+**Problem**: 
+
+---
+### `\(k\)`-nearest neighbor (KNN) classifier: 
+
+
+A non-parametric supervised learning method that estimates the conditional probability.
+
+
+.pull-left[
+&lt;img src="./images/knn-pic.png" alt="" width="100%" style="display: block; margin: auto;" /&gt;
+]
+---
+### KNN for Classification Steps
+
+In the KNN algorithm, `\(k\)` specifies the number of neighbors and its algorithm is as follows:
+
+
+
+---
+### `knn()`
+
+__Example__: Let's classify our new points 
+
+
+``` r
+library(class)
+```
+
+
+.pull-left[
+
+`\(k=2\)`?
+
+
+``` r
+knnMod1 = knn(train=data[,1:2], 
+          test = new.pts[,1:2], 
+          cl = data$group, 
+          k = 2, prob = TRUE)
+knnMod1
+```
+
+```
+## [1] A C
+## attr(,"prob")
+## [1] 1 1
+## Levels: A B C
+```
+
+].pull-right[
+
+ `\(k=10\)`?
+
+
+``` r
+knnMod2 = knn(train =data[,1:2], 
+          test = new.pts[,1:2], 
+          cl = data$group, 
+          k = 10, prob = TRUE)
+knnMod2
+```
+
+```
+## [1] A C
+## attr(,"prob")
+## [1] 0.7 0.8
+## Levels: A B C
+```
+
+]
+---
+### Advantages and Disadvantages of KNN
+
+Advantages:
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+Disdvantages:
+
+
+
+---
+### Choice of k
+
+&lt;img src="./images/choose-k.png" alt="" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+### Example: Credit Utilization
+
+__Example__: Use KNN to predict which utilization quantile a new customer falls into based on their application data (credit rating and age)? New applicants:
+
+
+
+
+
+
+
+Name|Age|Credit Rating
+---|---|---
+Lacey|33|750
+Zach|47|400
+Ashlee|21|250
+
+
+
+
+
+
+
+&lt;img src="knn_files/figure-html/unnamed-chunk-15-1.png" alt="" style="display: block; margin: auto;" /&gt;
+
+---
+### Example: Credit Utilization
+
+.pull-left[
+`\(k=20\)`?
+
+
+``` r
+knn20 = knn(train = old[,1:2],
+            test = apps[,1:2],
+            cl = old[,3], 
+            k = 20, prob = TRUE)
+knn20
+```
+
+```
+## [1] Q3 Q4 Q2
+## attr(,"prob")
+## [1] 0.65 0.40 0.65
+## Levels: Q1 Q2 Q3 Q4
+```
+
+].pull-right[
+
+`\(k=100\)`?
+
+
+``` r
+knn100 = knn(train = old[,1:2],
+            test = apps[,1:2],
+            cl = old[,3], 
+            k = 100, prob= TRUE)
+knn100
+```
+
+```
+## [1] Q4 Q4 Q2
+## attr(,"prob")
+## [1] 0.44 0.46 0.45
+## Levels: Q1 Q2 Q3 Q4
+```
+]
+---
+### Example: Evaluate Prediction Accuracy
+
+Is KNN an effective predictor of quartile using an applicant's age, credit rating, income, number of existing credit cards, and education level. Randomly selected 100 observations for testing, assigned the other 300 to training set.
+
+
+
+
+``` r
+knn50 = knn(train = knn_train, 
+            test = knn_test,
+            cl = TRAIN$Quartile, 
+            k = 50, prob = TRUE)
+knn50
+```
+
+```
+##   [1] Q4 Q1 Q4 Q1 Q4 Q3 Q4 Q4 Q1 Q4 Q2 Q2 Q4 Q4 Q3 Q1 Q1 Q3 Q4 Q1 Q4 Q2 Q3 Q2 Q2 Q4 Q3 Q4
+##  [29] Q4 Q2 Q2 Q2 Q3 Q2 Q1 Q4 Q4 Q3 Q3 Q2 Q1 Q2 Q3 Q4 Q1 Q4 Q3 Q2 Q4 Q4 Q4 Q2 Q4 Q1 Q4 Q1
+##  [57] Q1 Q2 Q1 Q1 Q1 Q4 Q1 Q4 Q4 Q1 Q4 Q4 Q4 Q4 Q2 Q1 Q4 Q2 Q3 Q2 Q2 Q1 Q1 Q4 Q2 Q4 Q2 Q3
+##  [85] Q2 Q4 Q1 Q4 Q4 Q2 Q4 Q4 Q4 Q4 Q2 Q2 Q4 Q2 Q1 Q2
+## attr(,"prob")
+##   [1] 0.66 0.86 0.54 0.96 0.50 0.40 0.36 0.52 0.96 0.66 0.54 0.56 0.54 0.42 0.38 0.96
+##  [17] 0.92 0.42 0.46 0.98 0.44 0.52 0.40 0.54 0.60 0.46 0.46 0.42 0.62 0.52 0.52 0.56
+##  [33] 0.40 0.54 0.58 0.46 0.52 0.38 0.46 0.52 0.96 0.44 0.44 0.42 0.98 0.50 0.44 0.48
+##  [49] 0.54 0.46 0.50 0.58 0.46 0.90 0.50 0.94 0.96 0.42 0.96 0.82 0.54 0.48 0.54 0.58
+##  [65] 0.44 0.96 0.44 0.46 0.58 0.54 0.34 0.96 0.44 0.58 0.42 0.34 0.54 0.96 0.96 0.42
+##  [81] 0.60 0.52 0.56 0.40 0.48 0.54 0.64 0.34 0.60 0.56 0.44 0.50 0.48 0.50 0.46 0.52
+##  [97] 0.44 0.58 0.78 0.58
+## Levels: Q1 Q2 Q3 Q4
+```
+
+---
+### Evaluate models: Classification Accuracy 
+
+Now, we'll set the testing data as "new data", and make predictions using the k-nearest neighbors from the training data.
+
+
+``` r
+#Create Confusion Matrix - Base R
+t = table(knn50, TEST$Quartile)
+
+sum(diag(t))/nrow(TEST) #Classification Accuracy
+```
+
+```
+## [1] 0.57
+```
+
+---
+### Scaling Data
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+``` r
+knn_train_scale &lt;- knn_train %&gt;% scale()
+knn_test_scale &lt;- knn_test %&gt;% scale()
+
+knn50_scale = knn(train = knn_train_scale, 
+            test = knn_test_scale,
+            cl = TRAIN$Quartile, 
+            k = 50, prob = TRUE)
+
+
+t_scale = table(knn50_scale, TEST$Quartile)
+
+sum(diag(t_scale))/nrow(TEST) #Classification Accuracy
+```
+
+```
+## [1] 0.44
+```
+
+---
+### KNN for Regression 
+
+KNN can also predict quantitative responses - alternative to Linear Regression
+
+In the KNN algorithm, `\(k\)` specifies the number of neighbors and its algorithm is as follows:
+
+
+---
+### Example: Credit Utilization
+
+
+
+``` r
+knn_train = TRAIN %&gt;% dplyr::select(Age, Rating, Income, Cards, 
+                                    Education)
+knn_test = TEST %&gt;% dplyr::select(Age, Rating, Income, Cards, 
+                                  Education) 
+
+knn50 = FNN::knn.reg(train = knn_train, 
+            test = knn_test,
+            y = TRAIN$Utilization, 
+            k = 50)
+
+head(knn50$pred, n = 5)
+```
+
+```
+## [1] 0.157343839 0.011478125 0.144051032 0.005360386 0.142495141
+```
+
+``` r
+Metrics::rmse(TEST$Utilization, knn50$pred)
+```
+
+```
+## [1] 0.0386645
+```
+
+---
+### Linear Regression vs KNN Regression
+
+**In General**: 
+
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+So in situations where the relationship is nonlinear, KNN regression may perform better than Linear Regression
+
+- Curse of Dimensionality:
+
+  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
