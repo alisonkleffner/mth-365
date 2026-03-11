@@ -52,14 +52,14 @@ __Lazy learning__: no assumptions necessary to classify data
 
 __Example__: Consider the plot below - describe the relationship between x and y.
 
-&lt;img src="knn_files/figure-html/unnamed-chunk-3-1.png" alt="" style="display: block; margin: auto;" /&gt;
+&lt;img src="knn_files/figure-html/unnamed-chunk-2-1.png" alt="Scatterplot of simulated data showing a moderately negative strenght relationship between x and y." style="display: block; margin: auto;" /&gt;
 
 ---
 ### "Lazy" learning
 
 What if the data points belonged to three different groups, like this? How should a new data point, `\((0.2, 0.5)\)` be classified? What about `\((0.4, 0.2)\)`?
 
-&lt;img src="knn_files/figure-html/unnamed-chunk-4-1.png" alt="" style="display: block; margin: auto;" /&gt;
+&lt;img src="knn_files/figure-html/unnamed-chunk-3-1.png" alt="Same scatterplot as previusly slide, but now points are colored based on 3 different groups. Additionally two additional points that are not classified into a group are displayed on the plot." style="display: block; margin: auto;" /&gt;
 
 ---
 ### Bayes Classifier
@@ -85,7 +85,7 @@ A non-parametric supervised learning method that estimates the conditional proba
 
 
 .pull-left[
-&lt;img src="./images/knn-pic.png" alt="" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./images/knn-pic.png" alt="Depiction of how the choice of k can change classifications in KNN. When k=3, two of the three neighbors are green, so new point would also be green. However when k=7, four of the seven neighbors are red, so new point would now be classified as red." width="100%" style="display: block; margin: auto;" /&gt;
 ]
 ---
 ### KNN for Classification Steps
@@ -162,7 +162,7 @@ Disdvantages:
 ---
 ### Choice of k
 
-&lt;img src="./images/choose-k.png" alt="" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./images/choose-k.png" alt="Two figures depicting how the choice of k effects the decision boundary. When k = 1, the decision boundary between the two colors is overly flexible and follows the noise in the data. When k = 100, the decisicion boundary between the two colors is almost linear, not separting the groups well." width="75%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -189,7 +189,7 @@ Ashlee|21|250
 
 
 
-&lt;img src="knn_files/figure-html/unnamed-chunk-15-1.png" alt="" style="display: block; margin: auto;" /&gt;
+&lt;img src="knn_files/figure-html/unnamed-chunk-14-1.png" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Example: Credit Utilization
@@ -274,7 +274,19 @@ Now, we'll set the testing data as "new data", and make predictions using the k-
 ``` r
 #Create Confusion Matrix - Base R
 t = table(knn50, TEST$Quartile)
+t
+```
 
+```
+##      
+## knn50 Q1 Q2 Q3 Q4
+##    Q1 18  2  1  1
+##    Q2  4 16  5  1
+##    Q3  0  3  7  2
+##    Q4  0  8 16 16
+```
+
+``` r
 sum(diag(t))/nrow(TEST) #Classification Accuracy
 ```
 

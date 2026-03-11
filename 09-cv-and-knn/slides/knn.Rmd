@@ -58,7 +58,8 @@ __Lazy learning__: no assumptions necessary to classify data
 
 __Example__: Consider the plot below - describe the relationship between x and y.
 
-```{r, echo=FALSE, fig.align='center', fig.height=5, fig.width=9}
+```{r, echo=FALSE, fig.align='center', fig.height=5, fig.width=9, fig.alt="Scatterplot of simulated data showing a moderately negative strenght relationship between x and y."}
+
 set.seed(365)
 x1 <- runif(min=0.1, max=0.5, n=20)
 x2 <- runif(min=0.3, max=0.7, n=20)
@@ -81,7 +82,8 @@ ggplot(data, aes(x=x, y=y))+geom_point(size = 3)
 
 What if the data points belonged to three different groups, like this? How should a new data point, $(0.2, 0.5)$ be classified? What about $(0.4, 0.2)$?
 
-```{r, echo=FALSE, fig.align='center', fig.height=6.5, fig.width=12}
+```{r, echo=FALSE, fig.align='center', fig.height=6.5, fig.width=12, fig.alt="Same scatterplot as previusly slide, but now points are colored based on 3 different groups. Additionally two additional points that are not classified into a group are displayed on the plot."}
+
 new.pts <- data.frame(x = c(0.2, 0.4), y = c(0.5, 0.2), group=c('Point 1', 'Point 2'))
 data.new <- rbind(data, new.pts)
 ggplot(data.new, aes(x=x, y=y, group=group))+geom_point(size = 5, aes(col=group, pch=group))+scale_color_brewer(palette='Set1')
@@ -111,7 +113,7 @@ A non-parametric supervised learning method that estimates the conditional proba
 
 
 .pull-left[
-```{r, echo=FALSE, out.width="100%", fig.align='center'}
+```{r, echo=FALSE, out.width="100%", fig.align='center', fig.alt="Depiction of how the choice of k can change classifications in KNN. When k=3, two of the three neighbors are green, so new point would also be green. However when k=7, four of the seven neighbors are red, so new point would now be classified as red."}
 knitr::include_graphics("./images/knn-pic.png")
 ```
 ]
@@ -173,7 +175,8 @@ Disdvantages:
 ---
 ### Choice of k
 
-```{r, echo=FALSE, out.width="75%", fig.align='center'}
+```{r, echo=FALSE, out.width="75%", fig.align='center', fig.alt="Two figures depicting how the choice of k effects the decision boundary. When k = 1, the decision boundary between the two colors is overly flexible and follows the noise in the data. When k = 100, the decisicion boundary between the two colors is almost linear, not separting the groups well."}
+
 knitr::include_graphics("./images/choose-k.png")
 ```
 
@@ -197,7 +200,8 @@ Credit <- Credit %>% mutate(Utilization = Balance/Limit) %>%
 
 ```
 
-```{r, eval=FALSE, fig.align='center', fig.height=6.5, fig.width=11, echo=FALSE}
+```{r, eval=FALSE, fig.align='center', fig.height=6.5, fig.width=11, echo=FALSE, fig.alt="Scatterplot of Age vs Credit Rating where each points is colored by the utlization quantile a customer falls into. New points to classify are represented by a different shape."}
+
 ggplot(Credit, aes(x=Age, y=Rating, group=Quartile)) + 
   geom_point(aes(col=Quartile, pch=Quartile), size = 3) + 
   scale_color_brewer(palette='Set1')
@@ -293,6 +297,7 @@ Now, we'll set the testing data as "new data", and make predictions using the k-
 ```{r}
 #Create Confusion Matrix - Base R
 t = table(knn50, TEST$Quartile)
+t
 
 sum(diag(t))/nrow(TEST) #Classification Accuracy
 ```

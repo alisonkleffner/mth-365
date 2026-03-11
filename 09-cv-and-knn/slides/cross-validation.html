@@ -97,13 +97,13 @@ Getting a good prediction is hard:
 ---
 ### Bias vs Variance
 
-&lt;img src="../../Week 8/slides/images/bias-variance.png" alt="" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../Week 8/slides/images/bias-variance.png" alt="Targets comparing bias and variance. Low variance and high bias has observations that are off target but are close together. High variance and high bias observations are also off target, but are more spread out. Low variance and low bias have observations that are on target with little variability. High variance and low bias has observations that are generally oon target but has a lot of variability." width="70%" style="display: block; margin: auto;" /&gt;
 
 
 ---
 ### Over vs Under Fitting
 
-&lt;img src="../../09-cv-and-knn/slides/images/model-fit.png" alt="" width="2297" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../09-cv-and-knn/slides/images/model-fit.png" alt="A plot to show the difference between over and underfitting. Over fitted curve follows the noise and is jagged as it follows the observations to closely. While the underfitted curve is just a line and doesn't capture the curvature in the data at all. A balance between these is necessary." width="2297" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Splitting Our Data
@@ -112,6 +112,7 @@ Getting a good prediction is hard:
 
   - Doing all of this on the entire data we have available can lead to overfitting
   
+&lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 
@@ -262,6 +263,8 @@ Potential Problem with a single split into training/testing: you evaluated the m
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 We can easily do this using cross validation 
 
@@ -282,7 +285,7 @@ We can easily do this using cross validation
 &lt;br&gt;
 &lt;br&gt;
   
-&lt;img src="../../09-cv-and-knn/slides/images/k-fold-cv1.png" alt="" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../09-cv-and-knn/slides/images/k-fold-cv1.png" alt="Visual depiction of 5-fold cross validation with no validation set. The data is split into five sections where eachs section becomes the testing set one time resulting in 5 iterations. The average of the error for each of these iterations is calulcated and returned." width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### k-fold Cross Validation
@@ -328,7 +331,7 @@ Linear Regression does not have hyperparameters
 If you were working with a model with hyperparameters, best to do it this way:
 
 
-&lt;img src="../../09-cv-and-knn/slides/images/k-fold-cv2.png" alt="" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../09-cv-and-knn/slides/images/k-fold-cv2.png" alt="Visual depiction of 5-fold cross validation with a validation set. The data is split into five sections where eachs section becomes the validation set one time resulting in 5 iterations. This is used to help tune the parameters which are then used on the testing set." width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -338,7 +341,7 @@ We extrapolate when we use the regression equation to produce a response value f
 
 **Example:** Relationship between year and diameter of a dinner plate.
 
-&lt;img src="../../09-cv-and-knn/slides/images/extrapolation.png" alt="" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../09-cv-and-knn/slides/images/extrapolation.png" alt="Scatterplot depicting the relationship between year and plate size, which is moderatly strong and positive." width="50%" style="display: block; margin: auto;" /&gt;
 
 
 
