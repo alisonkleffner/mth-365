@@ -1,7 +1,7 @@
 ---
 title: "DSC365: Introduction to Data Science"
 author: "Decision Trees and Random Forests"
-date: "October 23, 2025"
+date: "March 24, 2026"
 output: 
   xaringan::moon_reader:
     lib_dir: libs
@@ -35,26 +35,23 @@ knit_hooks$set(output = function(x, options) {
 
 ```{css, echo = FALSE}
 .tiny .remark-code { /*Change made here*/
-  font-size: 70% !important;
+  font-size: 80% !important;
 }
 ```
 
 ## Announcements
 
+
 **Lab 5** (Linear Models)
 
-- Due Tuesday October 28th, 2025 at 11:59 pm in Blueline
-- Will start Lab 6 in class on Tuesday
+- Due Tonight at 11:59 pm in Blueline
 
-**Mini Project 2**
+**Quiz 3**: in class Thursday March 26th
 
-- Due Tonight at 11:59 in Blueline
+- Covers: Prediction/KNN/Tree-Based Methods
 
-**Quiz 3**: in class Tuesday October 28th
+???
 
-- Covers: Prediction/KNN/Decsion Trees
-
----
 ### Supervised vs Unsupervised Learning
 
 Learning techniques fall into two categories:
@@ -86,21 +83,29 @@ Learning techniques fall into two categories:
 ---
 ### Example: Marijuana legalization
 
-The General Social Survey is a wide-ranging survey conducted biannually to measure cultural shifts in American society. We can use the GSS to get an idea of how popular opinion has changed.
+The General Social Survey is a wide-ranging survey conducted biannually to measure cultural shifts in American society. We can use the GSS to get an idea of how popular opinion has changed. 
+
+**Goal**: Use Age to predict people’s opinion of marijuana legalization.
 
 .tiny[
-```{r, eval = FALSE}
+```{r, echo = FALSE}
 GSS <- read.csv("GSS2016.csv")
-glimpse(GSS)
 ```
 
-```{r, echo = FALSE}
-GSS <- read.csv("./GSS2016.csv")
-glimpse(GSS)
+```{r}
+table(GSS$GRASS)
 ```
 ]
 
----
+<br>
+
+Data Cleanings Steps (see `decision-trees-random-forests.R`)
+- Only going to look at one year, 2016, and remove "Not applicable" from our response
+- Want just two groups for responses: Legal and Not legal
+- Change variables to proper type (numeric - will have coercion)
+
+???
+
 ### Let's Clean Our Data! Yay!
 
 - Let's only look at one year, say 2016, and remove "Not applicable from our response"
@@ -127,16 +132,12 @@ GSS$AGE <- as.numeric(GSS$AGE)
 ---
 ### Testing data v. Training data
 
-**Goal**: Use Age to predict people’s opinion of marijuana legalization.
-
 ```{r}
 set.seed(4)
 test_id <- sample(1:nrow(GSS), size=round(0.2*nrow(GSS)))
 TEST <- GSS[test_id,]
 TRAIN <- GSS[-test_id,]
 ```
-
-<br>
 
 How many people in the training data set support marijuana legalization?
 
@@ -243,7 +244,8 @@ knitr::include_graphics("./images/tree1.png")
 
 ```
 
----
+???
+
 ### Visualizing using ggplot
 
 ```{r, warning=FALSE, fig.height=6, fig.width=8, fig.align='center'}
@@ -252,14 +254,15 @@ geom_boxplot(aes(col=LEGAL)) +
   geom_hline(yintercept=69, col='black') 
 ```
 
----
+???
+
 ### Evaluating a decision tree
 
 - Confusion Matrix
 - Classification Accuracy
 
 ---
-### Confusion Matrix
+### Evaluating a decision tree: Confusion Matrix
 
 ```{r}
 TRAIN <- TRAIN %>%
@@ -278,7 +281,7 @@ confusion_test
 ```
 
 ---
-### Classification Accuracy
+### Evaluating a decision tree: Classification Accuracy
 
 Training Accuracy:
 
@@ -296,7 +299,7 @@ sum(diag(confusion_test))/nrow(TEST)
 ---
 ### Tuning Parameter: Complexity parameter
 
-Using recursive paritioning can overfit the training data - Prune Tree 
+Using recursive partitioning can overfit the training data - Prune Tree 
 
 .tiny[
 ```{r, message=FALSE}
@@ -450,12 +453,10 @@ Hence, at each split in the tree, the algorithm is not even allowed to consider 
 #install.packages('randomForest')
 library(randomForest)
 
-forest_grass <- randomForest(as.factor(LEGAL)~NEWSFROM+HAPPY+
-                               RELIG+COURTS+ENERGY+EDUC+ENVIR+
-                               POLVIEWS+PARTYID+REGION+INCOME+
-                               SEX+DEGREE+AGE+MARITAL+BALLOT, 
-                             data=TRAIN, na.action = na.omit,
-                             ntree=201, mtry=4)
+forest_grass <- randomForest(as.factor(LEGAL)~NEWSFROM+HAPPY+RELIG+COURTS+
+                             ENERGY+EDUC+ENVIR+POLVIEWS+PARTYID+REGION+
+                             INCOME+SEX+DEGREE+AGE+MARITAL+BALLOT,data=TRAIN,
+                             na.action = na.omit, ntree=201, mtry=4)
 
 forest_grass
 ```
@@ -488,7 +489,8 @@ randomForest::importance(forest_grass) %>% as.data.frame() %>%
 ]
 
 
----
+???
+
 ### Decision Tree with Selected Importance
 
 ```{r, eval = FALSE}

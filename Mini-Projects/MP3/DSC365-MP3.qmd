@@ -1,0 +1,57 @@
+---
+title: "Mini Project 3: Deep Dive"
+subtitle: "DSC 365: Introduction to Data Science"
+author: "Report due April 9th at 3:30 pm and Reflection due April 9th at 11:59pm" 
+format: html
+---
+
+:::{.callout-note}
+# **Task**
+
+**Think about how to improve your model to better answer the research question (focus on prediction)**
+
+In Mini Project 2, you have performed a preliminary analysis on your data with a focus on interpretation. Please review the feedback before you move to the next step. If you want to change the data, please let the instructor know. 
+
+:::
+
+--------------------------------------------------
+
+Now you have a data set and a basic understanding of the data, so the next step is to try more models to see if this is an improvement. You need to modify your current report about your findings. **You will need to submit two things for MP3. First, submit your report in HTML or PDF to Blueline by April 9th at 3:30 pm (before class). The report should not exceed 10 pages, including the plots. This will only be graded based on completion and will be used during class on April 9 for peer review. Second, submit a reflection on your peer review in Word/PDF to Blueline by April 9th at 11:59pm. More instructions below.**
+
+--------------------------------------------------
+
+Here is a list of things you may be able to include in your report for MP3 (besides the ones included in mini-project 2):
+
+1. Check your response variable. Is it a normally distributed variable? If not, include the histogram/density plot of the log transformation of the response variable and use the log transformation to fit the model.
+2. Check the missing values. Is there any missing value in your data? Is there are reason for the missing? What have you done for the missing values?
+3. Adjust your categorical variables if necessary. For example, a categorical variable may have 10 levels, think about a way to combine some levels so that the total number of levels is less than 5.
+4. Include more than 6 variables into a random forest model and report the ones that are important.
+5. For the important variables chosen from the random forest: fit a linear model and a decision tree model. Report the RMSE for both of them. Which is better? Interpret the better model and use it to help answer your research question. Any concerns about your final model?
+6. Do not include any R code in the report.
+7. You do not need to keep your linear model from MP2. Starting analysis of data over with finding importance of variables with random forest and then fitting a linear model/decision tree.
+
+--------------------------------------------------
+
+
+We are going to conduct a peer review on your report and everyone is expected to submit reflection on the peer review. 
+
+1. Add to MP2 the pieces outlined above, and submit your updated report by class time on April 9th (points for completion).
+2. During class on April 9, in groups of 3-4, read your other group members projects and score it according to the provided rubric. Each group member should receive their finished rubric at the end of the class period.
+3. Discuss pieces of your review with your group.
+4. Submit a reflection on the peer review to the BlueLine Assignment.
+
+
+Here is the information you need to include in your reflection:
+
+1. After reading all the projects you chose and reading your feedback, is there anything you have not considered/included in your project, but you would want to consider/include now?
+2. Is there any part (including writing) that you think you are doing better than your peers’
+analysis?
+3. List a couple of things you may want to update on your report (It is OK if you don't want to change any or your work, just explain why.)
+
+Your reflection should not exceed 1 page. Any format (PDF/Word) is acceptable.
+
+
+The total points possible is 50. Grade will be based on your reflection (graded by instructor) and turning in your MP3 report by the due date (and changes have been made from MP2).
+
+   
+

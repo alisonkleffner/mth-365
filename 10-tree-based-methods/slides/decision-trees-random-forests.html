@@ -4,8 +4,8 @@
     <title>DSC365: Introduction to Data Science</title>
     <meta charset="utf-8" />
     <meta name="author" content="Decision Trees and Random Forests" />
-    <meta name="date" content="2025-10-23" />
-    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <meta name="date" content="2026-03-24" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
   </head>
@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ### Decision Trees and Random Forests
 ]
 .date[
-### October 23, 2025
+### March 24, 2026
 ]
 
 ---
@@ -30,26 +30,23 @@ class: center, middle, inverse, title-slide
 
 &lt;style type="text/css"&gt;
 .tiny .remark-code { /*Change made here*/
-  font-size: 70% !important;
+  font-size: 80% !important;
 }
 &lt;/style&gt;
 
 ## Announcements
 
+
 **Lab 5** (Linear Models)
 
-- Due Tuesday October 28th, 2025 at 11:59 pm in Blueline
-- Will start Lab 6 in class on Tuesday
+- Due Tonight at 11:59 pm in Blueline
 
-**Mini Project 2**
+**Quiz 3**: in class Thursday March 26th
 
-- Due Tonight at 11:59 in Blueline
+- Covers: Prediction/KNN/Tree-Based Methods
 
-**Quiz 3**: in class Tuesday October 28th
+???
 
-- Covers: Prediction/KNN/Decsion Trees
-
----
 ### Supervised vs Unsupervised Learning
 
 Learning techniques fall into two categories:
@@ -81,41 +78,34 @@ Learning techniques fall into two categories:
 ---
 ### Example: Marijuana legalization
 
-The General Social Survey is a wide-ranging survey conducted biannually to measure cultural shifts in American society. We can use the GSS to get an idea of how popular opinion has changed.
+The General Social Survey is a wide-ranging survey conducted biannually to measure cultural shifts in American society. We can use the GSS to get an idea of how popular opinion has changed. 
+
+**Goal**: Use Age to predict people’s opinion of marijuana legalization.
 
 .tiny[
 
+
+
 ``` r
-GSS &lt;- read.csv("GSS2016.csv")
-glimpse(GSS)
+table(GSS$GRASS)
 ```
 
-
 ```
-## Rows: 9,423
-## Columns: 18
-## $ YEAR     &lt;int&gt; 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010, 2010…
-## $ NEWSFROM &lt;chr&gt; "Not applicable", "Not applicable", "Not applicable", "Not applicable", "Tv", "Not…
-## $ HAPPY    &lt;chr&gt; "Pretty happy", "Not too happy", "Not too happy", "Not too happy", "Very happy", "…
-## $ RELIG    &lt;chr&gt; "Catholic", "None", "Catholic", "Catholic", "Protestant", "None", "Catholic", "Pro…
-## $ GRASS    &lt;chr&gt; "Don't know", "Legal", "Not applicable", "Not legal", "Not legal", "Legal", "Don't…
-## $ COURTS   &lt;chr&gt; "About right", "Too harsh", "Not harsh enough", "Not harsh enough", "Not harsh eno…
-## $ ENERGY   &lt;chr&gt; "Too little", "Too little", "Don't know", "About right", "Don't know", "Too little…
-## $ EDUC     &lt;chr&gt; "Not applicable", "Too little", "Too little", "Not applicable", "About right", "To…
-## $ ENVIR    &lt;chr&gt; "Not applicable", "Too little", "Too little", "Not applicable", "About right", "To…
-## $ POLVIEWS &lt;chr&gt; "Slightly liberal", "Liberal", "Don't know", "Liberal", "Slightly liberal", "Sligh…
-## $ PARTYID  &lt;chr&gt; "Democrat", "Democrat", "Democrat", "Republican", "Independent", "Democrat", "Inde…
-## $ REGION   &lt;chr&gt; "Middle atlantic", "Middle atlantic", "Middle atlantic", "Middle atlantic", "Middl…
-## $ INCOME   &lt;chr&gt; "$25000 or more", "$15000 - 19999", "$20000 - 24999", "$8000 to 9999", "Don't know…
-## $ SEX      &lt;chr&gt; "Male", "Female", "Female", "Female", "Female", "Male", "Female", "Female", "Femal…
-## $ DEGREE   &lt;chr&gt; "Bachelor", "Bachelor", "Lt high school", "Lt high school", "Lt high school", "Lt …
-## $ AGE      &lt;chr&gt; "31", "23", "71", "82", "78", "40", "46", "80", "31", "No answer", "31", "21", "58…
-## $ MARITAL  &lt;chr&gt; "Never married", "Never married", "Divorced", "Widowed", "Married", "Never married…
-## $ BALLOT   &lt;chr&gt; "Ballot b", "Ballot b", "Ballot a", "Ballot b", "Ballot c", "Ballot b", "Ballot c"…
+## 
+##     Don't know          Legal      No answer Not applicable      Not legal 
+##            438           3185             10           3065           2725
 ```
 ]
 
----
+&lt;br&gt;
+
+Data Cleanings Steps (see `decision-trees-random-forests.R`)
+- Only going to look at one year, 2016, and remove "Not applicable" from our response
+- Want just two groups for responses: Legal and Not legal
+- Change variables to proper type (numeric - will have coercion)
+
+???
+
 ### Let's Clean Our Data! Yay!
 
 - Let's only look at one year, say 2016, and remove "Not applicable from our response"
@@ -148,8 +138,6 @@ GSS$AGE &lt;- as.numeric(GSS$AGE)
 ---
 ### Testing data v. Training data
 
-**Goal**: Use Age to predict people’s opinion of marijuana legalization.
-
 
 ``` r
 set.seed(4)
@@ -157,8 +145,6 @@ test_id &lt;- sample(1:nrow(GSS), size=round(0.2*nrow(GSS)))
 TEST &lt;- GSS[test_id,]
 TRAIN &lt;- GSS[-test_id,]
 ```
-
-&lt;br&gt;
 
 How many people in the training data set support marijuana legalization?
 
@@ -191,7 +177,7 @@ Decision trees: A tree-like model of decisions and their possible consequences
 &lt;br&gt;
 &lt;br&gt;
 
-&lt;img src="./images/decision-tree.png" width="75%" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="./images/decision-tree.png" alt="" width="75%" style="display: block; margin: auto auto auto 0;" /&gt;
 
 ---
 ### Decision Trees (Classification)
@@ -274,9 +260,10 @@ fancyRpartPlot(tree)
 
 
 
-&lt;img src="./images/tree1.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./images/tree1.png" alt="" width="75%" style="display: block; margin: auto;" /&gt;
 
----
+???
+
 ### Visualizing using ggplot
 
 
@@ -286,16 +273,17 @@ geom_boxplot(aes(col=LEGAL)) +
   geom_hline(yintercept=69, col='black') 
 ```
 
-&lt;img src="decision-trees-random-forests_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="decision-trees-random-forests_files/figure-html/unnamed-chunk-15-1.png" alt="" style="display: block; margin: auto;" /&gt;
 
----
+???
+
 ### Evaluating a decision tree
 
 - Confusion Matrix
 - Classification Accuracy
 
 ---
-### Confusion Matrix
+### Evaluating a decision tree: Confusion Matrix
 
 
 ``` r
@@ -330,7 +318,7 @@ confusion_test
 ```
 
 ---
-### Classification Accuracy
+### Evaluating a decision tree: Classification Accuracy
 
 Training Accuracy:
 
@@ -358,7 +346,7 @@ sum(diag(confusion_test))/nrow(TEST)
 ---
 ### Tuning Parameter: Complexity parameter
 
-Using recursive paritioning can overfit the training data - Prune Tree 
+Using recursive partitioning can overfit the training data - Prune Tree 
 
 .tiny[
 
@@ -428,7 +416,7 @@ fancyRpartPlot(tree2)
 
 
 
-&lt;img src="./images/tree2.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./images/tree2.png" alt="" width="75%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Prediction for Decision Regression Tree
@@ -532,12 +520,10 @@ Hence, at each split in the tree, the algorithm is not even allowed to consider 
 #install.packages('randomForest')
 library(randomForest)
 
-forest_grass &lt;- randomForest(as.factor(LEGAL)~NEWSFROM+HAPPY+
-                               RELIG+COURTS+ENERGY+EDUC+ENVIR+
-                               POLVIEWS+PARTYID+REGION+INCOME+
-                               SEX+DEGREE+AGE+MARITAL+BALLOT, 
-                             data=TRAIN, na.action = na.omit,
-                             ntree=201, mtry=4)
+forest_grass &lt;- randomForest(as.factor(LEGAL)~NEWSFROM+HAPPY+RELIG+COURTS+
+                             ENERGY+EDUC+ENVIR+POLVIEWS+PARTYID+REGION+
+                             INCOME+SEX+DEGREE+AGE+MARITAL+BALLOT,data=TRAIN,
+                             na.action = na.omit, ntree=201, mtry=4)
 
 forest_grass
 ```
@@ -619,7 +605,8 @@ randomForest::importance(forest_grass) %&gt;% as.data.frame() %&gt;%
 ]
 
 
----
+???
+
 ### Decision Tree with Selected Importance
 
 
@@ -630,7 +617,7 @@ fancyRpartPlot(tree4)
 
 
 
-&lt;img src="./images/tree4.png" width="2437" style="display: block; margin: auto;" /&gt;
+&lt;img src="./images/tree4.png" alt="" width="2437" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Summary 
@@ -647,9 +634,9 @@ KNN：Can be applied to regression and classification. relatively fast, no assum
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": false
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
