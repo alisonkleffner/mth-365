@@ -161,7 +161,7 @@ Decision trees: A tree-like model of decisions and their possible consequences
 <br>
 <br>
 
-```{r, echo=FALSE, fig.align='left',out.width="75%"}
+```{r, echo=FALSE, fig.align='left',out.width="75%", fig.alt="Overview of the flowchart structure of a decision tree. The tree begins at a root decision node. Based on the test outcome of this decision node, this leads to other outcomes. These tests keep happening until we reach a terminal node of the decision tree which provides the predicted outcome."}
 
 knitr::include_graphics("./images/decision-tree.png")
 
@@ -226,6 +226,7 @@ rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass)
 ### Visualizing a Decision Tree (Classification)
 
 ```{r, message=FALSE, fig.height=8, fig.width=10, eval = FALSE}
+
 #install.packages("rattle")
 library(rattle)
 tree <- rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass)
@@ -238,7 +239,7 @@ tree <- rpart(LEGAL~AGE, data=TRAIN, na.action = na.pass)
 
 ```
 
-```{r, echo=FALSE, fig.align='center',out.width="75%"}
+```{r, echo=FALSE, fig.align='center',out.width="75%", fig.alt="Decision tree for GSS data with just Age as an explanatory variable. There is a split at Age = 69, where those younger than 69 are classified as Legal, and those 69 and older are classified as Not Legal"}
 
 knitr::include_graphics("./images/tree1.png")
 
@@ -352,7 +353,7 @@ fancyRpartPlot(tree2)
 tree2 <- rpart(AGE~POLVIEWS + MARITAL, data=TRAIN)
 ```
 
-```{r, echo=FALSE, fig.align='center',out.width="75%"}
+```{r, echo=FALSE, fig.align='center',out.width="75%", fig.alt="A regression decision tree with an initial split for Marital status. For those who were never married or separated have a predicted age of 32. For those who are married or divorced, they have a predicted age of 52. Anyone in a different category has a predicted age of 69."}
 
 knitr::include_graphics("./images/tree2.png")
 
