@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DSC365: Introduction to Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Cluster Analysis" />
+    <meta name="date" content="2026-03-31" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# DSC365: Introduction to Data Science
+]
+.author[
+### Cluster Analysis
+]
+.date[
+### March 31, 2026
+]
+
+---
+
+
+
+
+### Announcements
+
+**Mini Project 3**
+
+- Due April 9th at 3:30pm in Blueline (peer review during class)
+
+**Lab 6** 
+
+- Due Tuesday April 7th at 11:59 pm in Blueline
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+[Modern Data Science with R, Chapter 12](https://mdsr-book.github.io/mdsr3e/12-learningII.html)
+---
+### Unsupervised Learning
+
+
+
+---
+### Clustering vs. Principal Components
+
+Focus on two methods: 
+
+1). Clustering 
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+2). Principal Components
+
+---
+### Cluster Analysis
+
+
+---
+### Example: gapminder
+
+**Data:** We're going to work with the `gapminder` data set. Since each country is repeated by year, we're going focus on `2015` since it is the most recent year with the most variables included
+
+
+```
+## Rows: 185
+## Columns: 9
+## $ country          &lt;fct&gt; "Albania", "Algeria", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba…
+## $ year             &lt;int&gt; 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2…
+## $ infant_mortality &lt;dbl&gt; 12.5, 21.9, 96.0, 5.8, 11.1, 12.6, NA, 3.0, 2.9, 27.9, 9.9, 5.3, 30.7, 12.0, 3.4, 3.3…
+## $ life_expectancy  &lt;dbl&gt; 78.00, 76.40, 59.60, 76.40, 76.50, 74.70, 75.72, 82.30, 81.30, 72.90, 73.70, 79.10, 7…
+## $ fertility        &lt;dbl&gt; 1.78, 2.71, 5.65, 2.06, 2.15, 1.41, 1.66, 1.88, 1.50, 1.89, 1.88, 2.03, 2.12, 1.86, 1…
+## $ population       &lt;dbl&gt; 2896679, 39666519, 25021974, 91818, 43416755, 3017712, 103889, 23968973, 8544586, 975…
+## $ gdp              &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ continent        &lt;fct&gt; Europe, Africa, Africa, Americas, Americas, Asia, Americas, Oceania, Europe, Asia, Am…
+## $ region           &lt;fct&gt; Southern Europe, Northern Africa, Middle Africa, Caribbean, South America, Western As…
+```
+
+
+---
+### Main Clustering Techniques
+
+There are a ton of clustering methods! Going to focus on the two most common:
+
+1). Hierarchical Clustering: 
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+2). Non-Hierarchical: 
+  
+---
+### K-Means Clustering
+
+**Overview:** partitions the data into a pre-specified fixed number of non-overlapping clusters and rearranges the cluster memberships according to some optimization criteria. 
+
+&lt;br&gt;
+&lt;br&gt;
+
+**Properties**
+
+
+
+---
+### K-Means Clustering: Algorithm
+
+**Idea**: Good clustering is one for which the within cluster variation is as small as possible
+
+  + Solve: `\(\text{minimize}_{C_1, \dots, C_K} (\sum^K_{k=1}W(C_k))\)`
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+**Problem:** very difficult minimization problem as almost `\(K^n\)` ways to partition `\(n\)` observations into `\(k\)` clusters.
+  + **Solution:** 
+
+---
+### K-Means Clustering: Algorithm
+
+**Steps:**
+
+1). Initial Cluster Assignment:
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+2). Iterate until the clusters stop changing. 
+  
+  
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+[Animation](https://blog.dailydoseofds.com/p/an-animated-guide-to-kmeans-algorithm)
+
+
+---
+### K-Means Clustering: Algorithm
+
+With these steps will reach a **local optimum**:
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+
+**How do you choose k**?
+
+- No definitive answer. Somewhat subjective.
+- [Some methods](https://www.datanovia.com/en/lessons/determining-the-optimal-number-of-clusters-3-must-know-methods/#:~:text=A%20high%20average%20silhouette%20width,(Kaufman%20and%20Rousseeuw%201990)
+
+---
+### Example: gapminder
+
+The data is already "categorized" by continent and region. Clustering allows us to find other, possibly unconsidered, similarities between points.
+
+Let's start with a two-variable clustering (`fertility` and `life_expectancy`) on countries in the Americas.
+
+
+``` r
+gap_fle &lt;- gapminder_2015 %&gt;%
+  filter(continent == "Americas") %&gt;%
+  filter(fertility != 'NA') %&gt;%
+  select(fertility, life_expectancy)
+
+
+k &lt;- 4 #must define number of clusters
+
+set.seed(4)
+kmeans_clusters &lt;- kmeans(gap_fle, centers = k, nstart = 10)
+```
+
+---
+### Example: gapminder
+
+What does this look like?
+
+
+``` r
+kmeans_clusters$cluster &lt;- as.factor(kmeans_clusters$cluster)
+
+
+ggplot(gap_fle, aes(x=fertility, y=life_expectancy)) + 
+  geom_point(aes(color=kmeans_clusters$cluster, pch=kmeans_clusters$cluster), size = 4) +
+  labs(y = "Life Expectancy", x = "Fertility",
+       color = "Cluster", shape = "Cluster")
+```
+
+&lt;img src="cluster-analysis_files/figure-html/unnamed-chunk-4-1.png" alt="Scatterplot of Fertility vs Life expectancy where shape of each observation is related to their cluster assignment. The overall relationship is moderately negative, with the four clusters grouping observations from top to bottom." style="display: block; margin: auto;" /&gt;
+
+---
+### Example: gapminder
+
+What if we choose fewer clusters?
+
+
+``` r
+k &lt;- 3
+kmeans_clusters &lt;- kmeans(gap_fle, centers=k, nstart = 10)
+kmeans_clusters$cluster &lt;- as.factor(kmeans_clusters$cluster)
+
+ggplot(gap_fle, aes(x=fertility, y=life_expectancy)) + 
+  geom_point(aes(color=kmeans_clusters$cluster, pch=kmeans_clusters$cluster), size = 4) +
+  labs(y = "Life Expectancy", x = "Fertility",
+       color = "Cluster", shape = "Cluster")
+```
+
+&lt;img src="cluster-analysis_files/figure-html/unnamed-chunk-5-1.png" alt="Same scatterplot of Fertility vs Life expectancy as the last slide, but now there are only three clusters. The bottom cluster remains the same, but the top three clusters combine into two." style="display: block; margin: auto;" /&gt;
+
+---
+### Hierarchical (Agglomerative)
+
+Doesn't require that we know the number of clusters. Additionally, we are able to obtain a tree-based representation of observations called a **dendrogram**
+
+- **Agglomerative** (bottom-up) clustering: start from leaves and combine clusters up to trunk.
+
+---
+### Hierarchical Clustering: Algorithm
+
+**Steps:**
+
+1). Define a dissimilarity measure between each pair of observations (usually Euclidean Distance).  
+
+&lt;br&gt;
+
+2). Iterative:
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+3). Proceed until all observations are fused together into a single cluster.
+
+---
+### Hierarchical Clustering: Algorithm
+
+**Problem:** How to define dissimilarity if one (or both clusters) contains multiple observations
+
+- **Linkage**: defines dissimilarity between two groups of observations
+
+    
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+Output will depend on linkage method and dissimilarity measure 
+
+---
+### Example: gapminder
+
+1). Calculate a measure of similarity between all pairs of observations.
+
+- So let's calculate a "distance" measure for every pair of countries in North and South America. 
+  - Two variables: `fertility` and `life_expectancy`
+
+
+``` r
+gap_fle &lt;- gapminder_2015 %&gt;%
+  filter(continent == "Americas") %&gt;%
+  select(fertility, life_expectancy, country)
+
+rownames(gap_fle) &lt;- gap_fle$country
+
+gap_dist &lt;- dist(gap_fle[,1:2])
+```
+
+
+```
+##                     Antigua and Barbuda Argentina     Aruba  Bahamas
+## Antigua and Barbuda           0.0000000 0.1345362 0.7889233 2.705993
+## Argentina                     0.1345362 0.0000000 0.9211406 2.812988
+## Aruba                         0.7889233 0.9211406 0.0000000 2.031945
+## Bahamas                       2.7059933 2.8129877 2.0319449 0.000000
+```
+
+---
+### Example: gapminder
+
+2). Cluster observations based on the similarity values, where clusters hopefully have small within cluster variability and large among cluster variation. 
+  - Plot dendrogram
+
+
+``` r
+clusters &lt;- hclust(gap_dist, method = "complete")
+
+plot(clusters, hang = -1, cex = 0.75)
+```
+
+&lt;img src="cluster-analysis_files/figure-html/unnamed-chunk-8-1.png" alt="Dendrogram for hierarchical cluster of countries using just fertility and life expectancy." style="display: block; margin: auto;" /&gt;
+
+---
+### Reading a Dendrogram:
+
+- As we move up the tree, some leaves begin to fuse into branches
+  - The earlier in the tree these fusions occur the more similar.
+- If we look at the point where two observations fuse first, the height of this fusion (measured on the vertical axis), indicates how different they are. 
+- **Note:** clusters obtained by cutting a dendrogram are nested within clusters obtained by cutting the dendrogram at a greater height
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+&lt;img src="cluster-analysis_files/figure-html/unnamed-chunk-9-1.png" alt="Dendrogram for hierarchical cluster of countries using just fertility and life expectancy. Same dendrogram of previous slide." style="display: block; margin: auto;" /&gt;
+
+---
+### Obtaining a certain number of clusters
+
+If you just want cut the dendrogram to obtain only a certain number of clusters, can use the `cutree` function. Generally based on eye test for a sensible number.
+
+
+``` r
+clus4 = cutree(clusters, 4)
+```
+
+Can then visualize the clusters with the data
+
+&lt;img src="cluster-analysis_files/figure-html/unnamed-chunk-11-1.png" alt="Same scatterplot of Fertility vs Life expectancy as previous, but with only four clusters from hierarchcial clustering. The cluster pattern is similar to k-means with four clusters" style="display: block; margin: auto;" /&gt;
+
+
+---
+### Practical Issues
+
+
+
+---
+### Standardizing Inputs
+
+Sometimes, the results of the clustering are more dependent on the variation in variables in the data set, as Euclidean distance calculations uses non-standardized variables (assumes variables are identical).
+
+- Generally, the variables with a bigger unit scale will contribute more to the Euclidean distance, leading to a biased estimate of clusters
+
+&lt;br&gt;
+&lt;br&gt;
+
+
+``` r
+data_scale = gapminder_2015 %&gt;%
+  filter(continent == "Americas") %&gt;%
+  filter(infant_mortality != 'NA') %&gt;%
+  select(infant_mortality, life_expectancy) %&gt;%
+* scale() %&gt;%
+  as.data.frame()
+```
+
+???
+
+
+``` r
+k &lt;- 5
+
+set.seed(4)
+kmeans_clusters &lt;- kmeans(data_scale, centers=k, nstart=10)
+
+
+kmeans_clusters$cluster &lt;- as.factor(kmeans_clusters$cluster)
+
+ggplot(data_scale, aes(x=infant_mortality, y=life_expectancy)) + geom_point() + 
+  aes(color=kmeans_clusters$cluster, pch=kmeans_clusters$cluster) +
+  labs(y = "Life Expectancy", x = "Infant Mortality",
+       color = "Cluster", shape = "Cluster")
+```
+
+![](cluster-analysis_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+---
+### In Summary
+
+**Hierarchical clustering**: 
+
+- No need to decide the cluster number before the clustering
+- Reproducible result 
+- Computationally slow
+
+**k-means clustering**: 
+
+- Need to decide the cluster number first 
+- Randomness may lead to different result
+- Computationally fast
+
+
+---
+### Try Yourself
+
+Now let's add a third variable: `infant_mortality`. Do:
+- K-Means clustering (try with different `\(k\)` values). Make a data visualization with `fertility` and `life_expectancy`.
+- Hierarchical clustering. Decide on the number of clusters that seems appropriate. Make a data visualization with `fertility` and `life_expectancy` and compare to your k-means output.
+- Decide if standardizing your inputs is necessary. If so redo the two steps above and compare your results.
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
