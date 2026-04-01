@@ -58,15 +58,18 @@ class: center, middle, inverse, title-slide
 (Also posted in Blueline)
 
 
-| Tuesday  | Topic               | Thursday | Topic        | Assignment Due                  |
-| :------- | :-----------------: | :------- | :----------: | :-----------------------------: |
-| April 7  | Text Data           | April 9  | MP3/Lab 7    | April 7 - Lab 6, April 9 - MP3  |
-| April 14 | Spatial Data        | April 16 | No Class     | April 16 - Lab 7                |
-| April 21 | Lab 8               | April 23 | Web-Scraping |                                 |
-| April 28 | Quiz 4, Lab 9       | April 30 | Lab 9        | April 28 - Lab 8, May 1 - Lab 9 |  
-| May 5    | MP4 Presentations   |          |              | MP4 Report/Presentation - May 5 |
+| Tuesday  | Topic               | Thursday | Topic        | Assignment Due                          |
+| :------- | :-----------------: | :------- | :----------: | :-------------------------------------: |
+| April 7  | Text Data           | April 9  | MP3/Lab 7    | April 7 - Lab 6, April 9 - MP3          |
+| April 14 | Spatial Data        | April 16 | No Class     | April 16 - Lab 7                        |
+| April 21 | Lab 8               | April 23 | Web-Scraping |                                         |
+| April 28 | Quiz 4, Lab 9       | April 30 | Lab 9        | April 28 - MP4 Report, April 30 - Lab 8 |  
+| May 5    | MP4 Presentations   |          |              | MP4 Presentation, Lab 9 - May 5         |
+
+** Quiz 4: PCA/Cluster/Text/Spatial
 
 
+** I will be out of town April 28/30. Dr. Pennington will be supervising class those days.
 ---
 ### Principal Component Analysis (PCA): Why?
 
@@ -105,7 +108,6 @@ Sometimes a data set has a lot of variables. Some of these variables carry *lots
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
-&lt;br&gt;
 
   + Second Principal Component: maximal variance out of all linear combinations that are uncorrelated (orthogonal) with `\(Z_1\)`
       
@@ -136,17 +138,17 @@ glimpse(happyplanet2016)
 ```
 ## Rows: 140
 ## Columns: 11
-## $ Country                 &lt;chr&gt; "Costa Rica", "Mexico", "Colombia", "Vanuatu", "Vietnam", "Panama", "Nicaragua", "Bangladesh", "Thailand", "Ec…
-## $ Region                  &lt;chr&gt; "Americas", "Americas", "Americas", "Asia Pacific", "Asia Pacific", "Americas", "Americas", "Asia Pacific", "A…
-## $ Life_Expectancy         &lt;dbl&gt; 79.076, 76.411, 73.673, 71.341, 75.477, 77.215, 74.322, 70.843, 74.087, 75.449, 75.326, 81.281, 77.347, 76.891…
-## $ Well_Being              &lt;dbl&gt; 7.300000, 7.300000, 6.400000, 6.470000, 5.500000, 6.900000, 5.400000, 4.700000, 6.300000, 6.000000, 5.550000, …
-## $ Happy_Life_Years        &lt;dbl&gt; 48.17479, 44.26208, 35.07089, 34.89575, 32.77025, 42.07666, 29.21113, 23.28948, 38.62477, 34.34789, 31.91675, …
-## $ Environmental_Footprint &lt;dbl&gt; 2.840000, 2.890000, 1.870000, 1.862620, 1.650000, 2.790000, 1.390000, 0.720000, 2.660000, 2.170000, 1.890000, …
-## $ Inequality              &lt;dbl&gt; 0.14556769, 0.18769899, 0.23504395, 0.22333185, 0.18592059, 0.18997898, 0.24717421, 0.27365725, 0.15000273, 0.…
-## $ HappyPlanetIndex        &lt;dbl&gt; 44.71407, 40.69729, 40.69501, 40.57010, 40.30759, 39.50258, 38.68826, 38.39069, 37.29010, 37.04272, 36.88844, …
-## $ GDP_PC                  &lt;dbl&gt; 9733.3969, 9703.3710, 7885.0613, 3158.4210, 1754.5480, 10138.5211, 1779.8671, 858.9334, 5917.9179, 5702.1683, …
-## $ Population              &lt;dbl&gt; 4654148, 122070963, 46881018, 247498, 88809200, 3743761, 5877034, 155257387, 67164130, 15419493, 2707805, 5018…
-## $ GINIindex               &lt;dbl&gt; 48.61, 48.07, 53.54, NA, 38.70, 51.90, NA, NA, 39.26, 46.57, NA, 25.90, 28.96, 41.32, 35.89, NA, 41.80, 27.99,…
+## $ Country                 &lt;chr&gt; "Costa Rica", "Mexico", "Colombia", "Vanuatu", "Vietnam", "Panama", "Nicaragua…
+## $ Region                  &lt;chr&gt; "Americas", "Americas", "Americas", "Asia Pacific", "Asia Pacific", "Americas"…
+## $ Life_Expectancy         &lt;dbl&gt; 79.076, 76.411, 73.673, 71.341, 75.477, 77.215, 74.322, 70.843, 74.087, 75.449…
+## $ Well_Being              &lt;dbl&gt; 7.300000, 7.300000, 6.400000, 6.470000, 5.500000, 6.900000, 5.400000, 4.700000…
+## $ Happy_Life_Years        &lt;dbl&gt; 48.17479, 44.26208, 35.07089, 34.89575, 32.77025, 42.07666, 29.21113, 23.28948…
+## $ Environmental_Footprint &lt;dbl&gt; 2.840000, 2.890000, 1.870000, 1.862620, 1.650000, 2.790000, 1.390000, 0.720000…
+## $ Inequality              &lt;dbl&gt; 0.14556769, 0.18769899, 0.23504395, 0.22333185, 0.18592059, 0.18997898, 0.2471…
+## $ HappyPlanetIndex        &lt;dbl&gt; 44.71407, 40.69729, 40.69501, 40.57010, 40.30759, 39.50258, 38.68826, 38.39069…
+## $ GDP_PC                  &lt;dbl&gt; 9733.3969, 9703.3710, 7885.0613, 3158.4210, 1754.5480, 10138.5211, 1779.8671, …
+## $ Population              &lt;dbl&gt; 4654148, 122070963, 46881018, 247498, 88809200, 3743761, 5877034, 155257387, 6…
+## $ GINIindex               &lt;dbl&gt; 48.61, 48.07, 53.54, NA, 38.70, 51.90, NA, NA, 39.26, 46.57, NA, 25.90, 28.96,…
 ```
 
 Can we distill this down to a few important variables or ideas?
@@ -187,15 +189,24 @@ happy_pca$rotation #loadings
 ```
 
 ```
-##                                 PC1         PC2          PC3         PC4         PC5         PC6         PC7         PC8
-## Life_Expectancy         -0.39386299 -0.10210804 -0.005109106 -0.46521889  0.47756080  0.31566633  0.52567156  0.11811449
-## Well_Being              -0.38084138 -0.32767032 -0.236721404 -0.06883676 -0.48587423 -0.41963145  0.16977285  0.49581180
-## Happy_Life_Years        -0.43456875 -0.17515821 -0.093807637 -0.14622457 -0.22281747 -0.12290385 -0.02778462 -0.82750416
-## Environmental_Footprint -0.35028972  0.15469868 -0.069976648  0.68939169  0.45029109 -0.36263209  0.19392271 -0.03657425
-## Inequality               0.42016186 -0.02650942 -0.265323358  0.24342252 -0.29036909  0.15160670  0.73955922 -0.19713856
-## GDP_PC                  -0.39270248  0.03324252 -0.206237022  0.38291281 -0.24970437  0.73603463 -0.19285020  0.11930350
-## Population               0.04745023 -0.72676475  0.613698554  0.27584809  0.02363929  0.11234909  0.05877270 -0.01442327
-## GINIindex                0.23510880 -0.54552656 -0.663840464  0.01488121  0.36908932  0.01740502 -0.26244106 -0.02852801
+##                                 PC1         PC2          PC3         PC4         PC5         PC6         PC7
+## Life_Expectancy         -0.39386299 -0.10210804 -0.005109106 -0.46521889  0.47756080  0.31566633  0.52567156
+## Well_Being              -0.38084138 -0.32767032 -0.236721404 -0.06883676 -0.48587423 -0.41963145  0.16977285
+## Happy_Life_Years        -0.43456875 -0.17515821 -0.093807637 -0.14622457 -0.22281747 -0.12290385 -0.02778462
+## Environmental_Footprint -0.35028972  0.15469868 -0.069976648  0.68939169  0.45029109 -0.36263209  0.19392271
+## Inequality               0.42016186 -0.02650942 -0.265323358  0.24342252 -0.29036909  0.15160670  0.73955922
+## GDP_PC                  -0.39270248  0.03324252 -0.206237022  0.38291281 -0.24970437  0.73603463 -0.19285020
+## Population               0.04745023 -0.72676475  0.613698554  0.27584809  0.02363929  0.11234909  0.05877270
+## GINIindex                0.23510880 -0.54552656 -0.663840464  0.01488121  0.36908932  0.01740502 -0.26244106
+##                                 PC8
+## Life_Expectancy          0.11811449
+## Well_Being               0.49581180
+## Happy_Life_Years        -0.82750416
+## Environmental_Footprint -0.03657425
+## Inequality              -0.19713856
+## GDP_PC                   0.11930350
+## Population              -0.01442327
+## GINIindex               -0.02852801
 ```
 
 ---
@@ -210,7 +221,8 @@ library(factoextra)
 fviz_eig(happy_pca, main = "Scree plot: Happy Planet Index")
 ```
 
-&lt;img src="pca_files/figure-html/unnamed-chunk-5-1.png" alt="" style="display: block; margin: auto;" /&gt;
+&lt;img src="pca_files/figure-html/unnamed-chunk-5-1.png" alt="Scree plot for the principal components of the Happy Planet Data. The first PC explain roughly 60 percent of the variation, with the second PC around 17 percent. At this point the elbow flattens, so only need the first two PCs" style="display: block; margin: auto;" /&gt;
+
 
 
 ---
@@ -234,7 +246,7 @@ Can also create a bi-plot - provides visualization of PCA outputs
 fviz_pca_var(happy_pca, col.var = "contrib")
 ```
 
-&lt;img src="pca_files/figure-html/unnamed-chunk-7-1.png" alt="" style="display: block; margin: auto;" /&gt;
+&lt;img src="pca_files/figure-html/unnamed-chunk-7-1.png" alt="Biplot of the first two PCs for the Happy Planet Data" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -262,7 +274,7 @@ ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE)
 ## Too few points to calculate an ellipse
 ```
 
-&lt;img src="pca_files/figure-html/unnamed-chunk-10-1.png" alt="" style="display: block; margin: auto;" /&gt;
+&lt;img src="pca_files/figure-html/unnamed-chunk-10-1.png" alt="Biplot of the first two PCs for the Happy Planet Data. Now additionally the observations are on the plot given their relation to PC1 and PC2. The points are then colored by Regions to see if regions are related to how observations hang on the first two PCs" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Fitting a PCA:  `ggbiplot`
@@ -280,7 +292,7 @@ ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE,
 ## Too few points to calculate an ellipse
 ```
 
-&lt;img src="pca_files/figure-html/unnamed-chunk-12-1.png" alt="" style="display: block; margin: auto;" /&gt;
+&lt;img src="pca_files/figure-html/unnamed-chunk-12-1.png" alt="Biplot of the third and fourth PCs for the Happy Planet Data. Now additionally the observations are on the plot given their relation to PC3 and PC4. The points are then colored by Regions to see if regions are related to how observations hang on the first two PCs" style="display: block; margin: auto;" /&gt;
 
 
 ---

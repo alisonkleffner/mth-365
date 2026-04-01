@@ -64,15 +64,18 @@ knit_hooks$set(output = function(x, options) {
 (Also posted in Blueline)
 
 
-| Tuesday  | Topic               | Thursday | Topic        | Assignment Due                  |
-| :------- | :-----------------: | :------- | :----------: | :-----------------------------: |
-| April 7  | Text Data           | April 9  | MP3/Lab 7    | April 7 - Lab 6, April 9 - MP3  |
-| April 14 | Spatial Data        | April 16 | No Class     | April 16 - Lab 7                |
-| April 21 | Lab 8               | April 23 | Web-Scraping |                                 |
-| April 28 | Quiz 4, Lab 9       | April 30 | Lab 9        | April 28 - Lab 8, May 1 - Lab 9 |  
-| May 5    | MP4 Presentations   |          |              | MP4 Report/Presentation - May 5 |
+| Tuesday  | Topic               | Thursday | Topic        | Assignment Due                          |
+| :------- | :-----------------: | :------- | :----------: | :-------------------------------------: |
+| April 7  | Text Data           | April 9  | MP3/Lab 7    | April 7 - Lab 6, April 9 - MP3          |
+| April 14 | Spatial Data        | April 16 | No Class     | April 16 - Lab 7                        |
+| April 21 | Lab 8               | April 23 | Web-Scraping |                                         |
+| April 28 | Quiz 4, Lab 9       | April 30 | Lab 9        | April 28 - MP4 Report, April 30 - Lab 8 |  
+| May 5    | MP4 Presentations   |          |              | MP4 Presentation, Lab 9 - May 5         |
+
+** Quiz 4: PCA/Cluster/Text/Spatial
 
 
+** I will be out of town April 28/30. Dr. Pennington will be supervising class those days.
 ---
 ### Principal Component Analysis (PCA): Why?
 
@@ -107,7 +110,6 @@ Sometimes a data set has a lot of variables. Some of these variables carry *lots
     - Normalized: $\sum^p_{j=1} \phi^2_{j1} = 1$
     - To find the loadings, solve the optimization problem: $\text{maximize}_{\phi_{11}, \dots \phi_{p1}}(\frac{1}{n}\sum^{n}_{i=1}(\sum^{p}_{j=1}\phi_{j1}x_{ij})^2)$
 
-<br>
 <br>
 <br>
 <br>
@@ -170,11 +172,12 @@ happy_pca$rotation #loadings
 
 How many components should we choose?
 
-```{r, message=FALSE, fig.align='center', fig.width= 12, fig.height=5}
+```{r, message=FALSE, fig.align='center', fig.width= 12, fig.height=5, fig.alt = "Scree plot for the principal components of the Happy Planet Data. The first PC explain roughly 60 percent of the variation, with the second PC around 17 percent. At this point the elbow flattens, so only need the first two PCs"}
 #install.packages("factoextra")
 library(factoextra)
 fviz_eig(happy_pca, main = "Scree plot: Happy Planet Index")
 ```
+
 
 
 ---
@@ -197,7 +200,7 @@ Can also create a bi-plot - provides visualization of PCA outputs
 fviz_pca_var(happy_pca, col.var = "contrib")
 ```
 
-```{r, echo = FALSE, fig.align='center', fig.height=10, fig.width=16}
+```{r, echo = FALSE, fig.align='center', fig.height=10, fig.width=16, fig.alt = "Biplot of the first two PCs for the Happy Planet Data"}
 fviz_pca_var(happy_pca, col.var = "contrib", labelsize = 8) +
   theme(axis.title = element_text(size = 25, face = "bold"))
 ```
@@ -221,7 +224,7 @@ library(ggbiplot)
 ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE)
 ```
 
-```{r, fig.align='center', echo=FALSE, fig.height=3}
+```{r, fig.align='center', echo=FALSE, fig.height=3, fig.alt = "Biplot of the first two PCs for the Happy Planet Data. Now additionally the observations are on the plot given their relation to PC1 and PC2. The points are then colored by Regions to see if regions are related to how observations hang on the first two PCs"}
 ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE, labels.size = 15) +
   theme(axis.title = element_text(size = 15, face = "bold"))
 ```
@@ -236,7 +239,8 @@ ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE,
          choices=c(3,4))
 ```
 
-```{r, fig.align='center', fig.height=8, fig.width=19, echo = FALSE}
+```{r, fig.align='center', fig.height=8, fig.width=19, echo = FALSE, fig.alt = "Biplot of the third and fourth PCs for the Happy Planet Data. Now additionally the observations are on the plot given their relation to PC3 and PC4. The points are then colored by Regions to see if regions are related to how observations hang on the first two PCs"}
+
 ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE, 
          choices=c(3,4), labels.size = 10) +
   theme(axis.title = element_text(size = 25, face = "bold"))
