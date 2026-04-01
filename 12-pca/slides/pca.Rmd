@@ -1,0 +1,273 @@
+---
+title: "DSC365: Introduction to Data Science"
+author: "Principal Component Analysis"
+date: "April 2, 2026"
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r echo=FALSE, message=FALSE, warning = FALSE}
+library(tidyverse)
+library(knitr)
+library(RColorBrewer)
+library(mosaic)
+library(infer)
+library(Metrics)
+
+
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = xfun::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+```
+
+### Announcements
+
+**Mini Project 3**
+
+- Due April 9th at 3:30pm in Blueline (peer review during class)
+
+**Lab 6** 
+
+- Due Tuesday April 7th at 11:59 pm in Blueline
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+[Modern Data Science with R, Chapter 12](https://mdsr-book.github.io/mdsr3e/12-learningII.html)
+
+[Interactive Walk Through](https://bryanhanson.github.io/LearnPCA/articles/Vig_05_Visualizing_PCA_3D.html)
+
+---
+### Changes to Rest of Semester Schedule
+
+(Also posted in Blueline)
+
+
+| Tuesday  | Topic               | Thursday | Topic        | Assignment Due                  |
+| :------- | :-----------------: | :------- | :----------: | :-----------------------------: |
+| April 7  | Text Data           | April 9  | MP3/Lab 7    | April 7 - Lab 6, April 9 - MP3  |
+| April 14 | Spatial Data        | April 16 | No Class     | April 16 - Lab 7                |
+| April 21 | Lab 8               | April 23 | Web-Scraping |                                 |
+| April 28 | Quiz 4, Lab 9       | April 30 | Lab 9        | April 28 - Lab 8, May 1 - Lab 9 |  
+| May 5    | MP4 Presentations   |          |              | MP4 Report/Presentation - May 5 |
+
+
+---
+### Principal Component Analysis (PCA): Why?
+
+Sometimes a data set has a lot of variables. Some of these variables carry *lots* of information. Others carry *little to no* information. PCA can help reduce the dimensions of data by summarizing most of the variation into fewer dimensions called components. 
+
+<br>
+
+---
+### Principal Component Analysis (PCA): Why?
+
+**PCA**:
+
+---
+### PCA: Overview of Steps
+
+1).
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+2). 
+
+---
+### PCA: Overview of Steps
+
+3). Find Principal Components
+  + First Principal Component of a set of features $X_1, \dots X_p$ is a normalized linear combination of the features: $Z_1 = \phi_{11}X_1 + \phi_{21}X_2 + \cdots + \phi_{p1}X_p$ that has the largest variance.
+    - Normalized: $\sum^p_{j=1} \phi^2_{j1} = 1$
+    - To find the loadings, solve the optimization problem: $\text{maximize}_{\phi_{11}, \dots \phi_{p1}}(\frac{1}{n}\sum^{n}_{i=1}(\sum^{p}_{j=1}\phi_{j1}x_{ij})^2)$
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+  + Second Principal Component: maximal variance out of all linear combinations that are uncorrelated (orthogonal) with $Z_1$
+      
+---
+### PCA: Picture!
+
+
+---
+### PCA: Overview of Steps
+
+4). Select the number of components that capture most of the variation
+
+  
+  
+  
+---
+### Example: Data
+
+The Happy Planet Index is a measure of a country’s ecological and societal “well-being”.
+
+```{r}
+library(readxl)
+happyplanet2016 <- read_excel("happyplanet2016.xlsx")
+glimpse(happyplanet2016)
+```
+
+Can we distill this down to a few important variables or ideas?
+
+---
+### Example: Fitting a PCA
+
+The Happy Planet Index is calculated using a weighted average of these variables. It wouldn’t make sense to try to find linear combinations with a variable that’s already a linear combination, so we remove it. 
+
+How are the other variables related?
+
+
+```{r}
+happyplanet2 <- na.omit(happyplanet2016[,-8])
+
+#scale and find covariance matrix as part of function
+happy_pca <- prcomp(x=happyplanet2[,3:10], 
+                    center=TRUE, scale=TRUE) 
+
+summary(happy_pca) #proportion of variance explained
+```
+
+---
+### Fitting a PCA: Loadings
+
+```{r}
+happy_pca$rotation #loadings
+```
+
+---
+### Fitting a PCA: Number of Components
+
+How many components should we choose?
+
+```{r, message=FALSE, fig.align='center', fig.width= 12, fig.height=5}
+#install.packages("factoextra")
+library(factoextra)
+fviz_eig(happy_pca, main = "Scree plot: Happy Planet Index")
+```
+
+
+---
+### Fitting a PCA: Biplot
+
+Can also create a bi-plot - provides visualization of PCA outputs
+
++ Perpendicular vectors:
+
+<br>
++ Two variables in the same direction:
+
+<br>
++ Two variables in the opposite direction:
+
+---
+### Fitting a PCA: Biplot
+
+```{r, eval = FALSE}
+fviz_pca_var(happy_pca, col.var = "contrib")
+```
+
+```{r, echo = FALSE, fig.align='center', fig.height=10, fig.width=16}
+fviz_pca_var(happy_pca, col.var = "contrib", labelsize = 8) +
+  theme(axis.title = element_text(size = 25, face = "bold"))
+```
+
+
+
+
+---
+### Fitting a PCA:  `ggbiplot`
+
+If a package you might want to use  is on GitHub and you know the user’s Git “repository”: install the package using the `install_github` function in the `devtools` library.
+
+```{r, message=FALSE}
+library(devtools)
+#install_github("vqv/ggbiplot")
+library(ggbiplot)
+```
+
+
+```{r, eval = FALSE, fig.align='center', fig.height=8, fig.width=16}
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE)
+```
+
+```{r, fig.align='center', echo=FALSE, fig.height=3}
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE, labels.size = 15) +
+  theme(axis.title = element_text(size = 15, face = "bold"))
+```
+
+---
+### Fitting a PCA:  `ggbiplot`
+
+Can also visualize other PCs besides the first two.
+
+```{r, fig.align='center', fig.height=8, fig.width=19, eval = FALSE}
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE, 
+         choices=c(3,4))
+```
+
+```{r, fig.align='center', fig.height=8, fig.width=19, echo = FALSE}
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE, 
+         choices=c(3,4), labels.size = 10) +
+  theme(axis.title = element_text(size = 25, face = "bold"))
+```
+
+
+---
+
+### In Summary
+
+Advantages:
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Disadvantages:
+
+
+---
+
+#### Try Yourself
+
+Try the PCA with the gapminder data. Use all four variables (`infant_mortality`, `life_expectancy`, `fertility` and `popualtion`) try to make a data visualization to show the relations between the variables.
+
+```{r}
+
+```
+
+

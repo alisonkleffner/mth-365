@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DSC365: Introduction to Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Principal Component Analysis" />
+    <meta name="date" content="2026-04-02" />
+    <script src="libs/header-attrs-2.30/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# DSC365: Introduction to Data Science
+]
+.author[
+### Principal Component Analysis
+]
+.date[
+### April 2, 2026
+]
+
+---
+
+
+
+
+### Announcements
+
+**Mini Project 3**
+
+- Due April 9th at 3:30pm in Blueline (peer review during class)
+
+**Lab 6** 
+
+- Due Tuesday April 7th at 11:59 pm in Blueline
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+[Modern Data Science with R, Chapter 12](https://mdsr-book.github.io/mdsr3e/12-learningII.html)
+
+[Interactive Walk Through](https://bryanhanson.github.io/LearnPCA/articles/Vig_05_Visualizing_PCA_3D.html)
+
+---
+### Changes to Rest of Semester Schedule
+
+(Also posted in Blueline)
+
+
+| Tuesday  | Topic               | Thursday | Topic        | Assignment Due                  |
+| :------- | :-----------------: | :------- | :----------: | :-----------------------------: |
+| April 7  | Text Data           | April 9  | MP3/Lab 7    | April 7 - Lab 6, April 9 - MP3  |
+| April 14 | Spatial Data        | April 16 | No Class     | April 16 - Lab 7                |
+| April 21 | Lab 8               | April 23 | Web-Scraping |                                 |
+| April 28 | Quiz 4, Lab 9       | April 30 | Lab 9        | April 28 - Lab 8, May 1 - Lab 9 |  
+| May 5    | MP4 Presentations   |          |              | MP4 Report/Presentation - May 5 |
+
+
+---
+### Principal Component Analysis (PCA): Why?
+
+Sometimes a data set has a lot of variables. Some of these variables carry *lots* of information. Others carry *little to no* information. PCA can help reduce the dimensions of data by summarizing most of the variation into fewer dimensions called components. 
+
+&lt;br&gt;
+
+---
+### Principal Component Analysis (PCA): Why?
+
+**PCA**:
+
+---
+### PCA: Overview of Steps
+
+1).
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+2). 
+
+---
+### PCA: Overview of Steps
+
+3). Find Principal Components
+  + First Principal Component of a set of features `\(X_1, \dots X_p\)` is a normalized linear combination of the features: `\(Z_1 = \phi_{11}X_1 + \phi_{21}X_2 + \cdots + \phi_{p1}X_p\)` that has the largest variance.
+    - Normalized: `\(\sum^p_{j=1} \phi^2_{j1} = 1\)`
+    - To find the loadings, solve the optimization problem: `\(\text{maximize}_{\phi_{11}, \dots \phi_{p1}}(\frac{1}{n}\sum^{n}_{i=1}(\sum^{p}_{j=1}\phi_{j1}x_{ij})^2)\)`
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+  + Second Principal Component: maximal variance out of all linear combinations that are uncorrelated (orthogonal) with `\(Z_1\)`
+      
+---
+### PCA: Picture!
+
+
+---
+### PCA: Overview of Steps
+
+4). Select the number of components that capture most of the variation
+
+  
+  
+  
+---
+### Example: Data
+
+The Happy Planet Index is a measure of a country’s ecological and societal “well-being”.
+
+
+``` r
+library(readxl)
+happyplanet2016 &lt;- read_excel("happyplanet2016.xlsx")
+glimpse(happyplanet2016)
+```
+
+```
+## Rows: 140
+## Columns: 11
+## $ Country                 &lt;chr&gt; "Costa Rica", "Mexico", "Colombia", "Vanuatu", "Vietnam", "Panama", "Nicaragua", "Bangladesh", "Thailand", "Ec…
+## $ Region                  &lt;chr&gt; "Americas", "Americas", "Americas", "Asia Pacific", "Asia Pacific", "Americas", "Americas", "Asia Pacific", "A…
+## $ Life_Expectancy         &lt;dbl&gt; 79.076, 76.411, 73.673, 71.341, 75.477, 77.215, 74.322, 70.843, 74.087, 75.449, 75.326, 81.281, 77.347, 76.891…
+## $ Well_Being              &lt;dbl&gt; 7.300000, 7.300000, 6.400000, 6.470000, 5.500000, 6.900000, 5.400000, 4.700000, 6.300000, 6.000000, 5.550000, …
+## $ Happy_Life_Years        &lt;dbl&gt; 48.17479, 44.26208, 35.07089, 34.89575, 32.77025, 42.07666, 29.21113, 23.28948, 38.62477, 34.34789, 31.91675, …
+## $ Environmental_Footprint &lt;dbl&gt; 2.840000, 2.890000, 1.870000, 1.862620, 1.650000, 2.790000, 1.390000, 0.720000, 2.660000, 2.170000, 1.890000, …
+## $ Inequality              &lt;dbl&gt; 0.14556769, 0.18769899, 0.23504395, 0.22333185, 0.18592059, 0.18997898, 0.24717421, 0.27365725, 0.15000273, 0.…
+## $ HappyPlanetIndex        &lt;dbl&gt; 44.71407, 40.69729, 40.69501, 40.57010, 40.30759, 39.50258, 38.68826, 38.39069, 37.29010, 37.04272, 36.88844, …
+## $ GDP_PC                  &lt;dbl&gt; 9733.3969, 9703.3710, 7885.0613, 3158.4210, 1754.5480, 10138.5211, 1779.8671, 858.9334, 5917.9179, 5702.1683, …
+## $ Population              &lt;dbl&gt; 4654148, 122070963, 46881018, 247498, 88809200, 3743761, 5877034, 155257387, 67164130, 15419493, 2707805, 5018…
+## $ GINIindex               &lt;dbl&gt; 48.61, 48.07, 53.54, NA, 38.70, 51.90, NA, NA, 39.26, 46.57, NA, 25.90, 28.96, 41.32, 35.89, NA, 41.80, 27.99,…
+```
+
+Can we distill this down to a few important variables or ideas?
+
+---
+### Example: Fitting a PCA
+
+The Happy Planet Index is calculated using a weighted average of these variables. It wouldn’t make sense to try to find linear combinations with a variable that’s already a linear combination, so we remove it. 
+
+How are the other variables related?
+
+
+
+``` r
+happyplanet2 &lt;- na.omit(happyplanet2016[,-8])
+
+#scale and find covariance matrix as part of function
+happy_pca &lt;- prcomp(x=happyplanet2[,3:10], 
+                    center=TRUE, scale=TRUE) 
+
+summary(happy_pca) #proportion of variance explained
+```
+
+```
+## Importance of components:
+##                           PC1    PC2     PC3     PC4     PC5     PC6     PC7     PC8
+## Standard deviation     2.2065 1.1417 0.82049 0.76101 0.56043 0.45619 0.21980 0.07136
+## Proportion of Variance 0.6086 0.1629 0.08415 0.07239 0.03926 0.02601 0.00604 0.00064
+## Cumulative Proportion  0.6086 0.7715 0.85566 0.92805 0.96731 0.99332 0.99936 1.00000
+```
+
+---
+### Fitting a PCA: Loadings
+
+
+``` r
+happy_pca$rotation #loadings
+```
+
+```
+##                                 PC1         PC2          PC3         PC4         PC5         PC6         PC7         PC8
+## Life_Expectancy         -0.39386299 -0.10210804 -0.005109106 -0.46521889  0.47756080  0.31566633  0.52567156  0.11811449
+## Well_Being              -0.38084138 -0.32767032 -0.236721404 -0.06883676 -0.48587423 -0.41963145  0.16977285  0.49581180
+## Happy_Life_Years        -0.43456875 -0.17515821 -0.093807637 -0.14622457 -0.22281747 -0.12290385 -0.02778462 -0.82750416
+## Environmental_Footprint -0.35028972  0.15469868 -0.069976648  0.68939169  0.45029109 -0.36263209  0.19392271 -0.03657425
+## Inequality               0.42016186 -0.02650942 -0.265323358  0.24342252 -0.29036909  0.15160670  0.73955922 -0.19713856
+## GDP_PC                  -0.39270248  0.03324252 -0.206237022  0.38291281 -0.24970437  0.73603463 -0.19285020  0.11930350
+## Population               0.04745023 -0.72676475  0.613698554  0.27584809  0.02363929  0.11234909  0.05877270 -0.01442327
+## GINIindex                0.23510880 -0.54552656 -0.663840464  0.01488121  0.36908932  0.01740502 -0.26244106 -0.02852801
+```
+
+---
+### Fitting a PCA: Number of Components
+
+How many components should we choose?
+
+
+``` r
+#install.packages("factoextra")
+library(factoextra)
+fviz_eig(happy_pca, main = "Scree plot: Happy Planet Index")
+```
+
+&lt;img src="pca_files/figure-html/unnamed-chunk-5-1.png" alt="" style="display: block; margin: auto;" /&gt;
+
+
+---
+### Fitting a PCA: Biplot
+
+Can also create a bi-plot - provides visualization of PCA outputs
+
++ Perpendicular vectors:
+
+&lt;br&gt;
++ Two variables in the same direction:
+
+&lt;br&gt;
++ Two variables in the opposite direction:
+
+---
+### Fitting a PCA: Biplot
+
+
+``` r
+fviz_pca_var(happy_pca, col.var = "contrib")
+```
+
+&lt;img src="pca_files/figure-html/unnamed-chunk-7-1.png" alt="" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+### Fitting a PCA:  `ggbiplot`
+
+If a package you might want to use  is on GitHub and you know the user’s Git “repository”: install the package using the `install_github` function in the `devtools` library.
+
+
+``` r
+library(devtools)
+#install_github("vqv/ggbiplot")
+library(ggbiplot)
+```
+
+
+
+``` r
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE)
+```
+
+
+```
+## Too few points to calculate an ellipse
+```
+
+&lt;img src="pca_files/figure-html/unnamed-chunk-10-1.png" alt="" style="display: block; margin: auto;" /&gt;
+
+---
+### Fitting a PCA:  `ggbiplot`
+
+Can also visualize other PCs besides the first two.
+
+
+``` r
+ggbiplot(happy_pca, groups=happyplanet2$Region, ellipse=TRUE, 
+         choices=c(3,4))
+```
+
+
+```
+## Too few points to calculate an ellipse
+```
+
+&lt;img src="pca_files/figure-html/unnamed-chunk-12-1.png" alt="" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+### In Summary
+
+Advantages:
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+Disadvantages:
+
+
+---
+
+#### Try Yourself
+
+Try the PCA with the gapminder data. Use all four variables (`infant_mortality`, `life_expectancy`, `fertility` and `popualtion`) try to make a data visualization to show the relations between the variables.
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
