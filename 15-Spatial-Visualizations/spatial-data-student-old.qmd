@@ -20,6 +20,7 @@ Spatial data relates to a geographical area or location:
 #Necessary Packages
 library(tidyverse)
 library(RColorBrewer)
+library(mosaic)
 library(mdsr)
 library(sp)
 library(sf)
@@ -81,6 +82,8 @@ library(mapproj)
 library(maps)
 
 
+map("world", projection = "mercator", wrap = TRUE)
+map("world", projection = "cylequalarea", param = 45, wrap = TRUE)
 ```
 
 Let's try to fix our map projections
@@ -90,8 +93,9 @@ Let's try to fix our map projections
 ```
 
 ```{r, cache=TRUE}
-
-
+cholera_latlong <- CholeraDeaths %>%
+  st_set_crs(27700) %>%
+  st_transform(4326)
 ```
 
 ### Other methods to visualizing Spatial Data
@@ -110,6 +114,11 @@ In mid-2018, Google Maps began requiring users to have a registered API key.
 
 -   Users have to set up an account with Google, enable the relevant APIs, and then tell R about the user's set up.
 -   Part of this process requires a credit card. It's totally lame. Don't do it.
+
+**Instructions to use Google API key (if you insist)**:
+
+-   To obtain an API key and enable services, go to <https://cloud.google.com/maps-platform/>.
+-   To tell ggmap about your API key, use register_google(), e.g. register_google(key = "mQkzTpiaLYjPqXQBotesgif3EfGL2dbrNVOrogg") (that's a fake key). This will set your API key for the current session, but if you restart R, you'll need to do it again.
 
 #### Free Alternative: tmap
 
@@ -144,7 +153,10 @@ bigfoot_data %>%
          # and inserts HTML for a line break into the text at appropriate points
          desc_wrap = purrr::map(observed, ~strwrap(.) %>%
                                   paste(collapse = "<br/>") %>%
-                                  htmltools::HTML())) 
+                                  htmltools::HTML())) %>%
+leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(~longitude, ~latitude, color = ~seasoncolor, label = ~desc_wrap)
 ```
 
 
@@ -187,7 +199,20 @@ Plot education levels by county in Nebraska: less than a high school degree.
 
 **leaflet**
 ```{r}
+greens <- colorBin("Greens", domain = c(0, 30), bins = 6)
 
+leaflet(NE_Education) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+                opacity = 1,
+                weight = 1,
+                fillColor = ~greens(LessHS2013),
+                fillOpacity = 0.7,
+                label = ~paste0("County: ", Area.name, ' (', LessHS2013, '%)')) %>%
+  addLegend(position = 'bottomleft',
+            colors = greens(seq(from=2.5, to=27.5, length=6)),
+            labels = c('0-5%', '5.1-10%', '10.1-15%', '15.1-20%', '20.1-25%', '25.1-30%'),
+            title = 'Less than a HS Degree (2013)')
 ```
 
 
@@ -198,6 +223,50 @@ One variable we might be interested in is the margin: difference between percent
 
 ```{r}
 
+```
+
+
+### Another Example: Election Results
+
+Daily Kos compiled results by congressional district for the 2008, 2012, and 2016 presidential elections, this data is saved as `CongressionalElections.csv`. Let's use this data to visualize election results in the US.
+
+-   `FiveThirtyEight` identifies the states of Colorado, Florida, Iowa, Michigan, Minnesota, Ohio, Nevada, New Hampshire, North Carolina, Pennsylvania, Virginia, and Wisconsin as "perennial" swing states that have regularly seen close contests over the last few presidential campaigns.
+
+```{r}
+CongressionalElections <- read.csv("CongressionalElections.csv")
+glimpse(CongressionalElections)
+```
+
+
+Let's look at the swing state of North Carolina
+
+```{r, results='hide'}
+
+NC_congressional <- congressional_districts(cb = TRUE, state = "North Carolina", year = 2016) 
+```
+
+```{r}
+NC_congressional <- NC_congressional %>% arrange(CD115FP)
+
+NC_data <- CongressionalElections %>% filter(str_detect(CD, 'NC'))
+
+NC_congressional$Clinton2016 <- NC_data$Clinton2016
+NC_congressional$Trump2016 <- NC_data$Trump2016
+
+NC_congressional <- NC_congressional %>% mutate(Margin2016 = Trump2016-Clinton2016)
+
+ggplot(NC_congressional) + geom_sf(aes(fill = Margin2016)) + scale_fill_distiller(palette='RdBu', direction=-1)
+```
+
+```{r}
+leaflet(NC_congressional) %>% 
+  addTiles() %>% 
+  addPolygons(color = "black",
+                opacity = 1,
+                weight = 1,
+                fillColor = ~palette(Margin2016),
+                fillOpacity = 0.7,
+                label = ~paste0("District: ", CD115FP))
 ```
 
 
