@@ -41,7 +41,8 @@ Let's first focus on the tweet text itself and think about if we can create some
 However, before we extract the information, we need to convert all the text to lower cases (or upper if you preferred)
 
 ```{r}
-
+TaylorSwift13$lowertext <- tolower(TaylorSwift13$content)
+glimpse(TaylorSwift13$lowertext)
 ```
 
 ### 1. Convert the text to Yes/No question
@@ -49,25 +50,37 @@ However, before we extract the information, we need to convert all the text to l
 Suppose, we want to know whether certain words in the text may increase the retweet. Recall the str_detect function in the previous labs. (The `stringr` package is a common package used for text data).
 
 ```{r}
+TaylorSwift13 <- TaylorSwift13 %>%
+  mutate(isAlbum = str_detect(lowertext, "album"))
 
+table(TaylorSwift13$isAlbum) #39 exact matches
 ```
 
 We can also look for a specific punctuation.
 
 ```{r}
+TaylorSwift13 <- TaylorSwift13 %>%
+  mutate(isHash = str_detect(lowertext, "#"))
 
+table(TaylorSwift13$isHash) #111 tweets had a hashtag
 ```
 
 We can even count how many hashtag in each text.
 
 ```{r}
+TaylorSwift13 <- TaylorSwift13 %>%
+  mutate(numHash = str_count(lowertext, "#"))
 
+table(TaylorSwift13$numHash)
 ```
 
 There are some other basic information you can extract, like the length of the text
 
 ```{r}
+TaylorSwift13 <- TaylorSwift13 %>%
+  mutate(length = str_length(lowertext))
 
+summary(TaylorSwift13$length) #summary of number of characters in each tweet
 ```
 
 ### 2. Parts of Speech
@@ -77,10 +90,10 @@ You can also do something fancy (but will take much longer time to run). For exa
 -   Using universal parts of speech tag (https://universaldependencies.org/format.html)
 
 ```{r}
-library(udpipe)
+library(udpipe) #for parts of speech tagging
 
 detect_ps = function(text){
-  tokens = udpipe::udpipe(text, "english")
+  tokens = udpipe::udpipe(text, "english") #other langauages available
   NumNoun = tokens %>% filter(upos == "NOUN") %>% summarise(N = n()) %>% pull()
   NumVerb = tokens %>% filter(upos == "VERB") %>% summarise(N = n()) %>% pull()
   return(c(NumNoun, NumVerb))
@@ -89,7 +102,7 @@ detect_ps = function(text){
 detect_ps("	
 surprise tonight at midnight i’ll be releasing my 8th studio album, folklore; an entire brand new album of songs i’ve poured all of my whims, dreams, fears, and musings into")
 
-
+#run function on column - but can take a while to run
 ```
 
 Other techniques like NER (Named entity recognition) can identify whether there is a Human name/Place in the text. See the tutorial if you are interested: https://rstudio-pubs-static.s3.amazonaws.com/230718_6d29404ebb2a444fa0d218917dd1ec67.html
@@ -101,6 +114,14 @@ Words has meaning, thus an emotion can be associated with each word, and the tex
 ```{r}
 library(syuzhet)
 
+
+get_sentiment("happy")
+get_sentiment("sad")
+get_sentiment("It was a nice day even though we lost the game.")
+
+TaylorSwift13$syuzhet <- get_sentiment(TaylorSwift13$lowertext)
+summary(TaylorSwift13$syuzhet)
+
 ```
 
 ### 4. Try by yourself
@@ -111,11 +132,38 @@ Following is a sample IMDB people data.
 imdb= read.csv("imdb.csv")
 glimpse(imdb)
 ```
-
-Create some other variables based on this data: 1. Whether the person is an actor 2. How many profession that each person has 3. Whether the person is still alive
+Create some other variables based on this data: 
+1. Whether the person is an actor 
 
 ```{r}
+## Question 1
 
+imdb <- imdb %>%
+  mutate(isActor = str_detect(primaryProfession, "actor"))
+
+table(imdb$isActor)
+```
+
+2. How many profession that each person has 
+
+```{r}
+## Question 2
+
+imdb <- imdb %>%
+  mutate(numPro = str_count(primaryProfession, ",") + 1)
+
+table(imdb$numPro)
+```
+
+3. Whether the person is still alive
+
+```{r}
+## Question 3
+
+imdb <- imdb %>%
+  mutate(isAlive = is.na(deathYear))
+
+table(imdb$isAlive)
 ```
 
 ### 5. Clean the categorical levels: Regular Expressions
@@ -129,13 +177,17 @@ Sometimes we need to clean the data to generate a data that easier for analysis.
 ```{r}
 num_string <- "phone: 123-456-7890, netid: 12345678, ssn: 123-45-6789"
 
+phone <- str_extract(num_string, "[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]")
+phone
 
+phone2 <- str_extract(num_string, "[0-9]{3}-[0-9]{3}-[0-9]{4}") #{} - number of times look for pattern in a row
+phone2
 ```
 
 Suppose now we only take everyone's first profession.
 
 ```{r}
-imdb$firstPro = gsub(",.*", "", imdb$primaryProfession)
+imdb$firstPro = gsub(",.*", "", imdb$primaryProfession) #extract everything to first comma. Replace everything after first column with a blank
 
 head(imdb)
 table(imdb$firstPro)
@@ -147,7 +199,9 @@ table(imdb$firstPro)
 ```{r}
 fruits <- c("one apple", "two pears", "three bananas")
 
+str_replace_all(fruits, "[aeiou]", "-")
 
+str_replace_all(fruits, c("one" = "1", "two" = "2", "three" = "3"))
 ```
 
 ### 7. Separating/Extracting Information from Columns
@@ -157,11 +211,14 @@ Go back to our Taylor Swift example.
 One more note: the date/time data can also be treated as the text data. You can choose to extract only the year/month from the complete timestamps.
 
 ```{r}
+TaylorSwift13$year <- str_sub(TaylorSwift13$date, 1 , 4)
+glimpse(TaylorSwift13$year)
 
 ```
 
 ```{r}
-
+ts <- separate_wider_delim(TaylorSwift13, date, delim = " ", 
+                     names = c("date_new", "time"))
 ```
 
 
@@ -174,7 +231,11 @@ It is difficult to analyze a sentence of text. We can't filter out words or coun
 We create tokens using the `unnest_tokens` function.
 
 ```{r}
+tweet_words <- TaylorSwift13 %>%
+  dplyr::select(content) %>%
+  unnest_tokens(word, content)
 
+head(tweet_words) #puts each word on own row
 ```
 
 ```{r}
@@ -193,12 +254,28 @@ glimpse(stop_words)
 my_stop_words <- stop_words %>% dplyr::select(word) %>% 
   bind_rows(data.frame(word = c("https", "t.co", "rt", "amp")))
 
+tweet_words_interesting <- tweet_words %>% anti_join(my_stop_words) 
+#removed Stop words
+
+
+top10 <- tweet_words_interesting %>% count(word,sort=T) %>% slice(1:10) 
+
+ggplot(top10, aes(x = reorder(word, n, function(n) -n), y = n)) +
+  geom_bar(stat = "identity") + 
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
 ```
 
 You can also create a Word Cloud (only in html) - https://r-graph-gallery.com/196-the-wordcloud2-library.html
 
 ```{r}
 library(wordcloud2)
+
+t <- tweet_words_interesting %>%
+  group_by(word) %>%
+  tally(sort = TRUE) %>%
+  filter(n > 5)
+
+wordcloud2(t)
 
 ```
 
